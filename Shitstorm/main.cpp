@@ -37,8 +37,10 @@ int main(void)
     {
         node->setMaterialFlag(EMF_LIGHTING, false);
         node->setMD2Animation(scene::EMAT_STAND);
-        node->setMaterialTexture( 0, driver->getTexture("../../media/sydney.bmp") );
+        node->setMaterialTexture( 0, driver->getTexture("C:/dev/Libraries/irrlicht-1.7.1/media/sydney.bmp") );
     }
+
+	smgr->addCameraSceneNode(0, vector3df(0,30,-40), vector3df(0,5,0));
 
 	while(device->run())
     {
