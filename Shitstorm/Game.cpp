@@ -13,8 +13,18 @@ int Game::setup() {
 	return SUCCESS;
 }
 
-void Game::sceneLoop() {
+void Game::sceneLoop(int deltaT) {
+
+	core::stringw tmp(L"Project Shitstorm [");
+    tmp += driver->getName();
+    tmp += L"] fps: ";
+	tmp += getFps();
+    setWindowTitle(tmp.c_str());
+
+
 	driver->beginScene(true, true, SColor(255, 64, 64, 64));
+	
+	device->sleep(2);
 
     smgr->drawAll();
     guienv->drawAll();

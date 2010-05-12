@@ -12,7 +12,7 @@ public:
 
 protected:
 	int setup();
-	void sceneLoop();
+	void sceneLoop(int deltaT);
 };
 
 #endif

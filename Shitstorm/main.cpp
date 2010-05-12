@@ -2,11 +2,9 @@
 
 int main(void) 
 {
-	Game* game = new Game();
+	int result;
 
-	int result = game->createDevice();
-	if(SUCCESS != result) return result;
-	
-	game->run();
-	return SUCCESS;
+	Game* game = new Game();
+	if(SUCCESS != (result = game->createDevice(640, 480))) return result;
+	return game->run();
 }
