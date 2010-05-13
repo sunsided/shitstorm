@@ -18,8 +18,22 @@ int Engine::createDevice(int width, int height, bool fullscreen, bool stencilBuf
 	// ask user for driver
 	video::E_DRIVER_TYPE driverType= E_DRIVER_TYPE::EDT_DIRECT3D9;
 
+	// Parameter
+	SIrrlichtCreationParameters params;
+	params.AntiAlias = 1;
+	params.WindowSize = screenSize;
+	params.Stencilbuffer = stencilBuffer;
+	params.Fullscreen = fullscreen;
+	params.DriverType = driverType;
+	params.Bits = 16;
+	params.Doublebuffer = true;
+	params.Vsync = false;
+	params.ZBufferBits = 16;
+	params.EventReceiver = 0;
+
 	// Rendering-Device erstellen
-	device = irr::createDevice( driverType, screenSize, 16, fullscreen, stencilBuffer, false, 0);
+	//device = irr::createDevice( driverType, screenSize, 16, fullscreen, stencilBuffer, false, 0);
+	device = irr::createDeviceEx( params );
 	if (!device) return -2;
 
 	// Timer beziehen
