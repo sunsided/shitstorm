@@ -5,16 +5,21 @@ void CubeNode::initCube(f32 width, f32 height, f32 depth)
 {
 	Material.Wireframe = false;
 	Material.Lighting = false;
+	Material.MaterialType = E_MATERIAL_TYPE::EMT_SOLID;
+	Material.BackfaceCulling = true;
+
+	// Alphawert
+	u32 alpha = 255;
 
 	// Punkte definieren
-	Vertices[0] = irr::video::S3DVertex( -width/2,-height / 2,-depth/2, 1,1,0, SColor(255,0,255,255), 0, 1);
-	Vertices[1] = irr::video::S3DVertex(  width/2,-height / 2,-depth/2, 1,0,0, SColor(255,255,0,255), 1, 1);
-	Vertices[2] = irr::video::S3DVertex(  width/2,-height / 2, depth/2, 0,1,1, SColor(255,255,255,0), 1, 0);
-	Vertices[3] = irr::video::S3DVertex( -width/2,-height / 2, depth/2, 0,0,1, SColor(255,0,255,0), 0, 0);
-	Vertices[4] = irr::video::S3DVertex( -width/2, height / 2,-depth/2, 0,0,1, SColor(255,0,0,255), 0, 0);
-	Vertices[5] = irr::video::S3DVertex(  width/2, height / 2,-depth/2, 0,0,1, SColor(255,255,0,0), 0, 0);
-	Vertices[6] = irr::video::S3DVertex(  width/2, height / 2, depth/2, 0,0,1, SColor(255,0,0,0), 0, 0);
-	Vertices[7] = irr::video::S3DVertex( -width/2, height / 2, depth/2, 0,0,1, SColor(255,255,255,255), 0, 0);
+	Vertices[0] = irr::video::S3DVertex( -width/2,-height / 2,-depth/2, 1,1,0, SColor(alpha,0,255,255), 0, 1);
+	Vertices[1] = irr::video::S3DVertex(  width/2,-height / 2,-depth/2, 1,0,0, SColor(alpha,255,0,255), 1, 1);
+	Vertices[2] = irr::video::S3DVertex(  width/2,-height / 2, depth/2, 0,1,1, SColor(alpha,255,255,0), 1, 0);
+	Vertices[3] = irr::video::S3DVertex( -width/2,-height / 2, depth/2, 0,0,1, SColor(alpha,0,255,0), 0, 0);
+	Vertices[4] = irr::video::S3DVertex( -width/2, height / 2,-depth/2, 0,0,1, SColor(alpha,0,0,255), 0, 0);
+	Vertices[5] = irr::video::S3DVertex(  width/2, height / 2,-depth/2, 0,0,1, SColor(alpha,255,0,0), 0, 0);
+	Vertices[6] = irr::video::S3DVertex(  width/2, height / 2, depth/2, 0,0,1, SColor(alpha,0,0,0), 0, 0);
+	Vertices[7] = irr::video::S3DVertex( -width/2, height / 2, depth/2, 0,0,1, SColor(alpha,255,255,255), 0, 0);
 
 	// Bounding Box bauen
 	Box.reset(Vertices[0].Pos); 

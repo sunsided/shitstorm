@@ -37,6 +37,8 @@ void Game::sceneLoop(int deltaT) {
 		device->getTimer()->getTime() / 50 % 360, 
 		device->getTimer()->getTime() / 20 % 360, 
 		0));
+	
+	smgr->setAmbientLight(SColorf(.5F, .5F, .5F));
 
 	driver->beginScene(true, true, SColor(255, 64, 64, 64));
 
