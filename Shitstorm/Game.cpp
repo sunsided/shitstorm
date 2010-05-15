@@ -11,16 +11,19 @@ Game::~Game(void)
 int Game::setup() {
 	setWindowTitle(L"Project Shitstorm");
 
+	// Mauszeiger ausblenden
 	device->getCursorControl()->setVisible(false);
 
+	// Kamera erzeugen
 	camera = smgr->addCameraSceneNodeFPS(0, 100.0f, 100.0f);
 	camera->setPosition(vector3df(0, 10, -10)); // 10 oben, 10 zurück (aus dem Bildschirm heraus)
 	camera->setTarget(vector3df(0, 0, 0));
 
-	//camera = smgr->addCameraSceneNode(0, vector3df(10, -10, 10), vector3df(0, 0, 0));
+	// Würfel erzeugen
 	cube = new CubeNode(5, 5, 5, smgr->getRootSceneNode(), smgr, 666);
 
-	plane = new PlaneNode(15, 15, smgr->getRootSceneNode(), smgr, 666);
+	// Boden erzeugen
+	plane = new PlaneNode(15, 15, smgr->getRootSceneNode(), smgr, 667);
 	plane->getMaterial(0).setTexture(0, driver->getTexture("textures\\wood.jpg"));
 
 	return SUCCESS;
@@ -28,12 +31,14 @@ int Game::setup() {
 
 void Game::sceneLoop(int deltaT) {
 
+	// Titel anzeigen
 	core::stringw tmp(L"Project Shitstorm [");
     tmp += driver->getName();
     tmp += L"] fps: ";
 	tmp += getFps();
     setWindowTitle(tmp.c_str());
 
+	// Würfel rendern
 	smgr->registerNodeForRendering(cube);
 	cube->setPosition(vector3df(0, 5, 0));
 	cube->setRotation(vector3df(
@@ -41,15 +46,18 @@ void Game::sceneLoop(int deltaT) {
 		(float)(device->getTimer()->getTime() / 20 % 360), 
 		0.0F));
 
+	// Boden rendern
 	smgr->registerNodeForRendering(plane);
 	plane->setPosition(vector3df(0, 0, 0));
 	
-	smgr->setAmbientLight(SColorf(.5F, .5F, .5F));
+	// Licht durchcyclen
+	float lightValue = (device->getTimer()->getTime() / 100 % 200)/100.0F;
+	if(lightValue > 1) lightValue = 1.0F - lightValue;
+	smgr->setAmbientLight(SColorf(lightValue, lightValue, lightValue));
 
+	// Szene rendern
 	driver->beginScene(true, true, SColor(255, 64, 64, 64));
-
     smgr->drawAll();
     guienv->drawAll();
-
     driver->endScene();
 }

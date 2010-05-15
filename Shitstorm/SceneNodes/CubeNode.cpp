@@ -4,8 +4,9 @@ using namespace video;
 void CubeNode::initCube(f32 width, f32 height, f32 depth) 
 {
 	Material.Wireframe = false;
-	Material.Lighting = false;
+	Material.Lighting = true;
 	Material.MaterialType = E_MATERIAL_TYPE::EMT_SOLID;
+	Material.ColorMaterial = E_COLOR_MATERIAL::ECM_AMBIENT; // Vertexfarben sind Ambiente Farben
 	Material.BackfaceCulling = true;
 
 	// Alphawert
