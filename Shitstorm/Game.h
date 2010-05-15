@@ -19,6 +19,7 @@ protected:
 protected:
 	ICameraSceneNode* camera;
 	CubeNode* cube;
+	ISceneNode* cubeLights;
 	PlaneNode* plane;
 };
 
