@@ -45,7 +45,7 @@ void Game::sceneLoop(int deltaT) {
 
 	// Lichter rendern
 	smgr->registerNodeForRendering(cubeLights);
-	cubeLights->setPosition(vector3df(-10, 0, 0));
+	cubeLights->setPosition(vector3df(0, 0.25, 0));
 	/*
 	cubeLights->setRotation(vector3df(
 		(float)(device->getTimer()->getTime() / 50 % 360), 
