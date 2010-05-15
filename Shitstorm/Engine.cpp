@@ -62,6 +62,7 @@ int Engine::setup(void)
 void Engine::setWindowTitle(const wchar_t *title)
 {
 	if (!device) return;
+	this->windowTitle = title;
 	device->setWindowCaption(title);
 }
 
@@ -73,6 +74,15 @@ int Engine::run(void)
 		// Timer aktualisieren und Zeit seit dem letzten Frame ermitteln
 		timer->update();
 		u32 deltaT = timer->getLastFrameTime();
+
+		// Titel anzeigen
+		core::stringw tmp(this->windowTitle);
+		tmp += L" [";
+		tmp += driver->getName();
+		tmp += L"; fps: ";
+		tmp += getFps();
+		tmp += L" ]";
+		device->setWindowCaption(tmp.c_str());
 
 		// Szene durcharbeiten
 		sceneLoop(deltaT);

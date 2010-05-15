@@ -31,13 +31,6 @@ int Game::setup() {
 
 void Game::sceneLoop(int deltaT) {
 
-	// Titel anzeigen
-	core::stringw tmp(L"Project Shitstorm [");
-    tmp += driver->getName();
-    tmp += L"] fps: ";
-	tmp += getFps();
-    setWindowTitle(tmp.c_str());
-
 	// Würfel rendern
 	smgr->registerNodeForRendering(cube);
 	cube->setPosition(vector3df(0, 5, 0));

@@ -65,6 +65,9 @@ private:
 	//! Die Größe des Fensters / Auflösung des Bildschirms
 	dimension2d<u32> screenSize;
 
+	//! Der Fenstertitel
+	const wchar_t *windowTitle;
+
 protected:
 	//! Das Irrlicht-Device
 	IrrlichtDevice* device;
