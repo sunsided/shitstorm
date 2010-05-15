@@ -1,4 +1,7 @@
 #pragma once
+#ifndef _CUBENODE_H
+#define _CUBENODE_H
+
 #include <irrlicht.h>
 using namespace irr;
 using namespace core;
@@ -29,3 +32,4 @@ private:
 	video::SMaterial Material;
 };
 
+#endif

@@ -4,6 +4,7 @@
 
 #include "Engine.h"
 #include "SceneNodes\CubeNode.h"
+#include "SceneNodes\PlaneNode.h"
 
 class Game : public Engine
 {
@@ -18,6 +19,7 @@ protected:
 protected:
 	ICameraSceneNode* camera;
 	CubeNode* cube;
+	PlaneNode* plane;
 };
 
 #endif

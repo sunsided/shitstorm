@@ -79,6 +79,7 @@
     <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneNodes\CubeNode.cpp" />
+    <ClCompile Include="SceneNodes\PlaneNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Libraries\irrKlang-1.3.0\bin\win32-visualStudio\irrKlang.dll">
@@ -94,6 +95,7 @@
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="GlobalDefines.h" />
     <ClInclude Include="SceneNodes\CubeNode.h" />
+    <ClInclude Include="SceneNodes\PlaneNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
