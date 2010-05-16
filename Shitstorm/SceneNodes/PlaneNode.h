@@ -11,6 +11,8 @@ using namespace scene;
 class PlaneNode : public ISceneNode
 {
 public:
+	PlaneNode(ISceneNode* parent, ISceneManager* mgr, s32 id)
+		: ISceneNode(parent, mgr, id), Vertices(NULL), Indices(NULL) { }
 	PlaneNode(f32 size, u8 quads, ISceneNode* parent, ISceneManager* mgr, s32 id)
 		: ISceneNode(parent, mgr, id), Vertices(NULL), Indices(NULL) { initPlane(size, size, quads); }
 	PlaneNode(f32 width, f32 height, u8 quads, ISceneNode* parent, ISceneManager* mgr, s32 id)
@@ -24,7 +26,7 @@ public:
 	virtual SMaterial& getMaterial(s32 i) { return Material; }
 
 private:
-	void initPlane(f32 width, f32 height, u8 quads = 1);
+	void initPlane(f32 width, f32 height, u8 quads = 1, f32 uStart = 0.0f, f32 uEnd = 1.0f, f32 vStart = 0.0f, f32 vEnd = 1.0f);
 
 private:
 	u8 quads;

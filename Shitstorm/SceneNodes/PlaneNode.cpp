@@ -1,7 +1,7 @@
 #include "PlaneNode.h"
 
 
-void PlaneNode::initPlane(f32 width, f32 height, u8 quads) 
+void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd, f32 vStart, f32 vEnd) 
 {
 	// Aufräumen
 	if(Vertices) free(Vertices);
@@ -20,10 +20,8 @@ void PlaneNode::initPlane(f32 width, f32 height, u8 quads)
 	f32 yStep	=  height/(count-1);
 
 	// Texturkoordinaten
-	f32 uStart	= 0;
-	f32 vStart	= 0;
-	f32 uStep	= 1.0F/(count-1);
-	f32 vStep	= 1.0F/(count-1);
+	f32 uStep	= (uEnd-uStart)/(count-1);
+	f32 vStep	= (vEnd-vStart)/(count-1);
 
 	// Zu verwendende Vertexfarbe
 	SColor white = SColor(255, 255,255,255);
@@ -94,13 +92,6 @@ PlaneNode::~PlaneNode(void)
 
 void PlaneNode::render() 
 {
-	// Die Reihenfolge, in der die Indizes abgearbeitet werden sollen
-	/*
-	irr::u16 indices[] = 
-		{0,2,1,
-		1,2,3};
-	*/
-
 	IVideoDriver* driver = SceneManager->getVideoDriver();
 
 	driver->setMaterial(Material);
