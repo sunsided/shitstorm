@@ -12,11 +12,11 @@ class PlaneNode : public ISceneNode
 {
 public:
 	PlaneNode(ISceneNode* parent, ISceneManager* mgr, s32 id)
-		: ISceneNode(parent, mgr, id), Vertices(NULL), Indices(NULL) { }
+		: ISceneNode(parent, mgr, id), Mesh(NULL) { }
 	PlaneNode(f32 size, u8 quads, ISceneNode* parent, ISceneManager* mgr, s32 id)
-		: ISceneNode(parent, mgr, id), Vertices(NULL), Indices(NULL) { initPlane(size, size, quads); }
+		: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(size, size, quads); }
 	PlaneNode(f32 width, f32 height, u8 quads, ISceneNode* parent, ISceneManager* mgr, s32 id)
-		: ISceneNode(parent, mgr, id), Vertices(NULL), Indices(NULL) { initPlane(width, height, quads); }
+		: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quads); }
 	~PlaneNode(void);
 
 	virtual void render();
@@ -31,11 +31,12 @@ private:
 
 private:
 	u8 quads;
-	u16 *Indices;
+	//u16 *Indices;
 	u16 VertexCount;
 	u16 TriangleCount;
+	IMesh *Mesh;
 	core::aabbox3d<f32> Box;
-	video::S3DVertex *Vertices;
+	//video::S3DVertex *Vertices;
 	video::SMaterial Material;
 };
 

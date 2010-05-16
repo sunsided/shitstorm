@@ -21,26 +21,29 @@ int Game::setup() {
 	camera->setTarget(vector3df(0, 0, 0));
 
 	// Würfel erzeugen
-	cube = new CubeNode(5, 5, 5, 10, smgr->getRootSceneNode(), smgr, 666);
+	cube = new CubeNode(5, 5, 7, 4, smgr->getRootSceneNode(), smgr, 666);
 	ITexture *normalMap = driver->getTexture("textures\\crate.nm.jpg");
-	driver->makeNormalMapTexture(normalMap, 1.0f);
+	driver->makeNormalMapTexture(normalMap, 10.0f);
 	for(int i=0; i<cube->getMaterialCount(); ++i)
 	{
 		SMaterial *material = &cube->getMaterial(i);
 		material->setTexture(0, driver->getTexture("textures\\crate.jpg"));
 		material->setTexture(1, normalMap);
-		// material->MaterialType = E_MATERIAL_TYPE::EMT_NORMAL_MAP_SOLID;
+		material->MaterialType = E_MATERIAL_TYPE::EMT_NORMAL_MAP_SOLID;
 	}
 
 	// Boden erzeugen
-	plane = new PlaneNode(15, 15, 10, smgr->getRootSceneNode(), smgr, 667);
-	plane->getMaterial(0).setTexture(0, driver->getTexture("textures\\wood.jpg"));
+	plane = new PlaneNode(15, 15, 4, smgr->getRootSceneNode(), smgr, 667);
+	plane->getMaterial(0).setTexture(0, driver->getTexture("textures\\wood2.jpg"));
+	normalMap = driver->getTexture("textures\\wood2.nm.jpg");
+	driver->makeNormalMapTexture(normalMap, 20.0f);
+	plane->getMaterial(0).setTexture(1, normalMap);
 
 	// Lichter erzeugen
 	cubeLights[0] = smgr->addLightSceneNode(0, core::vector3df(0,0,0),
 					video::SColorf(1.0f, 1.0F, 0.0F, 1.0F), 15.0f);
 	cubeLights[1] = smgr->addLightSceneNode(0, core::vector3df(0,0,0),
-					video::SColorf(1.0f, 0.0F, 0.0F, 1.0F), 15.0f);
+					video::SColorf(1.0f, 0.0F, 0.0F, 1.0F), 10.0f);
 
 	return SUCCESS;
 }
@@ -56,20 +59,18 @@ void Game::sceneLoop(int deltaT) {
 	cube->setRotation(vector3df(
 		(float)(device->getTimer()->getTime() / 50 % 360), 
 		(float)(device->getTimer()->getTime() / 20 % 360), 
-		0.0F));
+		0.0f));
 
 	// Lichter rendern
-	cubeLights[0]->setPosition(vector3df(0, 0.25, 0));
 	cubeLights[0]->setPosition(vector3df(
 		(float)sin((device->getTimer()->getTime() / 50 % 360)/180.0F*3.141F)*5, 
 		0.25F,
 		(float)cos((device->getTimer()->getTime() / 50 % 360)/180.0F*3.141F)*5));
 
-	cubeLights[1]->setPosition(vector3df(0, 0.25, 0));
 	cubeLights[1]->setPosition(vector3df(
-		(float)sin((device->getTimer()->getTime() / 50 % 360 + 180)/180.0F*3.141F)*5, 
-		0.25F,
-		(float)cos((device->getTimer()->getTime() / 50 % 360 + 180)/180.0F*3.141F)*5));
+		(float)sin((device->getTimer()->getTime() / 50 % 360 + 270)/180.0F*3.141F)*2, 
+		14.25F,
+		(float)cos((device->getTimer()->getTime() / 50 % 360 + 270)/180.0F*3.141F)*2));
 
 	// Boden rendern
 	plane->setPosition(vector3df(0, 0, 0));

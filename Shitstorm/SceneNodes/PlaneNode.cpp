@@ -7,14 +7,12 @@ void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd,
 	if(quads<1) quads = 1;
 
 	// Aufräumen
-	if(Vertices) free(Vertices);
-	if(Indices) free(Indices);
 	this->quads = quads;
 
 	// Platz besorgen
 	u8 count = 2+(quads-1);
 	VertexCount = count*count;
-	Vertices = (video::S3DVertex*)malloc(VertexCount * sizeof(video::S3DVertex));
+	SMeshBuffer *MeshBuffer = new SMeshBuffer();
 
 	// Vertexkoordinaten
 	f32 xStart	= -width/2;
@@ -39,11 +37,13 @@ void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd,
 		{
 			f32 vertexX = xStart + x*xStep;
 			f32 vertexU = uStart + x*uStep;
-			Vertices[vertexIndex] = irr::video::S3DVertex( vertexX, 0, vertexY, 0,1,0, white, vertexU, vertexV);
+			S3DVertex *vertex = &irr::video::S3DVertex( vertexX, 0, vertexY, 0,1,0, white, vertexU, vertexV);
+			S3DVertexTangents foo;
+			MeshBuffer->Vertices.push_back(*vertex);
 
 			// Bounding Box generieren
-			if(vertexIndex > 0) Box.addInternalPoint(Vertices[vertexIndex].Pos);
-			else Box.reset(Vertices[vertexIndex].Pos);
+			if(vertexIndex > 0) Box.addInternalPoint(vertex->Pos);
+			else Box.reset(vertex->Pos);
 
 			// Nächster Vertexindex
 			++vertexIndex;
@@ -53,7 +53,6 @@ void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd,
 	// Platz für die Indizes schaffen
 	TriangleCount = quads*quads*2;
 	int indexCount = TriangleCount*3;
-	Indices = (u16*)malloc(indexCount*sizeof(u16));
 
 	// Indizes neu ermitteln; Alle Quadrate durchlaufen
 	vertexIndex = 0;
@@ -69,16 +68,26 @@ void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd,
 			u16 bottomRight	= bottomLeft + 1;
 
 			// Erstes Dreieck
-			Indices[vertexIndex++] = topLeft;
-			Indices[vertexIndex++] = bottomLeft;
-			Indices[vertexIndex++] = topRight;
+			MeshBuffer->Indices.push_back(topLeft);
+			MeshBuffer->Indices.push_back(bottomLeft);
+			MeshBuffer->Indices.push_back(topRight);
 
 			// Zweites Dreieck
-			Indices[vertexIndex++] = topRight;
-			Indices[vertexIndex++] = bottomLeft;
-			Indices[vertexIndex++] = bottomRight;
+			MeshBuffer->Indices.push_back(topRight);
+			MeshBuffer->Indices.push_back(bottomLeft);
+			MeshBuffer->Indices.push_back(bottomRight);
 		}
 	}
+
+	// Temporäres Mesh generieren
+	SMesh *mesh = new SMesh();
+	mesh->addMeshBuffer(MeshBuffer);
+
+	// Mesh neuberechnen
+	Mesh = SceneManager->getMeshManipulator()->createMeshWithTangents(mesh);
+
+	// Temporäres Mesh entfernen
+	delete(mesh);
 
 	// Material setzen
 	Material.Wireframe = false;
@@ -89,8 +98,6 @@ void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd,
 
 PlaneNode::~PlaneNode(void)
 {
-	if(Vertices) free(Vertices);
-	if(Indices) free(Indices);
 }
 
 void PlaneNode::render() 
@@ -99,7 +106,8 @@ void PlaneNode::render()
 
 	driver->setMaterial(Material);
 	driver->setTransform(E_TRANSFORMATION_STATE::ETS_WORLD, AbsoluteTransformation);
-	driver->drawIndexedTriangleList(&Vertices[0], VertexCount, &Indices[0], TriangleCount);
+	//driver->drawIndexedTriangleList(&Vertices[0], VertexCount, &Indices[0], TriangleCount);
+	driver->drawMeshBuffer(Mesh->getMeshBuffer(0));
 }
 
 void PlaneNode::OnRegisterSceneNode() 
