@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <math.h>
 
 Game::Game(void)
 {
@@ -27,7 +28,7 @@ int Game::setup() {
 
 
 	// Boden erzeugen
-	plane = new PlaneNode(15, 15, smgr->getRootSceneNode(), smgr, 667);
+	plane = new PlaneNode(15, 15, 10, smgr->getRootSceneNode(), smgr, 667);
 	plane->getMaterial(0).setTexture(0, driver->getTexture("textures\\wood.jpg"));
 
 	return SUCCESS;
@@ -46,12 +47,10 @@ void Game::sceneLoop(int deltaT) {
 	// Lichter rendern
 	smgr->registerNodeForRendering(cubeLights);
 	cubeLights->setPosition(vector3df(0, 0.25, 0));
-	/*
-	cubeLights->setRotation(vector3df(
-		(float)(device->getTimer()->getTime() / 50 % 360), 
-		(float)(device->getTimer()->getTime() / 20 % 360), 
-		0.0F));
-	*/
+	cubeLights->setPosition(vector3df(
+		(float)sin((device->getTimer()->getTime() / 50 % 360)/180.0F*3.141F)*5, 
+		0.25F,
+		(float)cos((device->getTimer()->getTime() / 50 % 360)/180.0F*3.141F)*5));
 
 	// Boden rendern
 	smgr->registerNodeForRendering(plane);
