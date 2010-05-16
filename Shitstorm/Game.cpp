@@ -37,7 +37,6 @@ int Game::setup() {
 void Game::sceneLoop(int deltaT) {
 
 	// Würfel rendern
-	smgr->registerNodeForRendering(cube);
 	cube->setPosition(vector3df(0, 5, 0));
 	cube->setRotation(vector3df(
 		(float)(device->getTimer()->getTime() / 50 % 360), 
@@ -45,7 +44,6 @@ void Game::sceneLoop(int deltaT) {
 		0.0F));
 
 	// Lichter rendern
-	smgr->registerNodeForRendering(cubeLights);
 	cubeLights->setPosition(vector3df(0, 0.25, 0));
 	cubeLights->setPosition(vector3df(
 		(float)sin((device->getTimer()->getTime() / 50 % 360)/180.0F*3.141F)*5, 
@@ -53,7 +51,6 @@ void Game::sceneLoop(int deltaT) {
 		(float)cos((device->getTimer()->getTime() / 50 % 360)/180.0F*3.141F)*5));
 
 	// Boden rendern
-	smgr->registerNodeForRendering(plane);
 	plane->setPosition(vector3df(0, 0, 0));
 	
 	// Licht durchcyclen

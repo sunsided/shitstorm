@@ -22,6 +22,7 @@ public:
 	virtual const aabbox3d<f32>& getBoundingBox() const { return Box; } 
 	virtual s32 getMaterialCount() { return 1; }
 	virtual SMaterial& getMaterial(s32 i) { return Material; }
+	virtual void OnRegisterSceneNode();
 
 private:
 	void initCube(f32 width, f32 height, f32 depth);

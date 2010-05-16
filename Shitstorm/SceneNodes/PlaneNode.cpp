@@ -98,3 +98,9 @@ void PlaneNode::render()
 	driver->setTransform(E_TRANSFORMATION_STATE::ETS_WORLD, AbsoluteTransformation);
 	driver->drawIndexedTriangleList(&Vertices[0], VertexCount, &Indices[0], TriangleCount);
 }
+
+void PlaneNode::OnRegisterSceneNode() 
+{
+	SceneManager->registerNodeForRendering(this);
+	ISceneNode::OnRegisterSceneNode();
+}

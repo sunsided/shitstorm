@@ -58,3 +58,9 @@ void CubeNode::render()
 	driver->setTransform(E_TRANSFORMATION_STATE::ETS_WORLD, AbsoluteTransformation);
 	driver->drawIndexedTriangleList(&Vertices[0], 8, &indices[0], 12);
 }
+
+void CubeNode::OnRegisterSceneNode() 
+{
+	SceneManager->registerNodeForRendering(this);
+	ISceneNode::OnRegisterSceneNode();
+}
