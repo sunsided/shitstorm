@@ -3,6 +3,9 @@
 
 void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd, f32 vStart, f32 vEnd) 
 {
+	// Fehler beheben
+	if(quads<1) quads = 1;
+
 	// Aufräumen
 	if(Vertices) free(Vertices);
 	if(Indices) free(Indices);

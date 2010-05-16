@@ -14,12 +14,13 @@ public:
 
 protected:
 	int setup();
+	int teardown();
 	void sceneLoop(int deltaT);
 
 protected:
 	ICameraSceneNode* camera;
 	CubeNode* cube;
-	ISceneNode* cubeLights;
+	ISceneNode* cubeLights[2];
 	PlaneNode* plane;
 };
 

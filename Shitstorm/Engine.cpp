@@ -51,10 +51,16 @@ int Engine::createDevice(int width, int height, bool fullscreen, bool stencilBuf
 	guienv = device->getGUIEnvironment();
 	if (!guienv) return -5;
 
+	// Setup starten
 	return setup();
 }
 
 int Engine::setup(void)
+{
+	return SUCCESS;
+}
+
+int Engine::teardown(void)
 {
 	return SUCCESS;
 }
@@ -69,6 +75,8 @@ void Engine::setWindowTitle(const wchar_t *title)
 int Engine::run(void)
 {
 	if (!device) return -1;
+
+	// Spielschleife starten
 	while(device->run())
     {
 		// Timer aktualisieren und Zeit seit dem letzten Frame ermitteln
@@ -87,6 +95,9 @@ int Engine::run(void)
 		// Szene durcharbeiten
 		sceneLoop(deltaT);
     }
+
+	// Aufräumen
+	teardown();
 
 	return SUCCESS;
 }

@@ -1,62 +1,60 @@
 #include "CubeNode.h"
 using namespace video;
 
-void CubeNode::initCube(f32 width, f32 height, f32 depth) 
+#define TOP		0
+#define BOTTOM	1
+#define FRONT	2
+#define BACK	3
+#define LEFT	4
+#define RIGHT	5
+
+void CubeNode::initCube(f32 width, f32 height, f32 depth, u8 quads) 
 {
-	Material.Wireframe = false;
-	Material.Lighting = true;
-	Material.MaterialType = E_MATERIAL_TYPE::EMT_SOLID;
-	Material.ColorMaterial = E_COLOR_MATERIAL::ECM_AMBIENT; // Vertexfarben sind Ambiente Farben
-	Material.BackfaceCulling = true;
+	if(initialized) for (u8 i=1; i<6; ++i) delete Planes[i];
+	initialized = true;
 
-	// Alphawert
-	u32 alpha = 255;
+	Planes[TOP]		= new PlaneNode(width, depth, quads, this, SceneManager, 1);
+	Planes[TOP]->setPosition(vector3df(0.0f, height/2.0f, 0.0f));
 
-	// Punkte definieren: Boden
-	Vertices[0] = irr::video::S3DVertex( -width/2,-height / 2,-depth/2, -1, -1,-1, SColor(alpha,0,255,255),  0, 1);
-	Vertices[1] = irr::video::S3DVertex(  width/2,-height / 2,-depth/2,  1, -1,-1, SColor(alpha,255,0,255),  1, 1);
-	Vertices[2] = irr::video::S3DVertex(  width/2,-height / 2, depth/2,  1, -1, 1, SColor(alpha,255,255,0),  1, 0);
-	Vertices[3] = irr::video::S3DVertex( -width/2,-height / 2, depth/2, -1, -1, 1, SColor(alpha,0,255,0),    0, 0);
-	// Punkte definieren: Decke
-	Vertices[4] = irr::video::S3DVertex( -width/2, height / 2,-depth/2, -1,  1,-1, SColor(alpha,0,0,255),    0, 0);
-	Vertices[5] = irr::video::S3DVertex(  width/2, height / 2,-depth/2,  1,  1,-1, SColor(alpha,255,0,0),    1, 0);
-	Vertices[6] = irr::video::S3DVertex(  width/2, height / 2, depth/2,  1,  1, 1, SColor(alpha,0,0,0),      0, 1);
-	Vertices[7] = irr::video::S3DVertex( -width/2, height / 2, depth/2, -1,  1, 1, SColor(alpha,255,255,255), 1, 1);
+	Planes[BOTTOM]	= new PlaneNode(width, depth, quads, this, SceneManager, 1);
+	Planes[BOTTOM]->setPosition(vector3df(0.0f, -height/2.0f, 0.0f));
+	Planes[BOTTOM]->setRotation(vector3df(180.0f, 0.0f, 0.0f));
+
+	Planes[FRONT]	= new PlaneNode(width, height, quads, this, SceneManager, 1);
+	Planes[FRONT]->setPosition(vector3df(0.0f, 0.0f, -depth/2.0f));
+	Planes[FRONT]->setRotation(vector3df(-90.0f, 0.0f, 0.0f));
+
+	Planes[BACK]	= new PlaneNode(width, height, quads, this, SceneManager, 1);
+	Planes[BACK]->setPosition(vector3df(0.0f, 0.0f, depth/2.0f));
+	Planes[BACK]->setRotation(vector3df(90.0f, 0.0f, 0.0f));
+
+	Planes[LEFT]	= new PlaneNode(depth, height, quads, this, SceneManager, 1);
+	Planes[LEFT]->setPosition(vector3df(-width/2.0f, 0.0f, 0.0f));
+	Planes[LEFT]->setRotation(vector3df(-90.0f, 90.0f, 0.0f));
+
+	Planes[RIGHT]	= new PlaneNode(depth, height, quads, this, SceneManager, 1);
+	Planes[RIGHT]->setPosition(vector3df(width/2.0f, 0.0f, 0.0f));
+	Planes[RIGHT]->setRotation(vector3df(-90.0f, -90.0f, 0.0f));
 
 	// Bounding Box bauen
-	Box.reset(Vertices[0].Pos); 
-	for (s32 i=1; i<8; ++i)
+	Box.reset(0, 0, 0);
+	for (s32 i=1; i<6; ++i)
 	{
-		Box.addInternalPoint(Vertices[i].Pos);
+		Box.addInternalBox(Planes[i]->getBoundingBox());
 	}
 }
 
 CubeNode::~CubeNode(void)
 {
+	if(initialized) for (u8 i=1; i<6; ++i) delete Planes[i];
 }
 
 void CubeNode::render() 
 {
-	// Die Reihenfolge, in der die Indizes abgearbeitet werden sollen
-	irr::u16 indices[] = 
-		{0,1,2,
-		0,2,3,
-		1,6,2,
-		1,5,6,
-		0,5,1,
-		0,4,5,
-		0,3,7,
-		0,7,4,
-		2,7,3,
-		2,6,7,
-		4,6,5,
-		4,7,6 };
-
-	IVideoDriver* driver = SceneManager->getVideoDriver();
-
-	driver->setMaterial(Material);
-	driver->setTransform(E_TRANSFORMATION_STATE::ETS_WORLD, AbsoluteTransformation);
-	driver->drawIndexedTriangleList(&Vertices[0], 8, &indices[0], 12);
+	for (u8 i=1; i<6; ++i)
+	{
+		Planes[i]->render();
+	}
 }
 
 void CubeNode::OnRegisterSceneNode() 

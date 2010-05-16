@@ -45,6 +45,10 @@ protected:
 	/** Diese Funktion sollte von der Spielklasse überladen werden. */
 	virtual int setup();
 	
+	//! Wird während des Dekonstruierens aufgerufen
+	/** Diese Funktion sollte von der Spielklasse überladen werden. */
+	virtual int teardown();
+
 	//! Setzt den Titel des Fensters
 	/**
 	* @param title			Der Titeltext
