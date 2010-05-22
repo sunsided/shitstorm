@@ -74,6 +74,12 @@ int Engine::run(void)
 {
 	if (!device) return -1;
 
+	// Device vorglühen
+	device->run();
+
+	// Timer vorglühen
+	timer->update();
+
 	// Spielschleife starten
 	while(device->run())
     {

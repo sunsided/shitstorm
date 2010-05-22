@@ -18,6 +18,7 @@ protected:
 	int setup();
 	int teardown();
 	void sceneLoop(int deltaT);
+	void setupLoop();
 
 protected:
 	ICameraSceneNode* camera;

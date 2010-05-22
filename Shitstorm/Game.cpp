@@ -69,7 +69,7 @@ int Game::setup() {
 
 	// Würfel erzeugen
 	physicsBox = PF->CreateBox();
-	if (physicsBox) physicsBox->Init(0, 5, 0, 5, 5, 7, 1);
+	if (physicsBox) physicsBox->Init(0, 5, 0, 5, 5, 7, 10);
 
 	// Boden erzeugen
 	physicsPlane = PF->CreateTerrainPlane();
@@ -86,16 +86,23 @@ int Game::teardown() {
 	return SUCCESS;
 }
 
+void Game::setupLoop() {
+
+	// Physik vorwärmen
+	physics->Update(0.0f);
+}
+
 void Game::sceneLoop(int deltaT) {
 
-	f32 deltaTInSeconds = deltaT * 0.0001F;
+	f32 deltaTInSeconds = deltaT * 0.001F;
 
 	static SpatialObject foo = SpatialObject(vector3df(0, 5, 0));
 	static bool enableRotation = false;
+	static bool physicsEnabled = true;
 
 	// Physik aktualisieren
 	if (physics) {
-		physics->Update(deltaTInSeconds);
+		if (physicsEnabled) physics->Update(deltaTInSeconds);
 		palMatrix4x4 matrix = physicsBox->GetLocationMatrix();
 		matrix4 mat;
 		memcpy(&mat[0], matrix._mat, sizeof(f32)*4*4);
@@ -108,33 +115,37 @@ void Game::sceneLoop(int deltaT) {
 		device->closeDevice();
 		return;
 	}
-
-	// Kiste drehen
-	if(eventReceiver.keyPressed(KEY_KEY_R)) {
-		enableRotation = !enableRotation;
-	}
-
+	
 	// Kistenposition ermitteln
 	palVector3 location;
 	physicsBox->GetPosition(location);
 
+	// Im nächsten Durchgang gibt's wieder Physik
+	physicsEnabled = true;
+
 	// Kiste bewegen
 	if(eventReceiver.keyDown(KEY_UP)) {
+		physicsEnabled = false;
+
 		if(eventReceiver.keyDown(KEY_LSHIFT) || eventReceiver.keyDown(KEY_SHIFT) || eventReceiver.keyDown(KEY_RSHIFT))
 			location.y += 0.01;
 		else
 			location.z += 0.01;
 	}
 	if(eventReceiver.keyDown(KEY_DOWN)) {
+		physicsEnabled = false;
+
 		if(eventReceiver.keyDown(KEY_LSHIFT) || eventReceiver.keyDown(KEY_SHIFT) || eventReceiver.keyDown(KEY_RSHIFT))
 			location.y -= 0.01;
 		else
 			location.z -= 0.01;
 	}
 	if(eventReceiver.keyDown(KEY_LEFT)) {
+		physicsEnabled = false;
 		location.x -= 0.01;
 	}
 	if(eventReceiver.keyDown(KEY_RIGHT)) {
+		physicsEnabled = false;
 		location.x += 0.01;
 	}
 
@@ -157,13 +168,6 @@ void Game::sceneLoop(int deltaT) {
 	// Würfel rendern
 	//cube->setPosition(vector3df(cubeX, cubeY, cubeZ));
 	cube->setPosition(foo.getPosition());
-	
-	if(enableRotation) {
-		cube->setRotation(vector3df(
-			(float)(device->getTimer()->getTime() / 50 % 360), 
-			(float)(device->getTimer()->getTime() / 20 % 360), 
-			0.0f));
-	}
 
 	// Lichter rendern
 	cubeLights[0]->setPosition(vector3df(

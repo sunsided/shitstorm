@@ -51,6 +51,14 @@ protected:
 	/** Diese Funktion sollte von der Spielklasse überladen werden. */
 	virtual int teardown();
 
+	//! Vorbereitung unmittelbar vor Beginn der Spielschleife.
+	/** Diese Funktion sollte von der Spielklasse überladen werden. */
+	virtual void setupLoop() {}
+
+	//! Nachbereitung direkt nach Verlassen der Spielschleife.
+	/** Diese Funktion sollte von der Spielklasse überladen werden. */
+	virtual void teardownLoop() {}
+
 	//! Setzt den Titel des Fensters
 	/**
 	* @param title			Der Titeltext
