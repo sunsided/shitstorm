@@ -3,7 +3,6 @@
 
 #include "SpatialObject.h"
 
-#include "pal/palFactory.h"
 #if _DEBUG
 #pragma comment(lib, "libpald.lib")
 #else
@@ -56,20 +55,53 @@ int Game::setup() {
 
 	// Physikengine laden
 	PF->LoadPALfromDLL(); 
+	PF->SelectEngine("Bullet");
+	physics = PF->CreatePhysics();
+	if (physics) {
+		palPhysicsDesc desc;
+		desc.m_vGravity = palVector3(0, -9.8, 0);
+		physics->Init(desc);
+	}
+	else {
+		printf("Physikengine konnte nicht initialisiert werden.");
+		return -1;
+	}
 
+	// Würfel erzeugen
+	physicsBox = PF->CreateBox();
+	if (physicsBox) physicsBox->Init(0, 5, 0, 5, 5, 7, 1);
+
+	// Boden erzeugen
+	physicsPlane = PF->CreateTerrainPlane();
+	if (physicsPlane) physicsPlane->Init(0, 0, 0, 15);
 
 	return SUCCESS;
 }
 
 int Game::teardown() {
+
+	// Physikengine beenden
+	if (physics) physics->Cleanup();
+
 	return SUCCESS;
 }
 
 void Game::sceneLoop(int deltaT) {
 
-	static float cubeX = 0, cubeY = 5, cubeZ = 0;
+	f32 deltaTInSeconds = deltaT * 0.0001F;
+
 	static SpatialObject foo = SpatialObject(vector3df(0, 5, 0));
 	static bool enableRotation = false;
+
+	// Physik aktualisieren
+	if (physics) {
+		physics->Update(deltaTInSeconds);
+		palMatrix4x4 matrix = physicsBox->GetLocationMatrix();
+		matrix4 mat;
+		memcpy(&mat[0], matrix._mat, sizeof(f32)*4*4);
+		foo.setPosition(mat.getTranslation());
+		cube->setRotation(mat.getRotationDegrees());
+	}
 
 	// Schleife beenden
 	if(eventReceiver.keyPressed(KEY_ESCAPE)) {
@@ -82,19 +114,32 @@ void Game::sceneLoop(int deltaT) {
 		enableRotation = !enableRotation;
 	}
 
+	// Kistenposition ermitteln
+	palVector3 location;
+	physicsBox->GetPosition(location);
+
 	// Kiste bewegen
 	if(eventReceiver.keyDown(KEY_UP)) {
-		foo.addPosition(0, 0, 0.01);
+		if(eventReceiver.keyDown(KEY_LSHIFT) || eventReceiver.keyDown(KEY_SHIFT) || eventReceiver.keyDown(KEY_RSHIFT))
+			location.y += 0.01;
+		else
+			location.z += 0.01;
 	}
 	if(eventReceiver.keyDown(KEY_DOWN)) {
-		foo.addPosition(0, 0, -0.01);
+		if(eventReceiver.keyDown(KEY_LSHIFT) || eventReceiver.keyDown(KEY_SHIFT) || eventReceiver.keyDown(KEY_RSHIFT))
+			location.y -= 0.01;
+		else
+			location.z -= 0.01;
 	}
 	if(eventReceiver.keyDown(KEY_LEFT)) {
-		foo.addPosition(-0.01, 0, 0);
+		location.x -= 0.01;
 	}
 	if(eventReceiver.keyDown(KEY_RIGHT)) {
-		foo.addPosition(0.01, 0, 0);
+		location.x += 0.01;
 	}
+
+	// Kistenposition setzen
+	physicsBox->SetPosition(location.x, location.y, location.z);
 
 	// FOV der Kamera ändern - Zoomen
 	/*
@@ -107,7 +152,7 @@ void Game::sceneLoop(int deltaT) {
 	*/
 
 	// Position des SpatialObjects aktualisieren
-	foo.update(deltaT * 0.0001F);
+	foo.update(deltaTInSeconds);
 
 	// Würfel rendern
 	//cube->setPosition(vector3df(cubeX, cubeY, cubeZ));

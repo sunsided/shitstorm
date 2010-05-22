@@ -48,6 +48,9 @@
     <None Include="..\..\..\..\Libraries\irrKlang-1.3.0\bin\win32-visualStudio\irrKlang.dll">
       <Filter>DLLs</Filter>
     </None>
+    <None Include="..\..\..\..\Libraries\physics\pal\bin\RELEASE\libpal_bullet.dll">
+      <Filter>DLLs</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">

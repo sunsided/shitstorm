@@ -6,6 +6,8 @@
 #include "SceneNodes\CubeNode.h"
 #include "SceneNodes\PlaneNode.h"
 
+#include <pal/palFactory.h>
+
 class Game : public Engine
 {
 public:
@@ -22,6 +24,10 @@ protected:
 	CubeNode* cube;
 	ISceneNode* cubeLights[2];
 	PlaneNode* plane;
+	
+	palPhysics *physics;
+	palBox *physicsBox;
+	palTerrainPlane *physicsPlane;
 };
 
 #endif

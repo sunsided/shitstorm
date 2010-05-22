@@ -89,6 +89,7 @@
     <None Include="..\..\..\..\Libraries\irrlicht-1.7.1\bin\Win32-VisualStudio\Irrlicht.dll">
       <DeploymentContent>true</DeploymentContent>
     </None>
+    <None Include="..\..\..\..\Libraries\physics\pal\bin\RELEASE\libpal_bullet.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
