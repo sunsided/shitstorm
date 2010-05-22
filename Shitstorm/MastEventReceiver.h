@@ -62,6 +62,8 @@ class MastEventReceiver : public IEventReceiver
 
 	virtual bool OnEvent(const SEvent & event)
 	{
+		if (processState != STARTED) return false;
+
 		bool eventprocessed = false;
 
 		//////////////////////////////
@@ -69,33 +71,29 @@ class MastEventReceiver : public IEventReceiver
 		//////////////////////////////
 		if (event.EventType == EET_KEY_INPUT_EVENT)
 		{
-			if (processState == STARTED)
+			// if key is Pressed Down
+			if (event.KeyInput.PressedDown == true)
 			{
-				// if key is Pressed Down
-				if (event.KeyInput.PressedDown == true)
+				// If key was not down before
+				if (keyState[event.KeyInput.Key] != DOWN)
 				{
-					// If key was not down before
-					if (keyState[event.KeyInput.Key] != DOWN)
-					{
-						keyState[event.KeyInput.Key] = PRESSED; // Set to Pressed
-					}
-					else
-					{
-						// if key was down before
-						keyState[event.KeyInput.Key] = DOWN; // Set to Down
-					}
+					keyState[event.KeyInput.Key] = PRESSED; // Set to Pressed
 				}
 				else
 				{
-
-						// if the key is down
-						if (keyState[event.KeyInput.Key] != UP)
-						{
-							keyState[event.KeyInput.Key] = RELEASED; // Set to Released
-						}
+					// if key was down before
+					keyState[event.KeyInput.Key] = DOWN; // Set to Down
 				}
 			}
+			else
+			{
 
+					// if the key is down
+					if (keyState[event.KeyInput.Key] != UP)
+					{
+						keyState[event.KeyInput.Key] = RELEASED; // Set to Released
+					}
+			}
 
 			eventprocessed = true;
 		}
@@ -106,94 +104,90 @@ class MastEventReceiver : public IEventReceiver
 
 		if (event.EventType == EET_MOUSE_INPUT_EVENT)
 		{
-			if (processState == STARTED)
+			//Mouse changed position
+			if (event.MouseInput.Event == EMIE_MOUSE_MOVED)
 			{
-				//Mouse changed position
-				if (event.MouseInput.Event == EMIE_MOUSE_MOVED)
-				{
-					mouse.Y = event.MouseInput.Y;
-					mouse.X = event.MouseInput.X;
-				}
+				mouse.Y = event.MouseInput.Y;
+				mouse.X = event.MouseInput.X;
+			}
 
-				//Wheel moved.
-				if (event.MouseInput.Event == EMIE_MOUSE_WHEEL)
-				{
-					mouse.wheel += event.MouseInput.Wheel;
-				}
+			//Wheel moved.
+			if (event.MouseInput.Event == EMIE_MOUSE_WHEEL)
+			{
+				mouse.wheel += event.MouseInput.Wheel;
+			}
 
-				//Left Mouse Button Pressed
-				if (event.MouseInput.Event == EMIE_LMOUSE_PRESSED_DOWN)
+			//Left Mouse Button Pressed
+			if (event.MouseInput.Event == EMIE_LMOUSE_PRESSED_DOWN)
+			{
+				//
+				if (mouseButtonState[0] == UP || mouseButtonState[0] == RELEASED)
 				{
-					//
-					if (mouseButtonState[0] == UP || mouseButtonState[0] == RELEASED)
-					{
-						mouseButtonState[0] = PRESSED;
-					}
-					else
-					{
-						mouseButtonState[0] = DOWN;
-					}
+					mouseButtonState[0] = PRESSED;
 				}
-
-				//Left Mouse Button Rleased
-				if (event.MouseInput.Event == EMIE_LMOUSE_LEFT_UP)
+				else
 				{
-					//
-					if (mouseButtonState[0] != UP)
-					{
-						mouseButtonState[0] = RELEASED;
-					}
-				}
-
-				//Middle Mouse Button Pressed
-				if (event.MouseInput.Event == EMIE_MMOUSE_PRESSED_DOWN)
-				{
-					//
-					if (mouseButtonState[1] == UP || mouseButtonState[1] == RELEASED)
-					{
-						mouseButtonState[1] = PRESSED;
-					}
-					else
-					{
-						mouseButtonState[1] = DOWN;
-					}
-				}
-
-				//Middle Mouse Button Rleased
-				if (event.MouseInput.Event == EMIE_MMOUSE_LEFT_UP)
-				{
-					//
-					if (mouseButtonState[1] != UP)
-					{
-						mouseButtonState[1] = RELEASED;
-					}
-				}
-
-				//Right Mouse Button Pressed
-				if (event.MouseInput.Event == EMIE_RMOUSE_PRESSED_DOWN)
-				{
-					//
-					if (mouseButtonState[2] == UP || mouseButtonState[2] == RELEASED)
-					{
-						mouseButtonState[2] = PRESSED;
-					}
-					else
-					{
-						mouseButtonState[2] = DOWN;
-					}
-				}
-
-				//Right Mouse Button Rleased
-				if (event.MouseInput.Event == EMIE_RMOUSE_LEFT_UP)
-				{
-					//
-					if (mouseButtonState[2] != UP)
-					{
-						mouseButtonState[2] = RELEASED;
-					}
+					mouseButtonState[0] = DOWN;
 				}
 			}
 
+			//Left Mouse Button Rleased
+			if (event.MouseInput.Event == EMIE_LMOUSE_LEFT_UP)
+			{
+				//
+				if (mouseButtonState[0] != UP)
+				{
+					mouseButtonState[0] = RELEASED;
+				}
+			}
+
+			//Middle Mouse Button Pressed
+			if (event.MouseInput.Event == EMIE_MMOUSE_PRESSED_DOWN)
+			{
+				//
+				if (mouseButtonState[1] == UP || mouseButtonState[1] == RELEASED)
+				{
+					mouseButtonState[1] = PRESSED;
+				}
+				else
+				{
+					mouseButtonState[1] = DOWN;
+				}
+			}
+
+			//Middle Mouse Button Rleased
+			if (event.MouseInput.Event == EMIE_MMOUSE_LEFT_UP)
+			{
+				//
+				if (mouseButtonState[1] != UP)
+				{
+					mouseButtonState[1] = RELEASED;
+				}
+			}
+
+			//Right Mouse Button Pressed
+			if (event.MouseInput.Event == EMIE_RMOUSE_PRESSED_DOWN)
+			{
+				//
+				if (mouseButtonState[2] == UP || mouseButtonState[2] == RELEASED)
+				{
+					mouseButtonState[2] = PRESSED;
+				}
+				else
+				{
+					mouseButtonState[2] = DOWN;
+				}
+			}
+
+			//Right Mouse Button Rleased
+			if (event.MouseInput.Event == EMIE_RMOUSE_LEFT_UP)
+			{
+				//
+				if (mouseButtonState[2] != UP)
+				{
+					mouseButtonState[2] = RELEASED;
+				}
+			}
 
 			eventprocessed = true;
 		}
@@ -208,214 +202,103 @@ class MastEventReceiver : public IEventReceiver
 	//////////////////////
 	public:
 
-	float mouseWheel()
+	inline float mouseWheel()
 	{
 		return mouse.wheel;
 	}
 
-	int mouseX()
+	inline int mouseX()
 	{
 		return mouse.X;
 	}
 
-	int mouseY()
+	inline int mouseY()
 	{
 		return mouse.Y;
 	}
 
-	bool leftMouseReleased()
+	inline bool leftMouseReleased()
 	{
-		if (mouseButtonState[0] == RELEASED)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	bool leftMouseUp()
-	{
-		if (mouseButtonState[0] == RELEASED || mouseButtonState[0] == UP)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (mouseButtonState[0] == RELEASED);
 	}
 
-	bool leftMousePressed()
+	inline bool leftMouseUp()
 	{
-		if (mouseButtonState[0] == PRESSED)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (mouseButtonState[0] == RELEASED || mouseButtonState[0] == UP);
 	}
 
-	bool leftMouseDown()
+	inline bool leftMousePressed()
 	{
-		if (mouseButtonState[0] == PRESSED || mouseButtonState[0] == DOWN)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (mouseButtonState[0] == PRESSED);
 	}
 
-	bool middleMouseReleased()
+	inline bool leftMouseDown()
 	{
-		if (mouseButtonState[1] == RELEASED)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	bool middleMouseUp()
-	{
-		if (mouseButtonState[1] == RELEASED || mouseButtonState[1] == UP)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (mouseButtonState[0] == PRESSED || mouseButtonState[0] == DOWN);
 	}
 
-	bool middleMousePressed()
+	inline bool middleMouseReleased()
 	{
-		if (mouseButtonState[1] == PRESSED)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (mouseButtonState[1] == RELEASED);
+	}
+	inline bool middleMouseUp()
+	{
+		return (mouseButtonState[1] == RELEASED || mouseButtonState[1] == UP);
 	}
 
-	bool middleMouseDown()
+	inline bool middleMousePressed()
 	{
-		if (mouseButtonState[1] == PRESSED || mouseButtonState[1] == DOWN)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (mouseButtonState[1] == PRESSED);
 	}
 
-	bool rightMouseReleased()
+	inline bool middleMouseDown()
 	{
-		if (mouseButtonState[2] == RELEASED)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	bool rightMouseUp()
-	{
-		if (mouseButtonState[2] == RELEASED || mouseButtonState[2] == UP)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (mouseButtonState[1] == PRESSED || mouseButtonState[1] == DOWN);
 	}
 
-	bool rightMousePressed()
+	inline bool rightMouseReleased()
 	{
-		if (mouseButtonState[2] == PRESSED)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (mouseButtonState[2] == RELEASED);
+	}
+	inline bool rightMouseUp()
+	{
+		return (mouseButtonState[2] == RELEASED || mouseButtonState[2] == UP);
 	}
 
-	bool rightMouseDown()
+	inline bool rightMousePressed()
 	{
-		if (mouseButtonState[2] == PRESSED || mouseButtonState[2] == DOWN)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}//
-
-	bool keyPressed(unsigned char keycode)
-	{
-		if (keyState[keycode] == PRESSED)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (mouseButtonState[2] == PRESSED);
 	}
 
-	bool keyDown(unsigned char keycode)
+	inline bool rightMouseDown()
 	{
-		if (keyState[keycode] == DOWN || keyState[keycode] == PRESSED)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (mouseButtonState[2] == PRESSED || mouseButtonState[2] == DOWN);
 	}
 
-	bool keyUp(unsigned char keycode)
+	inline bool keyPressed(unsigned char keycode)
 	{
-		if (keyState[keycode] == UP || keyState[keycode] == RELEASED)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (keyState[keycode] == PRESSED);
 	}
 
-	bool keyReleased(unsigned char keycode)
+	inline bool keyDown(unsigned char keycode)
 	{
-		if (keyState[keycode] == RELEASED)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (keyState[keycode] == DOWN || keyState[keycode] == PRESSED);
+	}
+
+	inline bool keyUp(unsigned char keycode)
+	{
+		return (keyState[keycode] == UP || keyState[keycode] == RELEASED);
+	}
+
+	inline bool keyReleased(unsigned char keycode)
+	{
+		return (keyState[keycode] == RELEASED);
 	}
 
 
 	// This is used so that the Key States will not be changed during execution of your Main game loop.
 	// Place this at the very START of your Main Loop
-	void endEventProcess()
+	inline void endEventProcess()
 	{
 		processState = ENDED;
 	}
