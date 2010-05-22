@@ -1,9 +1,4 @@
 #include "Engine.h"
-#include <driverChoice.h>
-
-Engine::Engine(void) 
-{
-}
 
 Engine::~Engine(void)
 {
@@ -16,7 +11,7 @@ int Engine::createDevice(int width, int height, bool fullscreen, bool stencilBuf
 	screenSize = dimension2d<u32>(width, height);
 
 	// ask user for driver
-	video::E_DRIVER_TYPE driverType= E_DRIVER_TYPE::EDT_DIRECT3D9;
+	video::E_DRIVER_TYPE driverType= EDT_DIRECT3D9;
 
 	// Parameter
 	SIrrlichtCreationParameters params;
@@ -29,7 +24,10 @@ int Engine::createDevice(int width, int height, bool fullscreen, bool stencilBuf
 	params.Doublebuffer = true;
 	params.Vsync = false;
 	params.ZBufferBits = 16;
-	params.EventReceiver = 0;
+	params.EventReceiver = &eventReceiver;
+	
+	// EventReceiver initialisieren
+	eventReceiver.init();
 
 	// Rendering-Device erstellen
 	//device = irr::createDevice( driverType, screenSize, 16, fullscreen, stencilBuffer, false, 0);
@@ -92,8 +90,14 @@ int Engine::run(void)
 		tmp += L" ]";
 		device->setWindowCaption(tmp.c_str());
 
+		// Events beenden
+		eventReceiver.endEventProcess();
+
 		// Szene durcharbeiten
 		sceneLoop(deltaT);
+
+		// Events starten
+		eventReceiver.startEventProcess();
     }
 
 	// Aufräumen

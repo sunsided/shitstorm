@@ -16,7 +16,7 @@ public:
 		: ISceneNode(parent, mgr, id), initialized(false) { initCube(size, size, size, quads); }
 	CubeNode(f32 width, f32 height, f32 depth, u8 quads, ISceneNode* parent, ISceneManager* mgr, s32 id)
 		: ISceneNode(parent, mgr, id), initialized(false) { initCube(width, height, depth, quads); }
-	~CubeNode(void);
+	virtual ~CubeNode(void);
 
 	virtual void render();
 
@@ -24,7 +24,7 @@ public:
 	virtual s32 getMaterialCount() { return 6; }
 	virtual SMaterial& getMaterial(s32 i) { return Planes[i]->getMaterial(0); }
 	virtual void OnRegisterSceneNode();
-
+	
 private:
 	void initCube(f32 width, f32 height, f32 depth, u8 quads = 2);
 

@@ -37,8 +37,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\dev\Libraries\irrKlang-1.3.0\include;C:\dev\Libraries\irrlicht-1.7.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\dev\Libraries\irrKlang-1.3.0\lib\Win32-visualStudio;C:\dev\Libraries\irrlicht-1.7.1\lib\Win32-visualstudio;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\dev\Libraries\irrKlang-1.3.0\include;C:\dev\Libraries\irrlicht-1.7.1\include;C:\dev\Libraries\physics\pal;C:\dev\Libraries\physics\pal\obj;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\dev\Libraries\irrKlang-1.3.0\lib\Win32-visualStudio;C:\dev\Libraries\irrlicht-1.7.1\lib\Win32-visualstudio;C:\dev\Libraries\physics\pal\lib\Debug;$(LibraryPath)</LibraryPath>
     <ExecutablePath>C:\dev\Libraries\irrKlang-1.3.0\bin\win32-visualStudio;C:\dev\Libraries\irrlicht-1.7.1\bin\Win32-VisualStudio;$(ExecutablePath)</ExecutablePath>
     <OutDir>$(SolutionDir)bin\</OutDir>
   </PropertyGroup>
@@ -80,6 +80,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneNodes\CubeNode.cpp" />
     <ClCompile Include="SceneNodes\PlaneNode.cpp" />
+    <ClCompile Include="SpatialObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Libraries\irrKlang-1.3.0\bin\win32-visualStudio\irrKlang.dll">
@@ -94,8 +95,10 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="GlobalDefines.h" />
+    <ClInclude Include="MastEventReceiver.h" />
     <ClInclude Include="SceneNodes\CubeNode.h" />
     <ClInclude Include="SceneNodes\PlaneNode.h" />
+    <ClInclude Include="SpatialObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

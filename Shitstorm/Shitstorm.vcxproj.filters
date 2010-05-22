@@ -37,6 +37,9 @@
     <ClCompile Include="SceneNodes\PlaneNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SpatialObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Libraries\irrlicht-1.7.1\bin\Win32-VisualStudio\Irrlicht.dll">
@@ -63,6 +66,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneNodes\PlaneNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MastEventReceiver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpatialObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

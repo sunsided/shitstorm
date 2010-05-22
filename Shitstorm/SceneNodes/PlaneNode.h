@@ -17,7 +17,7 @@ public:
 		: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(size, size, quads); }
 	PlaneNode(f32 width, f32 height, u8 quads, ISceneNode* parent, ISceneManager* mgr, s32 id)
 		: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quads); }
-	~PlaneNode(void);
+	virtual ~PlaneNode(void);
 
 	virtual void render();
 

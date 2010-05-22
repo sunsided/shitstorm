@@ -1,6 +1,15 @@
 #include "Game.h"
 #include <math.h>
 
+#include "SpatialObject.h"
+
+#include "pal/palFactory.h"
+#if _DEBUG
+#pragma comment(lib, "libpald.lib")
+#else
+#pragma comment(lib, "libpal.lib")
+#endif
+
 Game::Game(void)
 {
 }
@@ -29,7 +38,7 @@ int Game::setup() {
 		SMaterial *material = &cube->getMaterial(i);
 		material->setTexture(0, driver->getTexture("textures\\crate.jpg"));
 		material->setTexture(1, normalMap);
-		material->MaterialType = E_MATERIAL_TYPE::EMT_NORMAL_MAP_SOLID;
+		material->MaterialType = EMT_NORMAL_MAP_SOLID;
 	}
 
 	// Boden erzeugen
@@ -45,6 +54,10 @@ int Game::setup() {
 	cubeLights[1] = smgr->addLightSceneNode(0, core::vector3df(0,0,0),
 					video::SColorf(1.0f, 0.0F, 0.0F, 1.0F), 10.0f);
 
+	// Physikengine laden
+	PF->LoadPALfromDLL(); 
+
+
 	return SUCCESS;
 }
 
@@ -54,12 +67,58 @@ int Game::teardown() {
 
 void Game::sceneLoop(int deltaT) {
 
+	static float cubeX = 0, cubeY = 5, cubeZ = 0;
+	static SpatialObject foo = SpatialObject(vector3df(0, 5, 0));
+	static bool enableRotation = false;
+
+	// Schleife beenden
+	if(eventReceiver.keyPressed(KEY_ESCAPE)) {
+		device->closeDevice();
+		return;
+	}
+
+	// Kiste drehen
+	if(eventReceiver.keyPressed(KEY_KEY_R)) {
+		enableRotation = !enableRotation;
+	}
+
+	// Kiste bewegen
+	if(eventReceiver.keyDown(KEY_UP)) {
+		foo.addAcceleration(0, 0, 0.01);
+	}
+	if(eventReceiver.keyDown(KEY_DOWN)) {
+		foo.addAcceleration(0, 0, -0.01);
+	}
+	if(eventReceiver.keyDown(KEY_LEFT)) {
+		foo.addAcceleration(-0.01, 0, 0);
+	}
+	if(eventReceiver.keyDown(KEY_RIGHT)) {
+		foo.addAcceleration(0.01, 0, 0);
+	}
+
+	// FOV der Kamera ändern - Zoomen
+	/*
+	if(eventReceiver.keyDown(KEY_ADD) || eventReceiver.keyDown(KEY_PLUS)) {
+		camera->setFOV(camera->getFOV() + 0.01);
+	}
+	if(eventReceiver.keyDown(KEY_SUBTRACT) || eventReceiver.keyDown(KEY_MINUS)) {
+		camera->setFOV(camera->getFOV() - 0.01);
+	}
+	*/
+
+	// Position des SpatialObjects aktualisieren
+	foo.update(deltaT * 0.0001F);
+
 	// Würfel rendern
-	cube->setPosition(vector3df(0, 5, 0));
-	cube->setRotation(vector3df(
-		(float)(device->getTimer()->getTime() / 50 % 360), 
-		(float)(device->getTimer()->getTime() / 20 % 360), 
-		0.0f));
+	//cube->setPosition(vector3df(cubeX, cubeY, cubeZ));
+	cube->setPosition(foo.getPosition());
+	
+	if(enableRotation) {
+		cube->setRotation(vector3df(
+			(float)(device->getTimer()->getTime() / 50 % 360), 
+			(float)(device->getTimer()->getTime() / 20 % 360), 
+			0.0f));
+	}
 
 	// Lichter rendern
 	cubeLights[0]->setPosition(vector3df(

@@ -5,6 +5,7 @@
 #include <irrlicht.h>
 #include "GlobalDefines.h"
 #include "GameTimer.h"
+#include "MastEventReceiver.h"
 
 #ifdef _IRR_WINDOWS_
 	#pragma comment(lib, "Irrlicht.lib")
@@ -22,7 +23,8 @@ class Engine
 {
 public:
 	//! Konstruktor
-	Engine(void);
+	Engine(void) : device(NULL), driver(NULL), guienv(NULL), timer(NULL), windowTitle(NULL)
+	{}
 
 	//! Destruktor
 	virtual ~Engine(void);
@@ -87,6 +89,9 @@ protected:
 
 	//! Der Timer für die Delta-T-Berechnung
 	GameTimer* timer;
+
+	//! Der Event-Receiver
+	MastEventReceiver eventReceiver;
 };
 
 #endif

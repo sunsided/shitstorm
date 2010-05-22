@@ -33,6 +33,9 @@ public:
 	/**! Ermittelt die vergangene Zeit zwischen den letzten beiden Aufrufen von update() */
 	u32 getLastFrameTime() { return deltaT; }
 
+	/**! Ermittelt die vergangene Zeit zwischen den letzten beiden Aufrufen von update() */
+	f32 getLastFrameTimeInSeconds() { return deltaT * 0.0001F; }
+
 private:
 	ITimer *timer;
 	u32 lastTime;

@@ -92,7 +92,7 @@ void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd,
 	// Material setzen
 	Material.Wireframe = false;
 	Material.Lighting = true;
-	Material.MaterialType = E_MATERIAL_TYPE::EMT_SOLID;
+	Material.MaterialType = EMT_SOLID;
 	Material.BackfaceCulling = true;
 }
 
@@ -105,7 +105,7 @@ void PlaneNode::render()
 	IVideoDriver* driver = SceneManager->getVideoDriver();
 
 	driver->setMaterial(Material);
-	driver->setTransform(E_TRANSFORMATION_STATE::ETS_WORLD, AbsoluteTransformation);
+	driver->setTransform(ETS_WORLD, AbsoluteTransformation);
 	//driver->drawIndexedTriangleList(&Vertices[0], VertexCount, &Indices[0], TriangleCount);
 	driver->drawMeshBuffer(Mesh->getMeshBuffer(0));
 }
