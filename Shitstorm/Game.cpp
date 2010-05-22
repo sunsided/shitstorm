@@ -84,16 +84,16 @@ void Game::sceneLoop(int deltaT) {
 
 	// Kiste bewegen
 	if(eventReceiver.keyDown(KEY_UP)) {
-		foo.addAcceleration(0, 0, 0.01);
+		foo.addPosition(0, 0, 0.01);
 	}
 	if(eventReceiver.keyDown(KEY_DOWN)) {
-		foo.addAcceleration(0, 0, -0.01);
+		foo.addPosition(0, 0, -0.01);
 	}
 	if(eventReceiver.keyDown(KEY_LEFT)) {
-		foo.addAcceleration(-0.01, 0, 0);
+		foo.addPosition(-0.01, 0, 0);
 	}
 	if(eventReceiver.keyDown(KEY_RIGHT)) {
-		foo.addAcceleration(0.01, 0, 0);
+		foo.addPosition(0.01, 0, 0);
 	}
 
 	// FOV der Kamera ändern - Zoomen
