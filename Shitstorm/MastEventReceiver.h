@@ -1,3 +1,6 @@
+// Modifizierte Version
+// $Id$
+
 /// ==================================================================================================
 /// MastEventReceiver code is © (Copyright) Robert E. Demarest, AKA Mastiff or Mastiff Odit
 /// This file may be used in any non-commercial or commercial project as long as the following conditions are met:
@@ -87,12 +90,11 @@ class MastEventReceiver : public IEventReceiver
 			}
 			else
 			{
-
-					// if the key is down
-					if (keyState[event.KeyInput.Key] != UP)
-					{
-						keyState[event.KeyInput.Key] = RELEASED; // Set to Released
-					}
+				// if the key is down
+				if (keyState[event.KeyInput.Key] != UP)
+				{
+					keyState[event.KeyInput.Key] = RELEASED; // Set to Released
+				}
 			}
 
 			eventprocessed = true;
@@ -120,7 +122,6 @@ class MastEventReceiver : public IEventReceiver
 			//Left Mouse Button Pressed
 			if (event.MouseInput.Event == EMIE_LMOUSE_PRESSED_DOWN)
 			{
-				//
 				if (mouseButtonState[0] == UP || mouseButtonState[0] == RELEASED)
 				{
 					mouseButtonState[0] = PRESSED;
@@ -134,7 +135,6 @@ class MastEventReceiver : public IEventReceiver
 			//Left Mouse Button Rleased
 			if (event.MouseInput.Event == EMIE_LMOUSE_LEFT_UP)
 			{
-				//
 				if (mouseButtonState[0] != UP)
 				{
 					mouseButtonState[0] = RELEASED;
@@ -144,7 +144,6 @@ class MastEventReceiver : public IEventReceiver
 			//Middle Mouse Button Pressed
 			if (event.MouseInput.Event == EMIE_MMOUSE_PRESSED_DOWN)
 			{
-				//
 				if (mouseButtonState[1] == UP || mouseButtonState[1] == RELEASED)
 				{
 					mouseButtonState[1] = PRESSED;
@@ -168,7 +167,6 @@ class MastEventReceiver : public IEventReceiver
 			//Right Mouse Button Pressed
 			if (event.MouseInput.Event == EMIE_RMOUSE_PRESSED_DOWN)
 			{
-				//
 				if (mouseButtonState[2] == UP || mouseButtonState[2] == RELEASED)
 				{
 					mouseButtonState[2] = PRESSED;
@@ -179,10 +177,9 @@ class MastEventReceiver : public IEventReceiver
 				}
 			}
 
-			//Right Mouse Button Rleased
+			//Right Mouse Button Released
 			if (event.MouseInput.Event == EMIE_RMOUSE_LEFT_UP)
 			{
-				//
 				if (mouseButtonState[2] != UP)
 				{
 					mouseButtonState[2] = RELEASED;
@@ -191,7 +188,6 @@ class MastEventReceiver : public IEventReceiver
 
 			eventprocessed = true;
 		}
-
 
 		return eventprocessed;
 	}
