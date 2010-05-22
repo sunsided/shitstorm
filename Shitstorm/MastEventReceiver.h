@@ -364,7 +364,7 @@ class MastEventReceiver : public IEventReceiver
 		}
 	}//
 
-	bool keyPressed(char keycode)
+	bool keyPressed(unsigned char keycode)
 	{
 		if (keyState[keycode] == PRESSED)
 		{
@@ -376,7 +376,7 @@ class MastEventReceiver : public IEventReceiver
 		}
 	}
 
-	bool keyDown(char keycode)
+	bool keyDown(unsigned char keycode)
 	{
 		if (keyState[keycode] == DOWN || keyState[keycode] == PRESSED)
 		{
@@ -388,7 +388,7 @@ class MastEventReceiver : public IEventReceiver
 		}
 	}
 
-	bool keyUp(char keycode)
+	bool keyUp(unsigned char keycode)
 	{
 		if (keyState[keycode] == UP || keyState[keycode] == RELEASED)
 		{
@@ -400,7 +400,7 @@ class MastEventReceiver : public IEventReceiver
 		}
 	}
 
-	bool keyReleased(char keycode)
+	bool keyReleased(unsigned char keycode)
 	{
 		if (keyState[keycode] == RELEASED)
 		{
