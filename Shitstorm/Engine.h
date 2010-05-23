@@ -68,9 +68,10 @@ protected:
 	//! Der eigentliche Spiel-Loop
 	/** Diese Funktion muss von der Spielklasse überladen werden.
 	* 
-	* @param deltaT			Die seit dem letzten Szenenstart vergangene Zeit
+	* @param deltaT			Die seit dem letzten Szenenstart vergangene Zeit in Sekunden
+	* @param windowIsActive	Gibt an, ob das Fenster derzeit aktiv ist
 	*/
-	virtual void sceneLoop(int deltaT) = 0;
+	virtual void sceneLoop(f32 deltaT, bool windowIsActive) = 0;
 	
 	//! Liefert die Anzahl der Frames pro Sekunde
 	u32 getFps();

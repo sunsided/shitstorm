@@ -17,7 +17,7 @@ public:
 protected:
 	int setup();
 	int teardown();
-	void sceneLoop(int deltaT);
+	void sceneLoop(f32 deltaT, bool windowIsActive);
 	void setupLoop();
 
 protected:

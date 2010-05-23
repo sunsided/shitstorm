@@ -1,5 +1,7 @@
 #include "Engine.h"
 
+#include <assert.h>
+
 Engine::~Engine(void)
 {
 	if(device) device->drop();
@@ -83,24 +85,16 @@ int Engine::run(void)
 	// Spielschleife starten
 	while(device->run())
     {
-		// Timer aktualisieren und Zeit seit dem letzten Frame ermitteln
-		timer->update();
-		u32 deltaT = timer->getLastFrameTime();
-
-		// Titel anzeigen
-		core::stringw tmp(this->windowTitle);
-		tmp += L" [";
-		tmp += driver->getName();
-		tmp += L"; fps: ";
-		tmp += getFps();
-		tmp += L" ]";
-		device->setWindowCaption(tmp.c_str());
-
 		// Events beenden
 		eventReceiver.endEventProcess();
 
+		// Timer aktualisieren und Zeit seit dem letzten Frame ermitteln
+		timer->update();
+		f32 deltaT = timer->getLastFrameTime();
+
 		// Szene durcharbeiten
-		sceneLoop(deltaT);
+		bool windowIsActive = device->isWindowActive();
+		sceneLoop(deltaT, windowIsActive);
 
 		// Events starten
 		eventReceiver.startEventProcess();

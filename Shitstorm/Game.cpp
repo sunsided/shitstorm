@@ -1,12 +1,15 @@
 #include "Game.h"
-#include <math.h>
-
 #include "SpatialObject.h"
 
-#if _DEBUG
+#include <math.h>
+#include <iostream>
+
+#ifdef _DEBUG
 #pragma comment(lib, "libpald.lib")
+#pragma comment(lib, "libpal_bulletd.lib")
 #else
 #pragma comment(lib, "libpal.lib")
+#pragma comment(lib, "libpal_bullet.lib")
 #endif
 
 Game::Game(void)
@@ -54,6 +57,7 @@ int Game::setup() {
 					video::SColorf(1.0f, 0.0F, 0.0F, 1.0F), 10.0f);
 
 	// Physikengine laden
+	cout << "Initialisiere Physikengine ..." << endl;
 	PF->LoadPALfromDLL(); 
 	PF->SelectEngine("Bullet");
 	physics = PF->CreatePhysics();
@@ -61,9 +65,11 @@ int Game::setup() {
 		palPhysicsDesc desc;
 		desc.m_vGravity = palVector3(0, -9.8, 0);
 		physics->Init(desc);
+
+		cout << "Physikengine initialisiert." << endl;
 	}
 	else {
-		printf("Physikengine konnte nicht initialisiert werden.");
+		cout << "Physikengine konnte nicht initialisiert werden." << endl;
 		return -1;
 	}
 
@@ -92,17 +98,23 @@ void Game::setupLoop() {
 	physics->Update(0.0f);
 }
 
-void Game::sceneLoop(int deltaT) {
-
-	f32 deltaTInSeconds = deltaT * 0.001F;
+void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 
 	static SpatialObject foo = SpatialObject(vector3df(0, 5, 0));
 	static bool enableRotation = false;
 	static bool physicsEnabled = true;
 
+	// Spiel anhalten
+	if (!windowIsActive) {
+		timer->pause();
+		device->yield();
+		return;
+	}
+	timer->unpause();
+
 	// Physik aktualisieren
 	if (physics) {
-		if (physicsEnabled) physics->Update(deltaTInSeconds);
+		if (physicsEnabled) physics->Update(deltaT);
 		palMatrix4x4 matrix = physicsBox->GetLocationMatrix();
 		matrix4 mat;
 		memcpy(&mat[0], matrix._mat, sizeof(f32)*4*4);
@@ -153,17 +165,11 @@ void Game::sceneLoop(int deltaT) {
 	physicsBox->SetPosition(location.x, location.y, location.z);
 
 	// FOV der Kamera ändern - Zoomen
-	/*
-	if(eventReceiver.keyDown(KEY_ADD) || eventReceiver.keyDown(KEY_PLUS)) {
-		camera->setFOV(camera->getFOV() + 0.01);
-	}
-	if(eventReceiver.keyDown(KEY_SUBTRACT) || eventReceiver.keyDown(KEY_MINUS)) {
-		camera->setFOV(camera->getFOV() - 0.01);
-	}
-	*/
+	camera->setFOV(min<f32>(PI - 0.005f, max<f32>(0.005f, camera->getFOV() - eventReceiver.mouseWheel() * 0.05f)));
+	if(eventReceiver.middleMousePressed()) camera->setFOV(1.256637f);
 
 	// Position des SpatialObjects aktualisieren
-	foo.update(deltaTInSeconds);
+	foo.update(deltaT);
 
 	// Würfel rendern
 	//cube->setPosition(vector3df(cubeX, cubeY, cubeZ));
@@ -194,6 +200,24 @@ void Game::sceneLoop(int deltaT) {
 	// Szene rendern
 	driver->beginScene(true, true, SColor(255, 64, 64, 64));
     smgr->drawAll();
+
+	// GUI säubern
+	guienv->clear();
+
+	core::stringw text = "FPS: ";
+	text += getFps();
+	text += "\r\nCamera rot: ";
+	text += camera->getRotation().X;
+	text += ", ";
+	text += camera->getRotation().Y;
+	text += ", ";
+	text += camera->getRotation().Z;
+	text += "\r\nCamera FOV: ";
+	text += camera->getFOV();
+
+	guienv->addStaticText(text.c_str(), rect<int>(5,5,200,50), false, false);
     guienv->drawAll();
+
+
     driver->endScene();
 }

@@ -1,13 +1,13 @@
 #include "GameTimer.h"
 
 GameTimer::GameTimer(IrrlichtDevice *device) 
- : lastTime(0), deltaT(0)
+ : lastTime(-1), deltaT(0.0f), timerSpeed(0.0f)
 {
 	setTimer(device->getTimer());
 }
 
 GameTimer::GameTimer(ITimer *timer)
- : lastTime(0), deltaT(0)
+ : lastTime(-1), deltaT(0), timerSpeed(0.0f)
 {
 	setTimer(timer);
 }
