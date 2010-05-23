@@ -63,7 +63,7 @@ int Game::setup() {
 	physics = PF->CreatePhysics();
 	if (physics) {
 		palPhysicsDesc desc;
-		desc.m_vGravity = palVector3(0, -9.8, 0);
+		desc.m_vGravity = palVector3(palPhysicsDesc::DEFAULT_GRAVITY_X, palPhysicsDesc::DEFAULT_GRAVITY_Y, palPhysicsDesc::DEFAULT_GRAVITY_X);
 		physics->Init(desc);
 
 		cout << "Physikengine initialisiert." << endl;
@@ -102,7 +102,8 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 
 	static SpatialObject foo = SpatialObject(vector3df(0, 5, 0));
 	static bool enableRotation = false;
-	static bool physicsEnabled = true;
+	static bool boxNeedsUpdating = true;
+	static bool pausePhysics = false;
 
 	// Spiel anhalten
 	if (!windowIsActive) {
@@ -111,6 +112,61 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 		return;
 	}
 	timer->unpause();
+
+	// Schleife beenden
+	if(eventReceiver.keyPressed(KEY_KEY_P)) {
+		pausePhysics = !pausePhysics;
+	}
+
+	// Schleife beenden
+	if(eventReceiver.keyPressed(KEY_ESCAPE)) {
+		device->closeDevice();
+		return;
+	}
+		
+	// Kistenposition ermitteln
+	palVector3 location;
+	physicsBox->GetPosition(location);
+
+	// Box muss nicht aktualisiert werden
+	boxNeedsUpdating = false;
+	bool physicsEnabled = !pausePhysics;
+
+	// Kiste bewegen
+	if(eventReceiver.keyDown(KEY_UP)) {
+		boxNeedsUpdating = true;
+		physicsEnabled = false;
+
+		if(eventReceiver.keyDown(KEY_LSHIFT) || eventReceiver.keyDown(KEY_SHIFT) || eventReceiver.keyDown(KEY_RSHIFT))
+			location.y += 0.01;
+		else
+			location.z += 0.01;
+	}
+	if(eventReceiver.keyDown(KEY_DOWN)) {
+		boxNeedsUpdating = true;
+		physicsEnabled = false;
+
+		if(eventReceiver.keyDown(KEY_LSHIFT) || eventReceiver.keyDown(KEY_SHIFT) || eventReceiver.keyDown(KEY_RSHIFT))
+			location.y -= 0.01;
+		else
+			location.z -= 0.01;
+	}
+	if(eventReceiver.keyDown(KEY_LEFT)) {
+		boxNeedsUpdating = true;
+		physicsEnabled = false;
+		location.x -= 0.01;
+	}
+	if(eventReceiver.keyDown(KEY_RIGHT)) {
+		boxNeedsUpdating = true;
+		physicsEnabled = false;
+		location.x += 0.01;
+	}
+
+	// Kistenposition setzen
+	if (boxNeedsUpdating) {
+		physicsBox->SetPosition(location.x, location.y, location.z);
+		physicsBox->SetActive(true);
+	}
 
 	// Physik aktualisieren
 	if (physics) {
@@ -121,48 +177,6 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 		foo.setPosition(mat.getTranslation());
 		cube->setRotation(mat.getRotationDegrees());
 	}
-
-	// Schleife beenden
-	if(eventReceiver.keyPressed(KEY_ESCAPE)) {
-		device->closeDevice();
-		return;
-	}
-	
-	// Kistenposition ermitteln
-	palVector3 location;
-	physicsBox->GetPosition(location);
-
-	// Im nächsten Durchgang gibt's wieder Physik
-	physicsEnabled = true;
-
-	// Kiste bewegen
-	if(eventReceiver.keyDown(KEY_UP)) {
-		physicsEnabled = false;
-
-		if(eventReceiver.keyDown(KEY_LSHIFT) || eventReceiver.keyDown(KEY_SHIFT) || eventReceiver.keyDown(KEY_RSHIFT))
-			location.y += 0.01;
-		else
-			location.z += 0.01;
-	}
-	if(eventReceiver.keyDown(KEY_DOWN)) {
-		physicsEnabled = false;
-
-		if(eventReceiver.keyDown(KEY_LSHIFT) || eventReceiver.keyDown(KEY_SHIFT) || eventReceiver.keyDown(KEY_RSHIFT))
-			location.y -= 0.01;
-		else
-			location.z -= 0.01;
-	}
-	if(eventReceiver.keyDown(KEY_LEFT)) {
-		physicsEnabled = false;
-		location.x -= 0.01;
-	}
-	if(eventReceiver.keyDown(KEY_RIGHT)) {
-		physicsEnabled = false;
-		location.x += 0.01;
-	}
-
-	// Kistenposition setzen
-	physicsBox->SetPosition(location.x, location.y, location.z);
 
 	// FOV der Kamera ändern - Zoomen
 	camera->setFOV(min<f32>(PI - 0.005f, max<f32>(0.005f, camera->getFOV() - eventReceiver.mouseWheel() * 0.05f)));
@@ -204,18 +218,37 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 	// GUI säubern
 	guienv->clear();
 
-	core::stringw text = "FPS: ";
+	core::stringw text = L"FPS: ";
 	text += getFps();
-	text += "\r\nCamera rot: ";
+	text += L"\r\nCamera rot: ";
 	text += camera->getRotation().X;
-	text += ", ";
+	text += L", ";
 	text += camera->getRotation().Y;
-	text += ", ";
+	text += L", ";
 	text += camera->getRotation().Z;
-	text += "\r\nCamera FOV: ";
+	text += L"\r\nCamera FOV: ";
 	text += camera->getFOV();
+	text += L"\r\nPhysics: ";
+	text += physics->GetVersion();
+	text += L"\r\nPhysics time: ";
+	text += physics->GetTime();
+	text += L"\r\nPhysics timestep: ";
+	text += physics->GetLastTimestep();
+	
+	palVector3 gravity;
+	physics->GetGravity(gravity);
 
-	guienv->addStaticText(text.c_str(), rect<int>(5,5,200,50), false, false);
+	text += L"\r\nPhysics gravity: ";
+	text += gravity.x;
+	text += L", ";
+	text += gravity.y;
+	text += L", ";
+	text += gravity.z;
+
+	text += L"\r\nPhysics box: ";
+	text += physicsBox->IsActive() ? "active" : "resting";
+
+	guienv->addStaticText(text.c_str(), rect<int>(5,5, getScreenSize().Width - 5, getScreenSize().Height - 5), false, false);
     guienv->drawAll();
 
 

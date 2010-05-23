@@ -76,6 +76,9 @@ protected:
 	//! Liefert die Anzahl der Frames pro Sekunde
 	u32 getFps();
 
+	//! Liefert die Größe des Fensters
+	inline const dimension2d<u32> &getScreenSize() const { return screenSize; }
+
 private:
 	//! Die Größe des Fensters / Auflösung des Bildschirms
 	dimension2d<u32> screenSize;
