@@ -75,7 +75,10 @@ int Game::setup() {
 
 	// Würfel erzeugen
 	physicsBox = PF->CreateBox();
-	if (physicsBox) physicsBox->Init(0, 5, 0, 5, 5, 7, 10);
+	if (physicsBox) {
+		physicsBox->Init(0, 5, 0, 5, 5, 7, 10);
+		physicsBox->SetOrientation(30*DEG2RAD, 30*DEG2RAD, 0.0f);
+	}
 
 	// Boden erzeugen
 	physicsPlane = PF->CreateTerrainPlane();
@@ -191,9 +194,9 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 
 	// Lichter rendern
 	cubeLights[0]->setPosition(vector3df(
-		(float)sin((device->getTimer()->getTime() / 50 % 360)/180.0F*3.141F)*5, 
+		(float)sin(((device->getTimer()->getTime() / 50 + 90) % 360)/180.0F*3.141F)*7, 
 		0.25F,
-		(float)cos((device->getTimer()->getTime() / 50 % 360)/180.0F*3.141F)*5));
+		(float)cos(((device->getTimer()->getTime() / 50 + 90) % 360)/180.0F*3.141F)*7));
 
 	cubeLights[1]->setPosition(vector3df(
 		(float)sin((device->getTimer()->getTime() / 50 % 360 + 270)/180.0F*3.141F)*2, 
