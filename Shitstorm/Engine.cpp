@@ -17,7 +17,7 @@ int Engine::createDevice(int width, int height, bool fullscreen, bool stencilBuf
 
 	// Parameter
 	SIrrlichtCreationParameters params;
-	params.AntiAlias = 0;
+	params.AntiAlias = 0; // EAAM_QUALITY;
 	params.WindowSize = screenSize;
 	params.Stencilbuffer = stencilBuffer;
 	params.Fullscreen = fullscreen;
