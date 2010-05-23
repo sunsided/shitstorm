@@ -1,6 +1,5 @@
 #include "PlaneNode.h"
 
-
 void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd, f32 vStart, f32 vEnd) 
 {
 	// Fehler beheben
@@ -80,14 +79,13 @@ void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd,
 	}
 
 	// Temporäres Mesh generieren
-	SMesh *mesh = new SMesh();
-	mesh->addMeshBuffer(MeshBuffer);
+	{
+		SMesh mesh;
+		mesh.addMeshBuffer(MeshBuffer);
 
-	// Mesh neuberechnen
-	Mesh = SceneManager->getMeshManipulator()->createMeshWithTangents(mesh);
-
-	// Temporäres Mesh entfernen
-	delete(mesh);
+		// Mesh neuberechnen
+		Mesh = SceneManager->getMeshManipulator()->createMeshWithTangents(&mesh);
+	}
 
 	// Material setzen
 	Material.Wireframe = false;

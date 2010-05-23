@@ -43,6 +43,16 @@ int Game::setup() {
 		material->MaterialType = EMT_NORMAL_MAP_SOLID;
 	}
 
+	// Kleinen Würfel erzeugen
+	tinyCube = new CubeNode(2, 1, 4, 4, smgr->getRootSceneNode(), smgr, 766);
+	for(int i=0; i<tinyCube->getMaterialCount(); ++i)
+	{
+		SMaterial *material = &tinyCube->getMaterial(i);
+		material->setTexture(0, driver->getTexture("textures\\wood.jpg"));
+		material->setTexture(1, normalMap);
+		material->MaterialType = EMT_NORMAL_MAP_SOLID;
+	}
+
 	// Boden erzeugen
 	plane = new PlaneNode(15, 15, 4, smgr->getRootSceneNode(), smgr, 667);
 	plane->getMaterial(0).setTexture(0, driver->getTexture("textures\\wood2.jpg"));
@@ -53,8 +63,13 @@ int Game::setup() {
 	// Lichter erzeugen
 	cubeLights[0] = smgr->addLightSceneNode(0, core::vector3df(0,0,0),
 					video::SColorf(1.0f, 1.0F, 0.0F, 1.0F), 15.0f);
+	cubeLights[0]->enableCastShadow(true);
 	cubeLights[1] = smgr->addLightSceneNode(0, core::vector3df(0,0,0),
 					video::SColorf(1.0f, 0.0F, 0.0F, 1.0F), 10.0f);
+	cubeLights[1]->enableCastShadow(true);
+
+	// Ambientes Licht
+	smgr->setAmbientLight(SColorf(0.09f, 0.09f, 0.09f));
 
 	// Physikengine laden
 	cout << "Initialisiere Physikengine ..." << endl;
@@ -73,16 +88,38 @@ int Game::setup() {
 		return -1;
 	}
 
+	// Materialien
+	palMaterials *materials = PF->CreateMaterials();
+	palMaterialDesc matDesc;
+	matDesc.m_fStatic = 0.75f;
+	matDesc.m_fKinetic = 0.5f;
+	matDesc.m_fRestitution = 0.01f;
+	matDesc.m_bEnableAnisotropicFriction = true;
+	materials->NewMaterial("wood", matDesc);
+
 	// Würfel erzeugen
 	physicsBox = PF->CreateBox();
 	if (physicsBox) {
-		physicsBox->Init(0, 5, 0, 5, 5, 7, 10);
+		physicsBox->Init(0, 5, 0, 5, 5, 6, 1000);
+		physicsBox->SetMaterial(materials->GetMaterial("wood"));
 		physicsBox->SetOrientation(30*DEG2RAD, 30*DEG2RAD, 0.0f);
+		physicsBox->SetSkinWidth(0.2);
+	}
+
+	// Kleinen Würfel erzeugen
+	tinyPhysicsBox = PF->CreateBox();
+	if (tinyPhysicsBox) {
+		tinyPhysicsBox->Init(-3, 0.5, -2.3, 2, 1, 4, 10);
+		tinyPhysicsBox->SetMaterial(materials->GetMaterial("wood"));
+		tinyPhysicsBox->SetSkinWidth(0.1);
 	}
 
 	// Boden erzeugen
 	physicsPlane = PF->CreateTerrainPlane();
-	if (physicsPlane) physicsPlane->Init(0, 0, 0, 15);
+	if (physicsPlane) {
+		physicsPlane->Init(0, 0, 0, 15);
+		// physicsPlane->SetMaterial(materials->GetMaterial("wood"));
+	}
 
 	return SUCCESS;
 }
@@ -125,6 +162,21 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 	if(eventReceiver.keyPressed(KEY_ESCAPE)) {
 		device->closeDevice();
 		return;
+	}
+
+	// Schleife beenden
+	if(eventReceiver.keyPressed(KEY_KEY_R)) {
+		physicsBox->SetPosition(0, 6, 0);
+		physicsBox->SetOrientation(0, (device->getTimer()->getRealTime() % 360) * DEGTORAD, ((device->getTimer()->getRealTime() % 50) - 15) * DEGTORAD);
+		physicsBox->SetAngularVelocity(palVector3(0, 0, 0));
+		physicsBox->SetLinearVelocity(palVector3(0, 0, 0));
+		physicsBox->SetActive(true);
+
+		tinyPhysicsBox->SetPosition(-3, 0.5, -2.3);
+		tinyPhysicsBox->SetOrientation(0, ((device->getTimer()->getRealTime() % 50) - 25) * DEGTORAD, 0);
+		tinyPhysicsBox->SetAngularVelocity(palVector3(0, 0, 0));
+		tinyPhysicsBox->SetLinearVelocity(palVector3(0, 0, 0));
+		tinyPhysicsBox->SetActive(true);
 	}
 		
 	// Kistenposition ermitteln
@@ -179,6 +231,11 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 		memcpy(&mat[0], matrix._mat, sizeof(f32)*4*4);
 		foo.setPosition(mat.getTranslation());
 		cube->setRotation(mat.getRotationDegrees());
+
+		matrix = tinyPhysicsBox->GetLocationMatrix();
+		memcpy(&mat[0], matrix._mat, sizeof(f32)*4*4);
+		tinyCube->setPosition(mat.getTranslation());
+		tinyCube->setRotation(mat.getRotationDegrees());
 	}
 
 	// FOV der Kamera ändern - Zoomen
@@ -202,17 +259,9 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 		(float)sin((device->getTimer()->getTime() / 50 % 360 + 270)/180.0F*3.141F)*2, 
 		14.25F,
 		(float)cos((device->getTimer()->getTime() / 50 % 360 + 270)/180.0F*3.141F)*2));
-
+	
 	// Boden rendern
 	plane->setPosition(vector3df(0, 0, 0));
-	
-	// Licht durchcyclen
-	/*
-	float lightValue = (device->getTimer()->getTime() / 100 % 200)/100.0F;
-	if(lightValue > 1) lightValue = 1.0F - lightValue;
-	*/
-	float lightValue = 0.15f;
-	smgr->setAmbientLight(SColorf(lightValue, lightValue, lightValue));
 
 	// Szene rendern
 	driver->beginScene(true, true, SColor(255, 64, 64, 64));

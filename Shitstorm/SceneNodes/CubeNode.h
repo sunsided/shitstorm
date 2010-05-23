@@ -21,8 +21,8 @@ public:
 	virtual void render();
 
 	virtual const aabbox3d<f32>& getBoundingBox() const { return Box; } 
-	virtual s32 getMaterialCount() { return 6; }
-	virtual SMaterial& getMaterial(s32 i) { return Planes[i]->getMaterial(0); }
+	virtual u32 getMaterialCount() { return 6; }
+	virtual SMaterial& getMaterial(u32 i) { return Planes[i]->getMaterial(0); }
 	virtual void OnRegisterSceneNode();
 	
 private:
@@ -30,7 +30,7 @@ private:
 
 private:
 	core::aabbox3d<f32> Box;
-	PlaneNode *Planes[6];
+	ISceneNode *Planes[6];
 	bool initialized;
 };
 

@@ -22,9 +22,11 @@ public:
 	virtual void render();
 
 	virtual const aabbox3d<f32>& getBoundingBox() const { return Box; }
-	virtual s32 getMaterialCount() { return 1; }
-	virtual SMaterial& getMaterial(s32 i) { return Material; }
+	virtual u32 getMaterialCount() { return 1; }
+	virtual SMaterial& getMaterial(u32 i) { return Material; }
 	virtual void OnRegisterSceneNode();
+
+	const IMesh* getMesh() const { return Mesh; }
 
 private:
 	void initPlane(f32 width, f32 height, u8 quads = 1, f32 uStart = 0.0f, f32 uEnd = 1.0f, f32 vStart = 0.0f, f32 vEnd = 1.0f);

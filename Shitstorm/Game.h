@@ -23,11 +23,13 @@ protected:
 protected:
 	ICameraSceneNode* camera;
 	CubeNode* cube;
-	ISceneNode* cubeLights[2];
+	CubeNode* tinyCube;
+	ILightSceneNode* cubeLights[2];
 	PlaneNode* plane;
 	
 	palPhysics *physics;
 	palBox *physicsBox;
+	palBox *tinyPhysicsBox;
 	palTerrainPlane *physicsPlane;
 };
 

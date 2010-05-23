@@ -8,31 +8,33 @@ using namespace video;
 #define LEFT	4
 #define RIGHT	5
 
+#define ID_BASE	1
+
 void CubeNode::initCube(f32 width, f32 height, f32 depth, u8 quads) 
 {
 	if(initialized) for (u8 i=1; i<6; ++i) delete Planes[i];
 	initialized = true;
 
-	Planes[TOP]		= new PlaneNode(width, depth, quads, this, SceneManager, 1);
+	Planes[TOP]		= new PlaneNode(width, depth, quads, this, SceneManager, TOP+ID_BASE);
 	Planes[TOP]->setPosition(vector3df(0.0f, height/2.0f, 0.0f));
 
-	Planes[BOTTOM]	= new PlaneNode(width, depth, quads, this, SceneManager, 1);
+	Planes[BOTTOM]	= new PlaneNode(width, depth, quads, this, SceneManager, BOTTOM+ID_BASE);
 	Planes[BOTTOM]->setPosition(vector3df(0.0f, -height/2.0f, 0.0f));
 	Planes[BOTTOM]->setRotation(vector3df(180.0f, 0.0f, 0.0f));
 
-	Planes[FRONT]	= new PlaneNode(width, height, quads, this, SceneManager, 1);
+	Planes[FRONT]	= new PlaneNode(width, height, quads, this, SceneManager, FRONT+ID_BASE);
 	Planes[FRONT]->setPosition(vector3df(0.0f, 0.0f, -depth/2.0f));
 	Planes[FRONT]->setRotation(vector3df(-90.0f, 0.0f, 0.0f));
 
-	Planes[BACK]	= new PlaneNode(width, height, quads, this, SceneManager, 1);
+	Planes[BACK]	= new PlaneNode(width, height, quads, this, SceneManager, BACK+ID_BASE);
 	Planes[BACK]->setPosition(vector3df(0.0f, 0.0f, depth/2.0f));
 	Planes[BACK]->setRotation(vector3df(90.0f, 0.0f, 0.0f));
 
-	Planes[LEFT]	= new PlaneNode(depth, height, quads, this, SceneManager, 1);
+	Planes[LEFT]	= new PlaneNode(depth, height, quads, this, SceneManager, LEFT+ID_BASE);
 	Planes[LEFT]->setPosition(vector3df(-width/2.0f, 0.0f, 0.0f));
 	Planes[LEFT]->setRotation(vector3df(-90.0f, 90.0f, 0.0f));
 
-	Planes[RIGHT]	= new PlaneNode(depth, height, quads, this, SceneManager, 1);
+	Planes[RIGHT]	= new PlaneNode(depth, height, quads, this, SceneManager, RIGHT+ID_BASE);
 	Planes[RIGHT]->setPosition(vector3df(width/2.0f, 0.0f, 0.0f));
 	Planes[RIGHT]->setRotation(vector3df(-90.0f, -90.0f, 0.0f));
 
