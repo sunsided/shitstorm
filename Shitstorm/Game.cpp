@@ -27,9 +27,10 @@ int Game::setup() {
 	device->getCursorControl()->setVisible(false);
 
 	// Kamera erzeugen
-	camera = smgr->addCameraSceneNodeFPS(0, 100.0f, 100.0f);
+	camera = smgr->addCameraSceneNode();
 	camera->setPosition(vector3df(0, 10, -10)); // 10 oben, 10 zurück (aus dem Bildschirm heraus)
 	camera->setTarget(vector3df(0, 0, 0));
+	camera->bindTargetAndRotation(true);
 
 	// Würfel erzeugen
 	cube = new CubeNode(5, 5, 7, 4, smgr->getRootSceneNode(), smgr, 666);
@@ -103,7 +104,7 @@ int Game::setup() {
 		physicsBox->Init(0, 5, 0, 5, 5, 6, 1000);
 		physicsBox->SetMaterial(materials->GetMaterial("wood"));
 		physicsBox->SetOrientation(30*DEG2RAD, 30*DEG2RAD, 0.0f);
-		physicsBox->SetSkinWidth(0.2);
+		//physicsBox->SetSkinWidth(0.2);
 	}
 
 	// Kleinen Würfel erzeugen
@@ -111,7 +112,7 @@ int Game::setup() {
 	if (tinyPhysicsBox) {
 		tinyPhysicsBox->Init(-3, 0.5, -2.3, 2, 1, 4, 10);
 		tinyPhysicsBox->SetMaterial(materials->GetMaterial("wood"));
-		tinyPhysicsBox->SetSkinWidth(0.1);
+		//tinyPhysicsBox->SetSkinWidth(0.1);
 	}
 
 	// Boden erzeugen
@@ -238,6 +239,37 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 		tinyCube->setRotation(mat.getRotationDegrees());
 	}
 
+	// Kamera drehen
+	static vector2df lastCursorPosition = device->getCursorControl()->getRelativePosition() - vector2df(0.5f, 1.0f);
+	vector2df realCursorPosition = device->getCursorControl()->getRelativePosition() - vector2df(0.5f, 0.5f);
+	vector2df cursorPosition = realCursorPosition - lastCursorPosition;
+	lastCursorPosition = realCursorPosition;
+
+	vector3df cameraRotation = camera->getRotation();
+	cameraRotation.X += 100 * cursorPosition.Y;
+	cameraRotation.Y += 100 * cursorPosition.X;
+	cameraRotation.X = clamp<f32>(cameraRotation.X, -89.9, 89.9);
+	camera->setRotation(cameraRotation);
+
+	// Kamera bewegen
+	vector3df cameraPosition = camera->getPosition();
+	vector3df cameraDirection = (camera->getTarget() - cameraPosition).normalize();
+	vector3df cameraRight =	camera->getUpVector().crossProduct(cameraDirection); //.normalize();
+	if (eventReceiver.keyDown(KEY_KEY_W)) {
+		cameraPosition += cameraDirection * 0.025;
+	}
+	if (eventReceiver.keyDown(KEY_KEY_S)) {
+		cameraPosition -= cameraDirection * 0.025;
+	}
+	if (eventReceiver.keyDown(KEY_KEY_A)) {
+		cameraPosition -= cameraRight * 0.025;
+	}
+	if (eventReceiver.keyDown(KEY_KEY_D)) {
+		cameraPosition += cameraRight * 0.025;
+	}
+	camera->setPosition(cameraPosition);
+
+
 	// FOV der Kamera ändern - Zoomen
 	camera->setFOV(min<f32>(PI - 0.005f, max<f32>(0.005f, camera->getFOV() - eventReceiver.mouseWheel() * 0.05f)));
 	if(eventReceiver.middleMousePressed()) camera->setFOV(1.256637f);
@@ -272,6 +304,10 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 
 	core::stringw text = L"FPS: ";
 	text += getFps();
+	text += L"\r\nMouse: ";
+	text += cursorPosition.X;
+	text += L", ";
+	text += cursorPosition.Y;
 	text += L"\r\nCamera rot: ";
 	text += camera->getRotation().X;
 	text += L", ";
