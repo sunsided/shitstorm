@@ -239,18 +239,18 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 		tinyCube->setRotation(mat.getRotationDegrees());
 	}
 
-	// Kamera drehen
-	static vector2df lastCursorPosition = device->getCursorControl()->getRelativePosition() - vector2df(0.5f, 1.0f);
-	vector2df realCursorPosition = device->getCursorControl()->getRelativePosition() - vector2df(0.5f, 0.5f);
-	vector2df cursorPosition = realCursorPosition - lastCursorPosition;
-	lastCursorPosition = realCursorPosition;
+	// Kameravektoren und Cursorposition ermitteln
+	// Danach wird der Cursor zurückgesetzt
+	vector2df cursorPosition = device->getCursorControl()->getRelativePosition() - vector2df(0.5f, 0.5f);
+	device->getCursorControl()->setPosition(0.5f, 0.5f);
 
+	// Kamera drehen
 	vector3df cameraRotation = camera->getRotation();
 	cameraRotation.X += 100 * cursorPosition.Y;
 	cameraRotation.Y += 100 * cursorPosition.X;
 	cameraRotation.X = clamp<f32>(cameraRotation.X, -89.9, 89.9);
 	camera->setRotation(cameraRotation);
-
+	
 	// Kamera bewegen
 	vector3df cameraPosition = camera->getPosition();
 	vector3df cameraDirection = (camera->getTarget() - cameraPosition).normalize();
@@ -305,6 +305,10 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 	core::stringw text = L"FPS: ";
 	text += getFps();
 	text += L"\r\nMouse: ";
+	text += eventReceiver.mouseX();
+	text += L", ";
+	text += eventReceiver.mouseY();
+	text += L"\r\nCursor: ";
 	text += cursorPosition.X;
 	text += L", ";
 	text += cursorPosition.Y;
