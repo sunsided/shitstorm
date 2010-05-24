@@ -41,10 +41,10 @@ namespace pv {
 		 * ob die Hauptschleife durchlaufen werden soll.
 		 * @returns	true, wenn die Hauptschleife aufgerufen werden soll, sonst false
 		 */
-		inline bool OnPreSceneLoop(irr::f32 elapsedTime) { return true; }
+		inline bool OnPreSceneLoop(irr::f32 elapsedTime);
 
 		//! Implementierung der Haupt-Spielschleife
-		void OnSceneLoop(irr::f32 elapsedTime) { getDevice()->yield(); }
+		void OnSceneLoop(irr::f32 elapsedTime);
 
 		//! Handler für das Pause-Ereignis
 		void OnPause() { getTimer()->pause(); }

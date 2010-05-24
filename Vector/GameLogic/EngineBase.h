@@ -24,7 +24,8 @@ namespace pv {
 
 		//! Erzeugt eine neue Instanz der EngineBase-Klasse.
 		EngineBase(void) :
-		  irrlichtDevice(NULL), sceneManager(NULL), videoDriver(NULL), guiEnvironment(NULL), engineClean(true), timer(NULL), paused(false)
+		  irrlichtDevice(NULL), sceneManager(NULL), videoDriver(NULL), guiEnvironment(NULL), 
+			  engineClean(true), timer(NULL), paused(false), sceneStarted(false)
 		{}
 
 		//! Destruktor.
@@ -80,6 +81,22 @@ namespace pv {
 		//! Handler für das Unpause-Ereignis
 		virtual void OnUnpause() = 0;
 
+		//! Ermittelt, ob das Spiel in den Pause-Modus wechseln sollte.
+		/** Das Standardverhalten richtet sich nach dem Fokus des Hauptfensters.
+		 *  Hat das Fenster den Fokus verloren (und wurde noch keine Pause aktiviert),
+		 *  so gibt diese Funktion den Wert true zurück.
+		 * @returns true, wenn das Spiel in den Pause-Modus wechseln soll
+		 */
+		virtual bool shouldPause() { return !(paused || irrlichtDevice->isWindowActive()); }
+
+		//! Ermittelt, ob das Spiel den Pause-Modus verlassen sollte
+		/** Das Standardverhalten richtet sich nach dem Fokus des Hauptfensters.
+		 *  Hat das Fenster den Fokus bekommen (und ist der Pausenmodus aktiviert),
+		 *  so gibt diese Funktion den Wert true zurück.
+		 * @returns true, wenn das Spiel in den Pausen-Modus verlassen soll
+		 */
+		virtual bool shouldUnpause() { return paused && irrlichtDevice->isWindowActive(); }
+
 		//! Ermittelt die FPS
 		inline irr::u32 getFps() const { return videoDriver ? videoDriver->getFPS() : 0; }
 
@@ -97,6 +114,18 @@ namespace pv {
 
 		//! Bezieht den Timer
 		inline GameTimer* getTimer() const { return timer; }
+
+		//! Beginnt die Szene
+		inline void beginScene(irr::video::SColor &color) { 
+			getDriver()->beginScene(true, true, color);
+			sceneStarted = true;
+		}
+
+		//! Beendet die Szene
+		inline void endScene() {
+			if (sceneStarted) getDriver()->endScene();
+			sceneStarted = false;
+		}
 
 	private:
 
@@ -129,6 +158,9 @@ namespace pv {
 
 		//! Gibt an, ob das Spiel angehalten wurde
 		volatile bool paused;
+
+		//! Gibt an, ob die Szene gestartet wurde
+		bool sceneStarted;
 	};
 
 }

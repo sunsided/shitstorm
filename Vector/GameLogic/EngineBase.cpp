@@ -132,6 +132,10 @@ namespace pv {
 		// Spielschleife starten
 		while(irrlichtDevice->run())
 		{
+			// Pausen handhaben
+			if (shouldPause()) pause();
+			else if(shouldUnpause()) unpause();
+
 			// Zeit ermitteln
 			f32 deltaT = timer->update();
 
@@ -140,6 +144,9 @@ namespace pv {
 
 			// Szene durcharbeiten
 			OnSceneLoop(deltaT);
+
+			// Szene beenden, falls nötig
+			endScene();
 		}
 
 		// Aufräumen

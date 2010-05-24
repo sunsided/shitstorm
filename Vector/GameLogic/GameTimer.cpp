@@ -15,7 +15,7 @@ namespace pv {
 	* @param device	Das Device, von dem der Timer bezogen werden soll
 	*/
 	GameTimer::GameTimer(irr::IrrlichtDevice *device) 
-	 : lastTime(-1), deltaT(0.0f), timerSpeed(0.0f)
+	 : lastTime(-1), deltaT(0.0f), timerSpeed(0.0f), timer(NULL)
 	{
 		setTimer(device->getTimer());
 	}
@@ -25,7 +25,7 @@ namespace pv {
 	* @param timer		Der zu übernehmende Timer
 	*/
 	GameTimer::GameTimer(irr::ITimer *timer)
-	 : lastTime(-1), deltaT(0), timerSpeed(0.0f)
+	 : lastTime(-1), deltaT(0), timerSpeed(0.0f), timer(NULL)
 	{
 		setTimer(timer);
 	}
