@@ -1,0 +1,44 @@
+/** 
+ * Project Vector
+ * Statuscodes der Engine
+ *
+ * (c) 2010, Markus Mayer <code@defx.de>
+ * $Id$
+ */
+
+#ifndef _ENGINESTATUSCODE_H
+#define _ENGINESTATUSCODE_H
+#pragma once
+
+namespace pv {
+
+	//! Statuscodes der Game-Engine
+	typedef enum EEngineStatusCode {
+		
+		//! Vorgang erfolgreich abgeschlossen
+		ESC_SUCCESS = 0,
+
+		//! Die Instanzierung der Engine ist fehlgeschlagen
+		ESC_INSTANCIATION_FAILED = 1,
+
+		//! Das Erzeugen des Irrlicht-Devices ist fehlgeschlagen
+		ESC_DEVICE_CREATION_FAILED = 2,
+
+		//! Das Beziehen des Videotreibers ist fehlgeschlagen
+		ESC_VIDEO_DRIVER_FAILED = 3,
+
+		//! Das Beziehen des Szenenmanagers ist fehlgeschlagen
+		ESC_SMGR_FAILED = 4,
+
+		//! Das Beziehen der GUI-Umgebung ist fehlgeschlagen
+		ESC_GUIENV_FAILED = 5,
+
+		//! Intern
+		/** @internal Die Anzahl der Werte der EEngineStatusCode-Enumeration */
+		ESC_COUNT
+
+	} EngineStatusCode;
+
+}
+
+#endif
