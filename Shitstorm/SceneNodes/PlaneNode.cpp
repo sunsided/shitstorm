@@ -27,13 +27,14 @@ void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd,
 	SColor white = SColor(255, 255,255,255);
 
 	// Punkte generieren
-	int vertexIndex = 0;
 	for(u8 y=0; y<count; ++y)
 	{
 		f32 vertexY = yStart + y*yStep;
 		f32 vertexV = vStart + y*vStep;
 		for(u8 x=0; x<count; ++x)
 		{
+			int vertexIndex = y*count + x;
+
 			f32 vertexX = xStart + x*xStep;
 			f32 vertexU = uStart + x*uStep;
 			S3DVertex *vertex = &irr::video::S3DVertex( vertexX, 0, vertexY, 0,1,0, white, vertexU, vertexV);
@@ -43,9 +44,6 @@ void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd,
 			// Bounding Box generieren
 			if(vertexIndex > 0) Box.addInternalPoint(vertex->Pos);
 			else Box.reset(vertex->Pos);
-
-			// Nächster Vertexindex
-			++vertexIndex;
 		}
 	}
 
@@ -54,7 +52,6 @@ void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd,
 	int indexCount = TriangleCount*3;
 
 	// Indizes neu ermitteln; Alle Quadrate durchlaufen
-	vertexIndex = 0;
 	for(int squareY=0; squareY<this->quads; ++squareY) 
 	{
 		u16 squareRowStartIndex = squareY*this->quads + squareY%this->quads;

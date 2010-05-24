@@ -4,14 +4,6 @@
 #include <math.h>
 #include <iostream>
 
-#ifdef _DEBUG
-#pragma comment(lib, "libpald.lib")
-#pragma comment(lib, "libpal_bulletd.lib")
-#else
-#pragma comment(lib, "libpal.lib")
-#pragma comment(lib, "libpal_bullet.lib")
-#endif
-
 Game::Game(void)
 {
 }
@@ -30,13 +22,16 @@ int Game::setup() {
 	camera = smgr->addCameraSceneNode();
 	camera->setPosition(vector3df(0, 10, -10)); // 10 oben, 10 zurück (aus dem Bildschirm heraus)
 	camera->setTarget(vector3df(0, 0, 0));
-	camera->bindTargetAndRotation(true);
+	 camera->bindTargetAndRotation(true);
+
+	vector3df cameraRotation = camera->getRotation();
+	vector3df cameraTarget = camera->getTarget();
 
 	// Würfel erzeugen
 	cube = new CubeNode(5, 5, 7, 4, smgr->getRootSceneNode(), smgr, 666);
 	ITexture *normalMap = driver->getTexture("textures\\crate.nm.jpg");
 	driver->makeNormalMapTexture(normalMap, 10.0f);
-	for(int i=0; i<cube->getMaterialCount(); ++i)
+	for(u32 i=0; i<cube->getMaterialCount(); ++i)
 	{
 		SMaterial *material = &cube->getMaterial(i);
 		material->setTexture(0, driver->getTexture("textures\\crate.jpg"));
@@ -46,7 +41,7 @@ int Game::setup() {
 
 	// Kleinen Würfel erzeugen
 	tinyCube = new CubeNode(2, 1, 4, 4, smgr->getRootSceneNode(), smgr, 766);
-	for(int i=0; i<tinyCube->getMaterialCount(); ++i)
+	for(u32 i=0; i<tinyCube->getMaterialCount(); ++i)
 	{
 		SMaterial *material = &tinyCube->getMaterial(i);
 		material->setTexture(0, driver->getTexture("textures\\wood.jpg"));
@@ -101,16 +96,16 @@ int Game::setup() {
 	// Würfel erzeugen
 	physicsBox = PF->CreateBox();
 	if (physicsBox) {
-		physicsBox->Init(0, 5, 0, 5, 5, 6, 1000);
+		physicsBox->Init(0.0f, 5.0f, 0.0f, 5.0f, 5.0f, 6.0f, 1000.0f);
 		physicsBox->SetMaterial(materials->GetMaterial("wood"));
-		physicsBox->SetOrientation(30*DEG2RAD, 30*DEG2RAD, 0.0f);
+		physicsBox->SetOrientation(30.0f*(float)DEG2RAD, 30.0f*(float)DEG2RAD, 0.0f);
 		//physicsBox->SetSkinWidth(0.2);
 	}
 
 	// Kleinen Würfel erzeugen
 	tinyPhysicsBox = PF->CreateBox();
 	if (tinyPhysicsBox) {
-		tinyPhysicsBox->Init(-3, 0.5, -2.3, 2, 1, 4, 10);
+		tinyPhysicsBox->Init(-3.0f, 0.5f, -2.3f, 2.0f, 1.0f, 4.0f, 10.0f);
 		tinyPhysicsBox->SetMaterial(materials->GetMaterial("wood"));
 		//tinyPhysicsBox->SetSkinWidth(0.1);
 	}
@@ -118,7 +113,7 @@ int Game::setup() {
 	// Boden erzeugen
 	physicsPlane = PF->CreateTerrainPlane();
 	if (physicsPlane) {
-		physicsPlane->Init(0, 0, 0, 15);
+		physicsPlane->Init(0.0f, 0.0f, 0.0f, 15.0f);
 		// physicsPlane->SetMaterial(materials->GetMaterial("wood"));
 	}
 
@@ -173,7 +168,7 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 		physicsBox->SetLinearVelocity(palVector3(0, 0, 0));
 		physicsBox->SetActive(true);
 
-		tinyPhysicsBox->SetPosition(-3, 0.5, -2.3);
+		tinyPhysicsBox->SetPosition(-3, 0.5f, -2.3f);
 		tinyPhysicsBox->SetOrientation(0, ((device->getTimer()->getRealTime() % 50) - 25) * DEGTORAD, 0);
 		tinyPhysicsBox->SetAngularVelocity(palVector3(0, 0, 0));
 		tinyPhysicsBox->SetLinearVelocity(palVector3(0, 0, 0));
@@ -194,28 +189,28 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 		physicsEnabled = false;
 
 		if(eventReceiver.keyDown(KEY_LSHIFT) || eventReceiver.keyDown(KEY_SHIFT) || eventReceiver.keyDown(KEY_RSHIFT))
-			location.y += 0.01;
+			location.y += 0.01f;
 		else
-			location.z += 0.01;
+			location.z += 0.01f;
 	}
 	if(eventReceiver.keyDown(KEY_DOWN)) {
 		boxNeedsUpdating = true;
 		physicsEnabled = false;
 
 		if(eventReceiver.keyDown(KEY_LSHIFT) || eventReceiver.keyDown(KEY_SHIFT) || eventReceiver.keyDown(KEY_RSHIFT))
-			location.y -= 0.01;
+			location.y -= 0.01f;
 		else
-			location.z -= 0.01;
+			location.z -= 0.01f;
 	}
 	if(eventReceiver.keyDown(KEY_LEFT)) {
 		boxNeedsUpdating = true;
 		physicsEnabled = false;
-		location.x -= 0.01;
+		location.x -= 0.01f;
 	}
 	if(eventReceiver.keyDown(KEY_RIGHT)) {
 		boxNeedsUpdating = true;
 		physicsEnabled = false;
-		location.x += 0.01;
+		location.x += 0.01f;
 	}
 
 	// Kistenposition setzen
@@ -239,36 +234,48 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 		tinyCube->setRotation(mat.getRotationDegrees());
 	}
 
+	// Kamera bewegen
+	vector3df cameraPosition = camera->getPosition();
+	vector3df cameraTarget = camera->getTarget();
+	vector3df cameraDirection = (cameraTarget - cameraPosition).normalize();
+	vector3df cameraUp = camera->getUpVector();
+	vector3df cameraRight =	cameraUp.crossProduct(cameraDirection).normalize();
+	if (eventReceiver.keyDown(KEY_KEY_W)) {
+		cameraTarget += cameraDirection * 0.03f;
+		cameraPosition += cameraDirection * 0.03f;
+	}
+	if (eventReceiver.keyDown(KEY_KEY_S)) {
+		cameraTarget -= cameraDirection * 0.03f;
+		cameraPosition -= cameraDirection * 0.03f;
+	}
+	if (eventReceiver.keyDown(KEY_KEY_A)) {
+		cameraTarget -= cameraRight * 0.03f;
+		cameraPosition -= cameraRight * 0.03f;
+	}
+	if (eventReceiver.keyDown(KEY_KEY_D)) {
+		cameraTarget += cameraRight * 0.03f;
+		cameraPosition += cameraRight * 0.03f;
+	}
+	camera->setPosition(cameraPosition);
+	camera->setTarget(cameraTarget);
+
 	// Kameravektoren und Cursorposition ermitteln
 	// Danach wird der Cursor zurückgesetzt
 	vector2df cursorPosition = device->getCursorControl()->getRelativePosition() - vector2df(0.5f, 0.5f);
+	static vector2df cursorPositionCorrection = cursorPosition;
+	cursorPosition -= cursorPositionCorrection;
+	cursorPositionCorrection = vector2df(0, 0);
 	device->getCursorControl()->setPosition(0.5f, 0.5f);
 
-	// Kamera drehen
-	vector3df cameraRotation = camera->getRotation();
-	cameraRotation.X += 100 * cursorPosition.Y;
-	cameraRotation.Y += 100 * cursorPosition.X;
-	cameraRotation.X = clamp<f32>(cameraRotation.X, -89.9, 89.9);
-	camera->setRotation(cameraRotation);
-	
-	// Kamera bewegen
-	vector3df cameraPosition = camera->getPosition();
-	vector3df cameraDirection = (camera->getTarget() - cameraPosition).normalize();
-	vector3df cameraRight =	camera->getUpVector().crossProduct(cameraDirection); //.normalize();
-	if (eventReceiver.keyDown(KEY_KEY_W)) {
-		cameraPosition += cameraDirection * 0.025;
-	}
-	if (eventReceiver.keyDown(KEY_KEY_S)) {
-		cameraPosition -= cameraDirection * 0.025;
-	}
-	if (eventReceiver.keyDown(KEY_KEY_A)) {
-		cameraPosition -= cameraRight * 0.025;
-	}
-	if (eventReceiver.keyDown(KEY_KEY_D)) {
-		cameraPosition += cameraRight * 0.025;
-	}
-	camera->setPosition(cameraPosition);
+	// Sichtachse drehen
+	vector3df cameraRotation = vector3df( 100 * cursorPosition.Y,  100 * cursorPosition.X, 0.0f );
+	cameraRotation.X = clamp<f32>(cameraRotation.X, -89.9f, 89.9f);
 
+	vector3df cameraDirectionEx = (cameraTarget - camera->getPosition()).normalize();
+	matrix4 m;
+	m.setRotationDegrees(cameraRotation);
+	m.rotateVect(cameraDirectionEx);
+	camera->setTarget(cameraDirectionEx + camera->getPosition());
 
 	// FOV der Kamera ändern - Zoomen
 	camera->setFOV(min<f32>(PI - 0.005f, max<f32>(0.005f, camera->getFOV() - eventReceiver.mouseWheel() * 0.05f)));
@@ -312,12 +319,48 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 	text += cursorPosition.X;
 	text += L", ";
 	text += cursorPosition.Y;
+
+	text += L"\r\nCamera direction: ";
+	text += cameraDirection.X;
+	text += L", ";
+	text += cameraDirection.Y;
+	text += L", ";
+	text += cameraDirection.Z;
+	text += L"\r\nCamera up: ";
+	text += cameraUp.X;
+	text += L", ";
+	text += cameraUp.Y;
+	text += L", ";
+	text += cameraUp.Z;
+	text += L"\r\nCamera right: ";
+	text += cameraRight.X;
+	text += L", ";
+	text += cameraRight.Y;
+	text += L", ";
+	text += cameraRight.Z;
+
+	text += L"\r\nCamera pos: ";
+	text += camera->getPosition().X;
+	text += L", ";
+	text += camera->getPosition().Y;
+	text += L", ";
+	text += camera->getPosition().Z;
+
 	text += L"\r\nCamera rot: ";
 	text += camera->getRotation().X;
 	text += L", ";
 	text += camera->getRotation().Y;
 	text += L", ";
 	text += camera->getRotation().Z;
+
+	vector3df cameraTargetVector = (camera->getTarget() - camera->getPosition()).normalize();
+
+	text += L"\r\nCamera target: ";
+	text += cameraTargetVector.X;
+	text += L", ";
+	text += cameraTargetVector.Y;
+	text += L", ";
+	text += cameraTargetVector.Z;
 	text += L"\r\nCamera FOV: ";
 	text += camera->getFOV();
 	text += L"\r\nPhysics: ";
@@ -340,7 +383,8 @@ void Game::sceneLoop(f32 deltaT, bool windowIsActive) {
 	text += L"\r\nPhysics box: ";
 	text += physicsBox->IsActive() ? "active" : "resting";
 
-	guienv->addStaticText(text.c_str(), rect<int>(5,5, getScreenSize().Width - 5, getScreenSize().Height - 5), false, false);
+	bool fillBackground = eventReceiver.keyDown(KEY_F1);
+	guienv->addStaticText(text.c_str(), rect<int>(5,5, getScreenSize().Width - 5, getScreenSize().Height - 5), false, false, 0, -1, fillBackground);
     guienv->drawAll();
 
 

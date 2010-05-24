@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shitstorm", "Shitstorm\Shit
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EE40C18D-70B6-4682-A985-E4CFD229A2D1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vector", "Vector\Vector.vcxproj", "{6C3C1BAD-076C-41F6-AD02-EDBBE8AFC0B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,16 @@ Global
 		{1A4C55FD-3095-475E-9F8A-F254BEF86EC8}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{1A4C55FD-3095-475E-9F8A-F254BEF86EC8}.Release|Win32.ActiveCfg = Release|Win32
 		{1A4C55FD-3095-475E-9F8A-F254BEF86EC8}.Release|Win32.Build.0 = Release|Win32
+		{6C3C1BAD-076C-41F6-AD02-EDBBE8AFC0B3}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{6C3C1BAD-076C-41F6-AD02-EDBBE8AFC0B3}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{6C3C1BAD-076C-41F6-AD02-EDBBE8AFC0B3}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{6C3C1BAD-076C-41F6-AD02-EDBBE8AFC0B3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6C3C1BAD-076C-41F6-AD02-EDBBE8AFC0B3}.Debug|Win32.Build.0 = Debug|Win32
+		{6C3C1BAD-076C-41F6-AD02-EDBBE8AFC0B3}.Release|Any CPU.ActiveCfg = Release|Win32
+		{6C3C1BAD-076C-41F6-AD02-EDBBE8AFC0B3}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{6C3C1BAD-076C-41F6-AD02-EDBBE8AFC0B3}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{6C3C1BAD-076C-41F6-AD02-EDBBE8AFC0B3}.Release|Win32.ActiveCfg = Release|Win32
+		{6C3C1BAD-076C-41F6-AD02-EDBBE8AFC0B3}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

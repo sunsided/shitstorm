@@ -21,7 +21,7 @@ public:
 	void setTimer(IrrlichtDevice *device);
 
 	/**! Setzt den Timer zurück */
-	void reset() { lastTime = deltaT = 0; }
+	void reset() { lastTime = 0; deltaT = 0.0f; }
 
 	//! Pausiert die Spielzeit
 	void pause() {

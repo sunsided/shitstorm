@@ -6,7 +6,10 @@
 #include "SceneNodes\CubeNode.h"
 #include "SceneNodes\PlaneNode.h"
 
+#pragma warning(push)
+#pragma warning(disable: 4996) 
 #include <pal/palFactory.h>
+#pragma warning(pop)
 
 class Game : public Engine
 {
