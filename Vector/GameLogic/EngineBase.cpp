@@ -9,7 +9,9 @@
 #include "EngineBase.h"
 
 #include <assert.h>
+#include <iostream>
 
+using namespace std;
 using namespace irr;
 
 namespace pv {
@@ -50,6 +52,7 @@ namespace pv {
 	EngineStatusCode EngineBase::initialize(EngineInitializationParams &params) {
 
 		// Engine als "dirty" markieren
+		cout << "Initialisiere Engine, 1st stage ..." << endl;
 		engineClean = false;
 
 		// Videotreiber ermitteln
@@ -92,6 +95,7 @@ namespace pv {
 		assert(timer);
 
 		// Initialisieren
+		cout << "Initialisiere Engine, 2nd stage ..." << endl;
 		return OnSetupEngine();
 	}
 
@@ -101,6 +105,8 @@ namespace pv {
 		// Testen, ob wir bereits aufgeräumt haben
 		if (engineClean) return;
 		engineClean = true;
+
+		cout << "Beende Engine ..." << endl;
 
 		// Abgeleitete Klasse abschießen
 		OnTeardownEngine();
@@ -124,6 +130,7 @@ namespace pv {
 		// Initialisierung überprüfen
 		// TODO: Exception werfen
 		assert(irrlichtDevice);
+		cout << "Starte Spielschleife ..." << endl;
 
 		// Motor vorglühen
 		irrlichtDevice->run();
@@ -150,6 +157,7 @@ namespace pv {
 		}
 
 		// Aufräumen
+		cout << "Spielschleife beendet." << endl;
 		close();
 
 		return ESC_SUCCESS;
@@ -159,12 +167,16 @@ namespace pv {
 	void EngineBase::pause() {
 		if (paused) return;
 		paused = true;
+
+		cout << "(Pause begonnen)" << endl;
 		OnPause();
 	}
 
 	//! Setzt das Spiel fort
 	void EngineBase::unpause() {
 		if (!paused) return;
+
+		cout << "(Pause beendet)" << endl;
 		OnUnpause();
 		paused = false;
 	}
