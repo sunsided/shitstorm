@@ -7,8 +7,9 @@
 #include "global.h"
 #include "linker.h"
 
-#include "GameLogic\EngineBase.h"
+#include "GameLogic\GameEngine.h"
 
+#include <memory>
 #include <iostream>
 
 using namespace std;
@@ -16,8 +17,8 @@ using namespace std;
 int main(int argc, char **argv) {
 
 	// Engine erzeugen
-	pv::EngineBase *engine = NULL;
-	if (!engine) {
+	auto_ptr<pv::EngineBase> engine( new pv::GameEngine() );
+	if (!engine.get()) {
 		cerr << "Engine konnte nicht erzeugt werden." << endl;
 		return pv::ESC_INSTANCIATION_FAILED;
 	}
@@ -33,5 +34,8 @@ int main(int argc, char **argv) {
 	}
 
 	// Engine starten
-	return engine->run();
+	result = engine->run();
+
+	// Engine freigeben und Spiel beenden
+	return result;
 }

@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameLogic\EngineBase.cpp" />
+    <ClCompile Include="GameLogic\GameEngine.cpp" />
     <ClCompile Include="GameLogic\GameTimer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -94,6 +95,7 @@
     <ClInclude Include="GameLogic\EngineBase.h" />
     <ClInclude Include="GameLogic\EngineInitializationParams.h" />
     <ClInclude Include="GameLogic\EngineStatusCode.h" />
+    <ClInclude Include="GameLogic\GameEngine.h" />
     <ClInclude Include="GameLogic\GameTimer.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="linker.h" />

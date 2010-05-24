@@ -53,7 +53,7 @@ namespace pv {
 		//! Initialisiert die Struktur
 		SEngineInitializationParams() :
 			windowTitle(L"Project Vector"),
-			fullscreen(true), 
+			fullscreen(false), 
 			bitsPerPixel(16), 
 			screenSize(irr::core::dimension2d<irr::u32>(640, 480)), 
 #ifdef WIN32

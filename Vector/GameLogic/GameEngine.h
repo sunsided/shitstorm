@@ -1,0 +1,52 @@
+/** 
+ * Project Vector
+ * Game Engine
+ *
+ * (c) 2010, Markus Mayer <code@defx.de>
+ * $Id$
+ */
+
+#pragma once
+#ifndef _GAMEENGINE_H
+#define _GAMEENGINE_H
+
+#include "global.h"
+#include "EngineBase.h"
+
+namespace pv {
+
+	//! Die Spiele-Engine
+	class GameEngine : public EngineBase
+	{
+	public:
+
+		//! Erzeugt eine neue Instanz der GameEngine-Klasse.
+		GameEngine(void);
+
+		//! Destruktor.
+		~GameEngine(void);
+
+	protected:
+
+		//! Initialisiert die Engine
+		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
+		EngineStatusCode setupEngine() { return ESC_SUCCESS; }
+
+		//! Initialisiert die Engine
+		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
+		void teardownEngine() {}
+
+		//! Initialisiert die Spielschleife
+		/** Wird zu Beginn jedes Schleifendurchgangs aufgerufen und ermittelt,
+		 * ob die Hauptschleife durchlaufen werden soll.
+		 * @returns	true, wenn die Hauptschleife aufgerufen werden soll, sonst false
+		 */
+		inline bool preSceneLoop(irr::f32 elapsedTime) { return true; }
+
+		//! Implementierung der Haupt-Spielschleife
+		void sceneLoop(irr::f32 elapsedTime) { getDevice()->yield(); }
+	};
+
+}
+
+#endif

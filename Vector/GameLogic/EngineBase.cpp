@@ -17,6 +17,7 @@ namespace pv {
 	//! Destruktor.
 	EngineBase::~EngineBase(void)
 	{
+		close();
 	}
 
 	//! Ermittelt den Videotreiber
@@ -47,6 +48,9 @@ namespace pv {
 
 	//! Initialisiert die Engine
 	EngineStatusCode EngineBase::initialize(EngineInitializationParams &params) {
+
+		// Engine als "dirty" markieren
+		engineClean = false;
 
 		// Videotreiber ermitteln
 		video::E_DRIVER_TYPE driverType = selectVideoDriver(params.driver);
@@ -93,6 +97,10 @@ namespace pv {
 
 	//! Schlieﬂt die Engine
 	void EngineBase::close() {
+
+		// Testen, ob wir bereits aufger‰umt haben
+		if (engineClean) return;
+		engineClean = true;
 
 		// Abgeleitete Klasse abschieﬂen
 		teardownEngine();

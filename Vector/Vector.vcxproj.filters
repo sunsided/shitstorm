@@ -16,6 +16,9 @@
     <ClCompile Include="GameLogic\GameTimer.cpp">
       <Filter>GameLogic</Filter>
     </ClCompile>
+    <ClCompile Include="GameLogic\GameEngine.cpp">
+      <Filter>GameLogic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -30,6 +33,9 @@
       <Filter>GameLogic</Filter>
     </ClInclude>
     <ClInclude Include="GameLogic\GameTimer.h">
+      <Filter>GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogic\GameEngine.h">
       <Filter>GameLogic</Filter>
     </ClInclude>
   </ItemGroup>

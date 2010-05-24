@@ -22,7 +22,7 @@ namespace pv {
 	{
 	public:
 
-		//! Erzeugt eine neue Instanz der CEngineBase-Klasse.
+		//! Erzeugt eine neue Instanz der EngineBase-Klasse.
 		EngineBase(void) :
 		  irrlichtDevice(NULL), sceneManager(NULL), videoDriver(NULL), guiEnvironment(NULL), engineClean(true), timer(NULL)
 		{}
