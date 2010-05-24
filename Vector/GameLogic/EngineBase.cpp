@@ -92,7 +92,7 @@ namespace pv {
 		assert(timer);
 
 		// Initialisieren
-		return setupEngine();
+		return OnSetupEngine();
 	}
 
 	//! Schließt die Engine
@@ -103,7 +103,7 @@ namespace pv {
 		engineClean = true;
 
 		// Abgeleitete Klasse abschießen
-		teardownEngine();
+		OnTeardownEngine();
 
 		// Device freigeben
 		if(irrlichtDevice) {
@@ -136,16 +136,30 @@ namespace pv {
 			f32 deltaT = timer->update();
 
 			// Preloop
-			if (!preSceneLoop(deltaT)) continue;
+			if (!OnPreSceneLoop(deltaT)) continue;
 
 			// Szene durcharbeiten
-			sceneLoop(deltaT);
+			OnSceneLoop(deltaT);
 		}
 
 		// Aufräumen
 		close();
 
 		return ESC_SUCCESS;
+	}
+
+	//! Hält das Spiel an
+	void EngineBase::pause() {
+		if (paused) return;
+		paused = true;
+		OnPause();
+	}
+
+	//! Setzt das Spiel fort
+	void EngineBase::unpause() {
+		if (!paused) return;
+		OnUnpause();
+		paused = false;
 	}
 
 }

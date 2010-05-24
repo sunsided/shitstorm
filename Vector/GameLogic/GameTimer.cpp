@@ -35,7 +35,9 @@ namespace pv {
 	* @param timer		Der zu übernehmende Timer
 	*/
 	void GameTimer::setTimer(irr::ITimer *timer) {
+		if (this->timer) this->timer->drop();
 		this->timer = timer;
+		timer->grab();
 	}
 
 	//! Setzt den Timer

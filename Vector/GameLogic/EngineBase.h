@@ -24,7 +24,7 @@ namespace pv {
 
 		//! Erzeugt eine neue Instanz der EngineBase-Klasse.
 		EngineBase(void) :
-		  irrlichtDevice(NULL), sceneManager(NULL), videoDriver(NULL), guiEnvironment(NULL), engineClean(true), timer(NULL)
+		  irrlichtDevice(NULL), sceneManager(NULL), videoDriver(NULL), guiEnvironment(NULL), engineClean(true), timer(NULL), paused(false)
 		{}
 
 		//! Destruktor.
@@ -49,21 +49,36 @@ namespace pv {
 
 		//! Initialisiert die Engine
 		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
-		virtual EngineStatusCode setupEngine() = 0;
+		virtual EngineStatusCode OnSetupEngine() = 0;
 
 		//! Initialisiert die Engine
 		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
-		virtual void teardownEngine() = 0;
+		virtual void OnTeardownEngine() = 0;
 
 		//! Initialisiert die Spielschleife
 		/** Wird zu Beginn jedes Schleifendurchgangs aufgerufen und ermittelt,
 		 * ob die Hauptschleife durchlaufen werden soll.
 		 * @returns	true, wenn die Hauptschleife aufgerufen werden soll, sonst false
 		 */
-		inline virtual bool preSceneLoop(irr::f32 elapsedTime) { return true; }
+		inline virtual bool OnPreSceneLoop(irr::f32 elapsedTime) { return true; }
 
 		//! Implementierung der Haupt-Spielschleife
-		virtual void sceneLoop(irr::f32 elapsedTime) = 0;
+		virtual void OnSceneLoop(irr::f32 elapsedTime) = 0;
+
+		//! Hält das Spiel an
+		void pause();
+
+		//! Setzt das Spiel fort
+		void unpause();
+
+		//! Ermittelt, ob das Spiel angehalten wurde
+		inline bool isPaused() const { return paused; }
+
+		//! Handler für das Pause-Ereignis
+		virtual void OnPause() = 0;
+
+		//! Handler für das Unpause-Ereignis
+		virtual void OnUnpause() = 0;
 
 		//! Ermittelt die FPS
 		inline irr::u32 getFps() const { return videoDriver ? videoDriver->getFPS() : 0; }
@@ -79,6 +94,9 @@ namespace pv {
 
 		//! Bezieht die GUI-Umgebung
 		inline irr::gui::IGUIEnvironment* getGUIEnvironment() const { return guiEnvironment; }
+
+		//! Bezieht den Timer
+		inline GameTimer* getTimer() const { return timer; }
 
 	private:
 
@@ -106,8 +124,11 @@ namespace pv {
 		//! Gibt an, ob die Engine aufgeräumt wurde
 		bool engineClean;
 
-		// Der Game-Timer
+		//! Der Game-Timer
 		GameTimer *timer;
+
+		//! Gibt an, ob das Spiel angehalten wurde
+		volatile bool paused;
 	};
 
 }

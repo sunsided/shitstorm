@@ -30,21 +30,27 @@ namespace pv {
 
 		//! Initialisiert die Engine
 		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
-		EngineStatusCode setupEngine() { return ESC_SUCCESS; }
+		EngineStatusCode OnSetupEngine() { return ESC_SUCCESS; }
 
 		//! Initialisiert die Engine
 		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
-		void teardownEngine() {}
+		void OnTeardownEngine() {}
 
 		//! Initialisiert die Spielschleife
 		/** Wird zu Beginn jedes Schleifendurchgangs aufgerufen und ermittelt,
 		 * ob die Hauptschleife durchlaufen werden soll.
 		 * @returns	true, wenn die Hauptschleife aufgerufen werden soll, sonst false
 		 */
-		inline bool preSceneLoop(irr::f32 elapsedTime) { return true; }
+		inline bool OnPreSceneLoop(irr::f32 elapsedTime) { return true; }
 
 		//! Implementierung der Haupt-Spielschleife
-		void sceneLoop(irr::f32 elapsedTime) { getDevice()->yield(); }
+		void OnSceneLoop(irr::f32 elapsedTime) { getDevice()->yield(); }
+
+		//! Handler für das Pause-Ereignis
+		void OnPause() { getTimer()->pause(); }
+
+		//! Handler für das Unpause-Ereignis
+		void OnUnpause() { getTimer()->unpause(); }
 	};
 
 }
