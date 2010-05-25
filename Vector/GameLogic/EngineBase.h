@@ -23,11 +23,7 @@ namespace pv {
 	public:
 
 		//! Erzeugt eine neue Instanz der EngineBase-Klasse.
-		EngineBase(void) :
-		  irrlichtDevice(NULL), sceneManager(NULL), videoDriver(NULL), guiEnvironment(NULL), 
-			  engineClean(true), timer(NULL), paused(false), sceneStarted(false),
-			  sceneClearColor(irr::video::SColor(255, 64, 64, 64))
-		{}
+		EngineBase(void);
 
 		//! Destruktor.
 		virtual ~EngineBase(void);
@@ -56,6 +52,10 @@ namespace pv {
 		//! Initialisiert die Engine
 		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
 		virtual void OnTeardownEngine() = 0;
+
+		//! Initialisiert die Szene
+		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
+		virtual void OnSetupScene() {};
 
 		//! Initialisiert die Spielschleife
 		/** Wird zu Beginn jedes Schleifendurchgangs aufgerufen und ermittelt,
@@ -147,6 +147,15 @@ namespace pv {
 			guiEnvironment->drawAll(); 
 		}
 
+		//! Zeichnet einen Würfel zur Orientierung um die gewählte Kamera
+		/**
+		 * @param camera Die aktive Kamera
+		 */
+		void drawCameraOrientationCage(irr::scene::ICameraSceneNode *camera = NULL);
+
+		//! Liefert ein generisches, unbeleuchtetes Material
+		const irr::video::SMaterial &getUnlitMaterial() const { return unlitMaterial; }
+
 	private:
 
 		//! Ermittelt den Videotreiber
@@ -155,6 +164,9 @@ namespace pv {
 		 * @returns				Der von der Irrlicht-Engine zu verwendende Treiber
 		 */
 		irr::video::E_DRIVER_TYPE selectVideoDriver(VideoDriver driverHint) const;
+
+		//! Initialisiert die Standardmaterialien
+		void initializeBasicMaterials();
 
 	private:
 
@@ -184,6 +196,9 @@ namespace pv {
 
 		//! Die Farbe, mit der die Szene gefüllt wird
 		irr::video::SColor sceneClearColor;
+
+		//! Ein nicht beleuchtetes Standardmaterial
+		irr::video::SMaterial unlitMaterial;
 	};
 
 }

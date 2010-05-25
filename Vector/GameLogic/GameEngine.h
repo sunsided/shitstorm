@@ -36,6 +36,10 @@ namespace pv {
 		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
 		void OnTeardownEngine() {}
 
+		//! Initialisiert die Szene
+		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
+		virtual void OnSetupScene();
+
 		//! Initialisiert die Spielschleife
 		/** Wird zu Beginn jedes Schleifendurchgangs aufgerufen und ermittelt,
 		 * ob die Hauptschleife durchlaufen werden soll.

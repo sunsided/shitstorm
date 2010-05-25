@@ -15,6 +15,15 @@ using namespace irr;
 
 namespace pv {
 
+	//! Erzeugt eine neue Instanz der EngineBase-Klasse.
+	EngineBase::EngineBase(void) :
+		irrlichtDevice(NULL), sceneManager(NULL), videoDriver(NULL), guiEnvironment(NULL), 
+			engineClean(true), timer(NULL), paused(false), sceneStarted(false),
+			sceneClearColor(irr::video::SColor(255, 64, 64, 64))
+	{
+		initializeBasicMaterials();
+	}
+
 	//! Destruktor.
 	EngineBase::~EngineBase(void)
 	{
@@ -127,15 +136,16 @@ namespace pv {
 	EngineStatusCode EngineBase::run()
 	{
 		// Initialisierung überprüfen
-		// TODO: Exception werfen
 		ASSERT(irrlichtDevice);
-		cout << "Starte Spielschleife ..." << endl;
+		cout << "Initialisiere Spielschleife ..." << endl;
 
 		// Motor vorglühen
 		irrlichtDevice->run();
+		OnSetupScene();
 		timer->update();
 
 		// Spielschleife starten
+		cout << "Starte Spielschleife ..." << endl;
 		while(irrlichtDevice->run())
 		{
 			// Pausen handhaben
@@ -178,6 +188,39 @@ namespace pv {
 		cout << "(Pause beendet)" << endl;
 		OnUnpause();
 		paused = false;
+	}
+
+	//! Zeichnet einen Würfel zur Orientierung um die gewählte Kamera
+	/**
+	* @param camera Die aktive Kamera
+	*/
+	void EngineBase::drawCameraOrientationCage(scene::ICameraSceneNode *camera) {
+		
+		// Kameraposition ermitteln
+		if (!camera) camera = sceneManager->getActiveCamera();
+		core::vector3df cameraPosition = camera->getAbsolutePosition();
+
+		// Alte Transformation ermitteln und leere Transformation setzen
+		core::matrix4 transformation = videoDriver->getTransform(video::ETS_WORLD);
+		videoDriver->setTransform(video::ETS_WORLD, core::matrix4());
+
+		// Material setzen und Käfig zeichnen
+		videoDriver->setMaterial(getUnlitMaterial());
+		videoDriver->draw3DBox(core::aabbox3df(-0.9+cameraPosition.X, -0.9+cameraPosition.Y, 1+cameraPosition.Z, 0.9+cameraPosition.X, 0.9+cameraPosition.Y, 1+cameraPosition.Z), video::SColor(255, 0, 0, 255));
+		videoDriver->draw3DBox(core::aabbox3df(-0.9+cameraPosition.X, -0.9+cameraPosition.Y, -1+cameraPosition.Z, 0.9+cameraPosition.X, 0.9+cameraPosition.Y, -1+cameraPosition.Z), video::SColor(255, 0, 0, 192));
+		videoDriver->draw3DBox(core::aabbox3df(1+cameraPosition.X, -0.9+cameraPosition.Y, -0.9+cameraPosition.Z, 1+cameraPosition.X, 0.9+cameraPosition.Y, 0.9+cameraPosition.Z), video::SColor(255, 255, 0, 0));
+		videoDriver->draw3DBox(core::aabbox3df(-1+cameraPosition.X, -0.9+cameraPosition.Y, -0.9+cameraPosition.Z, -1+cameraPosition.X, 0.9+cameraPosition.Y, 0.9+cameraPosition.Z), video::SColor(255, 192, 0, 0));
+		videoDriver->draw3DBox(core::aabbox3df(-0.9+cameraPosition.X, 1+cameraPosition.Y, -0.9+cameraPosition.Z, 0.9+cameraPosition.X, 1+cameraPosition.Y, 0.9+cameraPosition.Z), video::SColor(255, 0, 255, 0));
+		videoDriver->draw3DBox(core::aabbox3df(-0.9+cameraPosition.X, -1+cameraPosition.Y, -0.9+cameraPosition.Z, 0.9+cameraPosition.X, -1+cameraPosition.Y, 0.9+cameraPosition.Z), video::SColor(255, 0, 192, 0));
+
+		// Alte Transformation setzen
+		videoDriver->setTransform(video::ETS_WORLD, transformation);
+	}
+
+	//! Initialisiert die Standardmaterialien
+	void EngineBase::initializeBasicMaterials() {
+		unlitMaterial.Lighting = false;
+		unlitMaterial.Thickness = 1.0f;
 	}
 
 }
