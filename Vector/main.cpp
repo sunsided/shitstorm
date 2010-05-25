@@ -13,22 +13,23 @@
 #include <iostream>
 
 using namespace std;
+using namespace pv;
 
 int main(int argc, char **argv) {
 
 	// Engine erzeugen
-	auto_ptr<pv::EngineBase> engine( new pv::GameEngine() );
+	auto_ptr<EngineBase> engine( new GameEngine() );
 	if (!engine.get()) {
 		cerr << "Engine konnte nicht erzeugt werden." << endl;
-		return pv::ESC_INSTANCIATION_FAILED;
+		return ESC_INSTANCIATION_FAILED;
 	}
 
 	// Initialisierungsparameter erzeugen
-	pv::EngineInitializationParams params;
+	EngineInitializationParams params;
 
 	// Engine initialisieren
-	pv::EngineStatusCode result = engine->initialize(params);
-	if (result != pv::ESC_SUCCESS) {
+	EngineStatusCode result = engine->initialize(params);
+	if (result != ESC_SUCCESS) {
 		cerr << "Engine konnte nicht initialisiert werden. Fehlercode: " << result << endl;
 		return result;
 	}
