@@ -116,6 +116,12 @@ namespace pv {
 		//! Bezieht den Timer
 		inline GameTimer* getTimer() const { return timer; }
 
+		//! Rendert die Szene
+		inline void renderScene() { sceneManager->drawAll(); }
+
+		//! Rendert die Szene
+		inline void renderGui() { guiEnvironment->drawAll(); }
+
 		//! Setzt die Farbe, mit der die Szene geleert wird
 		inline void setClearColor(irr::video::SColor &color) {
 			sceneClearColor = color;

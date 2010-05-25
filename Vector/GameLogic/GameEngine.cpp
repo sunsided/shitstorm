@@ -37,7 +37,7 @@ namespace pv {
 	void GameEngine::OnSceneLoop(irr::f32 elapsedTime) { 
 		
 		beginScene();
-		getSceneManager()->drawAll();
+		renderScene();
 		endScene();
 	}
 
