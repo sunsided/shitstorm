@@ -8,7 +8,6 @@
 
 #include "EngineBase.h"
 
-#include <assert.h>
 #include <iostream>
 
 using namespace std;
@@ -44,7 +43,7 @@ namespace pv {
 				break;
 		}
 
-		assert(driverType != video::EDT_NULL);
+		ASSERT(driverType != video::EDT_NULL);
 		return driverType;
 	}
 
@@ -92,7 +91,7 @@ namespace pv {
 
 		// Timer erzeugen
 		timer = new GameTimer(irrlichtDevice);
-		assert(timer);
+		ASSERT(timer);
 
 		// Initialisieren
 		cout << "Initialisiere Engine, 2nd stage ..." << endl;
@@ -129,7 +128,7 @@ namespace pv {
 	{
 		// Initialisierung überprüfen
 		// TODO: Exception werfen
-		assert(irrlichtDevice);
+		ASSERT(irrlichtDevice);
 		cout << "Starte Spielschleife ..." << endl;
 
 		// Motor vorglühen
