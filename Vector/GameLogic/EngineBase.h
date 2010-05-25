@@ -25,7 +25,8 @@ namespace pv {
 		//! Erzeugt eine neue Instanz der EngineBase-Klasse.
 		EngineBase(void) :
 		  irrlichtDevice(NULL), sceneManager(NULL), videoDriver(NULL), guiEnvironment(NULL), 
-			  engineClean(true), timer(NULL), paused(false), sceneStarted(false)
+			  engineClean(true), timer(NULL), paused(false), sceneStarted(false),
+			  sceneClearColor(irr::video::SColor(255, 64, 64, 64))
 		{}
 
 		//! Destruktor.
@@ -115,9 +116,17 @@ namespace pv {
 		//! Bezieht den Timer
 		inline GameTimer* getTimer() const { return timer; }
 
+		//! Setzt die Farbe, mit der die Szene geleert wird
+		inline void setClearColor(irr::video::SColor &color) {
+			sceneClearColor = color;
+		}
+
+		//! Setzt die Farbe, mit der die Szene geleert wird
+		inline irr::video::SColor &getClearColor() { return sceneClearColor; }
+
 		//! Beginnt die Szene
-		inline void beginScene(irr::video::SColor &color) { 
-			getDriver()->beginScene(true, true, color);
+		inline void beginScene(bool zBuffer = true) { 
+			getDriver()->beginScene(true, zBuffer, sceneClearColor);
 			sceneStarted = true;
 		}
 
@@ -161,6 +170,9 @@ namespace pv {
 
 		//! Gibt an, ob die Szene gestartet wurde
 		bool sceneStarted;
+
+		//! Die Farbe, mit der die Szene gefüllt wird
+		irr::video::SColor sceneClearColor;
 	};
 
 }

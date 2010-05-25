@@ -36,7 +36,7 @@ namespace pv {
 	//! Implementierung der Haupt-Spielschleife
 	void GameEngine::OnSceneLoop(irr::f32 elapsedTime) { 
 		
-		beginScene(irr::video::SColor(255, 64, 64, 64));
+		beginScene();
 		getSceneManager()->drawAll();
 		endScene();
 	}
