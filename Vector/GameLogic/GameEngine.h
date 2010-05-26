@@ -63,7 +63,7 @@ namespace pv {
 		irr::scene::ICameraSceneNode *mainCamera;
 
 		//! Knoten für Testzwecke
-		PlaneSceneNode *testNode;
+		nodes::PlaneSceneNode *testNode;
 
 		//! Zieltextur für render to texture
 		irr::video::ITexture* renderTarget;

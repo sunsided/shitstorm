@@ -45,7 +45,7 @@ namespace pv {
 		mainCamera->setName("Main Camera");
 
 		// Ebene erzeugen
-		testNode = new PlaneSceneNode(10, 4, rootNode, smgr, 10);
+		testNode = new nodes::PlaneSceneNode(10, 4, rootNode, smgr, 10);
 		testNode->getMaterial(0).Lighting = false;
 		/*
 		testNode->getMaterial(0).FrontfaceCulling = false;

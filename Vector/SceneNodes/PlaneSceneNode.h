@@ -17,6 +17,7 @@ using namespace video;
 using namespace scene;
 
 namespace pv {
+namespace nodes {
 
 	class PlaneSceneNode : public ISceneNode
 	{
@@ -77,6 +78,6 @@ namespace pv {
 		video::SMaterial Material;
 	};
 
-}
+}}
 
 #endif

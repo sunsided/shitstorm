@@ -1,6 +1,9 @@
 #include "PlaneSceneNode.h"
 
 namespace pv {
+namespace nodes
+{
+
 
 	//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
 	void PlaneSceneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd, f32 vStart, f32 vEnd) 
@@ -112,4 +115,4 @@ namespace pv {
 		ISceneNode::OnRegisterSceneNode();
 	}
 
-}
+}}
