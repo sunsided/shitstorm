@@ -126,13 +126,13 @@ namespace pv {
 
 		//! Beginnt die Szene
 		inline void beginScene(bool zBuffer = true) { 
-			getDriver()->beginScene(true, zBuffer, sceneClearColor);
+			videoDriver->beginScene(true, zBuffer, sceneClearColor);
 			sceneStarted = true;
 		}
 
 		//! Beendet die Szene
 		inline void endScene() {
-			if (sceneStarted) getDriver()->endScene();
+			if (sceneStarted) videoDriver->endScene();
 			sceneStarted = false;
 		}
 
@@ -176,7 +176,7 @@ namespace pv {
 
 		//! Der Videotreiber
 		irr::video::IVideoDriver* videoDriver;
-
+		
 		//! Der Szenenmanager
 		irr::scene::ISceneManager* sceneManager;
 

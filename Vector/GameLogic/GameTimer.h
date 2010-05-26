@@ -45,9 +45,6 @@ namespace pv {
 		 */
 		void setTimer(irr::IrrlichtDevice *device);
 
-		/**! Setzt den Timer zurück */
-		void reset() { lastTime = 0; deltaT = 0.0f; }
-
 		//! Pausiert die Spielzeit
 		void pause() {
 			if (isPaused()) return;

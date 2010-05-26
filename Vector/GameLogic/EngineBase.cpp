@@ -119,16 +119,16 @@ namespace pv {
 		// Abgeleitete Klasse abschießen
 		OnTeardownEngine();
 
-		// Device freigeben
-		if(irrlichtDevice) {
-			irrlichtDevice->drop();
-			irrlichtDevice = NULL;
-		}
-
 		// Timer freigeben
 		if (timer) {
 			delete timer;
 			timer = NULL;
+		}
+
+		// Device freigeben
+		if(irrlichtDevice) {
+			irrlichtDevice->drop();
+			irrlichtDevice = NULL;
 		}
 	}
 

@@ -37,39 +37,36 @@ namespace pv {
 		scene::ISceneManager *smgr = getSceneManager();
 		scene::ISceneNode *rootNode = smgr->getRootSceneNode();
 
+		// Hauptkamera erzeugen
 		mainCamera = smgr->addCameraSceneNodeFPS(NULL, 100.0f, 0.01f);
-		mainCamera->setPosition(vector3df(0, 1, -1));
+		mainCamera->setNearValue(0.1f); // Ein Wert von null verursacht Probleme!
+		mainCamera->setPosition(vector3df(0, 10, -10));
 		mainCamera->setTarget(core::vector3df(0, 0, 0));
-		mainCamera->setNearValue(0);
-		mainCamera->setFarValue(1000);
 		mainCamera->setName("Main Camera");
 
 		// Ebene erzeugen
-		testNode = new nodes::PlaneSceneNode(10, 4, rootNode, smgr, 10);
+		testNode = new nodes::PlaneSceneNode(20, 10, rootNode, smgr, 10);
+		testNode->setPosition(core::vector3df(0, 0, 0));
 		testNode->getMaterial(0).Lighting = false;
-		/*
-		testNode->getMaterial(0).FrontfaceCulling = false;
-		testNode->getMaterial(0).BackfaceCulling = false;
-		*/
 		testNode->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\wood.jpg"));
 		testNode->setName("Plane");
 
 		// Ne Kiste
-		scene::IMeshSceneNode *cube = smgr->addCubeSceneNode(1.0f, rootNode, 15);
-		cube->setPosition(core::vector3df(0, 0, 5));
+		scene::IMeshSceneNode *cube = smgr->addCubeSceneNode(3.0f, rootNode, 15);
+		cube->setPosition(core::vector3df(0, 1.5, 5));
 		cube->getMaterial(0).Lighting = false;
+		cube->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\crate.jpg"));
 		cube->setVisible(true);
 		cube->setName("Testwürfel");
-
-		// Ambientes Licht
-		smgr->setAmbientLight(SColorf(0.09f, 0.09f, 0.09f));
-
+		
 		// Render to texture: Textur
 		renderTarget = getDriver()->addRenderTargetTexture(core::dimension2d<u32>(256,256), "RTT1");
 		
 		// Render to texture: Kamera
-		renderTargetCamera = smgr->addCameraSceneNode(NULL, core::vector3df(0, 0, -5), core::vector3df(0, 0, 100), -1, false);
+		renderTargetCamera = smgr->addCameraSceneNode(NULL, core::vector3df(0, 0.5, -5), core::vector3df(0, 0, 0), -1, false);
 		renderTargetCamera->setName("Render Target Camera");
+		renderTargetCamera->setNearValue(0.1f);
+		renderTargetCamera->setFarValue(20);
 
 		// Hauptkamera auswählen
 		smgr->setActiveCamera(mainCamera);
@@ -77,9 +74,9 @@ namespace pv {
 
 	//! Initialisiert die Spielschleife
 	/** Wird zu Beginn jedes Schleifendurchgangs aufgerufen und ermittelt,
-		* ob die Hauptschleife durchlaufen werden soll.
-		* @returns	true, wenn die Hauptschleife aufgerufen werden soll, sonst false
-		*/
+	* ob die Hauptschleife durchlaufen werden soll.
+	* @returns	true, wenn die Hauptschleife aufgerufen werden soll, sonst false
+	*/
 	bool GameEngine::OnPreSceneLoop(f32 elapsedTime) { 
 		if (!isPaused()) return true;
 
@@ -115,9 +112,9 @@ namespace pv {
 		renderScene();
 
 		// Backbuffer als Ziel wählen
-		driver->setRenderTarget(video::ERT_FRAME_BUFFER, true, true, 0); // getClearColor());
+		driver->setRenderTarget(video::ERT_FRAME_BUFFER, true, true, getClearColor());
 		smgr->setActiveCamera(mainCamera);
-
+		
 		// Würfel ausblenden
 		cube->setVisible(false);
 		renderScene();
