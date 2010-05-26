@@ -38,7 +38,7 @@ namespace pv {
 		scene::ISceneNode *rootNode = smgr->getRootSceneNode();
 
 		// Hauptkamera erzeugen
-		mainCamera = smgr->addCameraSceneNodeFPS(NULL, 100.0f, 0.01f);
+		mainCamera = smgr->addCameraSceneNodeFPS(/*NULL, 100.0f, 0.01f*/);
 		mainCamera->setNearValue(0.1f); // Ein Wert von null verursacht Probleme!
 		mainCamera->setPosition(vector3df(0, 10, -10));
 		mainCamera->setTarget(core::vector3df(0, 0, 0));
@@ -60,16 +60,13 @@ namespace pv {
 		cube->setName("Testwürfel");
 		
 		// Render to texture: Textur
-		renderTarget = getDriver()->addRenderTargetTexture(core::dimension2d<u32>(256,256), "RTT1");
+		renderTarget = getDriver()->addRenderTargetTexture(core::dimension2d<u32>(160,120), "RTT1");
 		
 		// Render to texture: Kamera
-		renderTargetCamera = smgr->addCameraSceneNode(NULL, core::vector3df(0, 0.5, -5), core::vector3df(0, 0, 0), -1, false);
+		renderTargetCamera = smgr->addCameraSceneNode(NULL, core::vector3df(0, 0.5, -5), core::vector3df(0, 0, 0), -1);
 		renderTargetCamera->setName("Render Target Camera");
 		renderTargetCamera->setNearValue(0.1f);
 		renderTargetCamera->setFarValue(20);
-
-		// Hauptkamera auswählen
-		smgr->setActiveCamera(mainCamera);
 	}
 
 	//! Initialisiert die Spielschleife
@@ -100,12 +97,12 @@ namespace pv {
 		scene::ISceneNode *cube = smgr->getSceneNodeFromId(15);
 
 		// Renderziel wählen
-		driver->setRenderTarget(renderTarget, true, true, video::SColor(5,0,0,255));
-		smgr->setActiveCamera(renderTargetCamera);
+		driver->setRenderTarget(renderTarget, true, true, video::SColor(4,64,16,0));
+		//smgr->setActiveCamera(renderTargetCamera);
 
-		driver->setMaterial(getUnlitMaterial());
-		driver->setTransform(video::ETS_WORLD, core::matrix4());
-		driver->draw3DBox(core::aabbox3d<f32>(-0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f));
+		//driver->setMaterial(getUnlitMaterial());
+		//driver->setTransform(video::ETS_WORLD, core::matrix4());
+		//driver->draw3DBox(cube->getBoundingBox());
 
 		// Würfel einblenden
 		cube->setVisible(true);
@@ -117,13 +114,16 @@ namespace pv {
 		
 		// Würfel ausblenden
 		cube->setVisible(false);
+		//driver->setMaterial(getUnlitMaterial());
+		//driver->draw3DBox(cube->getBoundingBox(), SColor(255, 255, 255, 255));
 		renderScene();
 
 		// Käfig um die Kamera zeichnen
-		drawCameraOrientationCage(mainCamera);
+		//drawCameraOrientationCage(mainCamera);
 
 		// Das Bild zeigen
-		gui::IGUIImage *image = getGUIEnvironment()->addImage(core::rect<s32>(5, 5, 105, 105));
+		gui::IGUIImage *image = getGUIEnvironment()->addImage(core::rect<s32>(5, 5, 165, 125));
+		image->setScaleImage(true);
 		image->setUseAlphaChannel(true);
 		image->setImage(renderTarget);
 		renderGui();
