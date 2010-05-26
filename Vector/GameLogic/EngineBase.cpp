@@ -121,7 +121,7 @@ namespace pv {
 
 		// Device freigeben
 		if(irrlichtDevice) {
-			irrlichtDevice->closeDevice();
+			irrlichtDevice->drop();
 			irrlichtDevice = NULL;
 		}
 
@@ -141,7 +141,7 @@ namespace pv {
 
 		// Motor vorglühen
 		OnSetupScene();
-		//irrlichtDevice->run();
+		irrlichtDevice->run();
 		timer->update();
 
 		// Spielschleife starten
@@ -149,21 +149,20 @@ namespace pv {
 		while(irrlichtDevice->run())
 		{
 			// Pausen handhaben
-			/*
 			if (shouldPause()) pause();
 			else if(shouldUnpause()) unpause();
-			*/
+			
 			// Zeit ermitteln
 			f32 deltaT = timer->update();
 
 			// Preloop
-			//if (!OnPreSceneLoop(deltaT)) continue;
+			if (!OnPreSceneLoop(deltaT)) continue;
 
 			// Szene durcharbeiten
 			OnSceneLoop(deltaT);
 
 			// Szene beenden, falls nötig
-			//endScene();
+			endScene();
 		}
 
 		// Aufräumen
