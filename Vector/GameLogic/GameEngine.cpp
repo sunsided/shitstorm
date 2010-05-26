@@ -53,17 +53,20 @@ namespace pv {
 
 		// Ne Kiste
 		scene::IMeshSceneNode *cube = smgr->addCubeSceneNode(3.0f, rootNode, 15);
-		cube->setPosition(core::vector3df(0, 1.5, 5));
+		cube->setPosition(core::vector3df(0, 1.5, 2));
 		cube->getMaterial(0).Lighting = false;
 		cube->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\crate.jpg"));
 		cube->setVisible(true);
 		cube->setName("Testwürfel");
+
+		scene::ISceneNodeAnimator* anim = smgr->createRotationAnimator(core::vector3df(0.0f, 0.3f,0));
+		cube->addAnimator(anim);
 		
 		// Render to texture: Textur
 		renderTarget = getDriver()->addRenderTargetTexture(core::dimension2d<u32>(160,120), "RTT1");
 		
 		// Render to texture: Kamera
-		renderTargetCamera = smgr->addCameraSceneNode(NULL, core::vector3df(0, 0.5, -5), core::vector3df(0, 0, 0), -1);
+		renderTargetCamera = smgr->addCameraSceneNode(NULL, core::vector3df(0, 2, -5), core::vector3df(0, 0, 0), -1);
 		renderTargetCamera->setName("Render Target Camera");
 		renderTargetCamera->setNearValue(0.1f);
 		renderTargetCamera->setFarValue(20);
@@ -98,7 +101,7 @@ namespace pv {
 
 		// Renderziel wählen
 		driver->setRenderTarget(renderTarget, true, true, video::SColor(4,64,16,0));
-		//smgr->setActiveCamera(renderTargetCamera);
+		smgr->setActiveCamera(renderTargetCamera);
 
 		//driver->setMaterial(getUnlitMaterial());
 		//driver->setTransform(video::ETS_WORLD, core::matrix4());
@@ -113,7 +116,7 @@ namespace pv {
 		smgr->setActiveCamera(mainCamera);
 		
 		// Würfel ausblenden
-		cube->setVisible(false);
+		//cube->setVisible(false);
 		//driver->setMaterial(getUnlitMaterial());
 		//driver->draw3DBox(cube->getBoundingBox(), SColor(255, 255, 255, 255));
 		renderScene();
