@@ -12,7 +12,7 @@
 
 #include "global.h"
 #include "EngineBase.h"
-#include "SceneNodes\PlaneNode.h"
+#include "SceneNodes\PlaneSceneNode.h"
 
 namespace pv {
 
@@ -63,7 +63,7 @@ namespace pv {
 		irr::scene::ICameraSceneNode *mainCamera;
 
 		//! Knoten für Testzwecke
-		PlaneNode *testNode;
+		PlaneSceneNode *testNode;
 
 		//! Zieltextur für render to texture
 		irr::video::ITexture* renderTarget;

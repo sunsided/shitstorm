@@ -1,14 +1,12 @@
-#include "PlaneNode.h"
+#include "PlaneSceneNode.h"
 
 namespace pv {
 
-	void PlaneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd, f32 vStart, f32 vEnd) 
+	//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
+	void PlaneSceneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd, f32 vStart, f32 vEnd) 
 	{
 		// Fehler beheben
 		if(quads<1) quads = 1;
-
-		// Aufräumen
-		this->quads = quads;
 
 		// Platz besorgen
 		u8 count = 2+(quads-1);
@@ -54,13 +52,13 @@ namespace pv {
 		int indexCount = TriangleCount*3;
 
 		// Indizes neu ermitteln; Alle Quadrate durchlaufen
-		for(int squareY=0; squareY<this->quads; ++squareY) 
+		for(int squareY=0; squareY<quads; ++squareY) 
 		{
-			u16 squareRowStartIndex = squareY*this->quads + squareY%this->quads;
-			for(int squareX=0; squareX<this->quads; ++squareX) 
+			u16 squareRowStartIndex = squareY*quads + squareY%quads;
+			for(int squareX=0; squareX<quads; ++squareX) 
 			{
 				u16 topLeft		= squareRowStartIndex + squareX;
-				u16 bottomLeft	= topLeft + this->quads+1;
+				u16 bottomLeft	= topLeft + quads+1;
 
 				u16 topRight	= topLeft + 1;
 				u16 bottomRight	= bottomLeft + 1;
@@ -93,22 +91,23 @@ namespace pv {
 		Material.BackfaceCulling = true;
 	}
 
-	PlaneNode::~PlaneNode(void)
-	{
+	//! Destruktor
+	PlaneSceneNode::~PlaneSceneNode(void) {
 	}
 
-	void PlaneNode::render() 
-	{
+	//! Rendert den Knoten
+	void PlaneSceneNode::render() {
 		IVideoDriver* driver = SceneManager->getVideoDriver();
 
 		driver->setMaterial(Material);
 		driver->setTransform(ETS_WORLD, AbsoluteTransformation);
-		//driver->drawIndexedTriangleList(&Vertices[0], VertexCount, &Indices[0], TriangleCount);
 		driver->drawMeshBuffer(Mesh->getMeshBuffer(0));
 	}
 
-	void PlaneNode::OnRegisterSceneNode() 
-	{
+	//! Reagiert auf das RegisterSceneNode-Ereignis
+	void PlaneSceneNode::OnRegisterSceneNode() {
+		if (!isVisible()) return;
+
 		SceneManager->registerNodeForRendering(this);
 		ISceneNode::OnRegisterSceneNode();
 	}

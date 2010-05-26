@@ -19,7 +19,7 @@
     <ClCompile Include="GameLogic\GameEngine.cpp">
       <Filter>GameLogic</Filter>
     </ClCompile>
-    <ClCompile Include="SceneNodes\PlaneNode.cpp">
+    <ClCompile Include="SceneNodes\PlaneSceneNode.cpp">
       <Filter>SceneNodes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClInclude Include="GameLogic\GameEngine.h">
       <Filter>GameLogic</Filter>
     </ClInclude>
-    <ClInclude Include="SceneNodes\PlaneNode.h">
+    <ClInclude Include="SceneNodes\PlaneSceneNode.h">
       <Filter>SceneNodes</Filter>
     </ClInclude>
   </ItemGroup>
