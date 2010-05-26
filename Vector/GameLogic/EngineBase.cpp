@@ -19,7 +19,7 @@ namespace pv {
 	EngineBase::EngineBase(void) :
 		irrlichtDevice(NULL), sceneManager(NULL), videoDriver(NULL), guiEnvironment(NULL), 
 			engineClean(true), timer(NULL), paused(false), sceneStarted(false),
-			sceneClearColor(irr::video::SColor(255, 64, 64, 64))
+			sceneClearColor(irr::video::SColor(0, 64, 64, 64))
 	{
 		initializeBasicMaterials();
 	}
@@ -70,7 +70,7 @@ namespace pv {
 		SIrrlichtCreationParameters irrlichtParams;
 		irrlichtParams.AntiAlias = 0; // EAAM_QUALITY;
 		irrlichtParams.WindowSize = params.screenSize;
-		irrlichtParams.Stencilbuffer = false; // stencilBuffer;
+		irrlichtParams.Stencilbuffer = true; // stencilBuffer;
 		irrlichtParams.Fullscreen = params.fullscreen;
 		irrlichtParams.DriverType = driverType;
 		irrlichtParams.Bits = params.bitsPerPixel;
@@ -140,8 +140,8 @@ namespace pv {
 		cout << "Initialisiere Spielschleife ..." << endl;
 
 		// Motor vorglühen
-		irrlichtDevice->run();
 		OnSetupScene();
+		//irrlichtDevice->run();
 		timer->update();
 
 		// Spielschleife starten
@@ -149,20 +149,21 @@ namespace pv {
 		while(irrlichtDevice->run())
 		{
 			// Pausen handhaben
+			/*
 			if (shouldPause()) pause();
 			else if(shouldUnpause()) unpause();
-
+			*/
 			// Zeit ermitteln
 			f32 deltaT = timer->update();
 
 			// Preloop
-			if (!OnPreSceneLoop(deltaT)) continue;
+			//if (!OnPreSceneLoop(deltaT)) continue;
 
 			// Szene durcharbeiten
 			OnSceneLoop(deltaT);
 
 			// Szene beenden, falls nötig
-			endScene();
+			//endScene();
 		}
 
 		// Aufräumen
@@ -206,12 +207,12 @@ namespace pv {
 
 		// Material setzen und Käfig zeichnen
 		videoDriver->setMaterial(getUnlitMaterial());
-		videoDriver->draw3DBox(core::aabbox3df(-0.9+cameraPosition.X, -0.9+cameraPosition.Y, 1+cameraPosition.Z, 0.9+cameraPosition.X, 0.9+cameraPosition.Y, 1+cameraPosition.Z), video::SColor(255, 0, 0, 255));
-		videoDriver->draw3DBox(core::aabbox3df(-0.9+cameraPosition.X, -0.9+cameraPosition.Y, -1+cameraPosition.Z, 0.9+cameraPosition.X, 0.9+cameraPosition.Y, -1+cameraPosition.Z), video::SColor(255, 0, 0, 192));
-		videoDriver->draw3DBox(core::aabbox3df(1+cameraPosition.X, -0.9+cameraPosition.Y, -0.9+cameraPosition.Z, 1+cameraPosition.X, 0.9+cameraPosition.Y, 0.9+cameraPosition.Z), video::SColor(255, 255, 0, 0));
-		videoDriver->draw3DBox(core::aabbox3df(-1+cameraPosition.X, -0.9+cameraPosition.Y, -0.9+cameraPosition.Z, -1+cameraPosition.X, 0.9+cameraPosition.Y, 0.9+cameraPosition.Z), video::SColor(255, 192, 0, 0));
-		videoDriver->draw3DBox(core::aabbox3df(-0.9+cameraPosition.X, 1+cameraPosition.Y, -0.9+cameraPosition.Z, 0.9+cameraPosition.X, 1+cameraPosition.Y, 0.9+cameraPosition.Z), video::SColor(255, 0, 255, 0));
-		videoDriver->draw3DBox(core::aabbox3df(-0.9+cameraPosition.X, -1+cameraPosition.Y, -0.9+cameraPosition.Z, 0.9+cameraPosition.X, -1+cameraPosition.Y, 0.9+cameraPosition.Z), video::SColor(255, 0, 192, 0));
+		videoDriver->draw3DBox(core::aabbox3df(-0.9f+cameraPosition.X, -0.9f+cameraPosition.Y, 1.0f+cameraPosition.Z, 0.9f+cameraPosition.X, 0.9f+cameraPosition.Y, 1.0f+cameraPosition.Z), video::SColor(255, 0, 0, 255));
+		videoDriver->draw3DBox(core::aabbox3df(-0.9f+cameraPosition.X, -0.9f+cameraPosition.Y, -1.0f+cameraPosition.Z, 0.9f+cameraPosition.X, 0.9f+cameraPosition.Y, -1.0f+cameraPosition.Z), video::SColor(255, 0, 0, 192));
+		videoDriver->draw3DBox(core::aabbox3df(1.0f+cameraPosition.X, -0.9f+cameraPosition.Y, -0.9f+cameraPosition.Z, 1.0f+cameraPosition.X, 0.9f+cameraPosition.Y, 0.9f+cameraPosition.Z), video::SColor(255, 255, 0, 0));
+		videoDriver->draw3DBox(core::aabbox3df(-1.0f+cameraPosition.X, -0.9f+cameraPosition.Y, -0.9f+cameraPosition.Z, -1.0f+cameraPosition.X, 0.9f+cameraPosition.Y, 0.9f+cameraPosition.Z), video::SColor(255, 192, 0, 0));
+		videoDriver->draw3DBox(core::aabbox3df(-0.9f+cameraPosition.X, 1.0f+cameraPosition.Y, -0.9f+cameraPosition.Z, 0.9f+cameraPosition.X, 1.0f+cameraPosition.Y, 0.9f+cameraPosition.Z), video::SColor(255, 0, 255, 0));
+		videoDriver->draw3DBox(core::aabbox3df(-0.9f+cameraPosition.X, -1.0f+cameraPosition.Y, -0.9f+cameraPosition.Z, 0.9f+cameraPosition.X, -1.0f+cameraPosition.Y, 0.9f+cameraPosition.Z), video::SColor(255, 0, 192, 0));
 
 		// Alte Transformation setzen
 		videoDriver->setTransform(video::ETS_WORLD, transformation);

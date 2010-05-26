@@ -19,6 +19,9 @@
     <ClCompile Include="GameLogic\GameEngine.cpp">
       <Filter>GameLogic</Filter>
     </ClCompile>
+    <ClCompile Include="SceneNodes\PlaneNode.cpp">
+      <Filter>SceneNodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -37,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="GameLogic\GameEngine.h">
       <Filter>GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodes\PlaneNode.h">
+      <Filter>SceneNodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

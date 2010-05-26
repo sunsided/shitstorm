@@ -12,6 +12,7 @@
 
 #include "global.h"
 #include "EngineBase.h"
+#include "SceneNodes\PlaneNode.h"
 
 namespace pv {
 
@@ -30,7 +31,7 @@ namespace pv {
 
 		//! Initialisiert die Engine
 		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
-		EngineStatusCode OnSetupEngine() { return ESC_SUCCESS; }
+		EngineStatusCode OnSetupEngine();
 
 		//! Initialisiert die Engine
 		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
@@ -55,6 +56,20 @@ namespace pv {
 
 		//! Handler für das Unpause-Ereignis
 		void OnUnpause() { getTimer()->unpause(); }
+
+	private:
+
+		//! Die Hauptkamera
+		irr::scene::ICameraSceneNode *mainCamera;
+
+		//! Knoten für Testzwecke
+		PlaneNode *testNode;
+
+		//! Zieltextur für render to texture
+		irr::video::ITexture* renderTarget;
+
+		//! Kamera für render to texture
+		irr::scene::ICameraSceneNode *renderTargetCamera;
 	};
 
 }

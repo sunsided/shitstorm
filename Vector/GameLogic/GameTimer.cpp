@@ -50,6 +50,7 @@ namespace pv {
 
 	//! Destruktor
 	GameTimer::~GameTimer() {
+		if (timer) timer->drop();
 	}
 
 }

@@ -90,6 +90,7 @@
     <ClCompile Include="GameLogic\GameEngine.cpp" />
     <ClCompile Include="GameLogic\GameTimer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SceneNodes\PlaneNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLogic\EngineBase.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="GameLogic\GameTimer.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="linker.h" />
+    <ClInclude Include="SceneNodes\PlaneNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

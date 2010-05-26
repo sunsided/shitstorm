@@ -33,6 +33,9 @@ namespace pv {
 		//! Das Beziehen der GUI-Umgebung ist fehlgeschlagen
 		ESC_GUIENV_FAILED = 5,
 
+		//! Ein notwendiges Feature wurde nicht von der Hardware bereitgestellt
+		ESC_FEATURE_FAILED = 6,
+
 		//! Intern
 		/** @internal Die Anzahl der Werte der EEngineStatusCode-Enumeration */
 		ESC_COUNT

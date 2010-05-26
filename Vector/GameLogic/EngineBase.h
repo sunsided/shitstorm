@@ -88,7 +88,7 @@ namespace pv {
 		 *  so gibt diese Funktion den Wert true zurück.
 		 * @returns true, wenn das Spiel in den Pause-Modus wechseln soll
 		 */
-		virtual bool shouldPause() { return !(paused || irrlichtDevice->isWindowActive()); }
+		virtual bool shouldPause() const { return !(paused || irrlichtDevice->isWindowActive()); }
 
 		//! Ermittelt, ob das Spiel den Pause-Modus verlassen sollte
 		/** Das Standardverhalten richtet sich nach dem Fokus des Hauptfensters.
@@ -96,7 +96,7 @@ namespace pv {
 		 *  so gibt diese Funktion den Wert true zurück.
 		 * @returns true, wenn das Spiel in den Pausen-Modus verlassen soll
 		 */
-		virtual bool shouldUnpause() { return paused && irrlichtDevice->isWindowActive(); }
+		virtual bool shouldUnpause() const { return paused && irrlichtDevice->isWindowActive(); }
 
 		//! Ermittelt die FPS
 		inline irr::u32 getFps() const { return videoDriver ? videoDriver->getFPS() : 0; }
@@ -115,13 +115,14 @@ namespace pv {
 
 		//! Bezieht den Timer
 		inline GameTimer* getTimer() const { return timer; }
+
 		//! Setzt die Farbe, mit der die Szene geleert wird
-		inline void setClearColor(irr::video::SColor &color) {
+		inline void setClearColor(const irr::video::SColor &color) {
 			sceneClearColor = color;
 		}
 
 		//! Setzt die Farbe, mit der die Szene geleert wird
-		inline irr::video::SColor &getClearColor() { return sceneClearColor; }
+		const inline irr::video::SColor &getClearColor() const { return sceneClearColor; }
 
 		//! Beginnt die Szene
 		inline void beginScene(bool zBuffer = true) { 
@@ -137,13 +138,13 @@ namespace pv {
 
 		//! Rendert die Szene
 		inline void renderScene() {
-			assert(sceneStarted);
+			ASSERT(sceneStarted);
 			sceneManager->drawAll(); 
 		}
 
 		//! Rendert die Szene
 		inline void renderGui() { 
-			assert(sceneStarted);
+			ASSERT(sceneStarted);
 			guiEnvironment->drawAll(); 
 		}
 
