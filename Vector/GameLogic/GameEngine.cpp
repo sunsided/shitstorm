@@ -94,35 +94,25 @@ namespace pv {
 		std::cout << mainCamera->getRotation().X << ", "<< mainCamera->getRotation().Y << ", "<< mainCamera->getRotation().Z <<  " --- " <<
 			mainCamera->getPosition().X << ", "<< mainCamera->getPosition().Y << ", "<< mainCamera->getPosition().Z << std::endl;
 
+		// Szene beginnen
 		beginScene();
 
-		// Würfel holen
-		scene::ISceneNode *cube = smgr->getSceneNodeFromId(15);
-
-		// Renderziel wählen
+		// Textur als Renderziel wählen
 		driver->setRenderTarget(renderTarget, true, true, video::SColor(4,64,16,0));
 		smgr->setActiveCamera(renderTargetCamera);
 
-		//driver->setMaterial(getUnlitMaterial());
-		//driver->setTransform(video::ETS_WORLD, core::matrix4());
-		//driver->draw3DBox(cube->getBoundingBox());
-
 		// Würfel einblenden
-		cube->setVisible(true);
 		renderScene();
 
 		// Backbuffer als Ziel wählen
 		driver->setRenderTarget(video::ERT_FRAME_BUFFER, true, true, getClearColor());
 		smgr->setActiveCamera(mainCamera);
 		
-		// Würfel ausblenden
-		//cube->setVisible(false);
-		//driver->setMaterial(getUnlitMaterial());
-		//driver->draw3DBox(cube->getBoundingBox(), SColor(255, 255, 255, 255));
+		// Szene erneut rendern
 		renderScene();
 
 		// Käfig um die Kamera zeichnen
-		//drawCameraOrientationCage(mainCamera);
+		drawCameraOrientationCage(mainCamera);
 
 		// Das Bild zeigen
 		gui::IGUIImage *image = getGUIEnvironment()->addImage(core::rect<s32>(5, 5, 165, 125));
