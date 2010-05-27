@@ -108,7 +108,6 @@ namespace pv {
 		scene::ISceneNode *cube = smgr->getSceneNodeFromId(15);
 		driver->setMaterial(getUnlitMaterial());
 		driver->setTransform(video::ETS_WORLD, core::matrix4());
-		driver->setTransform(video::ETS_VIEW, renderTargetCamera->getViewMatrix());
 		driver->draw3DBox(cube->getTransformedBoundingBox());
 
 		// Backbuffer als Ziel wählen
@@ -121,7 +120,6 @@ namespace pv {
 		// Bounding Box zeichnen
 		driver->setMaterial(getUnlitMaterial());
 		driver->setTransform(video::ETS_WORLD, core::matrix4());
-		driver->setTransform(video::ETS_VIEW, mainCamera->getViewMatrix());
 		driver->draw3DBox(cube->getTransformedBoundingBox());
 
 		// Käfig um die Kamera zeichnen
