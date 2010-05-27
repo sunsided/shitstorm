@@ -76,7 +76,7 @@ namespace pv {
 		irrlichtParams.Bits = params.bitsPerPixel;
 		irrlichtParams.Doublebuffer = true;
 		irrlichtParams.Vsync = false;
-		irrlichtParams.ZBufferBits = params.bitsPerPixel;
+		irrlichtParams.ZBufferBits = params.zBitsPerPixel; // http://www.sjbaker.org/steve/omniv/love_your_z_buffer.html
 		irrlichtParams.EventReceiver = 0;// &eventReceiver;
 
 		// Device erzeugen
@@ -199,6 +199,7 @@ namespace pv {
 		// Kameraposition ermitteln
 		if (!camera) camera = sceneManager->getActiveCamera();
 		core::vector3df cameraPosition = camera->getAbsolutePosition();
+		f32 nearZ = camera->getNearValue();
 
 		// Alte Transformation ermitteln und leere Transformation setzen
 		core::matrix4 transformation = videoDriver->getTransform(video::ETS_WORLD);
@@ -206,12 +207,12 @@ namespace pv {
 
 		// Material setzen und Käfig zeichnen
 		videoDriver->setMaterial(getUnlitMaterial());
-		videoDriver->draw3DBox(core::aabbox3df(-0.9f+cameraPosition.X, -0.9f+cameraPosition.Y, 1.0f+cameraPosition.Z, 0.9f+cameraPosition.X, 0.9f+cameraPosition.Y, 1.0f+cameraPosition.Z), video::SColor(255, 0, 0, 255));
-		videoDriver->draw3DBox(core::aabbox3df(-0.9f+cameraPosition.X, -0.9f+cameraPosition.Y, -1.0f+cameraPosition.Z, 0.9f+cameraPosition.X, 0.9f+cameraPosition.Y, -1.0f+cameraPosition.Z), video::SColor(255, 0, 0, 192));
-		videoDriver->draw3DBox(core::aabbox3df(1.0f+cameraPosition.X, -0.9f+cameraPosition.Y, -0.9f+cameraPosition.Z, 1.0f+cameraPosition.X, 0.9f+cameraPosition.Y, 0.9f+cameraPosition.Z), video::SColor(255, 255, 0, 0));
-		videoDriver->draw3DBox(core::aabbox3df(-1.0f+cameraPosition.X, -0.9f+cameraPosition.Y, -0.9f+cameraPosition.Z, -1.0f+cameraPosition.X, 0.9f+cameraPosition.Y, 0.9f+cameraPosition.Z), video::SColor(255, 192, 0, 0));
-		videoDriver->draw3DBox(core::aabbox3df(-0.9f+cameraPosition.X, 1.0f+cameraPosition.Y, -0.9f+cameraPosition.Z, 0.9f+cameraPosition.X, 1.0f+cameraPosition.Y, 0.9f+cameraPosition.Z), video::SColor(255, 0, 255, 0));
-		videoDriver->draw3DBox(core::aabbox3df(-0.9f+cameraPosition.X, -1.0f+cameraPosition.Y, -0.9f+cameraPosition.Z, 0.9f+cameraPosition.X, -1.0f+cameraPosition.Y, 0.9f+cameraPosition.Z), video::SColor(255, 0, 192, 0));
+		videoDriver->draw3DBox(core::aabbox3df(-1.01f*nearZ+cameraPosition.X, -1.01f*nearZ+cameraPosition.Y, 1.1f*nearZ+cameraPosition.Z, 1.01f*nearZ+cameraPosition.X, 1.01f*nearZ+cameraPosition.Y, 1.1f*nearZ+cameraPosition.Z), video::SColor(255, 0, 0, 255));
+		videoDriver->draw3DBox(core::aabbox3df(-1.01f*nearZ+cameraPosition.X, -1.01f*nearZ+cameraPosition.Y, -1.1f*nearZ+cameraPosition.Z, 1.01f*nearZ+cameraPosition.X, 1.01f*nearZ+cameraPosition.Y, -1.1f*nearZ+cameraPosition.Z), video::SColor(255, 0, 0, 192));
+		videoDriver->draw3DBox(core::aabbox3df(1.1f*nearZ+cameraPosition.X, -1.01f*nearZ+cameraPosition.Y, -1.01f*nearZ+cameraPosition.Z, 1.1f*nearZ+cameraPosition.X, 1.01f*nearZ+cameraPosition.Y, 1.01f*nearZ+cameraPosition.Z), video::SColor(255, 255, 0, 0));
+		videoDriver->draw3DBox(core::aabbox3df(-1.1f*nearZ+cameraPosition.X, -1.01f*nearZ+cameraPosition.Y, -1.01f*nearZ+cameraPosition.Z, -1.1f*nearZ+cameraPosition.X, 1.01f*nearZ+cameraPosition.Y, 1.01f*nearZ+cameraPosition.Z), video::SColor(255, 192, 0, 0));
+		videoDriver->draw3DBox(core::aabbox3df(-1.01f*nearZ+cameraPosition.X, 1.1f*nearZ+cameraPosition.Y, -1.01f*nearZ+cameraPosition.Z, 1.01f*nearZ+cameraPosition.X, 1.1f*nearZ+cameraPosition.Y, 1.01f*nearZ+cameraPosition.Z), video::SColor(255, 0, 255, 0));
+		videoDriver->draw3DBox(core::aabbox3df(-1.01f*nearZ+cameraPosition.X, -1.1f*nearZ+cameraPosition.Y, -1.01f*nearZ+cameraPosition.Z, 1.01f*nearZ+cameraPosition.X, -1.1f*nearZ+cameraPosition.Y, 1.01f*nearZ+cameraPosition.Z), video::SColor(255, 0, 192, 0));
 
 		// Alte Transformation setzen
 		videoDriver->setTransform(video::ETS_WORLD, transformation);

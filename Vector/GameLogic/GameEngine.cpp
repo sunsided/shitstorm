@@ -39,7 +39,7 @@ namespace pv {
 
 		// Hauptkamera erzeugen
 		mainCamera = smgr->addCameraSceneNodeFPS(NULL, 100.0f, 0.01f);
-		mainCamera->setNearValue(0.1f); // Ein Wert von null verursacht Probleme!
+		mainCamera->setNearValue(2.0f); // Ein Wert von null verursacht Probleme! -- UND: http://www.sjbaker.org/steve/omniv/love_your_z_buffer.html
 		mainCamera->setPosition(vector3df(0, 10, -10));
 		mainCamera->setTarget(core::vector3df(0, 0, 0));
 		mainCamera->setName("Main Camera");

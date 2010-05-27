@@ -47,6 +47,9 @@ namespace pv {
 		//! Anzahl der Bits pro Pixel
 		irr::u8 bitsPerPixel;
 
+		//! Anzahl der Bits pro Pixel im Z-Buffer
+		irr::u8 zBitsPerPixel;
+
 		//! Der zu verwendende Grafiktreiber
 		VideoDriver driver;
 
@@ -55,6 +58,7 @@ namespace pv {
 			windowTitle(L"Project Vector"),
 			fullscreen(false), 
 			bitsPerPixel(16), 
+			zBitsPerPixel(16), 
 			screenSize(irr::core::dimension2d<irr::u32>(640, 480)), 
 #ifdef WIN32
 			driver(VD_DIRECTX)
