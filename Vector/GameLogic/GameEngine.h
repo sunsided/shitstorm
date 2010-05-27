@@ -70,6 +70,9 @@ namespace pv {
 
 		//! Kamera für render to texture
 		irr::scene::ICameraSceneNode *renderTargetCamera;
+
+		//! GUI-Element, das die Textur anzeigt
+		gui::IGUIImage *image;
 	};
 
 }

@@ -70,6 +70,11 @@ namespace pv {
 		renderTargetCamera->setName("Render Target Camera");
 		renderTargetCamera->setNearValue(0.1f);
 		renderTargetCamera->setFarValue(20);
+
+		// GUI-Element
+		image = getGUIEnvironment()->addImage(core::rect<s32>(5, 5, 128+5, 96+5));
+		image->setScaleImage(true);
+		image->setUseAlphaChannel(true);
 	}
 
 	//! Initialisiert die Spielschleife
@@ -136,9 +141,6 @@ namespace pv {
 		drawCameraOrientationCage(mainCamera);
 
 		// Das Bild zeigen
-		gui::IGUIImage *image = getGUIEnvironment()->addImage(core::rect<s32>(5, 5, 128+5, 96+5));
-		image->setScaleImage(true);
-		image->setUseAlphaChannel(true);
 		image->setImage(renderTarget);
 		renderGui();
 
