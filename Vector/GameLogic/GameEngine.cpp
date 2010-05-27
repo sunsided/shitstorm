@@ -38,7 +38,7 @@ namespace pv {
 		scene::ISceneNode *rootNode = smgr->getRootSceneNode();
 
 		// Hauptkamera erzeugen
-		mainCamera = smgr->addCameraSceneNodeFPS(/*NULL, 100.0f, 0.01f*/);
+		mainCamera = smgr->addCameraSceneNodeFPS(NULL, 100.0f, 0.01f);
 		mainCamera->setNearValue(0.1f); // Ein Wert von null verursacht Probleme!
 		mainCamera->setPosition(vector3df(0, 10, -10));
 		mainCamera->setTarget(core::vector3df(0, 0, 0));
