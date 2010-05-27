@@ -78,7 +78,20 @@ namespace pv {
 	* @returns	true, wenn die Hauptschleife aufgerufen werden soll, sonst false
 	*/
 	bool GameEngine::OnPreSceneLoop(f32 elapsedTime) { 
-		if (!isPaused()) return true;
+		if (!isPaused()) {
+
+			static u32 lastFps = 0;
+			u32 fps = getFps();
+			if (fps != lastFps) {
+				lastFps = fps;
+				core::stringw text = L"Project Vector; ";
+				text += fps;
+				text += L" FPS";
+				getDevice()->setWindowCaption(text.c_str());
+			}
+
+			return true;
+		}
 
 		getDevice()->yield();
 		getDevice()->sleep(100, true);
@@ -91,8 +104,8 @@ namespace pv {
 		video::IVideoDriver *driver = getDriver();
 		scene::ISceneManager *smgr = getSceneManager();
 
-		std::cout << mainCamera->getRotation().X << ", "<< mainCamera->getRotation().Y << ", "<< mainCamera->getRotation().Z <<  " --- " <<
-			mainCamera->getPosition().X << ", "<< mainCamera->getPosition().Y << ", "<< mainCamera->getPosition().Z << std::endl;
+		//std::cout << mainCamera->getRotation().X << ", "<< mainCamera->getRotation().Y << ", "<< mainCamera->getRotation().Z <<  " --- " <<
+		//	mainCamera->getPosition().X << ", "<< mainCamera->getPosition().Y << ", "<< mainCamera->getPosition().Z << std::endl;
 
 		// Szene beginnen
 		beginScene();
