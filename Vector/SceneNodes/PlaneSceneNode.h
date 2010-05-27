@@ -1,6 +1,6 @@
 /** 
  * Project Vector
- * Spiel-Timer
+ * SceneNode, der eine Ebene zur Verfügung stellt
  *
  * (c) 2010, Markus Mayer <code@defx.de>
  * $Id$
@@ -41,19 +41,19 @@ namespace nodes {
 		virtual void render();
 
 		//! Ermittelt die Bounding Box
-		virtual const aabbox3d<f32>& getBoundingBox() const { return Box; }
+		inline virtual const aabbox3d<f32>& getBoundingBox() const { return Box; }
 
 		//! Liefert die Anzahl der Materialien
-		virtual u32 getMaterialCount() { return 1; }
+		inline virtual u32 getMaterialCount() { return 1; }
 
 		//! Liefert das Material mit der gegebenen ID
-		virtual SMaterial& getMaterial(u32 i) { return Material; }
+		inline virtual SMaterial& getMaterial(u32 i) { return Material; }
 
 		//! Reagiert auf das RegisterSceneNode-Ereignis
 		virtual void OnRegisterSceneNode();
 
 		//! Liefert den Mesh
-		const IMesh* getMesh() const { return Mesh; }
+		inline const IMesh* getMesh() const { return Mesh; }
 
 	private:
 		

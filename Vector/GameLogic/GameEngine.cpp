@@ -7,6 +7,7 @@
  */
 
 #include "GameEngine.h"
+#include "SceneNodes/OrientationHelperSceneNode.h"
 
 #include <iostream>
 
@@ -50,26 +51,29 @@ namespace pv {
 		testNode->getMaterial(0).Lighting = false;
 		testNode->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\wood.jpg"));
 		testNode->setName("Plane");
-
+		
 		// Ne Kiste
 		scene::IMeshSceneNode *cube = smgr->addCubeSceneNode(3.0f, rootNode, 15);
-		cube->setPosition(core::vector3df(0, 1.5, 2));
+		cube->setPosition(core::vector3df(0, 2.5, 2));
 		cube->getMaterial(0).Lighting = false;
 		cube->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\crate.jpg"));
 		cube->setVisible(true);
+		cube->addAnimator(smgr->createRotationAnimator(core::vector3df(0.05f, 0.3f,0)));
 		cube->setName("Testwürfel");
-
-		scene::ISceneNodeAnimator* anim = smgr->createRotationAnimator(core::vector3df(0.0f, 0.3f,0));
-		cube->addAnimator(anim);
 		
+		// Noch ein Testknoten
+		scene::ISceneNode *helper = new nodes::OrientationHelperSceneNode(1, rootNode, smgr, 16);
+		helper->setPosition(vector3df(0, 0.5f, 0));
+		helper->setName("Debug Helper");
+
 		// Render to texture: Textur
-		renderTarget = getDriver()->addRenderTargetTexture(core::dimension2d<u32>(128,128), "RTT1");
+		renderTarget = getDriver()->addRenderTargetTexture(core::dimension2d<u32>(128,96), "RTT1");
 		
 		// Render to texture: Kamera
-		renderTargetCamera = smgr->addCameraSceneNode(NULL, core::vector3df(0, 1.5, -3), core::vector3df(0, 1.5, 0), -1);
+		renderTargetCamera = smgr->addCameraSceneNode(NULL, core::vector3df(0, 0.8f, -3), core::vector3df(0, 0.8f, 0), -1);
 		renderTargetCamera->setName("Render Target Camera");
-		renderTargetCamera->setNearValue(0.1f);
-		renderTargetCamera->setFarValue(20);
+		renderTargetCamera->setNearValue(0.01f);
+		renderTargetCamera->setFarValue(6);
 
 		// GUI-Element
 		image = getGUIEnvironment()->addImage(core::rect<s32>(5, 5, 128+5, 96+5));
@@ -109,9 +113,6 @@ namespace pv {
 		video::IVideoDriver *driver = getDriver();
 		scene::ISceneManager *smgr = getSceneManager();
 
-		//std::cout << mainCamera->getRotation().X << ", "<< mainCamera->getRotation().Y << ", "<< mainCamera->getRotation().Z <<  " --- " <<
-		//	mainCamera->getPosition().X << ", "<< mainCamera->getPosition().Y << ", "<< mainCamera->getPosition().Z << std::endl;
-
 		// Szene beginnen
 		beginScene();
 
@@ -121,6 +122,9 @@ namespace pv {
 
 		// Boden ausblenden
 		testNode->setVisible(false);
+		smgr->getSceneNodeFromId(15)->setVisible(false);
+		smgr->getSceneNodeFromId(16)->setRotation(smgr->getSceneNodeFromId(15)->getRotation());
+		smgr->getSceneNodeFromId(16)->setVisible(true);
 		renderScene();
 
 		// Backbuffer als Ziel wählen
@@ -129,16 +133,12 @@ namespace pv {
 
 		// Szene erneut rendern
 		testNode->setVisible(true);
+		smgr->getSceneNodeFromId(15)->setVisible(true);
+		smgr->getSceneNodeFromId(16)->setVisible(false);
 		renderScene();
 
-		// Bounding Box zeichnen
-		scene::ISceneNode *cube = smgr->getSceneNodeFromId(15);
-		driver->setMaterial(getUnlitMaterial());
-		driver->setTransform(video::ETS_WORLD, core::matrix4());
-		driver->draw3DBox(cube->getTransformedBoundingBox());
-
 		// Käfig um die Kamera zeichnen
-		drawCameraOrientationCage(mainCamera);
+		//drawCameraOrientationCage(mainCamera);
 
 		// Das Bild zeigen
 		image->setImage(renderTarget);

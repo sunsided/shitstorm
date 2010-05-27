@@ -1,9 +1,16 @@
+/** 
+ * Project Vector
+ * SceneNode, der eine Ebene zur Verfügung stellt
+ *
+ * (c) 2010, Markus Mayer <code@defx.de>
+ * $Id$
+ */
+
 #include "PlaneSceneNode.h"
 
 namespace pv {
 namespace nodes
 {
-
 
 	//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
 	void PlaneSceneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd, f32 vStart, f32 vEnd) 

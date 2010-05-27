@@ -12,7 +12,7 @@
 
 #include "global.h"
 #include "EngineBase.h"
-#include "SceneNodes\PlaneSceneNode.h"
+#include "SceneNodes/PlaneSceneNode.h"
 
 namespace pv {
 

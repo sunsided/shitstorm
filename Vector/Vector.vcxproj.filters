@@ -22,6 +22,9 @@
     <ClCompile Include="SceneNodes\PlaneSceneNode.cpp">
       <Filter>SceneNodes</Filter>
     </ClCompile>
+    <ClCompile Include="SceneNodes\OrientationHelperSceneNode.cpp">
+      <Filter>SceneNodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -42,6 +45,9 @@
       <Filter>GameLogic</Filter>
     </ClInclude>
     <ClInclude Include="SceneNodes\PlaneSceneNode.h">
+      <Filter>SceneNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h">
       <Filter>SceneNodes</Filter>
     </ClInclude>
   </ItemGroup>
