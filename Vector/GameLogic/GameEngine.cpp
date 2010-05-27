@@ -63,10 +63,10 @@ namespace pv {
 		cube->addAnimator(anim);
 		
 		// Render to texture: Textur
-		renderTarget = getDriver()->addRenderTargetTexture(core::dimension2d<u32>(160,120), "RTT1");
+		renderTarget = getDriver()->addRenderTargetTexture(core::dimension2d<u32>(128,128), "RTT1");
 		
 		// Render to texture: Kamera
-		renderTargetCamera = smgr->addCameraSceneNode(NULL, core::vector3df(0, 2, -5), core::vector3df(0, 0, 0), -1);
+		renderTargetCamera = smgr->addCameraSceneNode(NULL, core::vector3df(0, 1.5, -3), core::vector3df(0, 1.5, 0), -1);
 		renderTargetCamera->setName("Render Target Camera");
 		renderTargetCamera->setNearValue(0.1f);
 		renderTargetCamera->setFarValue(20);
@@ -111,26 +111,23 @@ namespace pv {
 		beginScene();
 
 		// Textur als Renderziel wählen
-		driver->setRenderTarget(renderTarget, true, true, video::SColor(4,64,16,0));
+		driver->setRenderTarget(renderTarget, true, true, 0);
 		smgr->setActiveCamera(renderTargetCamera);
 
-		// Würfel einblenden
+		// Boden ausblenden
+		testNode->setVisible(false);
 		renderScene();
-
-		// Würfel holen
-		scene::ISceneNode *cube = smgr->getSceneNodeFromId(15);
-		driver->setMaterial(getUnlitMaterial());
-		driver->setTransform(video::ETS_WORLD, core::matrix4());
-		driver->draw3DBox(cube->getTransformedBoundingBox());
 
 		// Backbuffer als Ziel wählen
 		driver->setRenderTarget(video::ERT_FRAME_BUFFER, true, true, getClearColor());
 		smgr->setActiveCamera(mainCamera);
 
 		// Szene erneut rendern
+		testNode->setVisible(true);
 		renderScene();
 
 		// Bounding Box zeichnen
+		scene::ISceneNode *cube = smgr->getSceneNodeFromId(15);
 		driver->setMaterial(getUnlitMaterial());
 		driver->setTransform(video::ETS_WORLD, core::matrix4());
 		driver->draw3DBox(cube->getTransformedBoundingBox());
@@ -139,7 +136,7 @@ namespace pv {
 		drawCameraOrientationCage(mainCamera);
 
 		// Das Bild zeigen
-		gui::IGUIImage *image = getGUIEnvironment()->addImage(core::rect<s32>(5, 5, 165, 125));
+		gui::IGUIImage *image = getGUIEnvironment()->addImage(core::rect<s32>(5, 5, 128+5, 96+5));
 		image->setScaleImage(true);
 		image->setUseAlphaChannel(true);
 		image->setImage(renderTarget);
