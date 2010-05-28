@@ -10,7 +10,7 @@
 #ifndef _ORIENTATIONHELPERSCENENODE_H
 #define _ORIENTATIONHELPERSCENENODE_H
 
-#include <irrlicht.h>
+#include "global.h"
 using namespace irr;
 
 namespace pv {
@@ -38,6 +38,21 @@ namespace nodes {
 			SceneManager->registerNodeForRendering(this);
 			ISceneNode::OnRegisterSceneNode();
 		}
+
+		//! Rotiert die Helferkamera so, dass sie der Sicht der Hauptkamera auf dieses Objekt entspräche.
+		/** 
+		 * @mainCamera		Die Hauptkamera
+		 * @helperCamera	Die Helferkamera
+		 */
+		void rotateHelperToFaceMainView(const scene::ICameraSceneNode *mainCamera, scene::ICameraSceneNode *helperCamera) const;
+
+		//! Rotiert die Helferkamera so, dass sie der Sicht der Hauptkamera auf dieses Objekt entspräche.
+		/** 
+		 * @mainCameraPosition		Die Position der Hauptkamera
+		 * @mainCameraTarget		Die Zielposition der Hauptkamera
+		 * @helperCamera			Die Helferkamera
+		 */
+		void rotateHelperToFaceMainView(const core::vector3df &mainCameraPosition, const core::vector3df &mainCameraTarget, scene::ICameraSceneNode *helperCamera) const;
 
 	private:
 

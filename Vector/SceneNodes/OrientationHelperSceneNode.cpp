@@ -77,4 +77,33 @@ namespace nodes
 		driver->draw3DLine(vector3df(0, arrowOffset, offsetLine), vector3df(0, 0, lineLength), color);
 	}
 
+	//! Rotiert die Helferkamera so, dass sie der Sicht der Hauptkamera auf dieses Objekt entspräche.
+	/** 
+	* @mainCamera		Die Hauptkamera
+	* @helperCamera		Die Helferkamera
+	*/
+	void OrientationHelperSceneNode::rotateHelperToFaceMainView(const scene::ICameraSceneNode *mainCamera, scene::ICameraSceneNode *helperCamera) const {
+		ASSERT(mainCamera); ASSERT(helperCamera);
+
+		// GetAbsolutePosition() liefert (0,0,0), wenn das Element versteckt ist
+		rotateHelperToFaceMainView(mainCamera->getPosition(), mainCamera->getTarget(), helperCamera);
+	}
+
+	//! Rotiert die Helferkamera so, dass sie der Sicht der Hauptkamera auf dieses Objekt entspräche.
+	/** 
+	* @mainCameraPosition		Die Position der Hauptkamera
+	* @mainCameraTarget		Die Zielposition der Hauptkamera
+	* @helperCamera			Die Helferkamera
+	*/
+	void OrientationHelperSceneNode::rotateHelperToFaceMainView(const core::vector3df &mainCameraPosition, const core::vector3df &mainCameraTarget, scene::ICameraSceneNode *helperCamera) const {
+		ASSERT(helperCamera);
+
+		// GetAbsolutePosition() liefert (0,0,0), wenn das Element versteckt ist
+		f32 distance = helperCamera->getPosition().getDistanceFrom(getPosition());
+		//core::vector3df direction = (mainCameraPosition - mainCameraTarget).normalize();
+		core::vector3df direction = (mainCameraPosition - getPosition()).normalize();
+		core::vector3df newPosition = getPosition() + direction*distance;
+		helperCamera->setPosition(newPosition);
+	}
+
 }}

@@ -41,7 +41,7 @@ namespace pv {
 		// Hauptkamera erzeugen
 		mainCamera = smgr->addCameraSceneNodeFPS(NULL, 100.0f, 0.01f);
 		mainCamera->setNearValue(2.0f); // Ein Wert von null verursacht Probleme! -- UND: http://www.sjbaker.org/steve/omniv/love_your_z_buffer.html
-		mainCamera->setPosition(vector3df(0, 10, -10));
+		mainCamera->setPosition(core::vector3df(0, 10, -10));
 		mainCamera->setTarget(core::vector3df(0, 0, 0));
 		mainCamera->setName("Main Camera");
 
@@ -63,7 +63,7 @@ namespace pv {
 		
 		// Noch ein Testknoten
 		scene::ISceneNode *helper = new nodes::OrientationHelperSceneNode(1, rootNode, smgr, 16);
-		helper->setPosition(vector3df(0, 0.5f, 0));
+		helper->setPosition(core::vector3df(0, 0.5f, 0));
 		helper->setName("Debug Helper");
 
 		// Render to texture: Textur
@@ -125,6 +125,7 @@ namespace pv {
 		smgr->getSceneNodeFromId(15)->setVisible(false);
 		smgr->getSceneNodeFromId(16)->setRotation(smgr->getSceneNodeFromId(15)->getRotation());
 		smgr->getSceneNodeFromId(16)->setVisible(true);
+		((nodes::OrientationHelperSceneNode*)smgr->getSceneNodeFromId(16))->rotateHelperToFaceMainView(mainCamera, renderTargetCamera);
 		renderScene();
 
 		// Backbuffer als Ziel wählen

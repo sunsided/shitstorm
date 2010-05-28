@@ -10,28 +10,25 @@
 #ifndef _PLANESCENENODE_H
 #define _PLANESCENENODE_H
 
-#include <irrlicht.h>
+#include "global.h"
 using namespace irr;
-using namespace core;
-using namespace video;
-using namespace scene;
 
 namespace pv {
 namespace nodes {
 
-	class PlaneSceneNode : public ISceneNode
+	class PlaneSceneNode : public scene::ISceneNode
 	{
 	public:
 		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
-		PlaneSceneNode(ISceneNode* parent, ISceneManager* mgr, s32 id)
+		PlaneSceneNode(scene::ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
 			: ISceneNode(parent, mgr, id), Mesh(NULL) { }
 		
 		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
-		PlaneSceneNode(f32 size, u8 quads, ISceneNode* parent, ISceneManager* mgr, s32 id)
+		PlaneSceneNode(f32 size, u8 quads, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
 			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(size, size, quads); }
 		
 		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
-		PlaneSceneNode(f32 width, f32 height, u8 quads, ISceneNode* parent, ISceneManager* mgr, s32 id)
+		PlaneSceneNode(f32 width, f32 height, u8 quads, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
 			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quads); }
 		
 		//! Destruktor
@@ -41,19 +38,19 @@ namespace nodes {
 		virtual void render();
 
 		//! Ermittelt die Bounding Box
-		inline virtual const aabbox3d<f32>& getBoundingBox() const { return Box; }
+		inline virtual const core::aabbox3d<f32>& getBoundingBox() const { return Box; }
 
 		//! Liefert die Anzahl der Materialien
 		inline virtual u32 getMaterialCount() { return 1; }
 
 		//! Liefert das Material mit der gegebenen ID
-		inline virtual SMaterial& getMaterial(u32 i) { return Material; }
+		inline virtual video::SMaterial& getMaterial(u32 i) { return Material; }
 
 		//! Reagiert auf das RegisterSceneNode-Ereignis
 		virtual void OnRegisterSceneNode();
 
 		//! Liefert den Mesh
-		inline const IMesh* getMesh() const { return Mesh; }
+		inline const scene::IMesh* getMesh() const { return Mesh; }
 
 	private:
 		
@@ -69,7 +66,7 @@ namespace nodes {
 		u16 TriangleCount;
 		
 		// Das Mesh der Ebene
-		IMesh *Mesh;
+		scene::IMesh *Mesh;
 
 		//! Die Bounding Box
 		core::aabbox3d<f32> Box;

@@ -21,7 +21,7 @@ namespace nodes
 		// Platz besorgen
 		u8 count = 2+(quads-1);
 		VertexCount = count*count;
-		SMeshBuffer *MeshBuffer = new SMeshBuffer();
+		scene::SMeshBuffer *MeshBuffer = new scene::SMeshBuffer();
 
 		// Vertexkoordinaten
 		f32 xStart	= -width/2;
@@ -34,7 +34,7 @@ namespace nodes
 		f32 vStep	= (vEnd-vStart)/(count-1);
 
 		// Zu verwendende Vertexfarbe
-		SColor white = SColor(255, 255,255,255);
+		video::SColor white = video::SColor(255, 255,255,255);
 
 		// Punkte generieren
 		for(u8 y=0; y<count; ++y)
@@ -47,8 +47,8 @@ namespace nodes
 
 				f32 vertexX = xStart + x*xStep;
 				f32 vertexU = uStart + x*uStep;
-				S3DVertex *vertex = &irr::video::S3DVertex( vertexX, 0, vertexY, 0,1,0, white, vertexU, vertexV);
-				S3DVertexTangents foo;
+				video::S3DVertex *vertex = &irr::video::S3DVertex( vertexX, 0, vertexY, 0,1,0, white, vertexU, vertexV);
+				video::S3DVertexTangents foo;
 				MeshBuffer->Vertices.push_back(*vertex);
 
 				// Bounding Box generieren
@@ -87,7 +87,7 @@ namespace nodes
 
 		// Temporäres Mesh generieren
 		{
-			SMesh mesh;
+			scene::SMesh mesh;
 			mesh.addMeshBuffer(MeshBuffer);
 
 			// Mesh neuberechnen
@@ -97,7 +97,7 @@ namespace nodes
 		// Material setzen
 		Material.Wireframe = false;
 		Material.Lighting = true;
-		Material.MaterialType = EMT_SOLID;
+		Material.MaterialType = video::EMT_SOLID;
 		Material.BackfaceCulling = true;
 	}
 
@@ -107,10 +107,10 @@ namespace nodes
 
 	//! Rendert den Knoten
 	void PlaneSceneNode::render() {
-		IVideoDriver* driver = SceneManager->getVideoDriver();
+		video::IVideoDriver* driver = SceneManager->getVideoDriver();
 
 		driver->setMaterial(Material);
-		driver->setTransform(ETS_WORLD, AbsoluteTransformation);
+		driver->setTransform(video::ETS_WORLD, AbsoluteTransformation);
 		driver->drawMeshBuffer(Mesh->getMeshBuffer(0));
 	}
 
