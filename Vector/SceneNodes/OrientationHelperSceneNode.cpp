@@ -22,6 +22,9 @@ namespace nodes
 		// Materialien erzeugen
 		boxMaterial.Lighting = false;
 		boxMaterial.Thickness = 2.0f;
+		boxMaterial.Wireframe = true;
+		boxMaterial.FrontfaceCulling = false;
+		boxMaterial.BackfaceCulling = false;
 	}
 
 	//! Rendert den Knoten
@@ -49,32 +52,50 @@ namespace nodes
 		// X-Pfeil
 		video::SColor color = video::SColor(255, 255, 0, 0);
 		driver->draw3DLine(zero, vector3df(lineLength, 0, 0), color);
-		driver->draw3DLine(vector3df(offsetLine, -arrowOffset, 0), vector3df(offsetLine, arrowOffset, 0), color);
-		driver->draw3DLine(vector3df(offsetLine, 0, -arrowOffset), vector3df(offsetLine, 0, arrowOffset), color);
-		driver->draw3DLine(vector3df(offsetLine, -arrowOffset, 0), vector3df(lineLength, 0, 0), color);
-		driver->draw3DLine(vector3df(offsetLine, arrowOffset, 0), vector3df(lineLength, 0, 0), color);
-		driver->draw3DLine(vector3df(offsetLine, 0, -arrowOffset), vector3df(lineLength, 0, 0), color);
-		driver->draw3DLine(vector3df(offsetLine, 0, arrowOffset), vector3df(lineLength, 0, 0), color);
+
+		core::triangle3df triangle(
+			core::vector3df(offsetLine, -arrowOffset, 0),
+			core::vector3df(offsetLine, arrowOffset, 0),
+			core::vector3df(lineLength, 0, 0));
+		driver->draw3DTriangle(triangle, color);
+
+		triangle = core::triangle3df(
+			core::vector3df(offsetLine, 0, -arrowOffset),
+			core::vector3df(offsetLine, 0, arrowOffset),
+			core::vector3df(lineLength, 0, 0));
+		driver->draw3DTriangle(triangle, color);
 
 		// Y-Pfeil
 		color = video::SColor(255, 0, 255, 0);
 		driver->draw3DLine(zero, vector3df(0, lineLength, 0), color);
-		driver->draw3DLine(vector3df(-arrowOffset, offsetLine, 0), vector3df(arrowOffset, offsetLine, 0), color);
-		driver->draw3DLine(vector3df(0, offsetLine, -arrowOffset), vector3df(0, offsetLine, arrowOffset), color);
-		driver->draw3DLine(vector3df(-arrowOffset, offsetLine, 0), vector3df(0, lineLength, 0), color);
-		driver->draw3DLine(vector3df(arrowOffset, offsetLine, 0), vector3df(0, lineLength, 0), color);
-		driver->draw3DLine(vector3df(0, offsetLine, -arrowOffset), vector3df(0, lineLength, 0), color);
-		driver->draw3DLine(vector3df(0, offsetLine, arrowOffset), vector3df(0, lineLength, 0), color);
+
+		triangle = core::triangle3df(
+			core::vector3df(-arrowOffset, offsetLine, 0),
+			core::vector3df(arrowOffset, offsetLine, 0),
+			core::vector3df(0, lineLength, 0));
+		driver->draw3DTriangle(triangle, color);
+
+		triangle = core::triangle3df(
+			core::vector3df(0, offsetLine, -arrowOffset),
+			core::vector3df(0, offsetLine, arrowOffset),
+			core::vector3df(0, lineLength, 0));
+		driver->draw3DTriangle(triangle, color);
 
 		// Z-Pfeil
 		color = video::SColor(255, 0, 0, 255);
 		driver->draw3DLine(zero, vector3df(0, 0, lineLength), color);
-		driver->draw3DLine(vector3df(-arrowOffset, 0, offsetLine), vector3df(arrowOffset, 0, offsetLine), color);
-		driver->draw3DLine(vector3df(0, -arrowOffset, offsetLine), vector3df(0, arrowOffset, offsetLine), color);
-		driver->draw3DLine(vector3df(-arrowOffset, 0, offsetLine), vector3df(0, 0, lineLength), color);
-		driver->draw3DLine(vector3df(arrowOffset, 0, offsetLine), vector3df(0, 0, lineLength), color);
-		driver->draw3DLine(vector3df(0, -arrowOffset, offsetLine), vector3df(0, 0, lineLength), color);
-		driver->draw3DLine(vector3df(0, arrowOffset, offsetLine), vector3df(0, 0, lineLength), color);
+
+		triangle = core::triangle3df(
+			core::vector3df(-arrowOffset, 0, offsetLine),
+			core::vector3df(arrowOffset, 0, offsetLine),
+			core::vector3df(0, 0, lineLength));
+		driver->draw3DTriangle(triangle, color);
+		
+		triangle = core::triangle3df(
+			core::vector3df(0, -arrowOffset, offsetLine),
+			core::vector3df(0, arrowOffset, offsetLine),
+			core::vector3df(0, 0, lineLength));
+		driver->draw3DTriangle(triangle, color);
 	}
 
 	//! Rotiert die Helferkamera so, dass sie der Sicht der Hauptkamera auf dieses Objekt entspräche.
