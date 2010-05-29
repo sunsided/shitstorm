@@ -123,9 +123,9 @@ namespace pv {
 		// Boden ausblenden
 		testNode->setVisible(false);
 		smgr->getSceneNodeFromId(15)->setVisible(false);
-		smgr->getSceneNodeFromId(16)->setRotation(smgr->getSceneNodeFromId(15)->getRotation());
+		core::vector3df direction = (mainCamera->getPosition() - mainCamera->getTarget()).normalize();
+		smgr->getSceneNodeFromId(16)->setRotation(direction.getSphericalCoordinateAngles());
 		smgr->getSceneNodeFromId(16)->setVisible(true);
-		((nodes::OrientationHelperSceneNode*)smgr->getSceneNodeFromId(16))->rotateHelperToFaceMainView(mainCamera, renderTargetCamera);
 		renderScene();
 
 		// Backbuffer als Ziel wählen

@@ -100,7 +100,6 @@ namespace nodes
 
 		// GetAbsolutePosition() liefert (0,0,0), wenn das Element versteckt ist
 		f32 distance = helperCamera->getPosition().getDistanceFrom(getPosition());
-		//core::vector3df direction = (mainCameraPosition - mainCameraTarget).normalize();
 		core::vector3df direction = (mainCameraPosition - getPosition()).normalize();
 		core::vector3df newPosition = getPosition() + direction*distance;
 		helperCamera->setPosition(newPosition);
