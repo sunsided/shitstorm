@@ -120,12 +120,27 @@ namespace pv {
 		driver->setRenderTarget(renderTarget, true, true, 0);
 		smgr->setActiveCamera(renderTargetCamera);
 
-		// Boden ausblenden
+		// Boden aus-, um- und durcheinanderblenden
 		testNode->setVisible(false);
 		smgr->getSceneNodeFromId(15)->setVisible(false);
-		core::vector3df direction = (mainCamera->getPosition() - mainCamera->getTarget()).normalize();
-		smgr->getSceneNodeFromId(16)->setRotation(direction.getSphericalCoordinateAngles());
 		smgr->getSceneNodeFromId(16)->setVisible(true);
+
+		// Rotation des Helferobjektes ermitteln
+		core::vector3df direction = (mainCamera->getTarget() - mainCamera->getPosition()).normalize();
+		core::vector3df worldUp = mainCamera->getUpVector();
+		core::vector3df right = worldUp.crossProduct(direction).normalize();
+		core::vector3df up = direction.crossProduct(right).normalize();
+
+		// Matrix erzeugen
+		core::matrix4 mLookAt, m;
+		mLookAt.buildCameraLookAtMatrixLH(core::vector3df(), direction, worldUp);
+		mLookAt.getInverse(m); // Look-At invertieren um Aim-At zu erhalten
+		
+		// Rotation setzen
+		core::vector3df rotation = m.getRotationDegrees();
+		smgr->getSceneNodeFromId(16)->setRotation(rotation);
+
+		// Rendern
 		renderScene();
 
 		// Backbuffer als Ziel wählen
