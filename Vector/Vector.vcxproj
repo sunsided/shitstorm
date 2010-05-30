@@ -91,6 +91,7 @@
     <ClCompile Include="GameLogic\GameEngine.cpp" />
     <ClCompile Include="GameLogic\GameTimer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Physics\DynamicsWorld.cpp" />
     <ClCompile Include="Physics\PhysicsManagement.cpp" />
     <ClCompile Include="SceneNodes\OrientationHelperSceneNode.cpp" />
     <ClCompile Include="SceneNodes\PlaneSceneNode.cpp" />
@@ -103,6 +104,7 @@
     <ClInclude Include="GameLogic\GameTimer.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="linker.h" />
+    <ClInclude Include="Physics\DynamicsWorld.h" />
     <ClInclude Include="Physics\PhysicsManagement.h" />
     <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h" />
     <ClInclude Include="SceneNodes\PlaneSceneNode.h" />

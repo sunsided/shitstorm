@@ -22,6 +22,7 @@ namespace physics {
 	class btCollisionDispatcher;
 	class btSequentialImpulseConstraintSolver;
 	class btDiscreteDynamicsWorld;
+	class DynamicsWorld;
 
 	//! Klasse, die die Physikengine verwaltet
 	class PhysicsManagement
@@ -65,7 +66,7 @@ namespace physics {
 		btSequentialImpulseConstraintSolver* solver;
 
 		//! Die Simulationswelt
-		std::vector<btDiscreteDynamicsWorld*> dynamicsWorlds;
+		std::vector<DynamicsWorld*> dynamicsWorlds;
 	};
 
 }}
