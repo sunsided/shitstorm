@@ -20,4 +20,10 @@
 	#endif
 #endif
 
+#if _MSC_VER
+	#pragma comment(lib, "BulletCollision.lib")
+	#pragma comment(lib, "BulletDynamics.lib")
+	#pragma comment(lib, "LinearMath.lib")
+#endif
+
 #endif
