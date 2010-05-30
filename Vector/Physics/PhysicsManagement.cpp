@@ -12,6 +12,7 @@
 #include <btBulletDynamicsCommon.h>
 
 namespace pv {
+namespace physics {
 
 	//! Destruktor
 	PhysicsManagement::~PhysicsManagement(void)
@@ -38,4 +39,4 @@ namespace pv {
 		*/
 	}
 
-}
+}}

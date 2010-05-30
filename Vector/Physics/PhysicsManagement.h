@@ -14,6 +14,7 @@
 #include <vector>
 
 namespace pv {
+namespace physics {
 
 	// Vorwärtsdeklarationen der Klassen
 	class btBroadphaseInterface;
@@ -67,6 +68,6 @@ namespace pv {
 		std::vector<btDiscreteDynamicsWorld*> dynamicsWorlds;
 	};
 
-}
+}}
 
 #endif

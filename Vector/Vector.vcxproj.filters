@@ -28,7 +28,7 @@
     <ClCompile Include="SceneNodes\OrientationHelperSceneNode.cpp">
       <Filter>SceneNodes</Filter>
     </ClCompile>
-    <ClCompile Include="GameLogic\PhysicsManagement.cpp">
+    <ClCompile Include="Physics\PhysicsManagement.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,7 +56,7 @@
     <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h">
       <Filter>SceneNodes</Filter>
     </ClInclude>
-    <ClInclude Include="GameLogic\PhysicsManagement.h">
+    <ClInclude Include="Physics\PhysicsManagement.h">
       <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,7 +18,7 @@
 namespace pv {
 
 	// Vorwärtsdeklaration der Physikmanagement-Klasse
-	class PhysicsManagement;
+	namespace physics { class PhysicsManagement; }
 
 	//! Basisklasse der Spiele-Engine.
 	class EngineBase
@@ -187,7 +187,7 @@ namespace pv {
 		irr::gui::IGUIEnvironment* guiEnvironment;
 
 		//! Die Physik-Managementklasse
-		PhysicsManagement* physicsManagement;
+		physics::PhysicsManagement* physicsManagement;
 
 		//! Gibt an, ob die Engine aufgeräumt wurde
 		bool engineClean;

@@ -90,8 +90,8 @@
     <ClCompile Include="GameLogic\EngineBase.cpp" />
     <ClCompile Include="GameLogic\GameEngine.cpp" />
     <ClCompile Include="GameLogic\GameTimer.cpp" />
-    <ClCompile Include="GameLogic\PhysicsManagement.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Physics\PhysicsManagement.cpp" />
     <ClCompile Include="SceneNodes\OrientationHelperSceneNode.cpp" />
     <ClCompile Include="SceneNodes\PlaneSceneNode.cpp" />
   </ItemGroup>
@@ -101,9 +101,9 @@
     <ClInclude Include="GameLogic\EngineStatusCode.h" />
     <ClInclude Include="GameLogic\GameEngine.h" />
     <ClInclude Include="GameLogic\GameTimer.h" />
-    <ClInclude Include="GameLogic\PhysicsManagement.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="linker.h" />
+    <ClInclude Include="Physics\PhysicsManagement.h" />
     <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h" />
     <ClInclude Include="SceneNodes\PlaneSceneNode.h" />
   </ItemGroup>
