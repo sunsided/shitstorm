@@ -34,6 +34,9 @@
     <ClCompile Include="Physics\DynamicsWorld.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Physics\CollisionShapeManagement.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -63,6 +66,9 @@
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Physics\DynamicsWorld.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\CollisionShapeManagement.h">
       <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
