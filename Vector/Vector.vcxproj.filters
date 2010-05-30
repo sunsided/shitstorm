@@ -7,6 +7,9 @@
     <Filter Include="GameLogic">
       <UniqueIdentifier>{43769670-e1d5-4c96-8daf-deeca9425486}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{4ad8ee70-65ab-4c14-b19a-d28dc5fdcd0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -26,7 +29,7 @@
       <Filter>SceneNodes</Filter>
     </ClCompile>
     <ClCompile Include="GameLogic\PhysicsManagement.cpp">
-      <Filter>GameLogic</Filter>
+      <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +57,7 @@
       <Filter>SceneNodes</Filter>
     </ClInclude>
     <ClInclude Include="GameLogic\PhysicsManagement.h">
-      <Filter>GameLogic</Filter>
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
