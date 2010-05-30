@@ -84,6 +84,12 @@ namespace physics {
 		//! Räumt die Physikgeschichte auf
 		void EndPhysics(void);
 
+		//! Aktualisiert die Masse des Objektes
+		void updateMass(f32 mass);
+
+		//! Aktualisiert die Masse des Objektes
+		void updateMass(f32 mass, const btVector3& localInertia);
+
 	protected:
 
 		//! Wandelt einen Quaternion in einen Euler-Rotationsvektor um

@@ -34,6 +34,32 @@ namespace physics {
 		//g_pCollisionObjectMgr->Remove(m_pCollisionObject);
 	}
 
+	//! Aktualisiert die Masse des Objektes
+	void PhysicsBody::updateMass(f32 newMass) {
+		if (!collisionShape || !rigidBody) {
+			mass = newMass;
+			return;
+		}
+		
+		// Lokale Trägheit berechnen
+		mass = newMass;
+		btVector3 localInertia(0, 0, 0);
+		if (newMass != 0) collisionShape->calculateLocalInertia(newMass, localInertia);
+		rigidBody->setMassProps(mass, localInertia);
+	}
+
+	//! Aktualisiert die Masse des Objektes
+	void PhysicsBody::updateMass(f32 newMass, const btVector3& localInertia) {
+		if (!collisionShape || !rigidBody) {
+			mass = newMass;
+			return;
+		}
+		
+		// Lokale Trägheit berechnen
+		mass = newMass;
+		rigidBody->setMassProps(mass, localInertia);
+	}
+
 	// Physik initialisieren
 	void PhysicsBody::InitPhysics(f32 ccdThreshold, f32 linearDamping, f32 angularDamping, f32 friction, f32 restitution)
 	{
