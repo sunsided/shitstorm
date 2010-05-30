@@ -44,7 +44,7 @@ namespace physics {
 		while(!dynamicsWorlds.empty()) {
 
 			// Letzte Welt ermitteln und aus Vektor entfernen
-			DynamicsWorld* world = dynamicsWorlds.back();
+			PhysicsWorld* world = dynamicsWorlds.back();
 			dynamicsWorlds.pop_back();
 
 			// Welt freigeben
@@ -53,7 +53,7 @@ namespace physics {
 	}
 
 	//! Fügt dem System eine Dynamikwelt hinzu
-	void PhysicsManagement::addDynamicsWorld(DynamicsWorld *world) {
+	void PhysicsManagement::addDynamicsWorld(PhysicsWorld *world) {
 		ASSERT(world);
 		dynamicsWorlds.push_back(world);
 	}
@@ -67,7 +67,7 @@ namespace physics {
 	void PhysicsManagement::update(float deltaTime, short unsigned int maxSubsteps, float fixedTimeStep) {
 		
 		// http://msdn.microsoft.com/en-us/library/dd647617.aspx
-		std::vector<DynamicsWorld*>::const_iterator iterator = dynamicsWorlds.cbegin();
+		std::vector<PhysicsWorld*>::const_iterator iterator = dynamicsWorlds.cbegin();
 		for (; iterator != dynamicsWorlds.cend(); iterator++)
 		{
 			(*iterator)->update(deltaTime, maxSubsteps, fixedTimeStep);

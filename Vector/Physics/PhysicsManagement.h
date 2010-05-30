@@ -13,7 +13,7 @@
 #include "global.h"
 #include <vector>
 
-#include "DynamicsWorld.h"
+#include "PhysicsWorld.h"
 #include "CollisionShapeManagement.h"
 
 namespace pv {
@@ -40,7 +40,7 @@ namespace physics {
 		 *	Ein zusätzlicher Aufruf von delete ist nicht nötig!
 		 * @param world		Die hinzuzufügende Welt
 		 */
-		void addDynamicsWorld(DynamicsWorld *world);
+		void addDynamicsWorld(PhysicsWorld *world);
 
 		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
 		/** Aktualisiert alle registrierten Dynamikwelten.
@@ -61,7 +61,7 @@ namespace physics {
 		bool initialized;
 		
 		//! Die Simulationswelt
-		std::vector<DynamicsWorld*> dynamicsWorlds;
+		std::vector<PhysicsWorld*> dynamicsWorlds;
 
 		//! Die CollisionShapeManagement-Instanz
 		CollisionShapeManagement* collisionShapeManager;

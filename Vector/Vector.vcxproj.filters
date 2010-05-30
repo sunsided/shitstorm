@@ -31,9 +31,6 @@
     <ClCompile Include="Physics\PhysicsManagement.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Physics\DynamicsWorld.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="Physics\CollisionShapeManagement.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
@@ -41,6 +38,12 @@
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="Physics\PhysicsMotionState.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsBody.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsWorld.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,9 +74,6 @@
     <ClInclude Include="Physics\PhysicsManagement.h">
       <Filter>Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Physics\DynamicsWorld.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="Physics\CollisionShapeManagement.h">
       <Filter>Physics</Filter>
     </ClInclude>
@@ -81,6 +81,12 @@
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Physics\PhysicsMotionState.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsBody.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsWorld.h">
       <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>

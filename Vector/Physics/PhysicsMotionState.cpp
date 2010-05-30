@@ -8,8 +8,6 @@
 
 #include "PhysicsMotionState.h"
 
-using namespace bullet;
-
 namespace pv {
 namespace physics {
 	

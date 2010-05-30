@@ -7,8 +7,8 @@
  */
 
 #pragma once
-#ifndef _DYNAMICSWORLD_H
-#define _DYNAMICSWORLD_H
+#ifndef _PHYSICSWORLD_H
+#define _PHYSICSWORLD_H
 
 #include "global.h"
 #include <vector>
@@ -26,15 +26,15 @@ namespace pv {
 namespace physics {
 
 	//! Klasse, die die Physikengine verwaltet
-	class DynamicsWorld
+	class PhysicsWorld
 	{
 	public:
 
 		//! Erzeugt eine neue Instanz des Objektes
-		DynamicsWorld(void) : dynamicsWorld(NULL), collisionConfiguration(NULL) {}
+		PhysicsWorld(void) : dynamicsWorld(NULL), collisionConfiguration(NULL) {}
 
 		//! Destruktor
-		virtual ~DynamicsWorld(void);
+		virtual ~PhysicsWorld(void);
 
 		//! Erzeugt die Welt
 		void createWorld();
@@ -84,8 +84,13 @@ namespace physics {
 			btConstraintSolver* solver,
 			btCollisionConfiguration* configuration) const;
 
+	public:
+
 		//! Ermittelt die Gravitation
 		virtual btVector3 getGravity() const;
+
+		//! Bezieht die Dynamikwelt
+		virtual btDynamicsWorld* getDynamicsWorld() const { return dynamicsWorld; }
 
 	private:
 		

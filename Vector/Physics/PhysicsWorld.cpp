@@ -6,7 +6,7 @@
  * $Id$
  */
 
-#include "DynamicsWorld.h"
+#include "PhysicsWorld.h"
 #include <algorithm>
 
 // Bullet
@@ -16,13 +16,13 @@ namespace pv {
 namespace physics {
 
 	//! Destruktor
-	DynamicsWorld::~DynamicsWorld(void)
+	PhysicsWorld::~PhysicsWorld(void)
 	{
 		destruct();
 	}
 		
 	//! Vernichtet die Dynamikwelt
-	void DynamicsWorld::destruct() {
+	void PhysicsWorld::destruct() {
 		if (!dynamicsWorld) return;
 
 		// Dispatcher löschen
@@ -63,28 +63,28 @@ namespace physics {
 	}
 
 	//! Erzeugt die DefaultCollisionConfiguration
-	btCollisionConfiguration* DynamicsWorld::createCollisionConfiguration() const {
+	btCollisionConfiguration* PhysicsWorld::createCollisionConfiguration() const {
 		return new btDefaultCollisionConfiguration();
 	}
 
 	//! Erzeugt die Collision Dispatcher
-	btCollisionDispatcher* DynamicsWorld::createCollisionDispatcher(btCollisionConfiguration* configuration) const {
+	btCollisionDispatcher* PhysicsWorld::createCollisionDispatcher(btCollisionConfiguration* configuration) const {
 		ASSERT(configuration);
 		return new btCollisionDispatcher(configuration);
 	}
 
 	//! Erzeugt den Solver
-	btConstraintSolver* DynamicsWorld::createConstraintSolver() const {
+	btConstraintSolver* PhysicsWorld::createConstraintSolver() const {
 		return new btSequentialImpulseConstraintSolver();
 	}
 
 	//! Erzeugt die Broadphase
-	btBroadphaseInterface* DynamicsWorld::createBroadphase() const {
+	btBroadphaseInterface* PhysicsWorld::createBroadphase() const {
 		return new btDbvtBroadphase();
 	}
 
 	//! Erzeugt die eigentliche Welt
-	btDynamicsWorld* DynamicsWorld::createDynamicsWorld(
+	btDynamicsWorld* PhysicsWorld::createDynamicsWorld(
 		btCollisionDispatcher* dispatcher,
 		btBroadphaseInterface* broadphase,
 		btConstraintSolver* solver,
@@ -98,12 +98,12 @@ namespace physics {
 	}
 
 	//! Ermittelt die Gravitation
-	btVector3 DynamicsWorld::getGravity() const {
+	btVector3 PhysicsWorld::getGravity() const {
 		return btVector3(0, -9.80665f, 0);
 	}
 
 	//! Erzeugt die Welt
-	void DynamicsWorld::createWorld() {
+	void PhysicsWorld::createWorld() {
 		ASSERT(!dynamicsWorld);
 
 		// Collision Configuration erzeugen
@@ -134,7 +134,7 @@ namespace physics {
 	/**
 	 * @param body	Der hinzuzufügende Körper
 	 */
-	void DynamicsWorld::addRigidBody(btRigidBody* body) {
+	void PhysicsWorld::addRigidBody(btRigidBody* body) {
 		ASSERT(dynamicsWorld);
 		ASSERT(body);
 
@@ -146,7 +146,7 @@ namespace physics {
 	/**
 	 * @param body	Der zu entfernende Körper
 	 */
-	void DynamicsWorld::removeRigidBody(btRigidBody* body) {
+	void PhysicsWorld::removeRigidBody(btRigidBody* body) {
 
 		// TODO: Entfernen von Elementen optimieren
 		if (body == rigidBodies.back()) {
@@ -165,7 +165,7 @@ namespace physics {
 	* @param maxSubsteps	Die maximale Anzahl Unterschritte
 	* @param fixedTimeStep	Der fixe Zeitschritt ... dings. (Konstanter Wert!)
 	*/
-	void DynamicsWorld::update(float timestep, short unsigned int substeps, float fixedTimeStep) {
+	void PhysicsWorld::update(float timestep, short unsigned int substeps, float fixedTimeStep) {
 		dynamicsWorld->stepSimulation(timestep, substeps, fixedTimeStep);
 	}
 }}
