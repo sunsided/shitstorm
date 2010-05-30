@@ -20,7 +20,7 @@ namespace bullet {
 namespace pv {
 namespace physics {
 
-	//! Physikkörper
+	//! Bewegungszustand eines Körpers
 	class PhysicsMotionState : public bullet::btDefaultMotionState
 	{
 	public:

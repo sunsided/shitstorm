@@ -1,19 +1,24 @@
 /** 
  * Project Vector
- * Physikkörper-Bewegungszustand
+ * Physikkörper
  *
  * (c) 2010, Markus Mayer <code@defx.de>
  * $Id$
  */
 
-#include "PhysicsMotionState.h"
+#include "PhysicsBody.h"
 
 using namespace bullet;
 
 namespace pv {
 namespace physics {
 	
+	//! Konstruktor
+	PhysicsBody::PhysicsBody(void) 
+		: motionState(NULL)
+	{}
+
 	//! Destruktor
-	PhysicsMotionState::~PhysicsMotionState(void) {}
+	PhysicsBody::~PhysicsBody(void) {}
 
 }}
