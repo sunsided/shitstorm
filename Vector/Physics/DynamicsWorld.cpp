@@ -98,6 +98,7 @@ namespace physics {
 
 	//! Erzeugt die Welt
 	void DynamicsWorld::createWorld() {
+		ASSERT(!dynamicsWorld);
 
 		// Collision Configuration erzeugen
 		collisionConfiguration = createCollisionConfiguration();
