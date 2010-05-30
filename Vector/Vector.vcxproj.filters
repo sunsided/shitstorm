@@ -10,6 +10,9 @@
     <Filter Include="Physics">
       <UniqueIdentifier>{4ad8ee70-65ab-4c14-b19a-d28dc5fdcd0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{e36bdb65-2815-42c8-866a-937e88d90da2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
