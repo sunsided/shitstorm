@@ -30,6 +30,14 @@ namespace nodes {
 		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
 		PlaneSceneNode(f32 width, f32 height, u8 quads, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
 			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quads); }
+
+		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
+		PlaneSceneNode(f32 width, f32 height, u8 quads, f32 uEnd, f32 vEnd, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
+			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quads, 0.0f, uEnd, 0.0f, vEnd); }
+
+		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
+		PlaneSceneNode(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd, f32 vStart, f32 vEnd, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
+			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quads, uStart, uEnd, vStart, vEnd); }
 		
 		//! Destruktor
 		virtual ~PlaneSceneNode(void);

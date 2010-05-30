@@ -46,7 +46,7 @@ namespace pv {
 		mainCamera->setName("Main Camera");
 
 		// Ebene erzeugen
-		testNode = new nodes::PlaneSceneNode(20, 10, rootNode, smgr, 10);
+		testNode = new nodes::PlaneSceneNode(60, 60, 10, 3.0f, 3.0f, rootNode, smgr, 10);
 		testNode->setPosition(core::vector3df(0, 0, 0));
 		testNode->getMaterial(0).Lighting = false;
 		testNode->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\wood.jpg"));
@@ -125,20 +125,8 @@ namespace pv {
 		smgr->getSceneNodeFromId(15)->setVisible(false);
 		smgr->getSceneNodeFromId(16)->setVisible(true);
 
-		// Rotation des Helferobjektes ermitteln
-		core::vector3df direction = (mainCamera->getTarget() - mainCamera->getPosition()).normalize();
-		core::vector3df worldUp = mainCamera->getUpVector();
-		core::vector3df right = worldUp.crossProduct(direction).normalize();
-		core::vector3df up = direction.crossProduct(right).normalize();
-
-		// Matrix erzeugen
-		core::matrix4 mLookAt, m;
-		mLookAt.buildCameraLookAtMatrixLH(core::vector3df(), direction, worldUp);
-		mLookAt.getInverse(m); // Look-At invertieren um Aim-At zu erhalten
-		
 		// Rotation setzen
-		core::vector3df rotation = m.getRotationDegrees();
-		smgr->getSceneNodeFromId(16)->setRotation(rotation);
+		((nodes::OrientationHelperSceneNode*)smgr->getSceneNodeFromId(16))->rotateZToDirection(mainCamera);
 
 		// Rendern
 		renderScene();
