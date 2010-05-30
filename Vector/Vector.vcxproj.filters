@@ -95,8 +95,5 @@
     <ClInclude Include="World\WorldElement.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="Physics\IUpdateWorldTransform.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

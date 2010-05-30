@@ -11,41 +11,37 @@
 #define _WORLDELEMENT_H
 
 #include "global.h"
-#include "Physics/IUpdateWorldTransform.h"
+#include "Physics/PhysicsBody.h"
 
 namespace pv {
 namespace world {
 
 	//! Ein Element in der Spielwelt
-	class WorldElement : protected physics::IUpdateWorldTransform
+	class WorldElement : protected physics::PhysicsBody, protected irr::scene::ISceneNode
 	{
-	public:
+	protected:
 		//! Erzeugt eine neue Instanz der WorldElement-Klasse
-		WorldElement() {}
+		WorldElement(scene::ISceneNode* parent, scene::ISceneManager* mgr, s32 id=-1,
+				const btTransform& startTrans = btTransform::getIdentity(), 
+				const btTransform& centerOfMassOffset = btTransform::getIdentity(),
+				f32 mass = 0.0f,
+				physics::PhysicsWorld* physicsWorld = NULL,
+				btCollisionShape* collisionShape = NULL
+				);
+
+		//! Erzeugt eine neue Instanz der WorldElement-Klasse
+		WorldElement(irr::scene::ISceneNode& node, physics::PhysicsBody& body);
 		
 		//! Destruktor
 		virtual ~WorldElement(void) {}
 
 	protected:
 
-		//! Ermittelt die aktuelle Welttransformation.
-		/**
-		 * @param worldTrans	Die aktuelle Welttransformation
-		 */
-		virtual void getWorldTransform(btTransform& worldTrans ) const {
-		}
-
 		//! Aktualisiert die Welttransformation.
 		/** Bullet ruft diese Funktion nur auf, wenn das Objekt aktiv ist.
 		 * @param worldTrans	Die zu setzende Transformation
 		 */
-		virtual void setWorldTransform(const btTransform& worldTrans) {
-		}
-
-	private:
-
-		//! Der Irrlicht-Szenenknoten
-		irr::scene::ISceneNode* sceneNode;
+		virtual void setWorldTransform(const btTransform& worldTrans);
 
 	};
 

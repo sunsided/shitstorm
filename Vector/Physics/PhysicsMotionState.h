@@ -34,6 +34,7 @@ namespace physics {
 
 		//! Destruktor
 		virtual ~PhysicsMotionState(void);
+
 	};
 
 }}

@@ -39,6 +39,11 @@ namespace conversion {
 		return btVector3(vector.X, vector.Y, vector.Z);
 	}
 
+	//! Konvertiert einen Bullet-Vektor in einen Irrlicht-Vektor
+	inline static irr::core::vector3df toIrrlichtVector(const btVector3 &vector) {
+		return irr::core::vector3df(vector.getX(), vector.getY(), vector.getZ());
+	}
+
 	//! Konvertiert eine Irrlicht-Matrix 4x4 in eine Bullet-Matrix 3x3
 	inline static btMatrix3x3 toBulletMatrix(const irr::core::matrix4 &matrix) {
 		btScalar* p = (btScalar*)matrix.pointer();
