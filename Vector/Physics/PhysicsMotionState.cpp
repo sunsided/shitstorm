@@ -6,7 +6,7 @@
  * $Id$
  */
 
-#include "PhysicsBody.h"
+#include "PhysicsMotionState.h"
 
 using namespace bullet;
 
@@ -14,8 +14,6 @@ namespace pv {
 namespace physics {
 	
 	//! Destruktor
-	PhysicsBody::~PhysicsBody(void)
-	{
-	}
+	PhysicsMotionState::~PhysicsMotionState(void) {}
 
 }}
