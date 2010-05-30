@@ -36,6 +36,9 @@ namespace pv {
 		//! Ein notwendiges Feature wurde nicht von der Hardware bereitgestellt
 		ESC_FEATURE_FAILED = 6,
 
+		//! Das Physikmanagement konnte nicht initialisiert werden
+		ESC_PHYSICS_FAILED = 7,
+
 		//! Intern
 		/** @internal Die Anzahl der Werte der EEngineStatusCode-Enumeration */
 		ESC_COUNT

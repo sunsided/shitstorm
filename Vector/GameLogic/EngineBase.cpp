@@ -7,6 +7,7 @@
  */
 
 #include "EngineBase.h"
+#include "PhysicsManagement.h"
 
 #include <iostream>
 
@@ -19,7 +20,8 @@ namespace pv {
 	EngineBase::EngineBase(void) :
 		irrlichtDevice(NULL), sceneManager(NULL), videoDriver(NULL), guiEnvironment(NULL), 
 			engineClean(true), timer(NULL), paused(false), sceneStarted(false),
-			sceneClearColor(irr::video::SColor(0, 64, 64, 64))
+			sceneClearColor(irr::video::SColor(0, 64, 64, 64)),
+			physicsManagement(NULL)
 	{
 		initializeBasicMaterials();
 	}
@@ -102,6 +104,11 @@ namespace pv {
 		timer = new GameTimer(irrlichtDevice);
 		ASSERT(timer);
 
+		// Physikmanagement erzeugen
+		physicsManagement = new PhysicsManagement();
+		if (!physicsManagement) return ESC_PHYSICS_FAILED;
+		physicsManagement->initialize();
+
 		// Initialisieren
 		cout << "Initialisiere Engine, 2nd stage ..." << endl;
 		return OnSetupEngine();
@@ -126,9 +133,14 @@ namespace pv {
 		}
 
 		// Device freigeben
-		if(irrlichtDevice) {
+		if (irrlichtDevice) {
 			irrlichtDevice->drop();
 			irrlichtDevice = NULL;
+		}
+
+		if (physicsManagement) {
+			delete physicsManagement;
+			physicsManagement = NULL;
 		}
 	}
 
