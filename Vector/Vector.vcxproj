@@ -92,13 +92,13 @@
     <ClCompile Include="GameLogic\GameTimer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Physics\CollisionShapeManagement.cpp" />
-    <ClCompile Include="Physics\IrrBtConversion.cpp" />
     <ClCompile Include="Physics\PhysicsBody.cpp" />
     <ClCompile Include="Physics\PhysicsManagement.cpp" />
     <ClCompile Include="Physics\PhysicsMotionState.cpp" />
     <ClCompile Include="Physics\PhysicsWorld.cpp" />
     <ClCompile Include="SceneNodes\OrientationHelperSceneNode.cpp" />
     <ClCompile Include="SceneNodes\PlaneSceneNode.cpp" />
+    <ClCompile Include="World\WorldElement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLogic\EngineBase.h" />
@@ -110,12 +110,14 @@
     <ClInclude Include="linker.h" />
     <ClInclude Include="Physics\CollisionShapeManagement.h" />
     <ClInclude Include="Physics\IrrBtConversion.h" />
+    <ClInclude Include="Physics\IUpdateWorldTransform.h" />
     <ClInclude Include="Physics\PhysicsBody.h" />
     <ClInclude Include="Physics\PhysicsManagement.h" />
     <ClInclude Include="Physics\PhysicsMotionState.h" />
     <ClInclude Include="Physics\PhysicsWorld.h" />
     <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h" />
     <ClInclude Include="SceneNodes\PlaneSceneNode.h" />
+    <ClInclude Include="World\WorldElement.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -37,9 +37,6 @@
     <ClCompile Include="Physics\CollisionShapeManagement.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Physics\IrrBtConversion.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="Physics\PhysicsMotionState.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
@@ -48,6 +45,9 @@
     </ClCompile>
     <ClCompile Include="Physics\PhysicsWorld.cpp">
       <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="World\WorldElement.cpp">
+      <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +90,12 @@
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Physics\PhysicsWorld.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="World\WorldElement.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\IUpdateWorldTransform.h">
       <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
