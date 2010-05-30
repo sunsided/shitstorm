@@ -55,6 +55,14 @@ namespace physics {
 		 */
 		void removeRigidBody(btRigidBody* body);
 
+		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
+		/**
+		* @param deltaTime		Die vergangene Zeit in Sekunden
+		* @param maxSubsteps	Die maximale Anzahl Unterschritte
+		* @param fixedTimeStep	Der fixe Zeitschritt; Bullet-Standard ist 1/60
+		*/
+		void update(float deltaTime, short unsigned int maxSubsteps = 1, float fixedTimeStep = 1.0f/60.0f);
+
 	protected:
 
 		//! Erzeugt die DefaultCollisionConfiguration

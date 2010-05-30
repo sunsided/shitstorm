@@ -7,6 +7,7 @@
  */
 
 #include "DynamicsWorld.h"
+#include <algorithm>
 
 // Bullet
 #include <btBulletDynamicsCommon.h>
@@ -148,8 +149,18 @@ namespace physics {
 		}
 		else {
 			// http://www.codeguru.com/forum/showthread.php?t=231045
-			rigidBodies.erase(remove(rigidBodies.begin(), rigidBodies.end(), body), rigidBodies.end());
+			rigidBodies.erase(std::remove(rigidBodies.begin(), rigidBodies.end(), body), rigidBodies.end());
 		}
 		dynamicsWorld->removeRigidBody(body);
+	}
+
+	//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
+	/**
+	* @param deltaTime		Die vergangene Zeit in Sekunden
+	* @param maxSubsteps	Die maximale Anzahl Unterschritte
+	* @param fixedTimeStep	Der fixe Zeitschritt ... dings. (Konstanter Wert!)
+	*/
+	void DynamicsWorld::update(float timestep, short unsigned int substeps, float fixedTimeStep) {
+		dynamicsWorld->stepSimulation(timestep, substeps, fixedTimeStep);
 	}
 }}
