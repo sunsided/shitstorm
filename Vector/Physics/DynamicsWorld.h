@@ -61,7 +61,7 @@ namespace physics {
 		* @param maxSubsteps	Die maximale Anzahl Unterschritte
 		* @param fixedTimeStep	Der fixe Zeitschritt; Bullet-Standard ist 1/60
 		*/
-		void update(float deltaTime, short unsigned int maxSubsteps = 1, float fixedTimeStep = 1.0f/60.0f);
+		void update(float deltaTime, short unsigned int maxSubsteps = 10, float fixedTimeStep = 1.0f/60.0f);
 
 	protected:
 
