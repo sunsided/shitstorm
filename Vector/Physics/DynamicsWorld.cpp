@@ -125,11 +125,31 @@ namespace physics {
 	}
 
 	//! Fügt der Welt einen Rigid Body hinzu
+	/**
+	 * @param body	Der hinzuzufügende Körper
+	 */
 	void DynamicsWorld::addRigidBody(btRigidBody* body) {
 		ASSERT(dynamicsWorld);
 		ASSERT(body);
 
 		dynamicsWorld->addRigidBody(body);
 		rigidBodies.push_back(body);
+	}
+
+	//! Entfernt einen Rigid Body aus der Welt
+	/**
+	 * @param body	Der zu entfernende Körper
+	 */
+	void DynamicsWorld::removeRigidBody(btRigidBody* body) {
+
+		// TODO: Entfernen von Elementen optimieren
+		if (body == rigidBodies.back()) {
+			rigidBodies.pop_back();
+		}
+		else {
+			// http://www.codeguru.com/forum/showthread.php?t=231045
+			rigidBodies.erase(remove(rigidBodies.begin(), rigidBodies.end(), body), rigidBodies.end());
+		}
+		dynamicsWorld->removeRigidBody(body);
 	}
 }}

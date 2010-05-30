@@ -43,7 +43,17 @@ namespace physics {
 		inline bool isInitialized() const { return dynamicsWorld != NULL; }
 
 		//! Fügt der Welt einen Rigid Body hinzu
+		/**
+		 * @param body	Der hinzuzufügende Körper
+		 */
 		void addRigidBody(btRigidBody* body);
+
+		//! Entfernt einen Rigid Body aus der Welt.
+		/** Die Funktion ist nur schnell, wenn die Objekte in umgekehrter Reihenfolge entfernt werden.
+		 *	Ist dies nicht der Fall, wird eine lineare Suche gestartet.
+		 * @param body	Das zu entfernende Element
+		 */
+		void removeRigidBody(btRigidBody* body);
 
 	protected:
 
