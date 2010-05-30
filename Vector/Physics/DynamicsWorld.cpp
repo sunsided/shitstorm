@@ -57,8 +57,43 @@ namespace physics {
 	}
 
 	//! Erzeugt die DefaultCollisionConfiguration
-	btDefaultCollisionConfiguration* DynamicsWorld::createCollisionConfiguration() {
+	btDefaultCollisionConfiguration* DynamicsWorld::createCollisionConfiguration() const {
 		return new btDefaultCollisionConfiguration();
+	}
+
+	//! Erzeugt die Collision Dispatcher
+	btCollisionDispatcher* DynamicsWorld::createCollisionDispatcher(btDefaultCollisionConfiguration* configuration) const {
+		ASSERT(configuration);
+		return new btCollisionDispatcher(configuration);
+	}
+
+	//! Erzeugt den Solver
+	btConstraintSolver* DynamicsWorld::createConstraintSolver() const {
+		return new btSequentialImpulseConstraintSolver();
+	}
+
+	//! Erzeugt die Broadphase
+	btBroadphaseInterface* DynamicsWorld::createBroadphase() const {
+		return new btDbvtBroadphase();
+	}
+
+	//! Erzeugt die eigentliche Welt
+	btDiscreteDynamicsWorld* DynamicsWorld::createDynamicsWorld(
+		btCollisionDispatcher* dispatcher,
+		btBroadphaseInterface* broadphase,
+		btConstraintSolver* solver,
+		btDefaultCollisionConfiguration* configuration) const {
+
+			return new btDiscreteDynamicsWorld(
+				dispatcher, 
+				broadphase, 
+				solver, 
+				configuration);
+	}
+
+	//! Ermittelt die Gravitation
+	btVector3 DynamicsWorld::getGravity() const {
+		return btVector3(0, -9.80665f, 0);
 	}
 
 	//! Erzeugt die Welt
@@ -66,6 +101,26 @@ namespace physics {
 
 		// Collision Configuration erzeugen
 		collisionConfiguration = createCollisionConfiguration();
+		ASSERT(collisionConfiguration);
+
+		// Collision Dispatcher erzeugen
+		btCollisionDispatcher* collisionDispatcher = createCollisionDispatcher(collisionConfiguration);
+		ASSERT(collisionDispatcher);
+
+		// Solver erzeugen
+		btConstraintSolver* solver = createConstraintSolver();
+		ASSERT(solver);
+
+		// Erzeuge Broadphase
+		btBroadphaseInterface* broadphase = createBroadphase();
+		ASSERT(broadphase);
+
+		// Erzeuge Welt
+		dynamicsWorld = createDynamicsWorld(collisionDispatcher, broadphase, solver, collisionConfiguration);
+		ASSERT(dynamicsWorld);
+
+		// Gravitation setzen
+		dynamicsWorld->setGravity(getGravity());
 	}
 
 	//! Fügt der Welt einen Rigid Body hinzu

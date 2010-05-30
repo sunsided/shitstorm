@@ -17,6 +17,10 @@
 class btDiscreteDynamicsWorld;
 class btDefaultCollisionConfiguration;
 class btRigidBody;
+class btCollisionDispatcher;
+class btConstraintSolver;
+class btBroadphaseInterface;
+class btVector3;
 
 namespace pv {
 namespace physics {
@@ -44,7 +48,26 @@ namespace physics {
 	protected:
 
 		//! Erzeugt die DefaultCollisionConfiguration
-		virtual btDefaultCollisionConfiguration* createCollisionConfiguration();
+		virtual btDefaultCollisionConfiguration* createCollisionConfiguration() const;
+
+		//! Erzeugt die Collision Dispatcher
+		virtual btCollisionDispatcher* createCollisionDispatcher(btDefaultCollisionConfiguration* configuration) const;
+
+		//! Erzeugt den Solver
+		virtual btConstraintSolver* createConstraintSolver() const;
+
+		//! Erzeugt die Broadphase
+		virtual btBroadphaseInterface* createBroadphase() const;
+
+		//! Erzeugt die eigentliche Welt
+		virtual btDiscreteDynamicsWorld* createDynamicsWorld(
+			btCollisionDispatcher* dispatcher,
+			btBroadphaseInterface* broadphase,
+			btConstraintSolver* solver,
+			btDefaultCollisionConfiguration* configuration) const;
+
+		//! Ermittelt die Gravitation
+		virtual btVector3 getGravity() const;
 
 	private:
 		
