@@ -39,20 +39,31 @@ namespace nodes {
 			ISceneNode::OnRegisterSceneNode();
 		}
 
-		//! Rotiert die Helferkamera so, dass sie der Sicht der Hauptkamera auf dieses Objekt entspräche.
+		//! Rotiert das Element so, dass seine Z-Achse in eine gegebene Richtung zeigt
 		/** 
-		 * @mainCamera		Die Hauptkamera
-		 * @helperCamera	Die Helferkamera
+		 * @direction		Die Richtung, in die X zeigen soll
+		 * @worldUp			Der Welt-Hoch-Vektor
 		 */
-		void rotateHelperToFaceMainView(const scene::ICameraSceneNode *mainCamera, scene::ICameraSceneNode *helperCamera) const;
+		void rotateZToDirection(const core::vector3df &direction, const core::vector3df &worldUp);
 
-		//! Rotiert die Helferkamera so, dass sie der Sicht der Hauptkamera auf dieses Objekt entspräche.
+		//! Rotiert das Element so, dass seine Z-Achse in eine gegebene Richtung zeigt
 		/** 
-		 * @mainCameraPosition		Die Position der Hauptkamera
-		 * @mainCameraTarget		Die Zielposition der Hauptkamera
-		 * @helperCamera			Die Helferkamera
+		 * @camera			Die Kamera, in deren Richtung das Objekt zeigen soll
+		 * @worldUp			Der Welt-Hoch-Vektor
 		 */
-		void rotateHelperToFaceMainView(const core::vector3df &mainCameraPosition, const core::vector3df &mainCameraTarget, scene::ICameraSceneNode *helperCamera) const;
+		inline void rotateZToDirection(const scene::ICameraSceneNode *camera, const core::vector3df &worldUp) {
+			core::vector3df direction = (camera->getTarget() - camera->getPosition()).normalize();
+			rotateZToDirection(direction, worldUp);
+		}
+
+		//! Rotiert das Element so, dass seine Z-Achse in eine gegebene Richtung zeigt
+		/** 
+		 * @camera			Die Kamera, in deren Richtung das Objekt zeigen soll
+		 */
+		inline void rotateZToDirection(const scene::ICameraSceneNode *camera) {
+			core::vector3df worldUp = camera->getUpVector();
+			rotateZToDirection(camera, worldUp);
+		}
 
 	private:
 

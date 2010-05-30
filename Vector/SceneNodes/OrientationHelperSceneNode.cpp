@@ -32,21 +32,20 @@ namespace nodes
 		
 		// Rendern vorbereiten
 		video::IVideoDriver* driver = SceneManager->getVideoDriver();
-		driver->setMaterial(getMaterial(0));
+		driver->setMaterial(boxMaterial);
 		driver->setTransform(video::ETS_WORLD, AbsoluteTransformation);
 		
 		// Längen berechnen
 		f32 halfSize = size*0.5f;
-		f32 lineLength = 1.5*size;
+		f32 lineLength = 1.5f*size;
 		f32 arrowOffset = -0.125f*size;
-		f32 offsetLine = lineLength - 0.25*size;
+		f32 offsetLine = lineLength - 0.25f*size;
 
 		// Vektor und Box erzeugen
 		core::vector3df zero = vector3df(0, 0, 0);
 		core::aabbox3d<f32> box(-halfSize, -halfSize, -halfSize, halfSize, halfSize, halfSize);
 
 		// Box zeichnen
-		driver->setMaterial(boxMaterial);
 		driver->draw3DBox(box);
 
 		// X-Pfeil
@@ -98,32 +97,23 @@ namespace nodes
 		driver->draw3DTriangle(triangle, color);
 	}
 
-	//! Rotiert die Helferkamera so, dass sie der Sicht der Hauptkamera auf dieses Objekt entspräche.
+	//! Rotiert das Element so, dass seine Z-Achse in eine gegebene Richtung zeigt
 	/** 
-	* @mainCamera		Die Hauptkamera
-	* @helperCamera		Die Helferkamera
+	* @direction		Die Richtung, in die X zeigen soll
+	* @worldUp			Der Welt-Hoch-Vektor
 	*/
-	void OrientationHelperSceneNode::rotateHelperToFaceMainView(const scene::ICameraSceneNode *mainCamera, scene::ICameraSceneNode *helperCamera) const {
-		ASSERT(mainCamera); ASSERT(helperCamera);
+	void OrientationHelperSceneNode::rotateZToDirection(const core::vector3df &direction, const core::vector3df &worldUp) {
+		core::vector3df right = worldUp.crossProduct(direction).normalize();
+		core::vector3df up = direction.crossProduct(right).normalize();
 
-		// GetAbsolutePosition() liefert (0,0,0), wenn das Element versteckt ist
-		rotateHelperToFaceMainView(mainCamera->getPosition(), mainCamera->getTarget(), helperCamera);
-	}
+		// Create aim-at matrix from look-at matrix
+		core::matrix4 mLookAt, m;
+		mLookAt.buildCameraLookAtMatrixLH(core::vector3df(), direction, worldUp);
+		mLookAt.getInverse(m);
 
-	//! Rotiert die Helferkamera so, dass sie der Sicht der Hauptkamera auf dieses Objekt entspräche.
-	/** 
-	* @mainCameraPosition		Die Position der Hauptkamera
-	* @mainCameraTarget		Die Zielposition der Hauptkamera
-	* @helperCamera			Die Helferkamera
-	*/
-	void OrientationHelperSceneNode::rotateHelperToFaceMainView(const core::vector3df &mainCameraPosition, const core::vector3df &mainCameraTarget, scene::ICameraSceneNode *helperCamera) const {
-		ASSERT(helperCamera);
-
-		// GetAbsolutePosition() liefert (0,0,0), wenn das Element versteckt ist
-		f32 distance = helperCamera->getPosition().getDistanceFrom(getPosition());
-		core::vector3df direction = (mainCameraPosition - getPosition()).normalize();
-		core::vector3df newPosition = getPosition() + direction*distance;
-		helperCamera->setPosition(newPosition);
+		// Set the rotation
+		core::vector3df rotation = m.getRotationDegrees();
+		setRotation(rotation);
 	}
 
 }}
