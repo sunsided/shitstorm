@@ -9,9 +9,11 @@
 #include "PhysicsBody.h"
 #include "PhysicsWorld.h"
 
+// 360 / (2*PI)
 #ifndef GRAD_PI 
 #define GRAD_PI 57.29577951f
 #endif
+
 #ifndef GRAD_PI2
 #define GRAD_PI2 0.0174532925f
 #endif
@@ -21,11 +23,11 @@ namespace physics {
 
 	//! Destruktor
 	PhysicsBody::~PhysicsBody(void) {
-		EndPhysics();
+		endPhysics();
 	}
 
 	//! Beendet die Physikgeschichte
-	void PhysicsBody::EndPhysics(void)
+	void PhysicsBody::endPhysics(void)
 	{
 		if (dynamicsWorld) dynamicsWorld->removeRigidBody(rigidBody);
 		if (rigidBody) delete rigidBody;
@@ -61,7 +63,7 @@ namespace physics {
 	}
 
 	// Physik initialisieren
-	void PhysicsBody::InitPhysics(f32 ccdThreshold, f32 linearDamping, f32 angularDamping, f32 friction, f32 restitution)
+	void PhysicsBody::initPhysics(f32 ccdThreshold, f32 linearDamping, f32 angularDamping, f32 friction, f32 restitution)
 	{
 		ASSERT(collisionShape);
 		ASSERT(dynamicsWorld);
@@ -88,8 +90,8 @@ namespace physics {
 		dynamicsWorld->addRigidBody(rigidBody);
 
 		// Werte zurücksetzen
-		SetPosition(core::vector3df(0, 0, 0));
-		SetRotation(core::vector3df(0, 0, 0));
+		setPosition(core::vector3df(0, 0, 0));
+		setRotation(core::vector3df(0, 0, 0));
 	
 		// CCD-Parameter setzen
 		// TODO: Was passiert hier eigentlich? Ich hab das hierher: http://irrlicht.sourceforge.net/phpBB2/viewtopic.php?t=17910
@@ -98,8 +100,7 @@ namespace physics {
 	}
 
 	//! Setzt die Position
-	void PhysicsBody::SetPosition(const core::vector3df &v)
-	{
+	void PhysicsBody::setPosition(const core::vector3df &v) {
 		if (!rigidBody) return;
 
 		// Welttransformation des Körpers neu setzen
@@ -114,16 +115,14 @@ namespace physics {
 	}
 
 	//! Bezieht die Position
-	core::vector3df PhysicsBody::GetPosition() const
-	{
+	core::vector3df PhysicsBody::getPosition() const {
 		if (!rigidBody) return core::vector3df(0, 0, 0);
 		btVector3 p = rigidBody->getCenterOfMassPosition();
 		return core::vector3df(p.getX(), p.getY(), p.getZ());
 	}
 
 	//! Setzt die Rotation
-	void PhysicsBody::SetRotation(const core::vector3df &v)
-	{
+	void PhysicsBody::setRotation(const core::vector3df &v) {
 		if (!rigidBody) return;
 
 		btTransform t=rigidBody->getWorldTransform();
@@ -134,7 +133,7 @@ namespace physics {
 	}
 
 	//! Bezieht die Rotation
-	core::vector3df PhysicsBody::GetRotation() const {
+	core::vector3df PhysicsBody::getRotation() const {
 		if (!rigidBody) return core::vector3df(0,0,0);
 
 		btVector3 btv;
@@ -146,7 +145,7 @@ namespace physics {
 	}
 
 	//! Bezieht die lineare Geschwindigkeit
-	core::vector3df PhysicsBody::GetLinearVelocity() const {	
+	core::vector3df PhysicsBody::getLinearVelocity() const {	
 		if (!rigidBody || mass==0) return core::vector3df(0,0,0);
 
 		btVector3 btV = rigidBody->getLinearVelocity();
@@ -154,7 +153,7 @@ namespace physics {
 	}
 
 	//! Setzt die lineare Geschwindigkeit
-	void PhysicsBody::SetLinearVelocity(const core::vector3df & vel) const {	
+	void PhysicsBody::setLinearVelocity(const core::vector3df & vel) const {	
 		if (!rigidBody || mass==0) return; //bullet hangs if attempt to set lin. or ang. velocity on static object
 		rigidBody->setLinearVelocity(btVector3(vel.X, vel.Y, vel.Z));
 		//note - apparently, need to use motion state on kinematic objects, and rigid body functions
@@ -162,26 +161,26 @@ namespace physics {
 	}
 
 	//! Ermittelt die Winkelgeschwindigkeit
-	core::vector3df PhysicsBody::GetAngularVelocity() const {	
+	core::vector3df PhysicsBody::getAngularVelocity() const {	
 		if (!rigidBody || mass == 0) return core::vector3df(0,0,0);
 		btVector3 btV = rigidBody->getAngularVelocity();
 		return core::vector3df(btV.getX(), btV.getY(), btV.getZ());
 	}
 
 	//! Setzt die Winkelgeschwindigkeit
-	void PhysicsBody::SetAngularVelocity(const core::vector3df & vel) const {	
+	void PhysicsBody::setAngularVelocity(const core::vector3df & vel) const {	
 		if (!rigidBody || mass == 0) return;
 		rigidBody->setAngularVelocity(btVector3(vel.X, vel.Y, vel.Z));
 	}
 
 	//! Wendet eine Kraft auf den Körper an
-	void PhysicsBody::ApplyForce(const core::vector3df &v) {
+	void PhysicsBody::applyForce(const core::vector3df &v) {
 		if (!rigidBody) return;
 		rigidBody->applyForce(btVector3(v.X, v.Y, v.Z), btVector3(0,0,0));
 	}
 
 	//! Setzt alle Kräfte zurück
-	void PhysicsBody::ZeroForces() {
+	void PhysicsBody::zeroForces() {
 		if (!rigidBody) return;
 		rigidBody->setLinearVelocity(btVector3(0,0,0));
 		rigidBody->setAngularVelocity(btVector3(0,0,0));

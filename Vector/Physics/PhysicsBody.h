@@ -45,44 +45,44 @@ namespace physics {
 		//! Destruktor
 		virtual ~PhysicsBody(void);
 
-		//! Wendet eine Kraft auf das Objekt an
-		void ApplyForce(const core::vector3df& v);
-
 		//! Initialisiert die Physik
-		void InitPhysics(f32 ccdThreshold, f32 linearDamping = 0.f, f32 angularDamping = 0.f, f32 friction = 0.5f, f32 restitution = 0.f);
+		void initPhysics(f32 ccdThreshold, f32 linearDamping = 0.f, f32 angularDamping = 0.f, f32 friction = 0.5f, f32 restitution = 0.f);
 		
 		//! Setzt die Position des Objektes
-		virtual void SetPosition(const core::vector3df& v); 
+		virtual void setPosition(const core::vector3df& v); 
 
 		//! Setzt die Rotation des Objektes
-		virtual void SetRotation(const core::vector3df& v);
+		virtual void setRotation(const core::vector3df& v);
 
 		//! Ermittelt die lineare Geschwindigkeit
-		core::vector3df GetLinearVelocity() const;
+		core::vector3df getLinearVelocity() const;
 
 		//! Setzt die lineare Geschwindigkeit
-		void SetLinearVelocity(const core::vector3df& vel) const;
+		void setLinearVelocity(const core::vector3df& vel) const;
 
 		//! Ermittelt die Winkelgeschwindigkeit
-		core::vector3df GetAngularVelocity() const;
+		core::vector3df getAngularVelocity() const;
 
 		//! Setzt die Winkelgeschwindigkeit
-		void SetAngularVelocity(const core::vector3df& vel) const;
+		void setAngularVelocity(const core::vector3df& vel) const;
 		
+		//! Wendet eine Kraft auf das Objekt an
+		void applyForce(const core::vector3df& v);
+
 		//! Setzt alle Kräfte zurück
-		void ZeroForces();
+		void zeroForces();
 
 		//! Setzt den Aktivierungszustand
-		void SetActivationState(bool active);
+		void setActivationState(bool active);
 
 		//! Ermittelt die Rotation
-		core::vector3df GetRotation() const;
+		core::vector3df getRotation() const;
 
 		//! Ermittelt die Position
-		core::vector3df GetPosition() const;
+		core::vector3df getPosition() const;
 
 		//! Räumt die Physikgeschichte auf
-		void EndPhysics(void);
+		void endPhysics(void);
 
 		//! Aktualisiert die Masse des Objektes
 		void updateMass(f32 mass);
