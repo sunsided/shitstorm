@@ -14,8 +14,8 @@
 #include <vector>
 
 // Vorwärtsdeklaration der Klassen
-class btDiscreteDynamicsWorld;
-class btDefaultCollisionConfiguration;
+class btDynamicsWorld;
+class btCollisionConfiguration;
 class btRigidBody;
 class btCollisionDispatcher;
 class btConstraintSolver;
@@ -66,10 +66,10 @@ namespace physics {
 	protected:
 
 		//! Erzeugt die DefaultCollisionConfiguration
-		virtual btDefaultCollisionConfiguration* createCollisionConfiguration() const;
+		virtual btCollisionConfiguration* createCollisionConfiguration() const;
 
 		//! Erzeugt die Collision Dispatcher
-		virtual btCollisionDispatcher* createCollisionDispatcher(btDefaultCollisionConfiguration* configuration) const;
+		virtual btCollisionDispatcher* createCollisionDispatcher(btCollisionConfiguration* configuration) const;
 
 		//! Erzeugt den Solver
 		virtual btConstraintSolver* createConstraintSolver() const;
@@ -78,11 +78,11 @@ namespace physics {
 		virtual btBroadphaseInterface* createBroadphase() const;
 
 		//! Erzeugt die eigentliche Welt
-		virtual btDiscreteDynamicsWorld* createDynamicsWorld(
+		virtual btDynamicsWorld* createDynamicsWorld(
 			btCollisionDispatcher* dispatcher,
 			btBroadphaseInterface* broadphase,
 			btConstraintSolver* solver,
-			btDefaultCollisionConfiguration* configuration) const;
+			btCollisionConfiguration* configuration) const;
 
 		//! Ermittelt die Gravitation
 		virtual btVector3 getGravity() const;
@@ -95,10 +95,10 @@ namespace physics {
 	private:
 
 		//! Die tatsächlich verwendete Dynamikwelt
-		btDiscreteDynamicsWorld* dynamicsWorld;
+		btDynamicsWorld* dynamicsWorld;
 
 		//! Die Collision Configuration
-		btDefaultCollisionConfiguration* collisionConfiguration;
+		btCollisionConfiguration* collisionConfiguration;
 
 		//! Sammlung aller Rigid Bodies
 		std::vector<btRigidBody*> rigidBodies;

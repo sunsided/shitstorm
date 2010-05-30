@@ -63,12 +63,12 @@ namespace physics {
 	}
 
 	//! Erzeugt die DefaultCollisionConfiguration
-	btDefaultCollisionConfiguration* DynamicsWorld::createCollisionConfiguration() const {
+	btCollisionConfiguration* DynamicsWorld::createCollisionConfiguration() const {
 		return new btDefaultCollisionConfiguration();
 	}
 
 	//! Erzeugt die Collision Dispatcher
-	btCollisionDispatcher* DynamicsWorld::createCollisionDispatcher(btDefaultCollisionConfiguration* configuration) const {
+	btCollisionDispatcher* DynamicsWorld::createCollisionDispatcher(btCollisionConfiguration* configuration) const {
 		ASSERT(configuration);
 		return new btCollisionDispatcher(configuration);
 	}
@@ -84,11 +84,11 @@ namespace physics {
 	}
 
 	//! Erzeugt die eigentliche Welt
-	btDiscreteDynamicsWorld* DynamicsWorld::createDynamicsWorld(
+	btDynamicsWorld* DynamicsWorld::createDynamicsWorld(
 		btCollisionDispatcher* dispatcher,
 		btBroadphaseInterface* broadphase,
 		btConstraintSolver* solver,
-		btDefaultCollisionConfiguration* configuration) const {
+		btCollisionConfiguration* configuration) const {
 
 			return new btDiscreteDynamicsWorld(
 				dispatcher, 

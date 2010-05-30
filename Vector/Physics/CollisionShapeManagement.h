@@ -31,13 +31,18 @@ namespace physics {
 		virtual ~CollisionShapeManagement(void);
 
 		//! Registriert ein Collision Shape
+		/** Alle hier registrierten Shapes werden automatisch vom System vernichtet.
+		 *	Ein zusätzlicher Aufruf von delete ist nicht nötig!
+		 * @param world		Die hinzuzufügende Welt
+		 * @returns Die Nummer des Collision Shapes
+		 */
 		unsigned int registerCollisionShape(const btCollisionShape* shape);
 
 		//! Ermittelt ein Collision Shape anhand seiner ID
 		const btCollisionShape* getCollisionShape(unsigned int collisionShapeId);
 
 		//! Liefert die Anzahl der registrierten Elemente
-		inline size_t count() const { return collisionShapes.capacity(); }
+		inline std::vector<const btCollisionShape*>::size_type count() const { return collisionShapes.capacity(); }
 		
 	private:
 		

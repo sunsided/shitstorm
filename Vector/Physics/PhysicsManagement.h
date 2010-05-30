@@ -35,7 +35,11 @@ namespace physics {
 		//! Holt den Collision Shape Manager
 		inline CollisionShapeManagement* getCollisionShapeManagement() const { return collisionShapeManager; }
 
-		//! Fügt dem System eine Dynamikwelt hinzu
+		//! Fügt dem System eine Dynamikwelt hinzu.
+		/** Alle hier registrierten Welten werden automatisch vom System vernichtet.
+		 *	Ein zusätzlicher Aufruf von delete ist nicht nötig!
+		 * @param world		Die hinzuzufügende Welt
+		 */
 		void addDynamicsWorld(DynamicsWorld *world);
 
 		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
