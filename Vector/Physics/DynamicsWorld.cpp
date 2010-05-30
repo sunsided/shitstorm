@@ -45,6 +45,11 @@ namespace physics {
 			btRigidBody* body = rigidBodies.back();
 			rigidBodies.pop_back();
 			dynamicsWorld->removeRigidBody(body);
+			
+			// Motion State des Bodies und den Body selbst löschen
+			// Das Collision Shape wird vom CollisionShapeManagement entsorgt
+			delete body->getMotionState();
+			delete body;
 		}
 
 		// Welt vernichten.
