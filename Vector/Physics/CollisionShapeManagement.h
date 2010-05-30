@@ -7,8 +7,8 @@
  */
 
 #pragma once
-#ifndef _DYNAMICSWORLD_H
-#define _DYNAMICSWORLD_H
+#ifndef _COLLISIONSHAPEMANAGEMENT_H
+#define _COLLISIONSHAPEMANAGEMENT_H
 
 #include "global.h"
 #include <vector>

@@ -13,35 +13,38 @@
 #include "global.h"
 #include <vector>
 
+#include "DynamicsWorld.h"
+#include "CollisionShapeManagement.h"
+
 namespace pv {
 namespace physics {
-
-	// Vorwärtsdeklarationen der Klassen
-	class btBroadphaseInterface;
-	class btDefaultCollisionConfiguration;
-	class btCollisionDispatcher;
-	class btSequentialImpulseConstraintSolver;
-	class btDiscreteDynamicsWorld;
-	class DynamicsWorld;
 
 	//! Klasse, die die Physikengine verwaltet
 	class PhysicsManagement
 	{
 	public:
 		//! Erzeugt eine neue Instanz des Objektes
-		PhysicsManagement(void) : 
-			initialized(false), 
-			broadphase(NULL), 
-			collisionConfiguration(NULL),
-			collisionDispatcher(NULL),
-			solver(NULL)
-		{}
+		PhysicsManagement(void);
 
 		//! Destruktor
 		virtual ~PhysicsManagement(void);
 
 		//! Initialisiert die Physikengine
 		void initialize();
+
+		//! Holt den Collision Shape Manager
+		inline CollisionShapeManagement* getCollisionShapeManagement() const { return collisionShapeManager; }
+
+		//! Fügt dem System eine Dynamikwelt hinzu
+		void addDynamicsWorld(DynamicsWorld *world);
+
+		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
+		/** Aktualisiert alle registrierten Dynamikwelten.
+		* @param deltaTime		Die vergangene Zeit in Sekunden
+		* @param maxSubsteps	Die maximale Anzahl Unterschritte
+		* @param fixedTimeStep	Der fixe Zeitschritt; Bullet-Standard ist 1/60
+		*/
+		void update(float deltaTime, short unsigned int maxSubsteps = 10, float fixedTimeStep = 1.0f/60.0f);
 
 	protected:
 
@@ -52,21 +55,12 @@ namespace physics {
 		
 		//! Gibt an, ob die Engine initialisiert wurde
 		bool initialized;
-
-		//! Die verwendete Broadphase
-		btBroadphaseInterface* broadphase;
-
-		//! Kollisionskonfiguration
-		btDefaultCollisionConfiguration* collisionConfiguration;
-
-		//! Kollisionsdispatcher
-		btCollisionDispatcher* collisionDispatcher;
-
-		//! Der Solver
-		btSequentialImpulseConstraintSolver* solver;
-
+		
 		//! Die Simulationswelt
 		std::vector<DynamicsWorld*> dynamicsWorlds;
+
+		//! Die CollisionShapeManagement-Instanz
+		CollisionShapeManagement* collisionShapeManager;
 	};
 
 }}
