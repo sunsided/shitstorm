@@ -25,20 +25,36 @@ namespace nodes {
 		
 		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
 		PlaneSceneNode(f32 size, u8 quads, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
-			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(size, size, quads); }
+			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(size, size, quads, quads); }
+
+		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
+		PlaneSceneNode(f32 size, u8 quadsW, u8 quadsH, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
+			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(size, size, quadsW, quadsH); }
 		
 		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
 		PlaneSceneNode(f32 width, f32 height, u8 quads, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
-			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quads); }
+			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quads, quads); }
+
+		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
+		PlaneSceneNode(f32 width, f32 height, u8 quadsW, u8 quadsH, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
+			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quadsW, quadsH); }
 
 		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
 		PlaneSceneNode(f32 width, f32 height, u8 quads, f32 uEnd, f32 vEnd, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
-			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quads, 0.0f, uEnd, 0.0f, vEnd); }
+			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quads, quads, 0.0f, uEnd, 0.0f, vEnd); }
+
+		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
+		PlaneSceneNode(f32 width, f32 height, u8 quadsW, u8 quadsH, f32 uEnd, f32 vEnd, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
+			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quadsW, quadsH, 0.0f, uEnd, 0.0f, vEnd); }
 
 		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
 		PlaneSceneNode(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd, f32 vStart, f32 vEnd, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
-			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quads, uStart, uEnd, vStart, vEnd); }
+			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quads, quads, uStart, uEnd, vStart, vEnd); }
 		
+		//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
+		PlaneSceneNode(f32 width, f32 height, u8 quadsW, u8 quadsH, f32 uStart, f32 uEnd, f32 vStart, f32 vEnd, ISceneNode* parent, scene::ISceneManager* mgr, s32 id)
+			: ISceneNode(parent, mgr, id), Mesh(NULL) { initPlane(width, height, quadsW, quadsH, uStart, uEnd, vStart, vEnd); }
+
 		//! Destruktor
 		virtual ~PlaneSceneNode(void);
 
@@ -63,7 +79,7 @@ namespace nodes {
 	private:
 		
 		//! Initialisiert die Ebene
-		void initPlane(f32 width, f32 height, u8 quads = 1, f32 uStart = 0.0f, f32 uEnd = 1.0f, f32 vStart = 0.0f, f32 vEnd = 1.0f);
+		void initPlane(f32 width, f32 height, u8 quadsW = 1, u8 quadsH = 1, f32 uStart = 0.0f, f32 uEnd = 1.0f, f32 vStart = 0.0f, f32 vEnd = 1.0f);
 
 	private:
 

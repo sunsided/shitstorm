@@ -13,37 +13,39 @@ namespace nodes
 {
 
 	//! Erzeugt eine neue Instanz der PlaneSceneNode-Klasse
-	void PlaneSceneNode::initPlane(f32 width, f32 height, u8 quads, f32 uStart, f32 uEnd, f32 vStart, f32 vEnd) 
+	void PlaneSceneNode::initPlane(f32 width, f32 height, u8 quadsW, u8 quadsH, f32 uStart, f32 uEnd, f32 vStart, f32 vEnd) 
 	{
 		// Fehler beheben
-		if(quads<1) quads = 1;
-
+		if(quadsW<1) quadsW = 1;
+		if(quadsH<1) quadsH = 1;
+		
 		// Platz besorgen
-		u8 count = 2+(quads-1);
-		VertexCount = count*count;
+		u8 countW = 2+(quadsW-1);
+		u8 countH = 2+(quadsH-1);
+		VertexCount = countW*countH;
 		scene::SMeshBuffer *MeshBuffer = new scene::SMeshBuffer();
 
 		// Vertexkoordinaten
 		f32 xStart	= -width/2;
 		f32 yStart	= -height/2;
-		f32 xStep	=  width/(count-1);
-		f32 yStep	=  height/(count-1);
+		f32 xStep	=  width/(countW-1);
+		f32 yStep	=  height/(countH-1);
 
 		// Texturkoordinaten
-		f32 uStep	= (uEnd-uStart)/(count-1);
-		f32 vStep	= (vEnd-vStart)/(count-1);
+		f32 uStep	= (uEnd-uStart)/(countW-1);
+		f32 vStep	= (vEnd-vStart)/(countH-1);
 
 		// Zu verwendende Vertexfarbe
 		video::SColor white = video::SColor(255, 255,255,255);
 
 		// Punkte generieren
-		for(u8 y=0; y<count; ++y)
+		for(u8 y=0; y<countH; ++y)
 		{
 			f32 vertexY = yStart + y*yStep;
 			f32 vertexV = vStart + y*vStep;
-			for(u8 x=0; x<count; ++x)
+			for(u8 x=0; x<countW; ++x)
 			{
-				int vertexIndex = y*count + x;
+				int vertexIndex = y*countW + x;
 
 				f32 vertexX = xStart + x*xStep;
 				f32 vertexU = uStart + x*uStep;
@@ -58,17 +60,17 @@ namespace nodes
 		}
 
 		// Platz für die Indizes schaffen
-		TriangleCount = quads*quads*2;
+		TriangleCount = quadsW*quadsH*2;
 		int indexCount = TriangleCount*3;
 
 		// Indizes neu ermitteln; Alle Quadrate durchlaufen
-		for(int squareY=0; squareY<quads; ++squareY) 
+		for(int squareY=0; squareY<quadsH; ++squareY) 
 		{
-			u16 squareRowStartIndex = squareY*quads + squareY%quads;
-			for(int squareX=0; squareX<quads; ++squareX) 
+			u16 squareRowStartIndex = squareY*quadsW + squareY%quadsH;
+			for(int squareX=0; squareX<quadsW; ++squareX) 
 			{
 				u16 topLeft		= squareRowStartIndex + squareX;
-				u16 bottomLeft	= topLeft + quads+1;
+				u16 bottomLeft	= topLeft + quadsW+1;
 
 				u16 topRight	= topLeft + 1;
 				u16 bottomRight	= bottomLeft + 1;

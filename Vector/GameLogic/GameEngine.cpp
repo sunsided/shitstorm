@@ -46,9 +46,10 @@ namespace pv {
 		mainCamera->setName("Main Camera");
 
 		// Ebene erzeugen
-		testNode = new nodes::PlaneSceneNode(60, 60, 10, 3.0f, 3.0f, rootNode, smgr, 10);
+		testNode = new nodes::PlaneSceneNode(60, 60, 10, 10, 6.0f, 6.0f, rootNode, smgr, 10);
 		testNode->setPosition(core::vector3df(0, 0, 0));
 		testNode->getMaterial(0).Lighting = false;
+		testNode->getMaterial(0).Wireframe = false;
 		testNode->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\wood.jpg"));
 		testNode->setName("Plane");
 		
