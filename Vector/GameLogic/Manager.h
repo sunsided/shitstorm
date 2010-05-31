@@ -27,26 +27,39 @@ namespace pv {
 		Manager(bool deleteOnDestruction = false) : deleteOnDestruct(deleteOnDestruction), nextFreeID(0) {}
 		
 		//! Destruktor
-		~Manager(void);
+		Manager<T>::~Manager(void) { clear(); }
 
 		//! Fügt ein Element hinzu
 		/**
 		 * @param element	Das hinzuzufügende Element
 		 * @returns Der Index des hinzugefügten Elementes; Wird Indizierung nicht unterstützt, ist der Wert immer 0.
 		 */
-		irr::u32 add(const T* element);
+		irr::u32 add(T* element) {
+			irr::u32 id = nextFreeID++;
+			idElementTable.insert(std::pair<irr::u32, T*>(id, element));
+			elementIdTable.insert(std::pair<T*, irr::u32>(element, id));
+			return id;
+		}
 
 		//! Fügt ein Element hinzu
 		/**
 		 * @param element	Das zu entfernende Element
 		 */
-		inline void remove(const T* element);
+		void remove(T* element) {
+			irr::u32 id = elementIdTable[element];
+			elementIdTable.erase(element);
+			idElementTable.erase(id);
+		}
 
 		//! Fügt ein Element hinzu
 		/**
 		 * @param element	Die ID des zu entfernenden Elementes
 		 */
-		inline void remove(irr::u32 id);
+		void remove(irr::u32 id) {
+			T* element = idElementTable[id];
+			elementIdTable.erase(element);
+			idElementTable.erase(id);
+		}
 
 		//! Fügt ein Element hinzu
 		inline irr::u32 count() { return idElementTable.size(); }
@@ -81,14 +94,40 @@ namespace pv {
 		inline bool isEmpty() const { return idElementTable.empty(); }
 
 		//! Leert den Manager
-		void clear();
+		void clear() {
+
+			// Ggf. die Elemente löschen
+			if (deleteOnDestruct) {
+				std::map<irr::u32, T*>::const_iterator iterator;
+				for (iterator = idElementTable.begin(); iterator != idElementTable.end(); ++iterator) {
+					T* element = (*iterator).second;
+					if (element) delete element;
+				}
+			}
+
+			// Eigentlich nicht nötig, aber hey.
+			idElementTable.clear();
+			elementIdTable.clear();
+			nextFreeID = 0;
+		}
 
 		//! Iteriert die Klasse
 		/**
 		 * @param iterateFunction	Die aufzurufende Funktion
 		 */
 		template<typename TState>
-		void iterate(void(*iterateFunction)(T*, TState*), TState* userState = NULL);
+		void iterate(void(*iterateFunction)(T*, TState*), TState* userState = NULL) {
+			ASSERT(iterateFunction);
+
+			// Elemente durchlaufen
+			std::map<irr::u32, T*>::const_iterator iterator;
+			for (iterator = idElementTable.begin(); iterator != idElementTable.end(); ++iterator) {
+				T* element = (*iterator).second;
+			
+				// Funktion aufrufen
+				iterateFunction(element, userState);
+			}
+		}
 
 	private:
 
