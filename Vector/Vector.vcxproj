@@ -96,6 +96,7 @@
     <ClCompile Include="Physics\PhysicsManagement.cpp" />
     <ClCompile Include="Physics\PhysicsMotionState.cpp" />
     <ClCompile Include="Physics\PhysicsWorld.cpp" />
+    <ClCompile Include="Physics\UpdatingPhysicsMotionState.cpp" />
     <ClCompile Include="SceneNodes\OrientationHelperSceneNode.cpp" />
     <ClCompile Include="SceneNodes\PlaneSceneNode.cpp" />
     <ClCompile Include="World\WorldElement.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Physics\PhysicsManagement.h" />
     <ClInclude Include="Physics\PhysicsMotionState.h" />
     <ClInclude Include="Physics\PhysicsWorld.h" />
+    <ClInclude Include="Physics\UpdatingPhysicsMotionState.h" />
     <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h" />
     <ClInclude Include="SceneNodes\PlaneSceneNode.h" />
     <ClInclude Include="World\WorldElement.h" />

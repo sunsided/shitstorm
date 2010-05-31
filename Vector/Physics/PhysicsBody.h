@@ -19,6 +19,13 @@
 
 using namespace irr;
 
+// Vorwärtsdeklaration
+namespace pv {
+	namespace world {
+		class WorldElement;
+	}
+}
+
 namespace pv {
 namespace physics {
 
@@ -26,31 +33,17 @@ namespace physics {
 	class PhysicsWorld;
 
 	//! Physikkörper
-	class PhysicsBody : public PhysicsMotionState
+	class PhysicsBody
 	{
 	public:
 
 		//! Erzeugt eine neue Instanz des Objektes
 		PhysicsBody(
-			const btTransform& startTrans = btTransform::getIdentity(), 
-			const btTransform& centerOfMassOffset = btTransform::getIdentity(),
+			PhysicsMotionState* state = NULL,
 			f32 mass = 0.0f,
 			PhysicsWorld* physicsWorld = NULL,
 			btCollisionShape* collisionShape = NULL
-			) 
-			: PhysicsMotionState(startTrans, centerOfMassOffset), 
-			dynamicsWorld(physicsWorld), mass(mass), collisionShape(collisionShape)
-		{}
-
-		//! Erzeugt eine neue Instanz des Objektes
-		PhysicsBody(
-			const core::matrix4& startTrans, 
-			const core::matrix4& centerOfMassOffset,
-			f32 mass = 0.0f,
-			PhysicsWorld* physicsWorld = NULL,
-			btCollisionShape* collisionShape = NULL
-			) 
-			: PhysicsMotionState(conversion::toBtTransform(startTrans), conversion::toBtTransform(centerOfMassOffset)) ,
+			) : motionState(state), 
 			dynamicsWorld(physicsWorld), mass(mass), collisionShape(collisionShape)
 		{}
 
@@ -102,13 +95,27 @@ namespace physics {
 		//! Aktualisiert die Masse des Objektes
 		void updateMass(f32 mass, const btVector3& localInertia);
 
-	protected:
+	public:
 
 		//! Setzt das Collision Shape
 		inline void setCollisionShape(btCollisionShape* shape) { collisionShape = shape; }
 
 		//! Ermittelt das Collision Shape
 		inline btCollisionShape* getCollisionShape() const { return collisionShape; }
+
+		//! Setzt das Motion State
+		inline void setMotionState(PhysicsMotionState* state) { motionState = state; }
+
+		//! Ermittelt das Motion State
+		inline PhysicsMotionState* getMotionState() const { return motionState; }
+
+		//! Bezieht den Benutzerzeiger
+		inline pv::world::WorldElement* getWorldElement() const { return userPointer; }
+
+		//! Bezieht den Benutzerzeiger
+		inline void setWorldElement(pv::world::WorldElement* world) { userPointer = world; }
+
+	public:
 
 		//! Wandelt einen Quaternion in einen Euler-Rotationsvektor um
 		static void QuaternionToEulerXYZ(const btQuaternion &quat, btVector3 &euler);
@@ -132,6 +139,12 @@ namespace physics {
 
 		//! Die Dynamikwelt
 		PhysicsWorld* dynamicsWorld;
+
+		//! Der Motion State
+		PhysicsMotionState* motionState;
+		
+		//! Benutzerdefinierter Zeiger
+		pv::world::WorldElement* userPointer;
 	};
 
 }}

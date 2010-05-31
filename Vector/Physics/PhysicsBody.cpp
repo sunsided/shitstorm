@@ -30,7 +30,15 @@ namespace physics {
 	void PhysicsBody::endPhysics(void)
 	{
 		if (dynamicsWorld) dynamicsWorld->removeRigidBody(rigidBody);
-		if (rigidBody) delete rigidBody;
+		if (rigidBody) {
+			delete rigidBody;
+			rigidBody = NULL;
+		}
+
+		if (motionState) {
+			delete motionState;
+			motionState = NULL;
+		}
 
 		//TODO: Collision Shape-Referenzzähler
 		//g_pCollisionObjectMgr->Remove(m_pCollisionObject);

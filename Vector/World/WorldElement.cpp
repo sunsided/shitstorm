@@ -7,54 +7,66 @@
  */
 
 #include "WorldElement.h"
+#include "Physics/UpdatingPhysicsMotionState.h"
+
+using namespace irr;
 
 namespace pv {
+
+using namespace physics;
+
 namespace world
 {
 	
 	//! Erzeugt eine neue Instanz der WorldElement-Klasse
-	WorldElement::WorldElement(scene::ISceneNode* parent, scene::ISceneManager* mgr, s32 id,
+	WorldElement::WorldElement(scene::ISceneNode* node,
 			const btTransform& startTrans, 
 			const btTransform& centerOfMassOffset,
 			f32 mass,
 			physics::PhysicsWorld* physicsWorld,
 			btCollisionShape* collisionShape
-			)
-		: 
-		irr::scene::ISceneNode(parent, mgr, id),
-		physics::PhysicsBody(startTrans, centerOfMassOffset, mass, physicsWorld, collisionShape)
+			) :
+			sceneNode(node)
 	{		
-		// Rotation setzen
-		btVector3 rotation;
-		physics::PhysicsBody::QuaternionToEulerXYZ(startTrans.getRotation(), rotation);
-		irr::scene::ISceneNode::setRotation(physics::conversion::toIrrlichtVector(rotation));
+		
+		// Motion State und Physikkörper erzeugen
+		UpdatingPhysicsMotionState* state = new UpdatingPhysicsMotionState(node, startTrans, centerOfMassOffset);
+		physicsBody = new PhysicsBody(state, mass, physicsWorld, collisionShape);
+		ASSERT(physicsBody);
+		physicsBody->setWorldElement(this);
 
-		// Position setzen
-		btVector3 position = startTrans.getOrigin();
-		irr::scene::ISceneNode::setRotation(physics::conversion::toIrrlichtVector(position));
+		// Translation setzen
+		copyTranslation(startTrans);
 	}
 
 	//! Erzeugt eine neue Instanz der WorldElement-Klasse
-	WorldElement::WorldElement(irr::scene::ISceneNode& node, physics::PhysicsBody& body) 
-		: irr::scene::ISceneNode(node), physics::PhysicsBody(body)
+	WorldElement::WorldElement(scene::ISceneNode* node, physics::PhysicsBody* body) 
+		: sceneNode(node), physicsBody(body)
 	{
-
+		if (physicsBody) {
+			physicsBody->setWorldElement(this);
+			if(physicsBody->getMotionState()) copyTranslation(physicsBody->getMotionState()->m_startWorldTrans);
+		}
 	}
 
-	//! Aktualisiert die Welttransformation.
-	/** Bullet ruft diese Funktion nur auf, wenn das Objekt aktiv ist.
-	* @param worldTrans	Die zu setzende Transformation
-	*/
-	void WorldElement::setWorldTransform(const btTransform& worldTrans) {
-		PhysicsBody::setWorldTransform(worldTrans);
+	//! Kopiert die Translation in den Szenenknoten
+	void WorldElement::copyTranslation(const btTransform& startTrans) {
+		if (sceneNode) {
+			// Rotation setzen
+			btVector3 rotation;
+			physics::PhysicsBody::QuaternionToEulerXYZ(startTrans.getRotation(), rotation);
+			sceneNode->setRotation(physics::conversion::toIrrlichtVector(rotation));
 
-		// Rotation übernehmen
-		irr::core::vector3df rotation = physics::PhysicsBody::getRotation();
-		irr::scene::ISceneNode::setRotation(rotation);
+			// Position setzen
+			btVector3 position = startTrans.getOrigin();
+			sceneNode->setRotation(physics::conversion::toIrrlichtVector(position));
+		}
+	}
 
-		// Position übernehmen
-		irr::core::vector3df position = physics::PhysicsBody::getPosition();
-		irr::scene::ISceneNode::setPosition(position);
+	//! Destruktor
+	WorldElement::~WorldElement(void) {
+		if (physicsBody) delete physicsBody;
+		if (sceneNode) delete sceneNode;
 	}
 
 }}

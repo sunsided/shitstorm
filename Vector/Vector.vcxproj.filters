@@ -49,6 +49,9 @@
     <ClCompile Include="World\WorldElement.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="Physics\UpdatingPhysicsMotionState.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="World\WorldElement.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\UpdatingPhysicsMotionState.h">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

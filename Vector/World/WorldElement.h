@@ -17,11 +17,11 @@ namespace pv {
 namespace world {
 
 	//! Ein Element in der Spielwelt
-	class WorldElement : protected physics::PhysicsBody, protected irr::scene::ISceneNode
+	class WorldElement
 	{
 	protected:
 		//! Erzeugt eine neue Instanz der WorldElement-Klasse
-		WorldElement(scene::ISceneNode* parent, scene::ISceneManager* mgr, s32 id=-1,
+		WorldElement(scene::ISceneNode* node,
 				const btTransform& startTrans = btTransform::getIdentity(), 
 				const btTransform& centerOfMassOffset = btTransform::getIdentity(),
 				f32 mass = 0.0f,
@@ -30,18 +30,56 @@ namespace world {
 				);
 
 		//! Erzeugt eine neue Instanz der WorldElement-Klasse
-		WorldElement(irr::scene::ISceneNode& node, physics::PhysicsBody& body);
+		WorldElement(scene::ISceneNode* node = NULL, physics::PhysicsBody* body = NULL);
 		
 		//! Destruktor
-		virtual ~WorldElement(void) {}
+		virtual ~WorldElement(void);
+	
+	private:
 
-	protected:
+		//! Kopiert die Translation in den Szenenknoten
+		void copyTranslation(const btTransform& startTrans);
 
-		//! Aktualisiert die Welttransformation.
-		/** Bullet ruft diese Funktion nur auf, wenn das Objekt aktiv ist.
-		 * @param worldTrans	Die zu setzende Transformation
-		 */
-		virtual void setWorldTransform(const btTransform& worldTrans);
+	public:
+
+		//! Wandelt das WorldElement in einen SceneNode um
+		inline operator irr::scene::ISceneNode*() const {
+			return sceneNode;
+		}
+
+		//! Wandelt das WorldElement in einen SceneNode um
+		inline operator physics::PhysicsBody*() const {
+			return physicsBody;
+		}
+
+		//! Ermittelt den Physikkörper
+		inline physics::PhysicsBody* getPhysicsBody() const {
+			return physicsBody;
+		}
+
+		//! Ermittelt den Szenenknoten
+		inline irr::scene::ISceneNode* getSceneNode() const {
+			return sceneNode;
+		}
+
+		//! Setzt den Physikkörper
+		inline void setPhysicsBody(physics::PhysicsBody* body) {
+			if (body) body->setWorldElement(this);
+			physicsBody = body;
+		}
+
+		//! Setzt den Szenenknoten
+		inline void setSceneNode(irr::scene::ISceneNode* node) {
+			sceneNode = node;
+		}
+
+	private:
+
+		//! Der Physikkörper
+		physics::PhysicsBody* physicsBody;
+
+		//! Der Szenenknoten
+		irr::scene::ISceneNode* sceneNode;
 
 	};
 
