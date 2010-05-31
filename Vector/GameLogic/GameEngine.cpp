@@ -17,7 +17,7 @@ namespace pv {
 
 	//! Erzeugt eine neue Instanz der GameEngine-Klasse.
 	GameEngine::GameEngine(void)
-		: renderTarget(NULL), physicsManagement(NULL), planeElement(NULL), cubeElement(NULL)
+		: renderTarget(NULL), planeElement(NULL), cubeElement(NULL)
 	{
 	}
 
@@ -26,7 +26,6 @@ namespace pv {
 	{
 		if (cubeElement) delete cubeElement;
 		if (planeElement) delete planeElement;
-		if (physicsManagement) delete physicsManagement;
 	}
 
 	//! Initialisiert die Engine
@@ -34,13 +33,8 @@ namespace pv {
 	EngineStatusCode GameEngine::OnSetupEngine() { 
 		if(!getDriver()->queryFeature(video::EVDF_RENDER_TO_TARGET)) return ESC_FEATURE_FAILED;
 
-		// Physikengine erzeugen
-		physicsManagement = new physics::PhysicsManagement();
-		if (!physicsManagement) return ESC_PHYSICS_FAILED;
-		physicsManagement->initialize();
-
 		// Physikwelt erzeugen
-		physics::PhysicsWorld *world = physicsManagement->createPhysicsWorld();
+		physics::PhysicsWorld *world = getPhysics()->createPhysicsWorld();
 
 		return ESC_SUCCESS; 
 	}
@@ -67,8 +61,8 @@ namespace pv {
 		
 		// Physikalische Ebene erzeugen
 		btCollisionShape* shape = new btBoxShape(btVector3(30, 0.1f, 30));
-		physicsManagement->getCollisionShapeManagement()->registerCollisionShape(shape);
-		planeElement = world::WorldElementFactory::CreateElement(physicsManagement->getPhysicsWorld(0), testNode, shape, 0.0f, core::vector3df(0, 0, 0));
+		getPhysics()->registerCollisionShape(shape);
+		planeElement = world::WorldElementFactory::CreateElement(getPhysics()->getPhysicsWorld(0), testNode, shape, 0.0f, core::vector3df(0, 0, 0));
 
 		// Ne Kiste
 		scene::IMeshSceneNode *cube = smgr->addCubeSceneNode(3.0f, rootNode, 15);
@@ -81,8 +75,8 @@ namespace pv {
 		
 		// Physikalische Kiste erzeugen
 		shape = new btBoxShape(btVector3(1.5f, 1.5f, 1.5f));
-		physicsManagement->getCollisionShapeManagement()->registerCollisionShape(shape);
-		cubeElement = world::WorldElementFactory::CreateElement(physicsManagement->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 10, -2));
+		getPhysics()->registerCollisionShape(shape);
+		cubeElement = world::WorldElementFactory::CreateElement(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 10, -2));
 		cubeElement->getPhysicsBody()->setRotation(core::vector3df(10, 75, 0));
 
 		// Noch ein Testknoten
@@ -138,7 +132,7 @@ namespace pv {
 		scene::ISceneManager *smgr = getSceneManager();
 
 		// Physik aktualisieren
-		physicsManagement->update(elapsedTime);
+		updatePhysics(elapsedTime);
 
 		// Szene beginnen
 		beginScene();

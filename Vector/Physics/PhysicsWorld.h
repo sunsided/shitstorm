@@ -11,7 +11,6 @@
 #define _PHYSICSWORLD_H
 
 #include "global.h"
-#include "CollisionShapeManagement.h"
 #include <vector>
 
 // Vorwärtsdeklaration der Klassen
@@ -28,6 +27,7 @@ namespace physics {
 
 	// Vorwärtsdeklaration der Klassen
 	class PhysicsBody;
+	class PhysicsManager;
 
 	//! Klasse, die die Physikengine verwaltet
 	class PhysicsWorld
@@ -35,9 +35,9 @@ namespace physics {
 	public:
 
 		//! Erzeugt eine neue Instanz des Objektes
-		PhysicsWorld(CollisionShapeManagement* collisionShapeManager) : collisionShapeManager(collisionShapeManager), dynamicsWorld(NULL), collisionConfiguration(NULL) 
+		PhysicsWorld(PhysicsManager* manager) : dynamicsWorld(NULL), collisionConfiguration(NULL), physicsManager(manager)
 		{
-			ASSERT(collisionShapeManager);
+			ASSERT(manager);
 		}
 
 		//! Destruktor
@@ -99,8 +99,8 @@ namespace physics {
 		//! Bezieht die Dynamikwelt
 		virtual btDynamicsWorld* getDynamicsWorld() const { return dynamicsWorld; }
 
-		//! Bezieht den Collision Shape Manager
-		CollisionShapeManagement* getCollisionShapeManager() const { return collisionShapeManager; }
+		//! Bezieht den Manager
+		PhysicsManager* getManager() const { return physicsManager; }
 
 	private:
 		
@@ -118,8 +118,28 @@ namespace physics {
 		//! Sammlung aller Rigid Bodies
 		std::vector<PhysicsBody*> rigidBodies;
 
-		//! Collision Shape Manager
-		CollisionShapeManagement* collisionShapeManager;
+		//! Liefert den Manager
+		PhysicsManager* physicsManager;
+
+	public:
+
+		//! Struktur, die zum Updaten einer Welt verwendet werden kann
+		typedef struct SUpdateState {
+			float deltaTime;
+			short unsigned int maxSubsteps;
+			float fixedTimeStep;
+
+			inline SUpdateState(float deltaTime, short unsigned int maxSubsteps, float fixedTimeStep) 
+				: deltaTime(deltaTime), maxSubsteps(maxSubsteps), fixedTimeStep(fixedTimeStep)
+			{}
+		} UpdateState;
+
+		//! Aktualisiert eine Welt
+		inline static void updateWorld(PhysicsWorld* world, PhysicsWorld::UpdateState* state) {
+			world->update(state->deltaTime, state->maxSubsteps, state->fixedTimeStep);
+		}
+
+
 	};
 
 }}

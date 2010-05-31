@@ -55,13 +55,13 @@ namespace pv {
 		/**
 		 * @param index		Die gewünschte ID
 		 */
-		inline T* getElement(irr::u32 id) const { return idElementTable[id]; }
+		inline T* getElement(irr::u32 id) { return idElementTable[id]; }
 
 		//! Liefert ein Element.
 		/**
 		 * @param element	Das gewünschte Element
 		 */
-		inline irr::u32 getId(const T* element) const { return elementIdTable[element]; }
+		inline irr::u32 getId(T* element) { return elementIdTable[element]; }
 
 		//! Ermittelt, ob ein Element mit der gegebenen ID registriert ist
 		/*
@@ -75,13 +75,20 @@ namespace pv {
 		 * @param id	Das zu Testende Element
 		 * @returns		true, wenn das Element gefunden wurde, ansonsten false
 		 */
-		inline bool contains(const T* element) const { return elementIdTable.find(element) == elementIdTable.end(); }
+		inline bool contains(T* element) const { return elementIdTable.find(element) == elementIdTable.end(); }
 		
 		//! Ermittelt, ob der Manager leer ist
 		inline bool isEmpty() const { return idElementTable.empty(); }
 
 		//! Leert den Manager
 		void clear();
+
+		//! Iteriert die Klasse
+		/**
+		 * @param iterateFunction	Die aufzurufende Funktion
+		 */
+		template<typename TState>
+		void iterate(void(*iterateFunction)(T*, TState*), TState* userState = NULL);
 
 	private:
 

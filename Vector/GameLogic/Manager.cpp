@@ -70,4 +70,21 @@ namespace pv {
 		idElementTable.erase(id);
 	}
 	
+	//! Iteriert die Klasse
+	/**
+		* @param iterateFunction	Die aufzurufende Funktion
+		*/
+	template<typename T, typename TState>
+	void Manager<T>::iterate(void(*iterateFunction)(T*, TState*), TState* userState) {
+
+		// Elemente durchlaufen
+		map<irr::u32, T*>::const_iterator iterator;
+		for (iterator = idElementTable.begin(); iterator != idElementTable.end(); ++iterator) {
+			T* element = (*iterator).second();
+			
+			// Funktion aufrufen
+			iterateFunction(element, userState);
+		}
+	}
+
 }

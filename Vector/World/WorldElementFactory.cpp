@@ -8,6 +8,7 @@
 
 #include "WorldElementFactory.h"
 #include "Physics/UpdatingPhysicsMotionState.h"
+#include "Physics/PhysicsManager.h"
 
 using namespace irr;
 using namespace scene;
@@ -35,7 +36,7 @@ namespace world
 
 		// Kollisionsshape erzeugen
 		btCollisionShape* shape = new btBoxShape(btVector3(0.5, 0.5, 0.5));
-		world->getCollisionShapeManager()->registerCollisionShape(shape);
+		world->getManager()->registerCollisionShape(shape);
 
 		// Motion State erzeugen
 		btTransform transform;
