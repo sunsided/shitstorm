@@ -74,7 +74,8 @@ namespace pv {
 	/**
 		* @param iterateFunction	Die aufzurufende Funktion
 		*/
-	template<typename T, typename TState>
+	template<typename T>
+	template<typename TState>
 	void Manager<T>::iterate(void(*iterateFunction)(T*, TState*), TState* userState) {
 
 		// Elemente durchlaufen
