@@ -81,6 +81,9 @@ namespace pv {
 
 		//! Testelement
 		world::WorldElement* cubeElement;
+
+		//! Noch ein Testelement
+		world::WorldElement* planeElement;
 	};
 
 }

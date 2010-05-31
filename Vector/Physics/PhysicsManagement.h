@@ -45,6 +45,9 @@ namespace physics {
 		//! Erzeugt eine neue Physikwelt und registriert sie
 		PhysicsWorld * createPhysicsWorld();
 
+		//! Erzeugt eine neue Physikwelt und registriert sie
+		PhysicsWorld* getPhysicsWorld(unsigned int worldId) const ;
+
 		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
 		/** Aktualisiert alle registrierten Dynamikwelten.
 		* @param deltaTime		Die vergangene Zeit in Sekunden

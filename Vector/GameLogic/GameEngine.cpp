@@ -17,7 +17,7 @@ namespace pv {
 
 	//! Erzeugt eine neue Instanz der GameEngine-Klasse.
 	GameEngine::GameEngine(void)
-		: renderTarget(NULL), physicsManagement(NULL)
+		: renderTarget(NULL), physicsManagement(NULL), planeElement(NULL), cubeElement(NULL)
 	{
 	}
 
@@ -25,6 +25,7 @@ namespace pv {
 	GameEngine::~GameEngine(void)
 	{
 		if (cubeElement) delete cubeElement;
+		if (planeElement) delete planeElement;
 		if (physicsManagement) delete physicsManagement;
 	}
 
@@ -40,9 +41,6 @@ namespace pv {
 
 		// Physikwelt erzeugen
 		physics::PhysicsWorld *world = physicsManagement->createPhysicsWorld();
-		
-		// Körper erzeugen
-		cubeElement = world::WorldElementFactory::CreateCubeElement(world, getSceneManager(), 0, 2.0f, 1.0f, 100, core::vector3df(0, 10, 0));
 
 		return ESC_SUCCESS; 
 	}
@@ -67,15 +65,25 @@ namespace pv {
 		testNode->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\wood.jpg"));
 		testNode->setName("Plane");
 		
+		// Physikalische Ebene erzeugen
+		btCollisionShape* shape = new btBoxShape(btVector3(30, 0.1f, 30));
+		physicsManagement->getCollisionShapeManagement()->registerCollisionShape(shape);
+		planeElement = world::WorldElementFactory::CreateElement(physicsManagement->getPhysicsWorld(0), testNode, shape, 0.0f, core::vector3df(0, 0, 0));
+
 		// Ne Kiste
 		scene::IMeshSceneNode *cube = smgr->addCubeSceneNode(3.0f, rootNode, 15);
 		cube->setPosition(core::vector3df(0, 2.5, 2));
 		cube->getMaterial(0).Lighting = false;
 		cube->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\crate.jpg"));
 		cube->setVisible(true);
-		cube->addAnimator(smgr->createRotationAnimator(core::vector3df(0.05f, 0.3f,0)));
+		//cube->addAnimator(smgr->createRotationAnimator(core::vector3df(0.05f, 0.3f,0)));
 		cube->setName("Testwürfel");
 		
+		// Physikalische Kiste erzeugen
+		shape = new btBoxShape(btVector3(1.5f, 1.5f, 1.5f));
+		physicsManagement->getCollisionShapeManagement()->registerCollisionShape(shape);
+		cubeElement = world::WorldElementFactory::CreateElement(physicsManagement->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 10, -2));
+
 		// Noch ein Testknoten
 		scene::ISceneNode *helper = new nodes::OrientationHelperSceneNode(1, rootNode, smgr, 16);
 		helper->setPosition(core::vector3df(0, 0.5f, 0));

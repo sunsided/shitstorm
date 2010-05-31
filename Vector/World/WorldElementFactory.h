@@ -29,6 +29,9 @@ namespace world {
 	
 	public:
 
+		//! Erzeugt einen beliebigen Knoten
+		static WorldElement* CreateElement(physics::PhysicsWorld* world, scene::ISceneNode* sceneNode, btCollisionShape* shape, f32 mass = 0.0f, core::vector3df initialPosition = core::vector3df(0, 0, 0));
+
 		//! Erzeugt einen Würfel-Knoten
 		static WorldElement* CreateCubeElement(physics::PhysicsWorld* world, scene::ISceneManager* mgr, scene::ISceneNode* parent = 0, f32 mass = 0.0f, f32 size = 1.0f, s32 id = -1, core::vector3df initialPosition = core::vector3df(0, 0, 0));
 

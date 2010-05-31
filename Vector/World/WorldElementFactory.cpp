@@ -53,4 +53,26 @@ namespace world
 		return element;
 	}
 
+	//! Erzeugt einen beliebigen Knoten
+	WorldElement* WorldElementFactory::CreateElement(physics::PhysicsWorld* world, ISceneNode* sceneNode, btCollisionShape* shape, f32 mass, core::vector3df initialPosition) {
+		ASSERT(sceneNode);
+		ASSERT(shape);
+		ASSERT(world);
+
+		// Motion State erzeugen
+		btTransform transform;
+		transform.setIdentity();
+		transform.setOrigin(conversion::toBulletVector(initialPosition));
+		UpdatingPhysicsMotionState* state = new UpdatingPhysicsMotionState(sceneNode, transform);
+
+		// Den Körper erzeugen
+		PhysicsBody* body = new PhysicsBody(state, mass, world, shape);
+		body->initPhysics();
+		world->addBody(body);
+
+		// Weltelement erzeugen
+		WorldElement* element = new WorldElement(sceneNode, body);
+		return element;
+	}
+
 }}

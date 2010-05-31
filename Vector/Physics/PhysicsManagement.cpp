@@ -84,4 +84,9 @@ namespace physics {
 		return world;
 	}
 
+	//! Erzeugt eine neue Physikwelt und registriert sie
+	PhysicsWorld* PhysicsManagement::getPhysicsWorld(unsigned int worldId) const {
+		return dynamicsWorlds.at(worldId);
+	}
+
 }}
