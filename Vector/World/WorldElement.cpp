@@ -66,7 +66,6 @@ namespace world
 	//! Destruktor
 	WorldElement::~WorldElement(void) {
 		if (physicsBody) delete physicsBody;
-		if (sceneNode) delete sceneNode;
 	}
 
 }}

@@ -11,6 +11,7 @@
 #define _PHYSICSWORLD_H
 
 #include "global.h"
+#include "CollisionShapeManagement.h"
 #include <vector>
 
 // Vorwärtsdeklaration der Klassen
@@ -25,13 +26,19 @@ class btVector3;
 namespace pv {
 namespace physics {
 
+	// Vorwärtsdeklaration der Klassen
+	class PhysicsBody;
+
 	//! Klasse, die die Physikengine verwaltet
 	class PhysicsWorld
 	{
 	public:
 
 		//! Erzeugt eine neue Instanz des Objektes
-		PhysicsWorld(void) : dynamicsWorld(NULL), collisionConfiguration(NULL) {}
+		PhysicsWorld(CollisionShapeManagement* collisionShapeManager) : collisionShapeManager(collisionShapeManager), dynamicsWorld(NULL), collisionConfiguration(NULL) 
+		{
+			ASSERT(collisionShapeManager);
+		}
 
 		//! Destruktor
 		virtual ~PhysicsWorld(void);
@@ -46,14 +53,14 @@ namespace physics {
 		/**
 		 * @param body	Der hinzuzufügende Körper
 		 */
-		void addRigidBody(btRigidBody* body);
+		void addBody(PhysicsBody* body);
 
 		//! Entfernt einen Rigid Body aus der Welt.
 		/** Die Funktion ist nur schnell, wenn die Objekte in umgekehrter Reihenfolge entfernt werden.
 		 *	Ist dies nicht der Fall, wird eine lineare Suche gestartet.
 		 * @param body	Das zu entfernende Element
 		 */
-		void removeRigidBody(btRigidBody* body);
+		void removeBody(PhysicsBody* body);
 
 		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
 		/**
@@ -92,6 +99,9 @@ namespace physics {
 		//! Bezieht die Dynamikwelt
 		virtual btDynamicsWorld* getDynamicsWorld() const { return dynamicsWorld; }
 
+		//! Bezieht den Collision Shape Manager
+		CollisionShapeManagement* getCollisionShapeManager() const { return collisionShapeManager; }
+
 	private:
 		
 		//! Vernichtet die Dynamikwelt
@@ -106,8 +116,10 @@ namespace physics {
 		btCollisionConfiguration* collisionConfiguration;
 
 		//! Sammlung aller Rigid Bodies
-		std::vector<btRigidBody*> rigidBodies;
+		std::vector<PhysicsBody*> rigidBodies;
 
+		//! Collision Shape Manager
+		CollisionShapeManagement* collisionShapeManager;
 	};
 
 }}

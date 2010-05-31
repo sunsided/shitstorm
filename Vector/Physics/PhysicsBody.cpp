@@ -29,7 +29,7 @@ namespace physics {
 	//! Beendet die Physikgeschichte
 	void PhysicsBody::endPhysics(void)
 	{
-		if (dynamicsWorld) dynamicsWorld->removeRigidBody(rigidBody);
+		if (dynamicsWorld) dynamicsWorld->removeBody(this);
 		if (rigidBody) {
 			delete rigidBody;
 			rigidBody = NULL;
@@ -76,26 +76,23 @@ namespace physics {
 		ASSERT(collisionShape);
 		ASSERT(dynamicsWorld);
 
-		// Transformation vorbereiten
-		btTransform trans;
-		trans.setIdentity();
-
 		// Lokale Trägheit berechnen
 		btVector3 localInertia(0, 0, 0);
 		if (mass != 0) collisionShape->calculateLocalInertia(mass, localInertia);
 
 		// Körper erzeugen
-		btRigidBody::btRigidBodyConstructionInfo info(mass, (btMotionState*)this, collisionShape, localInertia);
+		btRigidBody::btRigidBodyConstructionInfo info(mass, motionState, collisionShape, localInertia);
 		info.m_angularDamping = angularDamping;
 		info.m_friction = friction;
 		info.m_restitution = restitution;
 		info.m_linearDamping = linearDamping;
+		info.m_startWorldTransform = motionState->m_startWorldTrans;
 
 		rigidBody = new btRigidBody(info);
 		rigidBody->setUserPointer((void*)this);
 
 		// Den Körper zur Welt hinzufügen
-		dynamicsWorld->addRigidBody(rigidBody);
+		// dynamicsWorld->addBody(rigidBody);
 
 		// Werte zurücksetzen
 		setPosition(core::vector3df(0, 0, 0));

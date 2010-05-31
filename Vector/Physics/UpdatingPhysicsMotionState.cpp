@@ -31,4 +31,18 @@ namespace physics {
 		node->setPosition(matrix.getTranslation());
 	}
 
+	//! Setzt den verknüpften SceneNode
+	void UpdatingPhysicsMotionState::setSceneNode(irr::scene::ISceneNode* sceneNode) { 
+		m_userPointer = sceneNode;
+		if (!sceneNode) return;
+			
+		// http://www.daniweb.com/forums/thread284877.html
+		irr::core::matrix4 matrix;
+		btTransform worldTrans;
+		getWorldTransform(worldTrans);
+		worldTrans.getOpenGLMatrix(matrix.pointer());
+		sceneNode->setRotation(matrix.getRotationDegrees());
+		sceneNode->setPosition(matrix.getTranslation());
+	}
+
 }}

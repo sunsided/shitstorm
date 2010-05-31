@@ -21,7 +21,7 @@ namespace physics {
 	//! Bewegungszustand eines Körpers
 	class PhysicsMotionState : public btDefaultMotionState
 	{
-	public:
+	protected:
 		//! Erzeugt eine neue Instanz des Objektes
 		PhysicsMotionState(const btTransform& startTrans = btTransform::getIdentity(), const btTransform& centerOfMassOffset = btTransform::getIdentity()) 
 			: btDefaultMotionState(startTrans, centerOfMassOffset) 
@@ -31,6 +31,8 @@ namespace physics {
 		PhysicsMotionState(const irr::core::matrix4& startTrans, const irr::core::matrix4& centerOfMassOffset) 
 			: btDefaultMotionState(conversion::toBtTransform(startTrans), conversion::toBtTransform(centerOfMassOffset)) 
 		{}
+
+	public:
 
 		//! Destruktor
 		virtual ~PhysicsMotionState(void);

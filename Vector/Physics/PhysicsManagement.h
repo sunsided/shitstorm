@@ -40,7 +40,10 @@ namespace physics {
 		 *	Ein zusätzlicher Aufruf von delete ist nicht nötig!
 		 * @param world		Die hinzuzufügende Welt
 		 */
-		void addDynamicsWorld(PhysicsWorld *world);
+		void addPhysicsWorld(PhysicsWorld *world);
+
+		//! Erzeugt eine neue Physikwelt und registriert sie
+		PhysicsWorld * createPhysicsWorld();
 
 		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
 		/** Aktualisiert alle registrierten Dynamikwelten.

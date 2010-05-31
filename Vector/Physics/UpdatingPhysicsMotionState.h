@@ -55,9 +55,7 @@ namespace physics {
 		}
 
 		//! Setzt den verknüpften SceneNode
-		inline void setSceneNode(irr::scene::ISceneNode* sceneNode) { 
-			m_userPointer = sceneNode;
-		}
+		void setSceneNode(irr::scene::ISceneNode* sceneNode);
 
 	};
 

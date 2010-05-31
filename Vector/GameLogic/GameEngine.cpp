@@ -17,19 +17,33 @@ namespace pv {
 
 	//! Erzeugt eine neue Instanz der GameEngine-Klasse.
 	GameEngine::GameEngine(void)
-		: renderTarget(NULL)
+		: renderTarget(NULL), physicsManagement(NULL)
 	{
 	}
 
 	//! Destruktor.
 	GameEngine::~GameEngine(void)
 	{
+		if (cubeElement) delete cubeElement;
+		if (physicsManagement) delete physicsManagement;
 	}
 
 	//! Initialisiert die Engine
 	/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
 	EngineStatusCode GameEngine::OnSetupEngine() { 
 		if(!getDriver()->queryFeature(video::EVDF_RENDER_TO_TARGET)) return ESC_FEATURE_FAILED;
+
+		// Physikengine erzeugen
+		physicsManagement = new physics::PhysicsManagement();
+		if (!physicsManagement) return ESC_PHYSICS_FAILED;
+		physicsManagement->initialize();
+
+		// Physikwelt erzeugen
+		physics::PhysicsWorld *world = physicsManagement->createPhysicsWorld();
+		
+		// Körper erzeugen
+		cubeElement = world::WorldElementFactory::CreateCubeElement(world, getSceneManager(), 0, 2.0f, 1.0f, 100, core::vector3df(0, 10, 0));
+
 		return ESC_SUCCESS; 
 	}
 
@@ -113,6 +127,9 @@ namespace pv {
 
 		video::IVideoDriver *driver = getDriver();
 		scene::ISceneManager *smgr = getSceneManager();
+
+		// Physik aktualisieren
+		physicsManagement->update(elapsedTime);
 
 		// Szene beginnen
 		beginScene();

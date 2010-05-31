@@ -53,7 +53,7 @@ namespace physics {
 	}
 
 	//! Fügt dem System eine Dynamikwelt hinzu
-	void PhysicsManagement::addDynamicsWorld(PhysicsWorld *world) {
+	void PhysicsManagement::addPhysicsWorld(PhysicsWorld *world) {
 		ASSERT(world);
 		dynamicsWorlds.push_back(world);
 	}
@@ -72,6 +72,16 @@ namespace physics {
 		{
 			(*iterator)->update(deltaTime, maxSubsteps, fixedTimeStep);
 		}
+	}
+
+	//! Erzeugt eine neue Physikwelt und registriert sie
+	PhysicsWorld* PhysicsManagement::createPhysicsWorld() {
+		physics::PhysicsWorld *world = new physics::PhysicsWorld(getCollisionShapeManagement());
+		ASSERT(world);
+
+		world->createWorld();
+		addPhysicsWorld(world);
+		return world;
 	}
 
 }}

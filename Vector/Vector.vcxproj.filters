@@ -52,6 +52,9 @@
     <ClCompile Include="Physics\UpdatingPhysicsMotionState.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="World\WorldElementFactory.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="Physics\UpdatingPhysicsMotionState.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="World\WorldElementFactory.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

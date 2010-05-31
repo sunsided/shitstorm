@@ -19,7 +19,7 @@ namespace world {
 	//! Ein Element in der Spielwelt
 	class WorldElement
 	{
-	protected:
+	public:
 		//! Erzeugt eine neue Instanz der WorldElement-Klasse
 		WorldElement(scene::ISceneNode* node,
 				const btTransform& startTrans = btTransform::getIdentity(), 

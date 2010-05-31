@@ -44,14 +44,15 @@ namespace physics {
 			PhysicsWorld* physicsWorld = NULL,
 			btCollisionShape* collisionShape = NULL
 			) : motionState(state), 
-			dynamicsWorld(physicsWorld), mass(mass), collisionShape(collisionShape)
+			dynamicsWorld(physicsWorld), mass(mass), collisionShape(collisionShape),
+			userPointer(NULL), rigidBody(NULL)
 		{}
 
 		//! Destruktor
 		virtual ~PhysicsBody(void);
 
 		//! Initialisiert die Physik
-		void initPhysics(f32 ccdThreshold, f32 linearDamping = 0.f, f32 angularDamping = 0.f, f32 friction = 0.5f, f32 restitution = 0.f);
+		void initPhysics(f32 ccdThreshold = 1.0f, f32 linearDamping = 0.f, f32 angularDamping = 0.f, f32 friction = 0.5f, f32 restitution = 0.f);
 		
 		//! Setzt die Position des Objektes
 		virtual void setPosition(const core::vector3df& v); 
@@ -114,6 +115,9 @@ namespace physics {
 
 		//! Bezieht den Benutzerzeiger
 		inline void setWorldElement(pv::world::WorldElement* world) { userPointer = world; }
+
+		//! Bezieht den Benutzerzeiger
+		inline btRigidBody* getRigidBody() const { return rigidBody; }
 
 	public:
 
