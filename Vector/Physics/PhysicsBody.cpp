@@ -91,13 +91,6 @@ namespace physics {
 		rigidBody = new btRigidBody(info);
 		rigidBody->setUserPointer((void*)this);
 
-		// Den Körper zur Welt hinzufügen
-		// dynamicsWorld->addBody(rigidBody);
-
-		// Werte zurücksetzen
-		setPosition(core::vector3df(0, 0, 0));
-		setRotation(core::vector3df(0, 0, 0));
-	
 		// CCD-Parameter setzen
 		// TODO: Was passiert hier eigentlich? Ich hab das hierher: http://irrlicht.sourceforge.net/phpBB2/viewtopic.php?t=17910
 		rigidBody->setCcdMotionThreshold( ccdThreshold );
