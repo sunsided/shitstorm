@@ -83,6 +83,7 @@ namespace pv {
 		shape = new btBoxShape(btVector3(1.5f, 1.5f, 1.5f));
 		physicsManagement->getCollisionShapeManagement()->registerCollisionShape(shape);
 		cubeElement = world::WorldElementFactory::CreateElement(physicsManagement->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 10, -2));
+		cubeElement->getPhysicsBody()->setRotation(core::vector3df(10, 75, 0));
 
 		// Noch ein Testknoten
 		scene::ISceneNode *helper = new nodes::OrientationHelperSceneNode(1, rootNode, smgr, 16);
