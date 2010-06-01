@@ -17,7 +17,7 @@ namespace pv {
 
 	//! Erzeugt eine neue Instanz der GameEngine-Klasse.
 	GameEngine::GameEngine(void)
-		: renderTarget(NULL), planeElement(NULL), cubeElement(NULL)
+		: renderTarget(NULL)
 	{
 	}
 
@@ -60,7 +60,7 @@ namespace pv {
 		// Physikalische Ebene erzeugen
 		btCollisionShape* shape = new btBoxShape(btVector3(30, 0.1f, 30));
 		getPhysics()->registerCollisionShape(shape);
-		planeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), testNode, shape, 0.0f, core::vector3df(0, 0, 0));
+		world::WorldObject* planeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), testNode, shape, 0.0f, core::vector3df(0, 0, 0));
 		getWorld()->addWorldObject(planeElement);
 
 		// Ne Kiste
@@ -75,7 +75,7 @@ namespace pv {
 		// Physikalische Kiste erzeugen
 		shape = new btBoxShape(btVector3(1.5f, 1.5f, 1.5f));
 		getPhysics()->registerCollisionShape(shape);
-		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 10, -2));
+		world::WorldObject* cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 10, -2));
 		cubeElement->getPhysicsBody()->setRotation(core::vector3df(10, 75, 0));
 		getWorld()->addWorldObject(cubeElement);
 

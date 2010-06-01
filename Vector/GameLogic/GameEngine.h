@@ -74,12 +74,6 @@ namespace pv {
 
 		//! GUI-Element, das die Textur anzeigt
 		gui::IGUIImage *image;
-
-		//! Testelement
-		world::WorldObject* cubeElement;
-
-		//! Noch ein Testelement
-		world::WorldObject* planeElement;
 	};
 
 }
