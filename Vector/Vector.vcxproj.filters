@@ -16,6 +16,9 @@
     <Filter Include="SceneNodes">
       <UniqueIdentifier>{3aac4a3c-255c-443e-ba48-4071fadc2a21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{39d734be-ce7c-45f0-8023-669d83ea71c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -66,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="World\WorldManager.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound\SoundDeviceManager.cpp">
+      <Filter>Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="World\WorldManager.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\SoundDeviceManager.h">
+      <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
