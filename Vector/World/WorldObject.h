@@ -7,8 +7,8 @@
  */
 
 #pragma once
-#ifndef _WORLDELEMENT_H
-#define _WORLDELEMENT_H
+#ifndef _WORLDOBJECT_H
+#define _WORLDOBJECT_H
 
 #include "global.h"
 #include "Physics/PhysicsObject.h"
@@ -18,15 +18,15 @@ namespace pv {
 namespace world {
 
 	//! Ein Element in der Spielwelt
-	class WorldElement
+	class WorldObject
 	{
 	public:
 
 		//! Erzeugt eine neue Instanz der WorldElement-Klasse
-		WorldElement(nodes::SceneObject* object = NULL, physics::PhysicsObject* body = NULL);
+		WorldObject(nodes::SceneObject* object = NULL, physics::PhysicsObject* body = NULL);
 		
 		//! Destruktor
-		virtual ~WorldElement(void);
+		virtual ~WorldObject(void);
 	
 	private:
 
@@ -42,7 +42,7 @@ namespace world {
 
 		//! Setzt den Physikkörper
 		inline void setPhysicsBody(physics::PhysicsObject* body) {
-			if (body) body->setWorldElement(this);
+			if (body) body->setWorldObject(this);
 			physicsBody = body;
 		}
 

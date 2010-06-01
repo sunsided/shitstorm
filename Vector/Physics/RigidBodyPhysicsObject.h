@@ -29,9 +29,9 @@ namespace physics {
 			f32 mass = 0.0f,
 			PhysicsWorld* physicsWorld = NULL,
 			btCollisionShape* collisionShape = NULL,
-			world::WorldElement* worldElement = NULL
+			world::WorldObject* worldObject = NULL
 			) : 
-				PhysicsObject(state, physicsWorld, collisionShape, worldElement),
+				PhysicsObject(state, physicsWorld, collisionShape, worldObject),
 				mass(mass),
 				rigidBody(NULL)
 		{}

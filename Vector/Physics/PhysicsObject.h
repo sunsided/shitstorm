@@ -22,7 +22,7 @@ using namespace irr;
 // Vorwärtsdeklaration
 namespace pv {
 	namespace world {
-		class WorldElement;
+		class WorldObject;
 	}
 }
 
@@ -42,12 +42,12 @@ namespace physics {
 			PhysicsMotionState* state = NULL,
 			PhysicsWorld* physicsWorld = NULL,
 			btCollisionShape* collisionShape = NULL,
-			world::WorldElement* worldElement = NULL
+			world::WorldObject* worldObject = NULL
 			) : 
 			motionState(state), 
 			dynamicsWorld(physicsWorld), 
 			collisionShape(collisionShape),
-			userPointer(worldElement)
+			userPointer(worldObject)
 		{}
 
 		//! Destruktor
@@ -116,10 +116,10 @@ namespace physics {
 		inline PhysicsMotionState* getMotionState() const { return motionState; }
 
 		//! Bezieht den Benutzerzeiger
-		inline pv::world::WorldElement* getWorldElement() const { return userPointer; }
+		inline pv::world::WorldObject* getWorldObject() const { return userPointer; }
 
 		//! Bezieht den Benutzerzeiger
-		inline void setWorldElement(pv::world::WorldElement* world) { userPointer = world; }
+		inline void setWorldObject(pv::world::WorldObject* world) { userPointer = world; }
 
 		//! Bezieht das Kollisionsobjekt (Rigid Body, ...)
 		inline virtual btCollisionObject* getCollisionObject() const = 0;
@@ -150,7 +150,7 @@ namespace physics {
 		PhysicsMotionState* motionState;
 		
 		//! Benutzerdefinierter Zeiger
-		pv::world::WorldElement* userPointer;
+		pv::world::WorldObject* userPointer;
 	};
 
 }}

@@ -6,7 +6,7 @@
  * $Id$
  */
 
-#include "WorldElement.h"
+#include "WorldObject.h"
 #include "Physics/UpdatingPhysicsMotionState.h"
 
 using namespace irr;
@@ -15,17 +15,23 @@ namespace pv {
 namespace world {
 
 	//! Erzeugt eine neue Instanz der WorldElement-Klasse
-	WorldElement::WorldElement(nodes::SceneObject* object, physics::PhysicsObject* body) 
+	WorldObject::WorldObject(nodes::SceneObject* object, physics::PhysicsObject* body) 
 		: sceneObject(object), physicsBody(body)
 	{
 		if (physicsBody) {
-			physicsBody->setWorldElement(this);
+			physicsBody->setWorldObject(this);
 			if(physicsBody->getMotionState()) copyTranslation(physicsBody->getMotionState()->m_startWorldTrans);
 		}
 	}
 
+	//! Destruktor
+	WorldObject::~WorldObject(void) {
+		if (physicsBody) delete physicsBody;
+		if (sceneObject) delete sceneObject;
+	}
+
 	//! Kopiert die Translation in den Szenenknoten
-	void WorldElement::copyTranslation(const btTransform& startTrans) {
+	void WorldObject::copyTranslation(const btTransform& startTrans) {
 		if (sceneObject) {
 			// Rotation setzen
 			btVector3 rotation;
@@ -36,12 +42,6 @@ namespace world {
 			btVector3 position = startTrans.getOrigin();
 			sceneObject->getSceneNode()->setRotation(physics::conversion::toIrrlichtVector(position));
 		}
-	}
-
-	//! Destruktor
-	WorldElement::~WorldElement(void) {
-		if (physicsBody) delete physicsBody;
-		if (sceneObject) delete sceneObject;
 	}
 
 }}

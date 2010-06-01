@@ -6,7 +6,7 @@
  * $Id$
  */
 
-#include "WorldElementFactory.h"
+#include "WorldObjectFactory.h"
 #include "SceneNodes/SceneObject.h"
 #include "Physics/UpdatingPhysicsMotionState.h"
 #include "Physics/PhysicsManager.h"
@@ -23,13 +23,13 @@ using namespace physics;
 namespace world
 {
 	//! Erzeugt eine neue Instanz der WorldElementFactory-Klasse
-	WorldElementFactory::WorldElementFactory() {}
+	WorldObjectFactory::WorldObjectFactory() {}
 
 	//! Destruktor
-	WorldElementFactory::~WorldElementFactory(void) {}
+	WorldObjectFactory::~WorldObjectFactory(void) {}
 
 	//! Erzeugt einen Würfel-Knoten
-	WorldElement* WorldElementFactory::CreateCubeElement(PhysicsWorld* world, ISceneManager* mgr, ISceneNode* parent, f32 mass, f32 size, s32 id, vector3df initialPosition) {
+	WorldObject* WorldObjectFactory::CreateCube(PhysicsWorld* world, ISceneManager* mgr, ISceneNode* parent, f32 mass, f32 size, s32 id, vector3df initialPosition) {
 		ASSERT(mgr);
 		ASSERT(world);
 
@@ -53,12 +53,12 @@ namespace world
 		world->addObject(body);
 
 		// Weltelement erzeugen
-		WorldElement* element = new WorldElement(sceneObject, body);
+		WorldObject* element = new WorldObject(sceneObject, body);
 		return element;
 	}
 
 	//! Erzeugt einen beliebigen Knoten
-	WorldElement* WorldElementFactory::CreateElement(physics::PhysicsWorld* world, ISceneNode* sceneNode, btCollisionShape* shape, f32 mass, core::vector3df initialPosition) {
+	WorldObject* WorldObjectFactory::Create(physics::PhysicsWorld* world, ISceneNode* sceneNode, btCollisionShape* shape, f32 mass, core::vector3df initialPosition) {
 		ASSERT(sceneNode);
 		ASSERT(shape);
 		ASSERT(world);
@@ -67,11 +67,11 @@ namespace world
 		nodes::SceneObject *sceneObject = new nodes::SceneObject(sceneNode);
 
 		// Durchreichen
-		return CreateElement(world, sceneObject, shape, mass, initialPosition);
+		return Create(world, sceneObject, shape, mass, initialPosition);
 	}
 
 	//! Erzeugt einen beliebigen Knoten
-	WorldElement* WorldElementFactory::CreateElement(physics::PhysicsWorld* world, nodes::SceneObject *sceneObject, btCollisionShape* shape, f32 mass, core::vector3df initialPosition) {
+	WorldObject* WorldObjectFactory::Create(physics::PhysicsWorld* world, nodes::SceneObject *sceneObject, btCollisionShape* shape, f32 mass, core::vector3df initialPosition) {
 		ASSERT(sceneObject);
 		ASSERT(shape);
 		ASSERT(world);
@@ -88,7 +88,7 @@ namespace world
 		world->addObject(body);
 
 		// Weltelement erzeugen
-		WorldElement* element = new WorldElement(sceneObject, body);
+		WorldObject* element = new WorldObject(sceneObject, body);
 		return element;
 	}
 

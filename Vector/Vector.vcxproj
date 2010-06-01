@@ -101,8 +101,8 @@
     <ClCompile Include="SceneNodes\PlaneSceneNode.cpp" />
     <ClCompile Include="SceneNodes\SceneObject.cpp" />
     <ClCompile Include="Utility\Manager.cpp" />
-    <ClCompile Include="World\WorldElement.cpp" />
-    <ClCompile Include="World\WorldElementFactory.cpp" />
+    <ClCompile Include="World\WorldObject.cpp" />
+    <ClCompile Include="World\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLogic\EngineBase.h" />
@@ -123,8 +123,8 @@
     <ClInclude Include="SceneNodes\PlaneSceneNode.h" />
     <ClInclude Include="SceneNodes\SceneObject.h" />
     <ClInclude Include="Utility\Manager.h" />
-    <ClInclude Include="World\WorldElement.h" />
-    <ClInclude Include="World\WorldElementFactory.h" />
+    <ClInclude Include="World\WorldObject.h" />
+    <ClInclude Include="World\WorldObjectFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

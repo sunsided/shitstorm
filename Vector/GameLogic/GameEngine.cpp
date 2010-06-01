@@ -62,7 +62,7 @@ namespace pv {
 		// Physikalische Ebene erzeugen
 		btCollisionShape* shape = new btBoxShape(btVector3(30, 0.1f, 30));
 		getPhysics()->registerCollisionShape(shape);
-		planeElement = world::WorldElementFactory::CreateElement(getPhysics()->getPhysicsWorld(0), testNode, shape, 0.0f, core::vector3df(0, 0, 0));
+		planeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), testNode, shape, 0.0f, core::vector3df(0, 0, 0));
 
 		// Ne Kiste
 		scene::IMeshSceneNode *cube = smgr->addCubeSceneNode(3.0f, rootNode, 15);
@@ -76,7 +76,7 @@ namespace pv {
 		// Physikalische Kiste erzeugen
 		shape = new btBoxShape(btVector3(1.5f, 1.5f, 1.5f));
 		getPhysics()->registerCollisionShape(shape);
-		cubeElement = world::WorldElementFactory::CreateElement(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 10, -2));
+		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 10, -2));
 		cubeElement->getPhysicsBody()->setRotation(core::vector3df(10, 75, 0));
 
 		// Noch ein Testknoten

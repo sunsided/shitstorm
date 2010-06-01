@@ -13,7 +13,7 @@
 #include "global.h"
 #include "EngineBase.h"
 #include "SceneNodes/PlaneSceneNode.h"
-#include "World/WorldElementFactory.h"
+#include "World/WorldObjectFactory.h"
 
 namespace pv {
 
@@ -76,10 +76,10 @@ namespace pv {
 		gui::IGUIImage *image;
 
 		//! Testelement
-		world::WorldElement* cubeElement;
+		world::WorldObject* cubeElement;
 
 		//! Noch ein Testelement
-		world::WorldElement* planeElement;
+		world::WorldObject* planeElement;
 	};
 
 }

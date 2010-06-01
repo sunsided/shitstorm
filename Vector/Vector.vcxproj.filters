@@ -40,14 +40,8 @@
     <ClCompile Include="Physics\PhysicsWorld.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
-    <ClCompile Include="World\WorldElement.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="Physics\UpdatingPhysicsMotionState.cpp">
       <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="World\WorldElementFactory.cpp">
-      <Filter>World</Filter>
     </ClCompile>
     <ClCompile Include="Physics\PhysicsManager.cpp">
       <Filter>Physics</Filter>
@@ -63,6 +57,12 @@
     </ClCompile>
     <ClCompile Include="SceneNodes\SceneObject.cpp">
       <Filter>SceneNodes</Filter>
+    </ClCompile>
+    <ClCompile Include="World\WorldObjectFactory.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="World\WorldObject.cpp">
+      <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,14 +98,8 @@
     <ClInclude Include="Physics\PhysicsWorld.h">
       <Filter>Physics</Filter>
     </ClInclude>
-    <ClInclude Include="World\WorldElement.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="Physics\UpdatingPhysicsMotionState.h">
       <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="World\WorldElementFactory.h">
-      <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="Physics\PhysicsManager.h">
       <Filter>Physics</Filter>
@@ -121,6 +115,12 @@
     </ClInclude>
     <ClInclude Include="SceneNodes\SceneObject.h">
       <Filter>SceneNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="World\WorldObject.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="World\WorldObjectFactory.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
