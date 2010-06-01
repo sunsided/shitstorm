@@ -19,7 +19,8 @@ namespace pv {
 		irrlichtDevice(NULL), sceneManager(NULL), videoDriver(NULL), guiEnvironment(NULL), 
 			engineClean(true), timer(NULL), paused(false), sceneStarted(false),
 			sceneClearColor(irr::video::SColor(0, 64, 64, 64)),
-			physicsManagement(NULL)
+			physicsManagement(NULL),
+			worldManagement(NULL)
 	{
 		initializeBasicMaterials();
 	}
@@ -106,6 +107,10 @@ namespace pv {
 		physicsManagement = new physics::PhysicsManager();
 		if (!physicsManagement) return ESC_PHYSICS_FAILED;
 		physicsManagement->initialize();
+		
+		// Weltmanagement erzeugen
+		worldManagement = new world::WorldManager();
+		if (!worldManagement) return ESC_WORLDMGMT_FAILED;
 
 		// Initialisieren
 		cout << "Initialisiere Engine, 2nd stage ..." << endl;
@@ -136,6 +141,15 @@ namespace pv {
 			irrlichtDevice = NULL;
 		}
 
+		// Welt freigeben
+		// Das Freigeben der Welt muss vor dem Freigeben der Physik geschehen
+		if (worldManagement) {
+			delete worldManagement;
+			worldManagement = NULL;
+		}
+
+		// Physik freigeben
+		// Das Freigeben der Physik muss nach dem Freigeben der Welt geschehen
 		if (physicsManagement) {
 			delete physicsManagement;
 			physicsManagement = NULL;

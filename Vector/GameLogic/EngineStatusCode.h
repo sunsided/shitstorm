@@ -39,6 +39,9 @@ namespace pv {
 		//! Das Physikmanagement konnte nicht initialisiert werden
 		ESC_PHYSICS_FAILED = 7,
 
+		//! Das Weltmanagement konnte nicht initialisiert werden
+		ESC_WORLDMGMT_FAILED = 8,
+
 		//! Intern
 		/** @internal Die Anzahl der Werte der EEngineStatusCode-Enumeration */
 		ESC_COUNT

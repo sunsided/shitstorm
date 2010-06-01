@@ -15,6 +15,7 @@
 #include "EngineInitializationParams.h"
 #include "GameTimer.h"
 #include "Physics/PhysicsManager.h"
+#include "World/WorldManager.h"
 
 namespace pv {
 
@@ -117,6 +118,9 @@ namespace pv {
 		//! Bezieht den Physikmanager
 		inline physics::PhysicsManager* getPhysics() const { return physicsManagement; }
 
+		//! Bezieht den Weltmanager
+		inline world::WorldManager* getWorld() const { return worldManagement; }
+
 		//! Bezieht den Timer
 		inline GameTimer* getTimer() const { return timer; }
 
@@ -200,6 +204,9 @@ namespace pv {
 
 		//! Die Physik-Managementklasse
 		physics::PhysicsManager* physicsManagement;
+
+		//! Die Weltobjekt-Managementklasse
+		world::WorldManager* worldManagement;
 
 		//! Gibt an, ob die Engine aufgeräumt wurde
 		bool engineClean;

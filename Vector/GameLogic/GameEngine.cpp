@@ -24,8 +24,6 @@ namespace pv {
 	//! Destruktor.
 	GameEngine::~GameEngine(void)
 	{
-		if (cubeElement) delete cubeElement;
-		if (planeElement) delete planeElement;
 	}
 
 	//! Initialisiert die Engine
@@ -63,6 +61,7 @@ namespace pv {
 		btCollisionShape* shape = new btBoxShape(btVector3(30, 0.1f, 30));
 		getPhysics()->registerCollisionShape(shape);
 		planeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), testNode, shape, 0.0f, core::vector3df(0, 0, 0));
+		getWorld()->addWorldObject(planeElement);
 
 		// Ne Kiste
 		scene::IMeshSceneNode *cube = smgr->addCubeSceneNode(3.0f, rootNode, 15);
@@ -78,6 +77,7 @@ namespace pv {
 		getPhysics()->registerCollisionShape(shape);
 		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 10, -2));
 		cubeElement->getPhysicsBody()->setRotation(core::vector3df(10, 75, 0));
+		getWorld()->addWorldObject(cubeElement);
 
 		// Noch ein Testknoten
 		scene::ISceneNode *helper = new nodes::OrientationHelperSceneNode(1, rootNode, smgr, 16);
