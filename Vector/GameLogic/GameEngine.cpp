@@ -73,6 +73,7 @@ namespace pv {
 		btCollisionShape* shape = new btBoxShape(btVector3(30, 0.1f, 30));
 		getPhysics()->registerCollisionShape(shape);
 		world::WorldObject* planeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), testNode, shape, 0.0f, core::vector3df(0, 0, 0));
+		((btRigidBody*)planeElement->getPhysicsBody()->getCollisionObject())->setFriction(1.25f);
 		getWorld()->addWorldObject(planeElement);
 
 
@@ -80,18 +81,59 @@ namespace pv {
 
 		// Ne Kiste
 		scene::IMeshSceneNode *cube = smgr->addCubeSceneNode(3.0f, rootNode, 15);
-		cube->setPosition(core::vector3df(0, 2.5, 2));
+		cube->setPosition(core::vector3df(0, 2.5, 2)); // TODO: Übernehmen lassen
 		cube->getMaterial(0).Lighting = false;
 		cube->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\crate.jpg"));
 		cube->setVisible(true);
 		//cube->addAnimator(smgr->createRotationAnimator(core::vector3df(0.05f, 0.3f,0)));
-		cube->setName("Testwürfel");
+		cube->setName("Testwürfel 1");
 		
 		// Physikalische Kiste erzeugen
 		shape = new btBoxShape(btVector3(1.5f, 1.5f, 1.5f));
 		getPhysics()->registerCollisionShape(shape);
 		world::WorldObject* cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 10, -2));
 		cubeElement->getPhysicsBody()->setRotation(core::vector3df(10, 75, 0));
+		getWorld()->addWorldObject(cubeElement);
+
+
+
+		// Noch ne Kiste
+		cube = smgr->addCubeSceneNode(3.0f, rootNode, 17);
+		cube->getMaterial(0).Lighting = false;
+		cube->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\crate.jpg"));
+		cube->setVisible(true);
+		cube->setName("Testwürfel 2");
+		
+		// Noch ne physikalische Kiste erzeugen
+		// Das Box-Shape wird weiterverwendet
+		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(-1, 15, -1));
+		cubeElement->getPhysicsBody()->setRotation(core::vector3df(10, 75, 0));
+		getWorld()->addWorldObject(cubeElement);
+
+
+
+		// Und noch ne Kiste!
+		cube = smgr->addCubeSceneNode(3.0f, rootNode, 18);
+		cube->getMaterial(0).Lighting = false;
+		cube->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\crate.jpg"));
+		cube->setName("Testwürfel 4");
+		
+		// (Noch ne)² physikalische Kiste erzeugen
+		// Das Box-Shape wird weiterverwendet
+		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 20, -2));
+		cubeElement->getPhysicsBody()->setRotation(core::vector3df(0, -90, 0));
+		getWorld()->addWorldObject(cubeElement);
+
+
+
+		// Ne Kiste
+		cube = smgr->addCubeSceneNode(3.0f, rootNode, 19);
+		cube->getMaterial(0).Lighting = false;
+		cube->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\crate.jpg"));
+		cube->setName("Testwürfel 5");
+		
+		// Physikalische Kiste erzeugen
+		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(-1.25, 1.5, -2));
 		getWorld()->addWorldObject(cubeElement);
 
 
