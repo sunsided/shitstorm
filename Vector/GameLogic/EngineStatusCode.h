@@ -42,6 +42,12 @@ namespace pv {
 		//! Das Weltmanagement konnte nicht initialisiert werden
 		ESC_WORLDMGMT_FAILED = 8,
 
+		//! Eine Physikwelt konnte nicht erzeugt werden
+		ESC_PHYSICSWORLD_FAILED = 9,
+
+		//! Ein weiterer Szenenmanager konnte nicht erzeugt werden
+		ESC_AUX_SMGR_FAILED = 10,
+
 		//! Intern
 		/** @internal Die Anzahl der Werte der EEngineStatusCode-Enumeration */
 		ESC_COUNT

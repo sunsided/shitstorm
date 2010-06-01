@@ -17,7 +17,7 @@ namespace pv {
 
 	//! Erzeugt eine neue Instanz der GameEngine-Klasse.
 	GameEngine::GameEngine(void)
-		: renderTarget(NULL)
+		: renderTarget(NULL), renderTargetSceneManager(NULL)
 	{
 	}
 
@@ -33,6 +33,12 @@ namespace pv {
 
 		// Physikwelt erzeugen
 		physics::PhysicsWorld *world = getPhysics()->createPhysicsWorld();
+		if (!world) return ESC_PHYSICSWORLD_FAILED;
+
+		// Zweiten Szenenmanager erzeugen
+		renderTargetSceneManager = createAuxiliarySceneManager();
+		if (!renderTargetSceneManager) return ESC_AUX_SMGR_FAILED;
+		
 
 		return ESC_SUCCESS; 
 	}
@@ -42,12 +48,18 @@ namespace pv {
 		scene::ISceneManager *smgr = getSceneManager();
 		scene::ISceneNode *rootNode = smgr->getRootSceneNode();
 
+
+
+
 		// Hauptkamera erzeugen
 		mainCamera = smgr->addCameraSceneNodeFPS(NULL, 100.0f, 0.01f);
 		mainCamera->setNearValue(2.0f); // Ein Wert von null verursacht Probleme! -- UND: http://www.sjbaker.org/steve/omniv/love_your_z_buffer.html
 		mainCamera->setPosition(core::vector3df(0, 10, -10));
 		mainCamera->setTarget(core::vector3df(0, 0, 0));
 		mainCamera->setName("Main Camera");
+
+
+
 
 		// Ebene erzeugen
 		testNode = new nodes::PlaneSceneNode(60, 60, 10, 10, 6.0f, 6.0f, rootNode, smgr, 10);
@@ -62,6 +74,9 @@ namespace pv {
 		getPhysics()->registerCollisionShape(shape);
 		world::WorldObject* planeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), testNode, shape, 0.0f, core::vector3df(0, 0, 0));
 		getWorld()->addWorldObject(planeElement);
+
+
+
 
 		// Ne Kiste
 		scene::IMeshSceneNode *cube = smgr->addCubeSceneNode(3.0f, rootNode, 15);
@@ -79,8 +94,11 @@ namespace pv {
 		cubeElement->getPhysicsBody()->setRotation(core::vector3df(10, 75, 0));
 		getWorld()->addWorldObject(cubeElement);
 
-		// Noch ein Testknoten
-		scene::ISceneNode *helper = new nodes::OrientationHelperSceneNode(1, rootNode, smgr, 16);
+
+
+
+		// Orientierungshelfer erzeugen
+		scene::ISceneNode *helper = new nodes::OrientationHelperSceneNode(1, renderTargetSceneManager->getRootSceneNode(), renderTargetSceneManager, 16);
 		helper->setPosition(core::vector3df(0, 0.5f, 0));
 		helper->setName("Debug Helper");
 
@@ -88,10 +106,13 @@ namespace pv {
 		renderTarget = getDriver()->addRenderTargetTexture(core::dimension2d<u32>(128,96), "RTT1");
 		
 		// Render to texture: Kamera
-		renderTargetCamera = smgr->addCameraSceneNode(NULL, core::vector3df(0, 0.8f, -3), core::vector3df(0, 0.8f, 0), -1);
+		renderTargetCamera = renderTargetSceneManager->addCameraSceneNode(NULL, core::vector3df(0, 0.8f, -3), core::vector3df(0, 0.8f, 0), -1);
 		renderTargetCamera->setName("Render Target Camera");
 		renderTargetCamera->setNearValue(0.01f);
 		renderTargetCamera->setFarValue(6);
+
+
+
 
 		// GUI-Element
 		image = getGUIEnvironment()->addImage(core::rect<s32>(5, 5, 128+5, 96+5));
@@ -139,27 +160,13 @@ namespace pv {
 
 		// Textur als Renderziel wählen
 		driver->setRenderTarget(renderTarget, true, true, 0);
-		smgr->setActiveCamera(renderTargetCamera);
 
-		// Boden aus-, um- und durcheinanderblenden
-		testNode->setVisible(false);
-		smgr->getSceneNodeFromId(15)->setVisible(false);
-		smgr->getSceneNodeFromId(16)->setVisible(true);
+		// Rotation setzen und Szene rendern
+		((nodes::OrientationHelperSceneNode*)renderTargetSceneManager->getSceneNodeFromId(16))->rotateZToDirection(mainCamera);
+		renderScene(renderTargetSceneManager);
 
-		// Rotation setzen
-		((nodes::OrientationHelperSceneNode*)smgr->getSceneNodeFromId(16))->rotateZToDirection(mainCamera);
-
-		// Rendern
-		renderScene();
-
-		// Backbuffer als Ziel wählen
+		// Backbuffer als Ziel wählen und Hauptszene rendern
 		driver->setRenderTarget(video::ERT_FRAME_BUFFER, true, true, getClearColor());
-		smgr->setActiveCamera(mainCamera);
-
-		// Szene erneut rendern
-		testNode->setVisible(true);
-		smgr->getSceneNodeFromId(15)->setVisible(true);
-		smgr->getSceneNodeFromId(16)->setVisible(false);
 		renderScene();
 
 		// Käfig um die Kamera zeichnen

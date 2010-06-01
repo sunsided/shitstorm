@@ -124,6 +124,15 @@ namespace pv {
 		//! Bezieht den Timer
 		inline GameTimer* getTimer() const { return timer; }
 
+		//! Erzeugt einen neuen Szenenmanager
+		inline irr::scene::ISceneManager* createAuxiliarySceneManager() const { return sceneManager->createNewSceneManager(); }
+
+		//! Erzeugt einen neuen Szenenmanager
+		inline irr::scene::ISceneManager* createAuxiliarySceneManager(irr::scene::ISceneManager* smgr, bool clone = false) const { 
+			ASSERT(smgr);
+			return smgr->createNewSceneManager(clone); 
+		}
+
 		//! Setzt die Farbe, mit der die Szene geleert wird
 		inline void setClearColor(const irr::video::SColor &color) {
 			sceneClearColor = color;
@@ -148,6 +157,12 @@ namespace pv {
 		inline void renderScene() {
 			ASSERT(sceneStarted);
 			sceneManager->drawAll(); 
+		}
+
+		//! Rendert die Szene
+		inline void renderScene(scene::ISceneManager* smgr) {
+			ASSERT(smgr);
+			smgr->drawAll(); 
 		}
 
 		//! Rendert die Szene
