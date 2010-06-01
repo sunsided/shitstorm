@@ -29,7 +29,7 @@ namespace physics {
 	//! Beendet die Physikgeschichte
 	void RigidBodyPhysicsObject::endPhysics(void)
 	{
-		if (getPhysicsWorld()) getPhysicsWorld()->removeBody(this);
+		if (getPhysicsWorld()) getPhysicsWorld()->removeObject(this);
 		if (rigidBody) {
 			delete rigidBody;
 			rigidBody = NULL;

@@ -47,18 +47,17 @@ namespace physics {
 		//! Ermittelt, ob die Dynamikwelt initialisiert wurde
 		inline bool isInitialized() const { return dynamicsWorld != NULL; }
 
-		//! Fügt der Welt einen Rigid Body hinzu
+		//! Fügt der Welt ein Physikobjekt hinzu
 		/**
 		 * @param body	Der hinzuzufügende Körper
 		 */
-		void addBody(PhysicsObject* body);
+		void addObject(PhysicsObject* body);
 
-		//! Entfernt einen Rigid Body aus der Welt.
-		/** Die Funktion ist nur schnell, wenn die Objekte in umgekehrter Reihenfolge entfernt werden.
-		 *	Ist dies nicht der Fall, wird eine lineare Suche gestartet.
+		//! Entfernt Physikobjekt aus der Welt.
+		/** 
 		 * @param body	Das zu entfernende Element
 		 */
-		void removeBody(PhysicsObject* body);
+		void removeObject(PhysicsObject* body);
 
 		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
 		/**

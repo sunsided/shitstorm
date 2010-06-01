@@ -128,7 +128,7 @@ namespace physics {
 	/**
 	 * @param body	Der hinzuzufügende Körper
 	 */
-	void PhysicsWorld::addBody(PhysicsObject* body) {
+	void PhysicsWorld::addObject(PhysicsObject* body) {
 		ASSERT(dynamicsWorld);
 		ASSERT(body);
 
@@ -141,7 +141,7 @@ namespace physics {
 	/**
 	 * @param body	Der zu entfernende Körper
 	 */
-	void PhysicsWorld::removeBody(PhysicsObject* body) {
+	void PhysicsWorld::removeObject(PhysicsObject* body) {
 		physicsObjects.remove(body);
 
 		ASSERT(body->isRigidBody());
