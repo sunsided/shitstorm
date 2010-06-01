@@ -16,16 +16,42 @@
 namespace pv {
 namespace sound {
 
-//! Sound Device
-class SoundDevice
-{
-public:
-	//! Erzeugt eine neue Instanz des Objektes
-	SoundDevice(void);
+	// Vorwärtsdeklaration der benötigten Klassen
+	class SoundDeviceManager;
 
-	// Destruktor
-	virtual ~SoundDevice(void);
-};
+	//! Sound Device
+	class SoundDevice
+	{
+		friend class SoundDeviceManager;
+
+	private:
+		//! Erzeugt eine neue Instanz des Objektes
+		SoundDevice();
+
+	public:
+
+		// Destruktor
+		virtual ~SoundDevice(void);
+
+		//! Ermittelt die Device-ID
+		inline irr::u32 getDeviceId() const { return deviceId; }
+
+		//! Ermittelt die Device-ID
+		inline SoundDeviceManager* getDeviceManager() const { return parent; }
+
+	private:
+
+		//! Ermittelt die Device-ID
+		inline void setDeviceId(SoundDeviceManager* manager, irr::u32 id) { deviceId = id; parent = manager; }
+
+	private:
+
+		//! Die Device-ID
+		irr::u32 deviceId;
+
+		//! Der beheimatende Manager
+		SoundDeviceManager* parent;
+	};
 
 }}
 
