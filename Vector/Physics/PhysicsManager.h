@@ -13,40 +13,43 @@
 #include "global.h"
 #include <vector>
 
+#include "Utility/Manager.h"
 #include "PhysicsWorld.h"
-#include "CollisionShapeManagement.h"
+
+//! Vorwärtsdeklaration der Klasse
+class btCollisionShape;
 
 namespace pv {
 namespace physics {
 
 	//! Klasse, die die Physikengine verwaltet
-	class PhysicsManagement
+	class PhysicsManager
 	{
 	public:
 		//! Erzeugt eine neue Instanz des Objektes
-		PhysicsManagement(void);
+		PhysicsManager(void);
 
 		//! Destruktor
-		virtual ~PhysicsManagement(void);
+		virtual ~PhysicsManager(void);
 
 		//! Initialisiert die Physikengine
 		void initialize();
 
 		//! Holt den Collision Shape Manager
-		inline CollisionShapeManagement* getCollisionShapeManagement() const { return collisionShapeManager; }
+		inline const utility::Manager<btCollisionShape>& getCollisionShapeManager() const { return collisionShapeManager; }
 
 		//! Fügt dem System eine Dynamikwelt hinzu.
 		/** Alle hier registrierten Welten werden automatisch vom System vernichtet.
 		 *	Ein zusätzlicher Aufruf von delete ist nicht nötig!
 		 * @param world		Die hinzuzufügende Welt
 		 */
-		void addPhysicsWorld(PhysicsWorld *world);
+		irr::u32 addPhysicsWorld(PhysicsWorld *world);
 
 		//! Erzeugt eine neue Physikwelt und registriert sie
 		PhysicsWorld * createPhysicsWorld();
 
 		//! Erzeugt eine neue Physikwelt und registriert sie
-		PhysicsWorld* getPhysicsWorld(unsigned int worldId) const ;
+		inline PhysicsWorld* getPhysicsWorld(unsigned int worldId) { return dynamicsWorldManager.getElement(worldId); }
 
 		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
 		/** Aktualisiert alle registrierten Dynamikwelten.
@@ -55,6 +58,12 @@ namespace physics {
 		* @param fixedTimeStep	Der fixe Zeitschritt; Bullet-Standard ist 1/60
 		*/
 		void update(float deltaTime, short unsigned int maxSubsteps = 10, float fixedTimeStep = 1.0f/60.0f);
+
+		//! Ermittelt ein Collision Shape anhand seiner Id
+		inline btCollisionShape* getCollisionShape(unsigned int shapeId) { return collisionShapeManager.getElement(shapeId); }
+
+		//! Registriert ein Collision shape
+		irr::u32 registerCollisionShape(btCollisionShape* shape);
 
 	protected:
 
@@ -66,11 +75,11 @@ namespace physics {
 		//! Gibt an, ob die Engine initialisiert wurde
 		bool initialized;
 		
-		//! Die Simulationswelt
-		std::vector<PhysicsWorld*> dynamicsWorlds;
+		//! Die Simulationswelten
+		utility::Manager<PhysicsWorld> dynamicsWorldManager;
 
-		//! Die CollisionShapeManagement-Instanz
-		CollisionShapeManagement* collisionShapeManager;
+		//! Manager für Collision Shapes
+		utility::Manager<btCollisionShape> collisionShapeManager;
 	};
 
 }}

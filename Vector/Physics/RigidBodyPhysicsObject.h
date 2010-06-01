@@ -9,47 +9,35 @@
  */
 
 #pragma once
-#ifndef _PHYSICSBODY_H
-#define _PHYSICSBODY_H
+#ifndef _RIGIDBODYPHYSICSOBJECT_H
+#define _RIGIDBODYPHYSICSOBJECT_H
 
 #include "global.h"
-#include "PhysicsMotionState.h"
-
-#include <btBulletDynamicsCommon.h>
-
-using namespace irr;
-
-// Vorwärtsdeklaration
-namespace pv {
-	namespace world {
-		class WorldElement;
-	}
-}
+#include "PhysicsObject.h"
 
 namespace pv {
 namespace physics {
 
-	// Vorwärtsdeklaration der Klassen
-	class PhysicsWorld;
-
 	//! Physikkörper
-	class PhysicsBody
+	class RigidBodyPhysicsObject : public PhysicsObject
 	{
 	public:
 
 		//! Erzeugt eine neue Instanz des Objektes
-		PhysicsBody(
+		RigidBodyPhysicsObject(
 			PhysicsMotionState* state = NULL,
 			f32 mass = 0.0f,
 			PhysicsWorld* physicsWorld = NULL,
-			btCollisionShape* collisionShape = NULL
-			) : motionState(state), 
-			dynamicsWorld(physicsWorld), mass(mass), collisionShape(collisionShape),
-			userPointer(NULL), rigidBody(NULL)
+			btCollisionShape* collisionShape = NULL,
+			world::WorldElement* worldElement = NULL
+			) : 
+				PhysicsObject(state, physicsWorld, collisionShape, worldElement),
+				mass(mass),
+				rigidBody(NULL)
 		{}
 
 		//! Destruktor
-		virtual ~PhysicsBody(void);
+		virtual ~RigidBodyPhysicsObject(void);
 
 		//! Initialisiert die Physik
 		void initPhysics(f32 ccdThreshold = 1.0f, f32 linearDamping = 0.f, f32 angularDamping = 0.f, f32 friction = 0.5f, f32 restitution = 0.f);
@@ -79,7 +67,7 @@ namespace physics {
 		void zeroForces();
 
 		//! Setzt den Aktivierungszustand
-		void setActivationState(bool active);
+		inline void setActivationState(bool active) { rigidBody->setActivationState(active); }
 
 		//! Ermittelt die Rotation
 		core::vector3df getRotation() const;
@@ -96,59 +84,24 @@ namespace physics {
 		//! Aktualisiert die Masse des Objektes
 		void updateMass(f32 mass, const btVector3& localInertia);
 
+		//! Ermittelt, ob es sich um einen Festkörper handelt
+		inline bool isRigidBody() const { return true; }
+
 	public:
-
-		//! Setzt das Collision Shape
-		inline void setCollisionShape(btCollisionShape* shape) { collisionShape = shape; }
-
-		//! Ermittelt das Collision Shape
-		inline btCollisionShape* getCollisionShape() const { return collisionShape; }
-
-		//! Setzt das Motion State
-		inline void setMotionState(PhysicsMotionState* state) { motionState = state; }
-
-		//! Ermittelt das Motion State
-		inline PhysicsMotionState* getMotionState() const { return motionState; }
-
-		//! Bezieht den Benutzerzeiger
-		inline pv::world::WorldElement* getWorldElement() const { return userPointer; }
-
-		//! Bezieht den Benutzerzeiger
-		inline void setWorldElement(pv::world::WorldElement* world) { userPointer = world; }
 
 		//! Bezieht den Benutzerzeiger
 		inline btRigidBody* getRigidBody() const { return rigidBody; }
 
-	public:
-
-		//! Wandelt einen Quaternion in einen Euler-Rotationsvektor um
-		static void QuaternionToEulerXYZ(const btQuaternion &quat, btVector3 &euler);
-
-		//! Wandelt einen Euler-Rotationsvektor in einen Quaternion um
-		static void EulerXYZToQuaternion(btVector3 &euler, btQuaternion &quat);
-
-		//! Bezieht ein Bullet-Mesh aus einem Irrlicht-Mesh
-		static btTriangleMesh* GetTriangleMesh(scene::IMesh* pIMesh);
+		//! Bezieht das Kollisionsobjekt (Rigid Body, ...)
+		inline btCollisionObject* getCollisionObject() const { return rigidBody; }
 
 	private:
 
 		//! Die Masse des Körpers
 		irr::f32 mass;
 
-		//! Das Collision Shape
-		btCollisionShape* collisionShape;
-
 		//! Der eigentliche Körper
 		btRigidBody* rigidBody;
-
-		//! Die Dynamikwelt
-		PhysicsWorld* dynamicsWorld;
-
-		//! Der Motion State
-		PhysicsMotionState* motionState;
-		
-		//! Benutzerdefinierter Zeiger
-		pv::world::WorldElement* userPointer;
 	};
 
 }}

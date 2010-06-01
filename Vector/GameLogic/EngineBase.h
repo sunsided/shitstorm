@@ -14,11 +14,9 @@
 #include "EngineStatusCode.h"
 #include "EngineInitializationParams.h"
 #include "GameTimer.h"
+#include "Physics/PhysicsManager.h"
 
 namespace pv {
-
-	// Vorwärtsdeklaration der Physikmanagement-Klasse
-	namespace physics { class PhysicsManagement; }
 
 	//! Basisklasse der Spiele-Engine.
 	class EngineBase
@@ -116,6 +114,9 @@ namespace pv {
 		//! Bezieht die GUI-Umgebung
 		inline irr::gui::IGUIEnvironment* getGUIEnvironment() const { return guiEnvironment; }
 
+		//! Bezieht den Physikmanager
+		inline physics::PhysicsManager* getPhysics() const { return physicsManagement; }
+
 		//! Bezieht den Timer
 		inline GameTimer* getTimer() const { return timer; }
 
@@ -160,6 +161,17 @@ namespace pv {
 		//! Liefert ein generisches, unbeleuchtetes Material
 		const irr::video::SMaterial &getUnlitMaterial() const { return unlitMaterial; }
 
+		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
+		/** Aktualisiert alle registrierten Dynamikwelten.
+		* @param deltaTime		Die vergangene Zeit in Sekunden
+		* @param maxSubsteps	Die maximale Anzahl Unterschritte
+		* @param fixedTimeStep	Der fixe Zeitschritt; Bullet-Standard ist 1/60
+		*/
+		inline void updatePhysics(float deltaTime, short unsigned int maxSubsteps = 10, float fixedTimeStep = 1.0f/60.0f) const {
+			ASSERT(physicsManagement);
+			physicsManagement->update(deltaTime, maxSubsteps, fixedTimeStep);
+		}
+
 	private:
 
 		//! Ermittelt den Videotreiber
@@ -187,7 +199,7 @@ namespace pv {
 		irr::gui::IGUIEnvironment* guiEnvironment;
 
 		//! Die Physik-Managementklasse
-		physics::PhysicsManagement* physicsManagement;
+		physics::PhysicsManager* physicsManagement;
 
 		//! Gibt an, ob die Engine aufgeräumt wurde
 		bool engineClean;

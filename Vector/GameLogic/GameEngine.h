@@ -13,7 +13,6 @@
 #include "global.h"
 #include "EngineBase.h"
 #include "SceneNodes/PlaneSceneNode.h"
-#include "Physics/PhysicsManagement.h"
 #include "World/WorldElementFactory.h"
 
 namespace pv {
@@ -75,9 +74,6 @@ namespace pv {
 
 		//! GUI-Element, das die Textur anzeigt
 		gui::IGUIImage *image;
-
-		//! Die Physikverwaltung
-		physics::PhysicsManagement* physicsManagement;
 
 		//! Testelement
 		world::WorldElement* cubeElement;

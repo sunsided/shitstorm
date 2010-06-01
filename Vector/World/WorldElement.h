@@ -11,7 +11,7 @@
 #define _WORLDELEMENT_H
 
 #include "global.h"
-#include "Physics/PhysicsBody.h"
+#include "Physics/PhysicsObject.h"
 
 namespace pv {
 namespace world {
@@ -20,17 +20,9 @@ namespace world {
 	class WorldElement
 	{
 	public:
-		//! Erzeugt eine neue Instanz der WorldElement-Klasse
-		WorldElement(scene::ISceneNode* node,
-				const btTransform& startTrans = btTransform::getIdentity(), 
-				const btTransform& centerOfMassOffset = btTransform::getIdentity(),
-				f32 mass = 0.0f,
-				physics::PhysicsWorld* physicsWorld = NULL,
-				btCollisionShape* collisionShape = NULL
-				);
 
 		//! Erzeugt eine neue Instanz der WorldElement-Klasse
-		WorldElement(scene::ISceneNode* node = NULL, physics::PhysicsBody* body = NULL);
+		WorldElement(scene::ISceneNode* node = NULL, physics::PhysicsObject* body = NULL);
 		
 		//! Destruktor
 		virtual ~WorldElement(void);
@@ -48,12 +40,12 @@ namespace world {
 		}
 
 		//! Wandelt das WorldElement in einen SceneNode um
-		inline operator physics::PhysicsBody*() const {
+		inline operator physics::PhysicsObject*() const {
 			return physicsBody;
 		}
 
 		//! Ermittelt den Physikkörper
-		inline physics::PhysicsBody* getPhysicsBody() const {
+		inline physics::PhysicsObject* getPhysicsBody() const {
 			return physicsBody;
 		}
 
@@ -63,7 +55,7 @@ namespace world {
 		}
 
 		//! Setzt den Physikkörper
-		inline void setPhysicsBody(physics::PhysicsBody* body) {
+		inline void setPhysicsBody(physics::PhysicsObject* body) {
 			if (body) body->setWorldElement(this);
 			physicsBody = body;
 		}
@@ -76,7 +68,7 @@ namespace world {
 	private:
 
 		//! Der Physikkörper
-		physics::PhysicsBody* physicsBody;
+		physics::PhysicsObject* physicsBody;
 
 		//! Der Szenenknoten
 		irr::scene::ISceneNode* sceneNode;

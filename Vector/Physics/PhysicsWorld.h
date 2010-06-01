@@ -11,33 +11,31 @@
 #define _PHYSICSWORLD_H
 
 #include "global.h"
-#include "CollisionShapeManagement.h"
-#include <vector>
+#include "Utility/Manager.h"
+#include "PhysicsObject.h"
 
 // Vorwärtsdeklaration der Klassen
 class btDynamicsWorld;
 class btCollisionConfiguration;
-class btRigidBody;
 class btCollisionDispatcher;
 class btConstraintSolver;
 class btBroadphaseInterface;
-class btVector3;
 
 namespace pv {
 namespace physics {
 
 	// Vorwärtsdeklaration der Klassen
-	class PhysicsBody;
+	class PhysicsManager;
 
-	//! Klasse, die die Physikengine verwaltet
+	//! Klasse, die die Physikengine darstellt
 	class PhysicsWorld
 	{
 	public:
 
 		//! Erzeugt eine neue Instanz des Objektes
-		PhysicsWorld(CollisionShapeManagement* collisionShapeManager) : collisionShapeManager(collisionShapeManager), dynamicsWorld(NULL), collisionConfiguration(NULL) 
+		PhysicsWorld(PhysicsManager* manager) : dynamicsWorld(NULL), collisionConfiguration(NULL), physicsManager(manager)
 		{
-			ASSERT(collisionShapeManager);
+			ASSERT(manager);
 		}
 
 		//! Destruktor
@@ -49,18 +47,17 @@ namespace physics {
 		//! Ermittelt, ob die Dynamikwelt initialisiert wurde
 		inline bool isInitialized() const { return dynamicsWorld != NULL; }
 
-		//! Fügt der Welt einen Rigid Body hinzu
+		//! Fügt der Welt ein Physikobjekt hinzu
 		/**
 		 * @param body	Der hinzuzufügende Körper
 		 */
-		void addBody(PhysicsBody* body);
+		void addObject(PhysicsObject* body);
 
-		//! Entfernt einen Rigid Body aus der Welt.
-		/** Die Funktion ist nur schnell, wenn die Objekte in umgekehrter Reihenfolge entfernt werden.
-		 *	Ist dies nicht der Fall, wird eine lineare Suche gestartet.
+		//! Entfernt Physikobjekt aus der Welt.
+		/** 
 		 * @param body	Das zu entfernende Element
 		 */
-		void removeBody(PhysicsBody* body);
+		void removeObject(PhysicsObject* body);
 
 		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
 		/**
@@ -99,8 +96,8 @@ namespace physics {
 		//! Bezieht die Dynamikwelt
 		virtual btDynamicsWorld* getDynamicsWorld() const { return dynamicsWorld; }
 
-		//! Bezieht den Collision Shape Manager
-		CollisionShapeManagement* getCollisionShapeManager() const { return collisionShapeManager; }
+		//! Bezieht den Manager
+		PhysicsManager* getManager() const { return physicsManager; }
 
 	private:
 		
@@ -116,10 +113,33 @@ namespace physics {
 		btCollisionConfiguration* collisionConfiguration;
 
 		//! Sammlung aller Rigid Bodies
-		std::vector<PhysicsBody*> rigidBodies;
+		utility::Manager<PhysicsObject> physicsObjects;
 
-		//! Collision Shape Manager
-		CollisionShapeManagement* collisionShapeManager;
+		//! Liefert den Manager
+		PhysicsManager* physicsManager;
+
+	public:
+
+		//! Struktur, die zum Updaten einer Welt verwendet werden kann
+		typedef struct SUpdateState {
+			float deltaTime;
+			short unsigned int maxSubsteps;
+			float fixedTimeStep;
+
+			inline SUpdateState(float deltaTime, short unsigned int maxSubsteps, float fixedTimeStep) 
+				: deltaTime(deltaTime), maxSubsteps(maxSubsteps), fixedTimeStep(fixedTimeStep)
+			{}
+		} UpdateState;
+
+		//! Aktualisiert eine Welt
+		inline static void updateWorld(PhysicsWorld* world, PhysicsWorld::UpdateState* state) {
+			ASSERT(world); ASSERT(state);
+			world->update(state->deltaTime, state->maxSubsteps, state->fixedTimeStep);
+		}
+
+		//! Entfernt ein Physikobjekt aus einer gegebenen Physikwelt
+		static void removeObjectFromWorld(PhysicsObject* object, PhysicsWorld* world);
+
 	};
 
 }}

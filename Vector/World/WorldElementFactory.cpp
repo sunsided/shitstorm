@@ -8,6 +8,8 @@
 
 #include "WorldElementFactory.h"
 #include "Physics/UpdatingPhysicsMotionState.h"
+#include "Physics/PhysicsManager.h"
+#include "Physics/RigidBodyPhysicsObject.h"
 
 using namespace irr;
 using namespace scene;
@@ -35,7 +37,7 @@ namespace world
 
 		// Kollisionsshape erzeugen
 		btCollisionShape* shape = new btBoxShape(btVector3(0.5, 0.5, 0.5));
-		world->getCollisionShapeManager()->registerCollisionShape(shape);
+		world->getManager()->registerCollisionShape(shape);
 
 		// Motion State erzeugen
 		btTransform transform;
@@ -44,9 +46,9 @@ namespace world
 		UpdatingPhysicsMotionState* state = new UpdatingPhysicsMotionState(sceneNode, transform);
 
 		// Den Körper erzeugen
-		PhysicsBody* body = new PhysicsBody(state, mass, world, shape);
+		PhysicsObject* body = new RigidBodyPhysicsObject(state, mass, world, shape);
 		body->initPhysics();
-		world->addBody(body);
+		world->addObject(body);
 
 		// Weltelement erzeugen
 		WorldElement* element = new WorldElement(sceneNode, body);
@@ -66,9 +68,9 @@ namespace world
 		UpdatingPhysicsMotionState* state = new UpdatingPhysicsMotionState(sceneNode, transform);
 
 		// Den Körper erzeugen
-		PhysicsBody* body = new PhysicsBody(state, mass, world, shape);
+		PhysicsObject* body = new RigidBodyPhysicsObject(state, mass, world, shape);
 		body->initPhysics();
-		world->addBody(body);
+		world->addObject(body);
 
 		// Weltelement erzeugen
 		WorldElement* element = new WorldElement(sceneNode, body);

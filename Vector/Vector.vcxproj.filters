@@ -13,6 +13,9 @@
     <Filter Include="World">
       <UniqueIdentifier>{e36bdb65-2815-42c8-866a-937e88d90da2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{1e2eb03d-bcb8-406c-ab0e-63196701e28c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -31,16 +34,7 @@
     <ClCompile Include="SceneNodes\OrientationHelperSceneNode.cpp">
       <Filter>SceneNodes</Filter>
     </ClCompile>
-    <ClCompile Include="Physics\PhysicsManagement.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Physics\CollisionShapeManagement.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="Physics\PhysicsMotionState.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Physics\PhysicsBody.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="Physics\PhysicsWorld.cpp">
@@ -54,6 +48,18 @@
     </ClCompile>
     <ClCompile Include="World\WorldElementFactory.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsManager.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsObject.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\RigidBodyPhysicsObject.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Manager.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,19 +86,10 @@
     <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h">
       <Filter>SceneNodes</Filter>
     </ClInclude>
-    <ClInclude Include="Physics\PhysicsManagement.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics\CollisionShapeManagement.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="Physics\IrrBtConversion.h">
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Physics\PhysicsMotionState.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics\PhysicsBody.h">
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Physics\PhysicsWorld.h">
@@ -106,6 +103,18 @@
     </ClInclude>
     <ClInclude Include="World\WorldElementFactory.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsManager.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsObject.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\RigidBodyPhysicsObject.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Manager.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

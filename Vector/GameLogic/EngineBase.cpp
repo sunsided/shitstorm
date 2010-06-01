@@ -7,8 +7,6 @@
  */
 
 #include "EngineBase.h"
-#include "Physics/PhysicsManagement.h"
-
 #include <iostream>
 
 using namespace std;
@@ -105,7 +103,7 @@ namespace pv {
 		ASSERT(timer);
 
 		// Physikmanagement erzeugen
-		physicsManagement = new physics::PhysicsManagement();
+		physicsManagement = new physics::PhysicsManager();
 		if (!physicsManagement) return ESC_PHYSICS_FAILED;
 		physicsManagement->initialize();
 

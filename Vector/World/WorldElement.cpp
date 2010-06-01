@@ -17,30 +17,8 @@ using namespace physics;
 
 namespace world
 {
-	
 	//! Erzeugt eine neue Instanz der WorldElement-Klasse
-	WorldElement::WorldElement(scene::ISceneNode* node,
-			const btTransform& startTrans, 
-			const btTransform& centerOfMassOffset,
-			f32 mass,
-			physics::PhysicsWorld* physicsWorld,
-			btCollisionShape* collisionShape
-			) :
-			sceneNode(node)
-	{		
-		
-		// Motion State und Physikkörper erzeugen
-		UpdatingPhysicsMotionState* state = new UpdatingPhysicsMotionState(node, startTrans, centerOfMassOffset);
-		physicsBody = new PhysicsBody(state, mass, physicsWorld, collisionShape);
-		ASSERT(physicsBody);
-		physicsBody->setWorldElement(this);
-
-		// Translation setzen
-		copyTranslation(startTrans);
-	}
-
-	//! Erzeugt eine neue Instanz der WorldElement-Klasse
-	WorldElement::WorldElement(scene::ISceneNode* node, physics::PhysicsBody* body) 
+	WorldElement::WorldElement(scene::ISceneNode* node, physics::PhysicsObject* body) 
 		: sceneNode(node), physicsBody(body)
 	{
 		if (physicsBody) {
@@ -54,7 +32,7 @@ namespace world
 		if (sceneNode) {
 			// Rotation setzen
 			btVector3 rotation;
-			physics::PhysicsBody::QuaternionToEulerXYZ(startTrans.getRotation(), rotation);
+			physics::PhysicsObject::QuaternionToEulerXYZ(startTrans.getRotation(), rotation);
 			sceneNode->setRotation(physics::conversion::toIrrlichtVector(rotation));
 
 			// Position setzen
