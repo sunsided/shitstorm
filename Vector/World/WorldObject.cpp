@@ -16,7 +16,7 @@ namespace world {
 
 	//! Erzeugt eine neue Instanz der WorldElement-Klasse
 	WorldObject::WorldObject(nodes::SceneObject* object, physics::PhysicsObject* body) 
-		: sceneObject(object), physicsBody(body)
+		: sceneObject(object), physicsBody(body), worldObjectId((irr::u32)-1)
 	{
 		if (physicsBody) {
 			physicsBody->setWorldObject(this);

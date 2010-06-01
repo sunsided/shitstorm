@@ -101,6 +101,7 @@
     <ClCompile Include="SceneNodes\PlaneSceneNode.cpp" />
     <ClCompile Include="SceneNodes\SceneObject.cpp" />
     <ClCompile Include="Utility\Manager.cpp" />
+    <ClCompile Include="World\WorldManager.cpp" />
     <ClCompile Include="World\WorldObject.cpp" />
     <ClCompile Include="World\WorldObjectFactory.cpp" />
   </ItemGroup>
@@ -123,6 +124,7 @@
     <ClInclude Include="SceneNodes\PlaneSceneNode.h" />
     <ClInclude Include="SceneNodes\SceneObject.h" />
     <ClInclude Include="Utility\Manager.h" />
+    <ClInclude Include="World\WorldManager.h" />
     <ClInclude Include="World\WorldObject.h" />
     <ClInclude Include="World\WorldObjectFactory.h" />
   </ItemGroup>

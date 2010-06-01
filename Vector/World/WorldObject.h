@@ -17,9 +17,14 @@
 namespace pv {
 namespace world {
 
+	// Vorwärtsdeklaration der Klassen
+	class WorldManager;
+
 	//! Ein Element in der Spielwelt
 	class WorldObject
 	{
+		friend class WorldManager;
+
 	public:
 
 		//! Erzeugt eine neue Instanz der WorldElement-Klasse
@@ -32,6 +37,9 @@ namespace world {
 
 		//! Kopiert die Translation in den Szenenknoten
 		void copyTranslation(const btTransform& startTrans);
+
+		//! Setzt die Welt-Objekt-ID
+		inline void setWorldObjectId(irr::u32 id) { worldObjectId = id; }
 
 	public:
 
@@ -56,6 +64,9 @@ namespace world {
 			sceneObject = object;
 		}
 
+		//! Ermittelt die Welt-Objekt-ID
+		inline irr::u32 getWorldObjectId() const { return worldObjectId; }
+
 	public:
 
 		//! Wandelt das WorldElement in einen SceneNode um
@@ -76,6 +87,8 @@ namespace world {
 		//! Der Szenenknoten
 		nodes::SceneObject* sceneObject;
 
+		//! Die ID des Weltobjektes
+		irr::u32 worldObjectId;
 	};
 
 }}

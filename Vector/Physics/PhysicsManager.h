@@ -11,8 +11,6 @@
 #define _PHYSICSMANAGEMENT_H
 
 #include "global.h"
-#include <vector>
-
 #include "Utility/Manager.h"
 #include "PhysicsWorld.h"
 
