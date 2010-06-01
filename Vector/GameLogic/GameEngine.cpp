@@ -73,7 +73,7 @@ namespace pv {
 		btCollisionShape* shape = new btBoxShape(btVector3(30, 0.1f, 30));
 		getPhysics()->registerCollisionShape(shape);
 		world::WorldObject* planeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), testNode, shape, 0.0f, core::vector3df(0, 0, 0));
-		((btRigidBody*)planeElement->getPhysicsBody()->getCollisionObject())->setFriction(1.25f);
+		planeElement->getPhysicsBody()->getAsRigidBody()->setFriction(1.25f);
 		getWorld()->addWorldObject(planeElement);
 
 

@@ -87,6 +87,9 @@ namespace physics {
 		//! Ermittelt, ob es sich um einen Festkörper handelt
 		inline bool isRigidBody() const { return true; }
 
+		//! Gibt sich selbst als Rigid Body zurück
+		inline btRigidBody* getAsRigidBody() { return rigidBody; }
+
 	public:
 
 		//! Bezieht den Benutzerzeiger
