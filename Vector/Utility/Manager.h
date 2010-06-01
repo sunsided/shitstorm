@@ -130,6 +130,12 @@ namespace utility {
 			}
 		}
 
+		//! Indexoperator
+		inline T* operator[](irr::u32 id) { return getElement(id); }
+
+		//! Indexoperator
+		inline irr::u32 operator[](T* element) { return getId(element); }
+
 	private:
 
 		//! Die höchste, freie ID
