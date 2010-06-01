@@ -1,6 +1,6 @@
 /** 
  * Project Vector
- * Sound Listener, der den Kontext automatisch wechselt
+ * Aktueller Sound Listener
  *
  * (c) 2010, Markus Mayer <code@defx.de>
  * $Id$
@@ -8,8 +8,8 @@
 
 
 #pragma once
-#ifndef _CONTEXTSWITCHINGSOUNDLISTENER_H
-#define _CONTEXTSWITCHINGSOUNDLISTENER_H
+#ifndef _CURRENTSOUNDLISTENER_H
+#define _CURRENTSOUNDLISTENER_H
 
 #include "global.h"
 #include "SoundListener.h"
@@ -17,23 +17,21 @@
 namespace pv {
 namespace sound {
 
-	// Vorwärtsdeklaration
-	class SoundContext;
-
-	//! Sound Listener, der den Kontext automatisch wechselt
-	class ContextSwitchingSoundListener : public SoundListener 
+	//! Sound Listener
+	/**
+	 * Diese Klasse steuert den Listener des aktuell aktivierten Kontextes.
+	 * Ist die Steuerung eines spezifischen Kontextes nötig, kann eine
+	 * Instanz des @see ContextSwitchingSoundListener verwendet werden.
+	 */
+	class CurrentSoundListener : public SoundListener
 	{
-		friend class SoundContext;
-
-	private:
-
-		//! Erzeugt eine neue Instanz des Objektes
-		ContextSwitchingSoundListener(SoundContext* parent);
-
 	public:
+		//! Erzeugt eine neue Instanz des Objektes
+		CurrentSoundListener(void);
 
 		// Destruktor
-		virtual ~ContextSwitchingSoundListener(void);
+		virtual ~CurrentSoundListener(void);
+
 
 		//! Setzt die Verstärkung
 		void setGain(irr::f32 gain);
@@ -61,11 +59,6 @@ namespace sound {
 
 		//! Setzt die Richtung
 		void setOrientation(irr::core::vector3df& forward, irr::core::vector3df& up);
-
-	private:
-
-		//! Der Elternkontext
-		SoundContext* parentContext;
 	};
 
 }}

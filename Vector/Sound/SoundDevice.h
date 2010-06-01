@@ -22,6 +22,7 @@ namespace sound {
 
 	// Vorwärtsdeklaration der benötigten Klassen
 	class SoundDeviceManager;
+	class CurrentSoundListener;
 	
 	//! Sound Device
 	class SoundDevice
@@ -70,6 +71,9 @@ namespace sound {
 		 * @returns Der zuletzt aktiv gesetzte Kontext
 		 */
 		SoundContext* setActiveContext(SoundContext* context);
+
+		//! Liefert den aktuellen Kontext
+		inline SoundContext* getActiveContext() const { return activeContext; }
 
 	private:
 

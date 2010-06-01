@@ -8,6 +8,7 @@
 
 
 #include "SoundDevice.h"
+#include "SoundDeviceManager.h"
 
 #include <al.h>
 

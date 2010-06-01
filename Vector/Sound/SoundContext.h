@@ -20,6 +20,7 @@ namespace sound {
 
 	// Vorwärtsdeklaration der Klassen
 	class SoundDevice;
+	class ContextSwitchingSoundListener;
 
 	//! Soundkontext
 	class SoundContext
@@ -50,6 +51,18 @@ namespace sound {
 		 */
 		SoundContext* makeActiveContext();
 
+		//! Instruiert das Device, alle Kontexte zu deaktivieren
+		void unsetActiveContext();
+
+		//! Bezieht einen Listener, der immer diesen Kontext aktualisiert
+		inline ContextSwitchingSoundListener* getContextBoundListener() { return boundListener; }
+
+		//! Ermittelt, ob dieser Kontext der aktive Kontext ist
+		bool isActiveContext();
+
+		//! Bezieht das OpenAL-Device
+		inline ALCdevice* getOpenALDevice() const;
+
 	private:
 
 		//! Erzeugt den Kontext
@@ -71,6 +84,9 @@ namespace sound {
 
 		//! Der OpenAL-Kontext
 		ALCcontext *openAlContext;
+
+		//! Der an diesen Kontext gebundene Listener
+		ContextSwitchingSoundListener* boundListener;
 	};
 
 }}

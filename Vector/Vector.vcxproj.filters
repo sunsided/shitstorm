@@ -103,6 +103,9 @@
     <ClCompile Include="Sound\ContextSwitchingSoundListener.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="Sound\CurrentSoundListener.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -195,6 +198,9 @@
       <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="Sound\ContextSwitchingSoundListener.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\CurrentSoundListener.h">
       <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>

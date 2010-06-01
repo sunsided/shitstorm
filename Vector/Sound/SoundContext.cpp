@@ -9,18 +9,25 @@
 
 #include "SoundContext.h"
 #include "SoundDevice.h"
+#include "ContextSwitchingSoundListener.h"
 
 namespace pv {
 namespace sound {
 
 	SoundContext::SoundContext()
-		: openAlContext(NULL), parentDevice(NULL)
+		: openAlContext(NULL), parentDevice(NULL), boundListener(NULL)
 	{
+		// Listener erzeugen
+		boundListener = new ContextSwitchingSoundListener(this);
 	}
 
 
 	SoundContext::~SoundContext(void)
 	{
+		// Listener löschen
+		delete boundListener;
+
+		// Kontext killen
 		destroyContext();
 	}
 
@@ -28,13 +35,15 @@ namespace sound {
 	void SoundContext::destroyContext() {
 		if (openAlContext) {
 
-			// TODO: Wenn dieser Kontext der aktive ist, aktiven Kontext abwählen
-			// TODO: Assoziierte Listener etc. killen?
+			// Wenn dieser Kontext der aktive ist, aktiven Kontext abwählen
+			if (isActiveContext()) unsetActiveContext();
 
+			// Kontext vernichten
 			alcDestroyContext(openAlContext);
 			openAlContext = NULL;
 		}
 	}
+
 
 	//! Erzeugt den Kontext
 	void SoundContext::createContext() {
@@ -52,6 +61,23 @@ namespace sound {
 	SoundContext* SoundContext::makeActiveContext() {
 		if (!parentDevice) return NULL;
 		return parentDevice->setActiveContext(this);
+	}
+
+	//! Instruiert das Device, alle Kontexte zu deaktivieren
+	void SoundContext::unsetActiveContext() {
+		parentDevice->setActiveContext(NULL);
+	}
+
+	//! Ermittelt, ob dieser Kontext der aktive Kontext ist
+	bool SoundContext::isActiveContext() {
+		if (!parentDevice) return false;
+		return (parentDevice->getActiveContext() == this);
+	}
+
+	//! Bezieht das OpenAL-Device
+	inline ALCdevice* SoundContext::getOpenALDevice() const {
+		if (!openAlContext) return NULL;
+		return alcGetContextsDevice(openAlContext);
 	}
 
 }}
