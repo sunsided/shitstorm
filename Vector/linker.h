@@ -20,10 +20,25 @@
 	#endif
 #endif
 
+// Bullet
 #if _MSC_VER
 	#pragma comment(lib, "BulletCollision.lib")
 	#pragma comment(lib, "BulletDynamics.lib")
 	#pragma comment(lib, "LinearMath.lib")
+#endif
+
+// OpenAL
+#if _MSC_VER
+	#pragma comment(lib, "OpenAL32.lib")
+	#if _DEBUG
+		#pragma comment(lib, "liboggd.lib")
+		#pragma comment(lib, "libvorbisd.lib")
+		#pragma comment(lib, "libvorbisfiled.lib")
+	#else
+		#pragma comment(lib, "libogg.lib")
+		#pragma comment(lib, "libvorbis.lib")
+		#pragma comment(lib, "libvorbisfile.lib")
+#endif
 #endif
 
 #endif

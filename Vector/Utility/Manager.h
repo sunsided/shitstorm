@@ -46,20 +46,22 @@ namespace utility {
 		/**
 		 * @param element	Das zu entfernende Element
 		 */
-		void remove(T* element) {
+		irr::u32 remove(T* element) {
 			irr::u32 id = elementIdTable[element];
 			elementIdTable.erase(element);
 			idElementTable.erase(id);
+			return id;
 		}
 
 		//! Fügt ein Element hinzu
 		/**
 		 * @param element	Die ID des zu entfernenden Elementes
 		 */
-		void remove(irr::u32 id) {
+		T* remove(irr::u32 id) {
 			T* element = idElementTable[id];
 			elementIdTable.erase(element);
 			idElementTable.erase(id);
+			return element;
 		}
 
 		//! Fügt ein Element hinzu

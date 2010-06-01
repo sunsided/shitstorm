@@ -45,6 +45,14 @@ namespace sound {
 
 	private:
 
+		//! Vernichtet alle Devices
+		void destroyDevices();
+
+		//! Entsorgt ein Device
+		static void destroyDevice(SoundDevice* device, void* unused);
+
+	private:
+
 		//! Die registrierten Sound Devices
 		utility::Manager<SoundDevice> soundDevices;
 	};

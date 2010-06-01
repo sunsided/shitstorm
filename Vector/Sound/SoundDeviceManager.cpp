@@ -11,13 +11,22 @@
 namespace pv {
 namespace sound {
 
-	SoundDeviceManager::SoundDeviceManager(void) : soundDevices(true)
-	{
+	SoundDeviceManager::SoundDeviceManager(void) : soundDevices(true) {
 	}
 
 
-	SoundDeviceManager::~SoundDeviceManager(void)
-	{
+	SoundDeviceManager::~SoundDeviceManager(void) {
+		destroyDevices();
+	}
+
+	//! Entsorgt ein Device
+	void SoundDeviceManager::destroyDevice(SoundDevice* device, void* unused) {
+		device->destroy();
+	}
+
+	//! Vernichtet alle Devices
+	void SoundDeviceManager::destroyDevices() {
+		soundDevices.iterate(destroyDevice, (void*)NULL);
 		soundDevices.clear(true);
 	}
 
@@ -31,12 +40,15 @@ namespace sound {
 
 	//! Entfernt ein Device
 	void SoundDeviceManager::removeDevice(SoundDevice* device) {
+		if (!device) return;
 		soundDevices.remove(device);
+		device->setDeviceId(NULL, -1);
 	}
 
 	//! Entfernt ein Device
 	void SoundDeviceManager::removeDevice(irr::u32 deviceId) {
-		soundDevices.remove(deviceId);
+		SoundDevice* device = soundDevices.remove(deviceId);
+		if (device) device->setDeviceId(NULL, -1);
 	}
 
 }}
