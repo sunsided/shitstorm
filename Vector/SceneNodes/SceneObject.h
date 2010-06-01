@@ -43,6 +43,9 @@ namespace nodes {
 			sceneNode = node;
 		}
 
+		//! Setzt die Sichtbarkeit des Knotens
+		inline void setVisibility(bool visible) { sceneNode->setVisible(visible); }
+
 	private:
 
 		//! Der Szenenknoten

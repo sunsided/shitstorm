@@ -67,6 +67,18 @@ namespace world {
 		//! Ermittelt die Welt-Objekt-ID
 		inline irr::u32 getWorldObjectId() const { return worldObjectId; }
 
+		//! Aktiviert oder deaktiviert die Physik für dieses Objekt
+		inline void enablePhysics(bool enable) { physicsBody->setActivationState(enable); }
+
+		//! Aktiviert oder deaktiviert die Physik für dieses Objekt
+		inline void setVisibility(bool visible) { sceneObject->setVisibility(visible); }
+
+		//! Versteckt das Objekt und blendet es aus.
+		inline void hideAndDisable() {
+			physicsBody->setActivationState(false);
+			sceneObject->setVisibility(false);
+		}
+
 	public:
 
 		//! Wandelt das WorldElement in einen SceneNode um
