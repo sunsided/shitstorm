@@ -11,25 +11,23 @@
 #define _PHYSICSWORLD_H
 
 #include "global.h"
-#include <vector>
+#include "GameLogic/Manager.h"
+#include "PhysicsObject.h"
 
 // Vorwärtsdeklaration der Klassen
 class btDynamicsWorld;
 class btCollisionConfiguration;
-class btRigidBody;
 class btCollisionDispatcher;
 class btConstraintSolver;
 class btBroadphaseInterface;
-class btVector3;
 
 namespace pv {
 namespace physics {
 
 	// Vorwärtsdeklaration der Klassen
-	class PhysicsObject;
 	class PhysicsManager;
 
-	//! Klasse, die die Physikengine verwaltet
+	//! Klasse, die die Physikengine darstellt
 	class PhysicsWorld
 	{
 	public:
@@ -116,7 +114,7 @@ namespace physics {
 		btCollisionConfiguration* collisionConfiguration;
 
 		//! Sammlung aller Rigid Bodies
-		std::vector<PhysicsObject*> rigidBodies;
+		Manager<PhysicsObject> physicsObjects;
 
 		//! Liefert den Manager
 		PhysicsManager* physicsManager;
@@ -136,9 +134,12 @@ namespace physics {
 
 		//! Aktualisiert eine Welt
 		inline static void updateWorld(PhysicsWorld* world, PhysicsWorld::UpdateState* state) {
+			ASSERT(world); ASSERT(state);
 			world->update(state->deltaTime, state->maxSubsteps, state->fixedTimeStep);
 		}
 
+		//! Entfernt ein Physikobjekt aus einer gegebenen Physikwelt
+		static void removeObjectFromWorld(PhysicsObject* object, PhysicsWorld* world);
 
 	};
 

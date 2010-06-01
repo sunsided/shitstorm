@@ -27,7 +27,7 @@ namespace pv {
 		Manager(bool deleteOnDestruction = false) : deleteOnDestruct(deleteOnDestruction), nextFreeID(0) {}
 		
 		//! Destruktor
-		Manager<T>::~Manager(void) { clear(); }
+		Manager<T>::~Manager(void) { clear(deleteOnDestruct); }
 
 		//! Fügt ein Element hinzu
 		/**
@@ -94,7 +94,7 @@ namespace pv {
 		inline bool isEmpty() const { return idElementTable.empty(); }
 
 		//! Leert den Manager
-		void clear() {
+		void clear(bool deleteOnDestruct = false) {
 
 			// Ggf. die Elemente löschen
 			if (deleteOnDestruct) {

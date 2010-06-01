@@ -42,20 +42,9 @@ namespace physics {
 		ASSERT(solver);
 		delete solver;
 
-		// Bodies entfernen
-		while (!rigidBodies.empty()) {
-			PhysicsObject* body = rigidBodies.back();
-			rigidBodies.pop_back();
-
-			// TODO: Unterstützung für beliebige Körper (Soft Bodies, that is)
-			ASSERT(body->isRigidBody());
-			dynamicsWorld->removeRigidBody(dynamic_cast<RigidBodyPhysicsObject*>(body)->getRigidBody());
-			
-			// Motion State des Bodies und den Body selbst löschen
-			// Das Collision Shape wird vom CollisionShapeManagement entsorgt
-			delete body->getMotionState();
-			delete body;
-		}
+		// Bodies aus Welt entfernen und löschen
+		physicsObjects.iterate(PhysicsWorld::removeObjectFromWorld, this);
+		physicsObjects.clear(true);
 
 		// Welt vernichten.
 		delete dynamicsWorld;
@@ -145,7 +134,7 @@ namespace physics {
 
 		ASSERT(body->isRigidBody()); // TODO: Soft Bodies
 		dynamicsWorld->addRigidBody(dynamic_cast<RigidBodyPhysicsObject*>(body)->getRigidBody());
-		rigidBodies.push_back(body);
+		physicsObjects.add(body);
 	}
 
 	//! Entfernt einen Rigid Body aus der Welt
@@ -153,15 +142,7 @@ namespace physics {
 	 * @param body	Der zu entfernende Körper
 	 */
 	void PhysicsWorld::removeBody(PhysicsObject* body) {
-
-		// TODO: Entfernen von Elementen optimieren
-		if (body == rigidBodies.back()) {
-			rigidBodies.pop_back();
-		}
-		else {
-			// http://www.codeguru.com/forum/showthread.php?t=231045
-			rigidBodies.erase(std::remove(rigidBodies.begin(), rigidBodies.end(), body), rigidBodies.end());
-		}
+		physicsObjects.remove(body);
 
 		ASSERT(body->isRigidBody());
 		dynamicsWorld->removeRigidBody(dynamic_cast<RigidBodyPhysicsObject*>(body)->getRigidBody());
@@ -175,5 +156,14 @@ namespace physics {
 	*/
 	void PhysicsWorld::update(float timestep, short unsigned int substeps, float fixedTimeStep) {
 		dynamicsWorld->stepSimulation(timestep, substeps, fixedTimeStep);
+	}
+
+	//! Entfernt ein Physikobjekt aus einer gegebenen Physikwelt
+	void PhysicsWorld::removeObjectFromWorld(PhysicsObject* object, PhysicsWorld* world) {
+		ASSERT(object); ASSERT(world);
+
+		// TODO: Unterstützung für beliebige Körper (Soft Bodies, that is)
+		ASSERT(object->isRigidBody());
+		world->dynamicsWorld->removeRigidBody(dynamic_cast<RigidBodyPhysicsObject*>(object)->getRigidBody());
 	}
 }}
