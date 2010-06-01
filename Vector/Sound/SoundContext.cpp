@@ -9,7 +9,7 @@
 
 #include "SoundContext.h"
 #include "SoundDevice.h"
-#include "ContextSwitchingSoundListener.h"
+#include "ContextBoundSoundListener.h"
 
 namespace pv {
 namespace sound {
@@ -18,7 +18,7 @@ namespace sound {
 		: openAlContext(NULL), parentDevice(NULL), boundListener(NULL)
 	{
 		// Listener erzeugen
-		boundListener = new ContextSwitchingSoundListener(this);
+		boundListener = new ContextBoundSoundListener(this);
 	}
 
 

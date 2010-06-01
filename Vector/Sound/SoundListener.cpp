@@ -7,7 +7,7 @@
  */
 
 #include "SoundListener.h"
-#include "CurrentSoundListener.h"
+#include "RoamingSoundListener.h"
 
 #include <al.h>
 

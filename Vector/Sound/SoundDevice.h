@@ -22,7 +22,7 @@ namespace sound {
 
 	// Vorwärtsdeklaration der benötigten Klassen
 	class SoundDeviceManager;
-	class CurrentSoundListener;
+	class RoamingSoundListener;
 	
 	//! Sound Device
 	class SoundDevice

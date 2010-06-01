@@ -21,16 +21,16 @@ namespace sound {
 	/**
 	 * Diese Klasse steuert den Listener des aktuell aktivierten Kontextes.
 	 * Ist die Steuerung eines spezifischen Kontextes nötig, kann eine
-	 * Instanz des @see ContextSwitchingSoundListener verwendet werden.
+	 * Instanz des @see ContextBoundSoundListener verwendet werden.
 	 */
-	class CurrentSoundListener : public SoundListener
+	class RoamingSoundListener : public SoundListener
 	{
 	public:
 		//! Erzeugt eine neue Instanz des Objektes
-		CurrentSoundListener(void);
+		RoamingSoundListener(void);
 
 		// Destruktor
-		virtual ~CurrentSoundListener(void);
+		virtual ~RoamingSoundListener(void);
 
 
 		//! Setzt die Verstärkung

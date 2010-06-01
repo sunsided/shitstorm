@@ -18,13 +18,13 @@ namespace pv {
 namespace sound {
 
 	// Vorwärtsdeklaration
-	class CurrentSoundListener;
+	class RoamingSoundListener;
 
 	//! Sound Listener
 	/**
 	 * Diese Klasse steuert den Listener des aktuell aktivierten Kontextes.
 	 * Ist die Steuerung eines spezifischen Kontextes nötig, kann eine
-	 * Instanz des @see ContextSwitchingSoundListener verwendet werden.
+	 * Instanz des @see ContextBoundSoundListener verwendet werden.
 	 */
 	class SoundListener : public SoundSpaceObject
 	{
@@ -66,7 +66,7 @@ namespace sound {
 	public:
 		
 		//! Der aktuelle SoundListener
-		const static CurrentSoundListener Current;
+		const static RoamingSoundListener Current;
 	};
 
 }}

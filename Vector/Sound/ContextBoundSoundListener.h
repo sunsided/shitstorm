@@ -21,19 +21,19 @@ namespace sound {
 	class SoundContext;
 
 	//! Sound Listener, der den Kontext automatisch wechselt
-	class ContextSwitchingSoundListener : public SoundListener 
+	class ContextBoundSoundListener : public SoundListener 
 	{
 		friend class SoundContext;
 
 	private:
 
 		//! Erzeugt eine neue Instanz des Objektes
-		ContextSwitchingSoundListener(SoundContext* parent);
+		ContextBoundSoundListener(SoundContext* parent);
 
 	public:
 
 		// Destruktor
-		virtual ~ContextSwitchingSoundListener(void);
+		virtual ~ContextBoundSoundListener(void);
 
 		//! Setzt die Verstärkung
 		void setGain(irr::f32 gain);

@@ -20,7 +20,7 @@ namespace sound {
 
 	// Vorwärtsdeklaration der Klassen
 	class SoundDevice;
-	class ContextSwitchingSoundListener;
+	class ContextBoundSoundListener;
 
 	//! Soundkontext
 	class SoundContext
@@ -55,7 +55,7 @@ namespace sound {
 		void unsetActiveContext();
 
 		//! Bezieht einen Listener, der immer diesen Kontext aktualisiert
-		inline ContextSwitchingSoundListener* getContextBoundListener() { return boundListener; }
+		inline ContextBoundSoundListener* getContextBoundListener() { return boundListener; }
 
 		//! Ermittelt, ob dieser Kontext der aktive Kontext ist
 		bool isActiveContext();
@@ -86,7 +86,7 @@ namespace sound {
 		ALCcontext *openAlContext;
 
 		//! Der an diesen Kontext gebundene Listener
-		ContextSwitchingSoundListener* boundListener;
+		ContextBoundSoundListener* boundListener;
 	};
 
 }}

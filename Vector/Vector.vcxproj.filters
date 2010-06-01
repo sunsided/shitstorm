@@ -100,10 +100,10 @@
     <ClCompile Include="Sound\AudioSource.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
-    <ClCompile Include="Sound\ContextSwitchingSoundListener.cpp">
+    <ClCompile Include="Sound\RoamingSoundListener.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
-    <ClCompile Include="Sound\CurrentSoundListener.cpp">
+    <ClCompile Include="Sound\ContextBoundSoundListener.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
   </ItemGroup>
@@ -197,10 +197,10 @@
     <ClInclude Include="Sound\AudioSource.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="Sound\ContextSwitchingSoundListener.h">
+    <ClInclude Include="Sound\ContextBoundSoundListener.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="Sound\CurrentSoundListener.h">
+    <ClInclude Include="Sound\RoamingSoundListener.h">
       <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>
