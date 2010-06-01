@@ -45,7 +45,7 @@ void ogg_stream::release()
     empty();
     alDeleteSources(1, &source);
     check();
-    alDeleteBuffers(1, buffers);
+    alDeleteBuffers(2, buffers);
     check();
  
     ov_clear(&oggStream);
@@ -79,13 +79,18 @@ bool ogg_stream::playback()
     if(playing())
         return true;
         
+	// Ersten Puffer füllen
     if(!stream(buffers[0]))
         return false;
  
+	// Zweiten Puffer füllen
     if(!stream(buffers[1]))
         return false;
     
+	// Beide Puffer einhängen
     alSourceQueueBuffers(source, 2, buffers);
+
+	// Quelle abspielen
     alSourcePlay(source);
     
     return true;
