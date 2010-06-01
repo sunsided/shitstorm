@@ -12,6 +12,7 @@
 
 #include "global.h"
 #include "Physics/PhysicsObject.h"
+#include "SceneNodes/SceneObject.h"
 
 namespace pv {
 namespace world {
@@ -22,7 +23,7 @@ namespace world {
 	public:
 
 		//! Erzeugt eine neue Instanz der WorldElement-Klasse
-		WorldElement(scene::ISceneNode* node = NULL, physics::PhysicsObject* body = NULL);
+		WorldElement(nodes::SceneObject* object = NULL, physics::PhysicsObject* body = NULL);
 		
 		//! Destruktor
 		virtual ~WorldElement(void);
@@ -34,24 +35,9 @@ namespace world {
 
 	public:
 
-		//! Wandelt das WorldElement in einen SceneNode um
-		inline operator irr::scene::ISceneNode*() const {
-			return sceneNode;
-		}
-
-		//! Wandelt das WorldElement in einen SceneNode um
-		inline operator physics::PhysicsObject*() const {
-			return physicsBody;
-		}
-
 		//! Ermittelt den Physikkörper
 		inline physics::PhysicsObject* getPhysicsBody() const {
 			return physicsBody;
-		}
-
-		//! Ermittelt den Szenenknoten
-		inline irr::scene::ISceneNode* getSceneNode() const {
-			return sceneNode;
 		}
 
 		//! Setzt den Physikkörper
@@ -60,9 +46,26 @@ namespace world {
 			physicsBody = body;
 		}
 
-		//! Setzt den Szenenknoten
-		inline void setSceneNode(irr::scene::ISceneNode* node) {
-			sceneNode = node;
+		//! Ermittelt den Szenenknoten
+		inline nodes::SceneObject* getSceneObject() const {
+			return sceneObject;
+		}
+
+		//! Setzt das Szenenobjekt
+		inline void setSceneObject(nodes::SceneObject* object) {
+			sceneObject = object;
+		}
+
+	public:
+
+		//! Wandelt das WorldElement in einen SceneNode um
+		inline operator nodes::SceneObject*() const {
+			return sceneObject;
+		}
+
+		//! Wandelt das WorldElement in einen SceneNode um
+		inline operator physics::PhysicsObject*() const {
+			return physicsBody;
 		}
 
 	private:
@@ -71,7 +74,7 @@ namespace world {
 		physics::PhysicsObject* physicsBody;
 
 		//! Der Szenenknoten
-		irr::scene::ISceneNode* sceneNode;
+		nodes::SceneObject* sceneObject;
 
 	};
 

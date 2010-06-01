@@ -7,6 +7,7 @@
  */
 
 #include "WorldElementFactory.h"
+#include "SceneNodes/SceneObject.h"
 #include "Physics/UpdatingPhysicsMotionState.h"
 #include "Physics/PhysicsManager.h"
 #include "Physics/RigidBodyPhysicsObject.h"
@@ -34,6 +35,7 @@ namespace world
 
 		// Szenenknoten erzeugen
 		ISceneNode* sceneNode = mgr->addCubeSceneNode(size, parent, id);
+		nodes::SceneObject *sceneObject = new nodes::SceneObject(sceneNode);
 
 		// Kollisionsshape erzeugen
 		btCollisionShape* shape = new btBoxShape(btVector3(0.5, 0.5, 0.5));
@@ -43,7 +45,7 @@ namespace world
 		btTransform transform;
 		transform.setIdentity();
 		transform.setOrigin(conversion::toBulletVector(initialPosition));
-		UpdatingPhysicsMotionState* state = new UpdatingPhysicsMotionState(sceneNode, transform);
+		UpdatingPhysicsMotionState* state = new UpdatingPhysicsMotionState(sceneObject, transform);
 
 		// Den Körper erzeugen
 		PhysicsObject* body = new RigidBodyPhysicsObject(state, mass, world, shape);
@@ -51,7 +53,7 @@ namespace world
 		world->addObject(body);
 
 		// Weltelement erzeugen
-		WorldElement* element = new WorldElement(sceneNode, body);
+		WorldElement* element = new WorldElement(sceneObject, body);
 		return element;
 	}
 
@@ -61,11 +63,24 @@ namespace world
 		ASSERT(shape);
 		ASSERT(world);
 
+		// Szenenobjekt erzeugen
+		nodes::SceneObject *sceneObject = new nodes::SceneObject(sceneNode);
+
+		// Durchreichen
+		return CreateElement(world, sceneObject, shape, mass, initialPosition);
+	}
+
+	//! Erzeugt einen beliebigen Knoten
+	WorldElement* WorldElementFactory::CreateElement(physics::PhysicsWorld* world, nodes::SceneObject *sceneObject, btCollisionShape* shape, f32 mass, core::vector3df initialPosition) {
+		ASSERT(sceneObject);
+		ASSERT(shape);
+		ASSERT(world);
+
 		// Motion State erzeugen
 		btTransform transform;
 		transform.setIdentity();
 		transform.setOrigin(conversion::toBulletVector(initialPosition));
-		UpdatingPhysicsMotionState* state = new UpdatingPhysicsMotionState(sceneNode, transform);
+		UpdatingPhysicsMotionState* state = new UpdatingPhysicsMotionState(sceneObject, transform);
 
 		// Den Körper erzeugen
 		PhysicsObject* body = new RigidBodyPhysicsObject(state, mass, world, shape);
@@ -73,7 +88,7 @@ namespace world
 		world->addObject(body);
 
 		// Weltelement erzeugen
-		WorldElement* element = new WorldElement(sceneNode, body);
+		WorldElement* element = new WorldElement(sceneObject, body);
 		return element;
 	}
 

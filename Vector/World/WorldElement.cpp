@@ -12,14 +12,11 @@
 using namespace irr;
 
 namespace pv {
+namespace world {
 
-using namespace physics;
-
-namespace world
-{
 	//! Erzeugt eine neue Instanz der WorldElement-Klasse
-	WorldElement::WorldElement(scene::ISceneNode* node, physics::PhysicsObject* body) 
-		: sceneNode(node), physicsBody(body)
+	WorldElement::WorldElement(nodes::SceneObject* object, physics::PhysicsObject* body) 
+		: sceneObject(object), physicsBody(body)
 	{
 		if (physicsBody) {
 			physicsBody->setWorldElement(this);
@@ -29,21 +26,22 @@ namespace world
 
 	//! Kopiert die Translation in den Szenenknoten
 	void WorldElement::copyTranslation(const btTransform& startTrans) {
-		if (sceneNode) {
+		if (sceneObject) {
 			// Rotation setzen
 			btVector3 rotation;
 			physics::PhysicsObject::QuaternionToEulerXYZ(startTrans.getRotation(), rotation);
-			sceneNode->setRotation(physics::conversion::toIrrlichtVector(rotation));
+			sceneObject->getSceneNode()->setRotation(physics::conversion::toIrrlichtVector(rotation));
 
 			// Position setzen
 			btVector3 position = startTrans.getOrigin();
-			sceneNode->setRotation(physics::conversion::toIrrlichtVector(position));
+			sceneObject->getSceneNode()->setRotation(physics::conversion::toIrrlichtVector(position));
 		}
 	}
 
 	//! Destruktor
 	WorldElement::~WorldElement(void) {
 		if (physicsBody) delete physicsBody;
+		if (sceneObject) delete sceneObject;
 	}
 
 }}

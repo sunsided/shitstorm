@@ -7,6 +7,7 @@
  */
 
 #include "UpdatingPhysicsMotionState.h"
+#include "SceneNodes/SceneObject.H"
 
 namespace pv {
 namespace physics {
@@ -21,28 +22,33 @@ namespace physics {
 	void UpdatingPhysicsMotionState::setWorldTransform(const btTransform& worldTrans) {
 		PhysicsMotionState::setWorldTransform(worldTrans);
 
-		irr::scene::ISceneNode* node = getSceneNode();
-		if (!node) return;
+		nodes::SceneObject* sceneObject = getSceneObject();
+		if (!sceneObject) return;
 
 		// http://www.daniweb.com/forums/thread284877.html
 		irr::core::matrix4 matrix;
 		worldTrans.getOpenGLMatrix(matrix.pointer());
-		node->setRotation(matrix.getRotationDegrees());
-		node->setPosition(matrix.getTranslation());
+		sceneObject->getSceneNode()->setRotation(matrix.getRotationDegrees());
+		sceneObject->getSceneNode()->setPosition(matrix.getTranslation());
 	}
 
 	//! Setzt den verknüpften SceneNode
-	void UpdatingPhysicsMotionState::setSceneNode(irr::scene::ISceneNode* sceneNode) { 
-		m_userPointer = sceneNode;
-		if (!sceneNode) return;
+	void UpdatingPhysicsMotionState::setSceneObject(nodes::SceneObject* sceneObject) { 
+		m_userPointer = sceneObject;
+		if (!sceneObject) return;
 			
 		// http://www.daniweb.com/forums/thread284877.html
 		irr::core::matrix4 matrix;
 		btTransform worldTrans;
 		getWorldTransform(worldTrans);
 		worldTrans.getOpenGLMatrix(matrix.pointer());
-		sceneNode->setRotation(matrix.getRotationDegrees());
-		sceneNode->setPosition(matrix.getTranslation());
+		sceneObject->getSceneNode()->setRotation(matrix.getRotationDegrees());
+		sceneObject->getSceneNode()->setPosition(matrix.getTranslation());
+	}
+
+	//! Liefert den verknüpften SceneNode
+	nodes::SceneObject* UpdatingPhysicsMotionState::getSceneObject() { 
+		return reinterpret_cast<nodes::SceneObject*>(m_userPointer);
 	}
 
 }}

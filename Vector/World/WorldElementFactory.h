@@ -13,6 +13,7 @@
 #include "global.h"
 #include "WorldElement.h"
 #include "Physics/PhysicsWorld.h"
+#include "SceneNodes/SceneObject.h"
 
 namespace pv {
 namespace world {
@@ -28,6 +29,9 @@ namespace world {
 		virtual ~WorldElementFactory(void);
 	
 	public:
+
+		//! Erzeugt einen beliebigen Knoten
+		static WorldElement* CreateElement(physics::PhysicsWorld* world, nodes::SceneObject* sceneObject, btCollisionShape* shape, f32 mass = 0.0f, core::vector3df initialPosition = core::vector3df(0, 0, 0));
 
 		//! Erzeugt einen beliebigen Knoten
 		static WorldElement* CreateElement(physics::PhysicsWorld* world, scene::ISceneNode* sceneNode, btCollisionShape* shape, f32 mass = 0.0f, core::vector3df initialPosition = core::vector3df(0, 0, 0));

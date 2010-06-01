@@ -14,6 +14,10 @@
 #include "PhysicsMotionState.h"
 
 namespace pv {
+
+// Vorwärtsdeklaration der Klassen
+namespace nodes { class SceneObject; }
+
 namespace physics {
 
 	//! Bewegungszustand eines Körpers
@@ -22,22 +26,22 @@ namespace physics {
 	public:
 		//! Erzeugt eine neue Instanz des Objektes
 		UpdatingPhysicsMotionState(
-			irr::scene::ISceneNode* sceneNode = NULL,
+			nodes::SceneObject* sceneObject = NULL,
 			const btTransform& startTrans = btTransform::getIdentity(),
 			const btTransform& centerOfMassOffset = btTransform::getIdentity()) 
 			: PhysicsMotionState(startTrans, centerOfMassOffset)
 		{
-			setSceneNode(sceneNode);
+			setSceneObject(sceneObject);
 		}
 
 		//! Erzeugt eine neue Instanz des Objektes
 		UpdatingPhysicsMotionState(
-			irr::scene::ISceneNode* sceneNode,
+			nodes::SceneObject* sceneObject,
 			const irr::core::matrix4& startTrans, 
 			const irr::core::matrix4& centerOfMassOffset) 
 			: PhysicsMotionState(conversion::toBtTransform(startTrans), conversion::toBtTransform(centerOfMassOffset)) 
 		{
-			setSceneNode(sceneNode);
+			setSceneObject(sceneObject);
 		}
 
 		//! Destruktor
@@ -50,12 +54,10 @@ namespace physics {
 		inline virtual void setWorldTransform(const btTransform& worldTrans);
 
 		//! Liefert den verknüpften SceneNode
-		inline irr::scene::ISceneNode* getSceneNode() const { 
-			return reinterpret_cast<irr::scene::ISceneNode*>(m_userPointer);
-		}
+		nodes::SceneObject* getSceneObject();
 
 		//! Setzt den verknüpften SceneNode
-		void setSceneNode(irr::scene::ISceneNode* sceneNode);
+		void setSceneObject(nodes::SceneObject* sceneObject);
 
 	};
 

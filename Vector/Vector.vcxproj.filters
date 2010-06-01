@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="SceneNodes">
-      <UniqueIdentifier>{3aac4a3c-255c-443e-ba48-4071fadc2a21}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameLogic">
       <UniqueIdentifier>{43769670-e1d5-4c96-8daf-deeca9425486}</UniqueIdentifier>
     </Filter>
@@ -15,6 +12,9 @@
     </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{1e2eb03d-bcb8-406c-ab0e-63196701e28c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneNodes">
+      <UniqueIdentifier>{3aac4a3c-255c-443e-ba48-4071fadc2a21}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +60,9 @@
     </ClCompile>
     <ClCompile Include="Utility\Manager.cpp">
       <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneNodes\SceneObject.cpp">
+      <Filter>SceneNodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="Utility\Manager.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodes\SceneObject.h">
+      <Filter>SceneNodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
