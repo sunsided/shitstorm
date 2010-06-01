@@ -36,11 +36,20 @@ namespace sound {
 		//! Setzt die Verstärkung
 		virtual void setGain(irr::f32 gain);
 
+		//! Ermittelt die Verstärkung
+		virtual irr::f32 getGain();
+
 		//! Setzt die Position
 		virtual void setPosition(irr::f32 x, irr::f32 y, irr::f32 z);
 
+		//! Ermittelt die Position
+		virtual void getPosition(irr::f32& x, irr::f32& y, irr::f32& z);
+
 		//! Setzt die Geschwindigkeit
 		virtual void setVelocity(irr::f32 x, irr::f32 y, irr::f32 z);
+
+		//! Ermittelt die Geschwindigkeit
+		virtual void getVelocity(irr::f32& x, irr::f32& y, irr::f32& z);
 
 		//! Setzt die Richtung zurück
 		virtual void resetOrientation();
