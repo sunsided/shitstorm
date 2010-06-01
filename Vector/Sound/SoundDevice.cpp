@@ -41,13 +41,13 @@ namespace sound {
 	void SoundDevice::destroy() {
 		if (openAlDevice) {
 			
-			// Kontexte löschen
-			contextManager.iterate(destroyContext, (void*)NULL);
-			contextManager.clear(true);
-
 			// Aktiven Kontext abwählen
 			setActiveContext(NULL);
 
+			// Kontexte löschen
+			contextManager.iterate(destroyContext, (void*)NULL);
+			contextManager.clear(true);
+			
 			// OpenAL-Device vernichten
 			alcCloseDevice(openAlDevice);
 			openAlDevice = NULL;
