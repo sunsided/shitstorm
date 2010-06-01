@@ -65,7 +65,11 @@ namespace sound {
 		inline ALCdevice* getOpenALDevice() const { return openAlDevice; }
 
 		//! Setzt einen Kontext als aktiven Kontext
-		void setActiveContext(SoundContext* context);
+		/*
+		 * @param context	Der neue Kontext
+		 * @returns Der zuletzt aktiv gesetzte Kontext
+		 */
+		SoundContext* setActiveContext(SoundContext* context);
 
 	private:
 

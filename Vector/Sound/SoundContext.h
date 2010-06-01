@@ -45,7 +45,10 @@ namespace sound {
 		inline ALCcontext* getOpenALContext() const { return openAlContext; }
 
 		//! Setzt diesen Kontext als aktiven Kontext
-		void makeActiveContext();
+		/*
+		 * @returns Der zuletzt aktiv gesetzte Kontext
+		 */
+		SoundContext* makeActiveContext();
 
 	private:
 

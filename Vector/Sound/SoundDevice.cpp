@@ -81,7 +81,7 @@ namespace sound {
 	}
 
 	//! Setzt einen Kontext als aktiven Kontext
-	void SoundDevice::setActiveContext(SoundContext* context) {
+	SoundContext* SoundDevice::setActiveContext(SoundContext* context) {
 
 		// OpenAL über die Kontextänderung informieren
 		if (context) {
@@ -92,7 +92,9 @@ namespace sound {
 		}
 
 		// Kontext registrieren
+		SoundContext* oldContext = activeContext;
 		activeContext = context;
+		return oldContext;
 	}
 
 }}

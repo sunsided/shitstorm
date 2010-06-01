@@ -49,9 +49,9 @@ namespace sound {
 	}
 
 	//! Setzt diesen Kontext als aktiven Kontext
-	void SoundContext::makeActiveContext() {
-		if (!parentDevice) return;
-		parentDevice->setActiveContext(this);
+	SoundContext* SoundContext::makeActiveContext() {
+		if (!parentDevice) return NULL;
+		return parentDevice->setActiveContext(this);
 	}
 
 }}
