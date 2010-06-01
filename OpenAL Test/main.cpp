@@ -1,106 +1,78 @@
 #include <iostream>
-#include <al.h>
-#include <alc.h>
-#include <AL/alut.h>
 
 #pragma comment(lib, "OpenAL32.lib")
-#pragma comment(lib, "alut.lib")
+#pragma comment(lib, "liboggd.lib")
+#pragma comment(lib, "libvorbisd.lib")
+#pragma comment(lib, "libvorbisfiled.lib")
 
 using namespace std;
 
-#define NUM_BUFFERS		1
+#include "ogg_stream.h"
 
-int main() {
+#include <al.h>
+#include <alc.h>
+
+int main(int argc, char** argv) {
+
 
 	// Initialization
-	cout << "+ Erzeuge OpenAL-Device" << endl;
-	ALCdevice* Device = alcOpenDevice(NULL);
-	if (!Device) {
-		cerr << "! OpenAL-Device konnte nicht erzeugt werden" << endl;
-		return -1;
+	ALCdevice *Device = NULL;
+	ALCcontext *Context = NULL;
+	Device = alcOpenDevice(NULL); // select the "preferred device"
+	if (Device) {
+		Context=alcCreateContext(Device,NULL);
+		alcMakeContextCurrent(Context);
 	}
 
-	// Kontext erzeugen
-	cout << "+ Erzeuge Kontext" << endl;
-	ALCcontext* Context = alcCreateContext(Device, NULL);
-	if (!Context) {
-		cerr << "! OpenAL-Kontext konnte nicht erzeugt werden" << endl;
-		return -2;
-	}
 
-	// Kontext setzen
-	alcMakeContextCurrent(Context);
 
-	// Check for EAX 2.0 support
-	cout << "+ Teste EAX 2.0: EAX 2.0 ";
-	ALboolean g_bEAX = alIsExtensionPresent("EAX2.0");
-	cout << (g_bEAX ? "verfuegbar" : "nicht verfuegbar") << endl;
+	ogg_stream ogg;
 
-	// Fehler zurücksetzen
-	alGetError();
+	try
+    {
+        if(argc < 2)
+            throw string("oggplayer *.ogg");
+    
+        ogg.open(argv[1]);
+ 
+        ogg.display();
 
-	// Puffer erzeugen
-	cout << "+ Erzeuge " << NUM_BUFFERS << " Puffer" << endl;
-	ALuint g_Buffers[NUM_BUFFERS];
-	ALenum error = 0;
+		cout << "Beginne Wiedergabe ..." << endl;
+        if(!ogg.playback())
+            throw string("Ogg refused to play.");
+        
+		cout << "Streame Audio ..." << endl;
+        while(ogg.update())
+        {
+            if(!ogg.playing())
+            {
+                if(!ogg.playback())
+                    throw string("Ogg abruptly stopped.");
+                else
+                    cout << "Ogg stream was interrupted.\n";
+            }
+        }
+                    
+        cout << "Voila.";
+        cin.get();
+    }
+    catch(string error)
+    {
+        cout << error;
+        cin.get();
+    }
 
-	alGenBuffers(NUM_BUFFERS, g_Buffers);
-	if ((error = alGetError()) != AL_NO_ERROR)
-	{
-		cerr << "! Puffer konnten nicht erzeugt werden, Code: " << error << endl;
-		return error;
-	}
+	ogg.release();
 
-	// Lade audiosample
-	cout << "+ Lade Audiosample" << endl;
 
-	ALenum format; ALvoid* data;
-	ALsizei size, freq; ALboolean loop;
-	alutLoadWAVFile("audio/test.wav", &format, &data, &size, &freq, &loop);
-	if ((error = alGetError()) != AL_NO_ERROR)
-	{
-		cerr << "! Sample konnte nicht geladen werden, Code: " << error << endl;
-		alDeleteBuffers(NUM_BUFFERS, g_Buffers);
-		return error;
-	}
 
-	// Kopiere Sample in Puffer 0
-	cout << "+ Kopiere Audiosample in Puffer" << endl;
-	alBufferData(g_Buffers[0], format, data, size, freq);
-	if ((error = alGetError()) != AL_NO_ERROR)
-	{
-		cerr << "! Sample konnte nicht kopiert werden, Code: " << error << endl;
-		alDeleteBuffers(NUM_BUFFERS, g_Buffers);
-		return error;
-	}
-
-	// Audiosample aus dem Speicher werfen
-	cout << "+ Puffer gefuellt, gebe Speicher für Audiosample frei" << endl;
-	alutUnloadWAV(format, data, size, freq);
-	if ((error = alGetError()) != AL_NO_ERROR)
-	{
-		cerr << "! Speicher konnte nicht freigegeben werden, Code: " << error << endl;
-		alDeleteBuffers(NUM_BUFFERS, g_Buffers);
-		return error;
-	}
-
-	// Kontext abwählen
-	cout << "+ Deaktiviere aktuellen Kontext" << endl;
+	// Exit
 	Context = alcGetCurrentContext();
 	Device = alcGetContextsDevice(Context);
 	alcMakeContextCurrent(NULL);
-
-	// Puffer löschen
-	cout << "+ Loesche Puffer" << endl;
-	alDeleteBuffers(NUM_BUFFERS, g_Buffers);
-
-	// Kontext schließen
-	cout << "+ Schliesse OpenAL-Kontext" << endl;
 	alcDestroyContext(Context);
-
-	// Device schließen
-	cout << "+ Schliesse OpenAL-Device" << endl;
 	alcCloseDevice(Device);
+
 
 	return 0;
 }
