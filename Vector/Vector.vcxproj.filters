@@ -55,6 +55,9 @@
     <ClCompile Include="GameLogic\Manager.cpp">
       <Filter>GameLogic</Filter>
     </ClCompile>
+    <ClCompile Include="Physics\RigidPhysicsBody.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -106,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="GameLogic\Manager.h">
       <Filter>GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\RigidPhysicsBody.h">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

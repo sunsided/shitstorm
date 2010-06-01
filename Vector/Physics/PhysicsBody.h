@@ -40,61 +40,63 @@ namespace physics {
 		//! Erzeugt eine neue Instanz des Objektes
 		PhysicsBody(
 			PhysicsMotionState* state = NULL,
-			f32 mass = 0.0f,
 			PhysicsWorld* physicsWorld = NULL,
-			btCollisionShape* collisionShape = NULL
-			) : motionState(state), 
-			dynamicsWorld(physicsWorld), mass(mass), collisionShape(collisionShape),
-			userPointer(NULL), rigidBody(NULL)
+			btCollisionShape* collisionShape = NULL,
+			pv::world::WorldElement* worldElement = NULL
+			) : 
+			motionState(state), 
+			dynamicsWorld(physicsWorld), 
+			collisionShape(collisionShape),
+			userPointer(worldElement)
 		{}
 
 		//! Destruktor
 		virtual ~PhysicsBody(void);
 
 		//! Initialisiert die Physik
-		void initPhysics(f32 ccdThreshold = 1.0f, f32 linearDamping = 0.f, f32 angularDamping = 0.f, f32 friction = 0.5f, f32 restitution = 0.f);
+		virtual void initPhysics(f32 ccdThreshold = 1.0f, f32 linearDamping = 0.f, f32 angularDamping = 0.f, f32 friction = 0.5f, f32 restitution = 0.f) = 0;
 		
 		//! Setzt die Position des Objektes
-		virtual void setPosition(const core::vector3df& v); 
+		virtual void setPosition(const core::vector3df& v) = 0;
 
 		//! Setzt die Rotation des Objektes
-		virtual void setRotation(const core::vector3df& v);
+		virtual void setRotation(const core::vector3df& v)  = 0;
 
 		//! Ermittelt die lineare Geschwindigkeit
-		core::vector3df getLinearVelocity() const;
+		virtual core::vector3df getLinearVelocity() const = 0;
 
 		//! Setzt die lineare Geschwindigkeit
-		void setLinearVelocity(const core::vector3df& vel) const;
+		virtual void setLinearVelocity(const core::vector3df& vel) const = 0;
 
 		//! Ermittelt die Winkelgeschwindigkeit
-		core::vector3df getAngularVelocity() const;
+		virtual core::vector3df getAngularVelocity() const = 0;
 
 		//! Setzt die Winkelgeschwindigkeit
-		void setAngularVelocity(const core::vector3df& vel) const;
+		virtual void setAngularVelocity(const core::vector3df& vel) const = 0;
 		
 		//! Wendet eine Kraft auf das Objekt an
-		void applyForce(const core::vector3df& v);
+		virtual void applyForce(const core::vector3df& v) = 0;
 
 		//! Setzt alle Kräfte zurück
-		void zeroForces();
+		virtual void zeroForces() = 0;
 
 		//! Setzt den Aktivierungszustand
-		void setActivationState(bool active);
+		virtual void setActivationState(bool active) = 0;
 
 		//! Ermittelt die Rotation
-		core::vector3df getRotation() const;
+		virtual core::vector3df getRotation() const = 0;
 
 		//! Ermittelt die Position
-		core::vector3df getPosition() const;
+		virtual core::vector3df getPosition() const = 0;
 
 		//! Räumt die Physikgeschichte auf
-		void endPhysics(void);
+		virtual void endPhysics(void) = 0;
 
 		//! Aktualisiert die Masse des Objektes
-		void updateMass(f32 mass);
+		virtual void updateMass(f32 mass) = 0;
 
 		//! Aktualisiert die Masse des Objektes
-		void updateMass(f32 mass, const btVector3& localInertia);
+		virtual void updateMass(f32 mass, const btVector3& localInertia) = 0;
 
 	public:
 
@@ -116,8 +118,8 @@ namespace physics {
 		//! Bezieht den Benutzerzeiger
 		inline void setWorldElement(pv::world::WorldElement* world) { userPointer = world; }
 
-		//! Bezieht den Benutzerzeiger
-		inline btRigidBody* getRigidBody() const { return rigidBody; }
+		//! Bezieht das Kollisionsobjekt (Rigid Body, ...)
+		inline virtual btCollisionObject* getCollisionObject() const = 0;
 
 	public:
 
@@ -132,14 +134,8 @@ namespace physics {
 
 	private:
 
-		//! Die Masse des Körpers
-		irr::f32 mass;
-
 		//! Das Collision Shape
 		btCollisionShape* collisionShape;
-
-		//! Der eigentliche Körper
-		btRigidBody* rigidBody;
 
 		//! Die Dynamikwelt
 		PhysicsWorld* dynamicsWorld;
