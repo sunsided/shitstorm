@@ -34,9 +34,6 @@
     <ClCompile Include="Physics\PhysicsMotionState.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Physics\PhysicsBody.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="Physics\PhysicsWorld.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
@@ -55,7 +52,10 @@
     <ClCompile Include="GameLogic\Manager.cpp">
       <Filter>GameLogic</Filter>
     </ClCompile>
-    <ClCompile Include="Physics\RigidPhysicsBody.cpp">
+    <ClCompile Include="Physics\PhysicsObject.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\RigidBodyPhysicsObject.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,9 +89,6 @@
     <ClInclude Include="Physics\PhysicsMotionState.h">
       <Filter>Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Physics\PhysicsBody.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="Physics\PhysicsWorld.h">
       <Filter>Physics</Filter>
     </ClInclude>
@@ -110,7 +107,10 @@
     <ClInclude Include="GameLogic\Manager.h">
       <Filter>GameLogic</Filter>
     </ClInclude>
-    <ClInclude Include="Physics\RigidPhysicsBody.h">
+    <ClInclude Include="Physics\PhysicsObject.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\RigidBodyPhysicsObject.h">
       <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>

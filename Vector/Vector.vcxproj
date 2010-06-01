@@ -92,11 +92,11 @@
     <ClCompile Include="GameLogic\GameTimer.cpp" />
     <ClCompile Include="GameLogic\Manager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Physics\PhysicsBody.cpp" />
     <ClCompile Include="Physics\PhysicsManager.cpp" />
     <ClCompile Include="Physics\PhysicsMotionState.cpp" />
+    <ClCompile Include="Physics\PhysicsObject.cpp" />
     <ClCompile Include="Physics\PhysicsWorld.cpp" />
-    <ClCompile Include="Physics\RigidPhysicsBody.cpp" />
+    <ClCompile Include="Physics\RigidBodyPhysicsObject.cpp" />
     <ClCompile Include="Physics\UpdatingPhysicsMotionState.cpp" />
     <ClCompile Include="SceneNodes\OrientationHelperSceneNode.cpp" />
     <ClCompile Include="SceneNodes\PlaneSceneNode.cpp" />
@@ -113,11 +113,11 @@
     <ClInclude Include="global.h" />
     <ClInclude Include="linker.h" />
     <ClInclude Include="Physics\IrrBtConversion.h" />
-    <ClInclude Include="Physics\PhysicsBody.h" />
     <ClInclude Include="Physics\PhysicsManager.h" />
     <ClInclude Include="Physics\PhysicsMotionState.h" />
+    <ClInclude Include="Physics\PhysicsObject.h" />
     <ClInclude Include="Physics\PhysicsWorld.h" />
-    <ClInclude Include="Physics\RigidPhysicsBody.h" />
+    <ClInclude Include="Physics\RigidBodyPhysicsObject.h" />
     <ClInclude Include="Physics\UpdatingPhysicsMotionState.h" />
     <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h" />
     <ClInclude Include="SceneNodes\PlaneSceneNode.h" />

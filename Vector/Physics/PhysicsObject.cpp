@@ -6,7 +6,7 @@
  * $Id$
  */
 
-#include "PhysicsBody.h"
+#include "PhysicsObject.h"
 #include "PhysicsWorld.h"
 
 // 360 / (2*PI)
@@ -22,12 +22,25 @@ namespace pv {
 namespace physics {
 
 	//! Destruktor
-	PhysicsBody::~PhysicsBody(void) {
+	PhysicsObject::~PhysicsObject(void) {
 		endPhysics();
+		ASSERT(!motionState);
+	}
+
+	//! Beendet die Physikgeschichte
+	void PhysicsObject::endPhysics(void)
+	{
+		if (motionState) {
+			delete motionState;
+			motionState = NULL;
+		}
+
+		//TODO: Collision Shape-Referenzzähler
+		//g_pCollisionObjectMgr->Remove(m_pCollisionObject);
 	}
 
 	//! Wandelt einen Quaternion in einen Euler-Rotationsvektor um
-	void PhysicsBody::QuaternionToEulerXYZ(const btQuaternion &quat,btVector3 &euler) {
+	void PhysicsObject::QuaternionToEulerXYZ(const btQuaternion &quat,btVector3 &euler) {
 		f32 w = quat.getW();	
 		f32 x = quat.getX();	
 		f32 y = quat.getY();	
@@ -44,7 +57,7 @@ namespace physics {
 	}
 
 	//! Wandelt einen Euler-Rotationsvektor in einen Quaternion um
-	void PhysicsBody::EulerXYZToQuaternion(btVector3 &euler, btQuaternion &quat) {	
+	void PhysicsObject::EulerXYZToQuaternion(btVector3 &euler, btQuaternion &quat) {	
 
 		btMatrix3x3 mat;
 		mat.setIdentity();
@@ -56,7 +69,7 @@ namespace physics {
 	// but Irrlicht indices are 16 bits wide which is not compatible with Bullet :(
 	//So we are just using a btTriangleMesh instead, although it would probably
 	// be faster to store the indices in int arrays and use these in a btTriangleIndexVertexArray
-	btTriangleMesh* PhysicsBody::GetTriangleMesh(scene::IMesh* pMesh)
+	btTriangleMesh* PhysicsObject::GetTriangleMesh(scene::IMesh* pMesh)
 	{	
 		btVector3 vertices[3];
 		u32 i,j,k,index,numVertices;

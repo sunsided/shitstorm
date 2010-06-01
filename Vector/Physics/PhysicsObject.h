@@ -9,8 +9,8 @@
  */
 
 #pragma once
-#ifndef _PHYSICSBODY_H
-#define _PHYSICSBODY_H
+#ifndef _PHYSICSOBJECT_H
+#define _PHYSICSOBJECT_H
 
 #include "global.h"
 #include "PhysicsMotionState.h"
@@ -33,16 +33,16 @@ namespace physics {
 	class PhysicsWorld;
 
 	//! Physikkörper
-	class PhysicsBody
+	class PhysicsObject
 	{
 	public:
 
 		//! Erzeugt eine neue Instanz des Objektes
-		PhysicsBody(
+		PhysicsObject(
 			PhysicsMotionState* state = NULL,
 			PhysicsWorld* physicsWorld = NULL,
 			btCollisionShape* collisionShape = NULL,
-			pv::world::WorldElement* worldElement = NULL
+			world::WorldElement* worldElement = NULL
 			) : 
 			motionState(state), 
 			dynamicsWorld(physicsWorld), 
@@ -51,7 +51,7 @@ namespace physics {
 		{}
 
 		//! Destruktor
-		virtual ~PhysicsBody(void);
+		virtual ~PhysicsObject(void);
 
 		//! Initialisiert die Physik
 		virtual void initPhysics(f32 ccdThreshold = 1.0f, f32 linearDamping = 0.f, f32 angularDamping = 0.f, f32 friction = 0.5f, f32 restitution = 0.f) = 0;
@@ -90,13 +90,16 @@ namespace physics {
 		virtual core::vector3df getPosition() const = 0;
 
 		//! Räumt die Physikgeschichte auf
-		virtual void endPhysics(void) = 0;
+		virtual void endPhysics(void);
 
 		//! Aktualisiert die Masse des Objektes
 		virtual void updateMass(f32 mass) = 0;
 
 		//! Aktualisiert die Masse des Objektes
 		virtual void updateMass(f32 mass, const btVector3& localInertia) = 0;
+
+		//! Ermittelt, ob es sich um einen Festkörper handelt
+		virtual bool isRigidBody() const = 0;
 
 	public:
 
@@ -120,6 +123,9 @@ namespace physics {
 
 		//! Bezieht das Kollisionsobjekt (Rigid Body, ...)
 		inline virtual btCollisionObject* getCollisionObject() const = 0;
+
+		//! Ermittelt das Motion State
+		inline PhysicsWorld* getPhysicsWorld() const { return dynamicsWorld; }
 
 	public:
 

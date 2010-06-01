@@ -9,6 +9,7 @@
 #include "WorldElementFactory.h"
 #include "Physics/UpdatingPhysicsMotionState.h"
 #include "Physics/PhysicsManager.h"
+#include "Physics/RigidBodyPhysicsObject.h"
 
 using namespace irr;
 using namespace scene;
@@ -45,7 +46,7 @@ namespace world
 		UpdatingPhysicsMotionState* state = new UpdatingPhysicsMotionState(sceneNode, transform);
 
 		// Den Körper erzeugen
-		PhysicsBody* body = new PhysicsBody(state, mass, world, shape);
+		PhysicsObject* body = new RigidBodyPhysicsObject(state, mass, world, shape);
 		body->initPhysics();
 		world->addBody(body);
 
@@ -67,7 +68,7 @@ namespace world
 		UpdatingPhysicsMotionState* state = new UpdatingPhysicsMotionState(sceneNode, transform);
 
 		// Den Körper erzeugen
-		PhysicsBody* body = new PhysicsBody(state, mass, world, shape);
+		PhysicsObject* body = new RigidBodyPhysicsObject(state, mass, world, shape);
 		body->initPhysics();
 		world->addBody(body);
 

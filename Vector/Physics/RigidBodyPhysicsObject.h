@@ -9,34 +9,35 @@
  */
 
 #pragma once
-#ifndef _RIGIDPHYSICSBODY_H
-#define _RIGIDPHYSICSBODY_H
+#ifndef _RIGIDBODYPHYSICSOBJECT_H
+#define _RIGIDBODYPHYSICSOBJECT_H
 
 #include "global.h"
-#include "PhysicsBody.h"
+#include "PhysicsObject.h"
 
 namespace pv {
 namespace physics {
 
 	//! Physikkörper
-	class RigidPhysicsBody : public PhysicsBody
+	class RigidBodyPhysicsObject : public PhysicsObject
 	{
 	public:
 
 		//! Erzeugt eine neue Instanz des Objektes
-		RigidPhysicsBody(
+		RigidBodyPhysicsObject(
 			PhysicsMotionState* state = NULL,
 			f32 mass = 0.0f,
 			PhysicsWorld* physicsWorld = NULL,
-			btCollisionShape* collisionShape = NULL
+			btCollisionShape* collisionShape = NULL,
+			world::WorldElement* worldElement = NULL
 			) : 
-				PhysicsBody(state, mass, physicsWorld, collisionShape),
+				PhysicsObject(state, physicsWorld, collisionShape, worldElement),
 				mass(mass),
 				rigidBody(NULL)
 		{}
 
 		//! Destruktor
-		virtual ~RigidPhysicsBody(void);
+		virtual ~RigidBodyPhysicsObject(void);
 
 		//! Initialisiert die Physik
 		void initPhysics(f32 ccdThreshold = 1.0f, f32 linearDamping = 0.f, f32 angularDamping = 0.f, f32 friction = 0.5f, f32 restitution = 0.f);
@@ -66,7 +67,7 @@ namespace physics {
 		void zeroForces();
 
 		//! Setzt den Aktivierungszustand
-		void setActivationState(bool active);
+		inline void setActivationState(bool active) { rigidBody->setActivationState(active); }
 
 		//! Ermittelt die Rotation
 		core::vector3df getRotation() const;
@@ -82,6 +83,9 @@ namespace physics {
 
 		//! Aktualisiert die Masse des Objektes
 		void updateMass(f32 mass, const btVector3& localInertia);
+
+		//! Ermittelt, ob es sich um einen Festkörper handelt
+		inline bool isRigidBody() const { return true; }
 
 	public:
 

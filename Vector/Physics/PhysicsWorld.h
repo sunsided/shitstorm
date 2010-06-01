@@ -26,7 +26,7 @@ namespace pv {
 namespace physics {
 
 	// Vorwärtsdeklaration der Klassen
-	class PhysicsBody;
+	class PhysicsObject;
 	class PhysicsManager;
 
 	//! Klasse, die die Physikengine verwaltet
@@ -53,14 +53,14 @@ namespace physics {
 		/**
 		 * @param body	Der hinzuzufügende Körper
 		 */
-		void addBody(PhysicsBody* body);
+		void addBody(PhysicsObject* body);
 
 		//! Entfernt einen Rigid Body aus der Welt.
 		/** Die Funktion ist nur schnell, wenn die Objekte in umgekehrter Reihenfolge entfernt werden.
 		 *	Ist dies nicht der Fall, wird eine lineare Suche gestartet.
 		 * @param body	Das zu entfernende Element
 		 */
-		void removeBody(PhysicsBody* body);
+		void removeBody(PhysicsObject* body);
 
 		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
 		/**
@@ -116,7 +116,7 @@ namespace physics {
 		btCollisionConfiguration* collisionConfiguration;
 
 		//! Sammlung aller Rigid Bodies
-		std::vector<PhysicsBody*> rigidBodies;
+		std::vector<PhysicsObject*> rigidBodies;
 
 		//! Liefert den Manager
 		PhysicsManager* physicsManager;

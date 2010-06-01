@@ -7,7 +7,8 @@
  */
 
 #include "PhysicsWorld.h"
-#include "PhysicsBody.h"
+#include "PhysicsObject.h"
+#include "RigidBodyPhysicsObject.h"
 #include <algorithm>
 
 // Bullet
@@ -43,9 +44,12 @@ namespace physics {
 
 		// Bodies entfernen
 		while (!rigidBodies.empty()) {
-			PhysicsBody* body = rigidBodies.back();
+			PhysicsObject* body = rigidBodies.back();
 			rigidBodies.pop_back();
-			dynamicsWorld->removeRigidBody(body->getRigidBody());
+
+			// TODO: Unterstützung für beliebige Körper (Soft Bodies, that is)
+			ASSERT(body->isRigidBody());
+			dynamicsWorld->removeRigidBody(dynamic_cast<RigidBodyPhysicsObject*>(body)->getRigidBody());
 			
 			// Motion State des Bodies und den Body selbst löschen
 			// Das Collision Shape wird vom CollisionShapeManagement entsorgt
@@ -135,11 +139,12 @@ namespace physics {
 	/**
 	 * @param body	Der hinzuzufügende Körper
 	 */
-	void PhysicsWorld::addBody(PhysicsBody* body) {
+	void PhysicsWorld::addBody(PhysicsObject* body) {
 		ASSERT(dynamicsWorld);
 		ASSERT(body);
 
-		dynamicsWorld->addRigidBody(body->getRigidBody());
+		ASSERT(body->isRigidBody()); // TODO: Soft Bodies
+		dynamicsWorld->addRigidBody(dynamic_cast<RigidBodyPhysicsObject*>(body)->getRigidBody());
 		rigidBodies.push_back(body);
 	}
 
@@ -147,7 +152,7 @@ namespace physics {
 	/**
 	 * @param body	Der zu entfernende Körper
 	 */
-	void PhysicsWorld::removeBody(PhysicsBody* body) {
+	void PhysicsWorld::removeBody(PhysicsObject* body) {
 
 		// TODO: Entfernen von Elementen optimieren
 		if (body == rigidBodies.back()) {
@@ -157,7 +162,9 @@ namespace physics {
 			// http://www.codeguru.com/forum/showthread.php?t=231045
 			rigidBodies.erase(std::remove(rigidBodies.begin(), rigidBodies.end(), body), rigidBodies.end());
 		}
-		dynamicsWorld->removeRigidBody(body->getRigidBody());
+
+		ASSERT(body->isRigidBody());
+		dynamicsWorld->removeRigidBody(dynamic_cast<RigidBodyPhysicsObject*>(body)->getRigidBody());
 	}
 
 	//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
