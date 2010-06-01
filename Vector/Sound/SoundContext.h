@@ -54,8 +54,12 @@ namespace sound {
 		//! Instruiert das Device, alle Kontexte zu deaktivieren
 		void unsetActiveContext();
 
-		//! Bezieht einen Listener, der immer diesen Kontext aktualisiert
-		inline ContextBoundSoundListener* getContextBoundListener() { return boundListener; }
+		//! Bezieht einen Listener, der immer diesen Kontext aktualisiert.
+		/** Prinzipiell ist zu empfehlen, den RoamingSoundListener zu verwenden. 
+		 * Dieser aktualisiert zwar "lediglich" den jeweils aktuellen Kontext,
+		 * ist dafür aber auch deutlich schneller, da die Kontext-Switches entfallen.
+		 */
+		inline ContextBoundSoundListener* getContextSwitchingListener() { return boundListener; }
 
 		//! Ermittelt, ob dieser Kontext der aktive Kontext ist
 		bool isActiveContext();
