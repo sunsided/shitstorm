@@ -14,6 +14,7 @@
 #include <map>
 
 namespace pv {
+namespace utility {
 
 	//! Manager für beliebige Typen.
 	/** Generelle Implementierung für Zeigertypen
@@ -144,6 +145,6 @@ namespace pv {
 		bool deleteOnDestruct;
 	};
 
-}
+}}
 
 #endif

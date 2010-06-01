@@ -13,7 +13,7 @@
 #include "global.h"
 #include <vector>
 
-#include "GameLogic/Manager.h"
+#include "Utility/Manager.h"
 #include "PhysicsWorld.h"
 
 //! Vorwärtsdeklaration der Klasse
@@ -36,7 +36,7 @@ namespace physics {
 		void initialize();
 
 		//! Holt den Collision Shape Manager
-		inline const Manager<btCollisionShape>& getCollisionShapeManager() const { return collisionShapeManager; }
+		inline const utility::Manager<btCollisionShape>& getCollisionShapeManager() const { return collisionShapeManager; }
 
 		//! Fügt dem System eine Dynamikwelt hinzu.
 		/** Alle hier registrierten Welten werden automatisch vom System vernichtet.
@@ -76,10 +76,10 @@ namespace physics {
 		bool initialized;
 		
 		//! Die Simulationswelten
-		Manager<PhysicsWorld> dynamicsWorldManager;
+		utility::Manager<PhysicsWorld> dynamicsWorldManager;
 
 		//! Manager für Collision Shapes
-		Manager<btCollisionShape> collisionShapeManager;
+		utility::Manager<btCollisionShape> collisionShapeManager;
 	};
 
 }}

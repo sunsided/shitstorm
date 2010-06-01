@@ -11,7 +11,7 @@
 #define _PHYSICSWORLD_H
 
 #include "global.h"
-#include "GameLogic/Manager.h"
+#include "Utility/Manager.h"
 #include "PhysicsObject.h"
 
 // Vorwärtsdeklaration der Klassen
@@ -113,7 +113,7 @@ namespace physics {
 		btCollisionConfiguration* collisionConfiguration;
 
 		//! Sammlung aller Rigid Bodies
-		Manager<PhysicsObject> physicsObjects;
+		utility::Manager<PhysicsObject> physicsObjects;
 
 		//! Liefert den Manager
 		PhysicsManager* physicsManager;

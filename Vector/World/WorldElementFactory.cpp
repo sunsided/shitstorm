@@ -48,7 +48,7 @@ namespace world
 		// Den Körper erzeugen
 		PhysicsObject* body = new RigidBodyPhysicsObject(state, mass, world, shape);
 		body->initPhysics();
-		world->addBody(body);
+		world->addObject(body);
 
 		// Weltelement erzeugen
 		WorldElement* element = new WorldElement(sceneNode, body);
@@ -70,7 +70,7 @@ namespace world
 		// Den Körper erzeugen
 		PhysicsObject* body = new RigidBodyPhysicsObject(state, mass, world, shape);
 		body->initPhysics();
-		world->addBody(body);
+		world->addObject(body);
 
 		// Weltelement erzeugen
 		WorldElement* element = new WorldElement(sceneNode, body);

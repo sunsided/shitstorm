@@ -90,7 +90,6 @@
     <ClCompile Include="GameLogic\EngineBase.cpp" />
     <ClCompile Include="GameLogic\GameEngine.cpp" />
     <ClCompile Include="GameLogic\GameTimer.cpp" />
-    <ClCompile Include="GameLogic\Manager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Physics\PhysicsManager.cpp" />
     <ClCompile Include="Physics\PhysicsMotionState.cpp" />
@@ -100,6 +99,7 @@
     <ClCompile Include="Physics\UpdatingPhysicsMotionState.cpp" />
     <ClCompile Include="SceneNodes\OrientationHelperSceneNode.cpp" />
     <ClCompile Include="SceneNodes\PlaneSceneNode.cpp" />
+    <ClCompile Include="Utility\Manager.cpp" />
     <ClCompile Include="World\WorldElement.cpp" />
     <ClCompile Include="World\WorldElementFactory.cpp" />
   </ItemGroup>
@@ -109,7 +109,6 @@
     <ClInclude Include="GameLogic\EngineStatusCode.h" />
     <ClInclude Include="GameLogic\GameEngine.h" />
     <ClInclude Include="GameLogic\GameTimer.h" />
-    <ClInclude Include="GameLogic\Manager.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="linker.h" />
     <ClInclude Include="Physics\IrrBtConversion.h" />
@@ -121,6 +120,7 @@
     <ClInclude Include="Physics\UpdatingPhysicsMotionState.h" />
     <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h" />
     <ClInclude Include="SceneNodes\PlaneSceneNode.h" />
+    <ClInclude Include="Utility\Manager.h" />
     <ClInclude Include="World\WorldElement.h" />
     <ClInclude Include="World\WorldElementFactory.h" />
   </ItemGroup>
