@@ -38,6 +38,13 @@ namespace sound {
 		return device;
 	}
 
+	//! Erzeugt und registriert ein Sound Device
+	SoundDevice* SoundDeviceManager::createAndInitDevice(char* deviceName) {
+		SoundDevice* device = createDevice();
+		device->initialize(deviceName);
+		return device;
+	}
+
 	//! Entfernt ein Device
 	void SoundDeviceManager::removeDevice(SoundDevice* device) {
 		if (!device) return;
@@ -49,6 +56,18 @@ namespace sound {
 	void SoundDeviceManager::removeDevice(irr::u32 deviceId) {
 		SoundDevice* device = soundDevices.remove(deviceId);
 		if (device) device->setDeviceId(NULL, -1);
+	}
+
+	//!Liefert den Namen des Default-Devices
+	irr::core::stringw SoundDeviceManager::getDefaultDeviceName() {
+		// TODO: Speicherleck?
+		return alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);
+	}
+
+	//!Liefert den Namen aller Devices
+	irr::core::stringw SoundDeviceManager::getDeviceNames() {
+		// TODO: Speicherleck?
+		return alcGetString(NULL, ALC_DEVICE_SPECIFIER);
 	}
 
 }}

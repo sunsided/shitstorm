@@ -29,7 +29,12 @@ namespace sound {
 		virtual ~SoundDeviceManager(void);
 
 		//! Erzeugt und registriert ein Sound Device
+		/** Das Gerät muss danach explizit initialisiert werden. 
+		*/
 		SoundDevice* createDevice();
+
+		//! Erzeugt und registriert ein Sound Device
+		SoundDevice* createAndInitDevice(char* device = NULL);
 
 		//! Entfernt ein Device
 		void removeDevice(SoundDevice* device);
@@ -42,6 +47,12 @@ namespace sound {
 			ASSERT(deviceId < soundDevices.count());
 			return soundDevices[deviceId];
 		}
+
+		//!Liefert den Namen des Default-Devices
+		static irr::core::stringw getDefaultDeviceName();
+
+		//!Liefert den Namen aller Devices
+		static irr::core::stringw getDeviceNames();
 
 	private:
 
