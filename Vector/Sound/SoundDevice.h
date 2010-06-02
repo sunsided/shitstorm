@@ -14,6 +14,7 @@
 #include "global.h"
 #include "SoundContext.h"
 #include "SoundBuffer.h"
+#include "SingleSoundBuffer.h"
 #include "Utility/Manager.h"
 
 #include <alc.h>
@@ -74,6 +75,12 @@ namespace sound {
 
 		//! Erzeugt eine SoundBuffer-Instanz
 		SoundBuffer* createBuffer(irr::u32 size = 1);
+
+		//! Erzeugt eine SingleSoundBuffer-Instanz
+		SingleSoundBuffer* createSingleBuffer();
+
+		//! Ermittelt, ob eine Extension mit dem gegebenen Namen existiert
+		ALCboolean isExtensionPresent(char* extension);
 
 	private:
 

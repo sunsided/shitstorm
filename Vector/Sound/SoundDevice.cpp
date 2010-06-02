@@ -83,9 +83,28 @@ namespace sound {
 
 	//! Erzeugt eine SoundBuffer-Instanz
 	SoundBuffer* SoundDevice::createBuffer(irr::u32 size) {
+		if (size <= 1) return createSingleBuffer();
+		
+		// Puffer erzeugen
 		SoundBuffer* buffer = new SoundBuffer(this, size);
+		ASSERT(buffer);
+
+		// Registrieren
 		irr::u32 id = bufferManager.add(buffer);
 		buffer->setSoundBufferInstanceId(this, id);
+
+		return buffer;
+	}
+
+	//! Erzeugt eine SingleSoundBuffer-Instanz
+	SingleSoundBuffer* SoundDevice::createSingleBuffer()	{
+		SingleSoundBuffer* buffer = new SingleSoundBuffer(this);
+		ASSERT(buffer);
+
+		// Registrieren
+		irr::u32 id = bufferManager.add(buffer);
+		buffer->setSoundBufferInstanceId(this, id);
+
 		return buffer;
 	}
 	
@@ -132,9 +151,10 @@ namespace sound {
 		return oldContext;
 	}
 
-	//! Detaches a Buffer from the device
-	void detachBuffer(SoundBuffer* buffer) {
-		throw "Not Implemented";
+	//! Ermittelt, ob eine Extension mit dem gegebenen Namen existiert
+	ALCboolean SoundDevice::isExtensionPresent(char* extension) {
+		if (!openAlDevice) return false;
+		return alcIsExtensionPresent(openAlDevice, extension);
 	}
 
 }}

@@ -106,6 +106,9 @@
     <ClCompile Include="Sound\ContextBoundSoundListener.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="Sound\SingleSoundBuffer.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -201,6 +204,9 @@
       <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="Sound\RoamingSoundListener.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\SingleSoundBuffer.h">
       <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>

@@ -44,8 +44,11 @@ namespace sound {
 			ASSERT(bufferId < bufferCount);
 			return buffer[bufferId];
 		}
+		
+		//! Liefert die Anzahl der Puffer
+		inline irr::u32 getBufferCount() const { return bufferCount; }
 
-	private:
+	protected:
 
 		//! Erzeugt die Puffer
 		void createBuffers(SoundDevice* device, irr::u32 bufferCount);
