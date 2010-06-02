@@ -48,6 +48,21 @@ namespace sound {
 		//! Liefert die Anzahl der Puffer
 		inline irr::u32 getBufferCount() const { return bufferCount; }
 
+		//! Füllt den Puffer mit Daten
+		void bufferData(irr::u32 bufferIndex, ALenum format, const ALvoid* data, ALsizei size, ALsizei freq) const;
+
+		//! Ermittelt die Bitrate des Puffers
+		irr::s32 getBitrate(irr::u32 bufferIndex = 0);
+
+		//! Ermittelt die Frequenz des Puffers
+		irr::s32 getFrequency(irr::u32 bufferIndex = 0);
+
+		//! Ermittelt die Anzahl der Kanäle des Puffers
+		irr::s32 getChannels(irr::u32 bufferIndex = 0);
+
+		//! Ermittelt die Größe des Puffers in Bytes
+		irr::s32 getSize(irr::u32 bufferIndex = 0);
+
 	protected:
 
 		//! Erzeugt die Puffer

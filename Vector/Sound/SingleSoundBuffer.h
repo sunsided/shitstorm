@@ -32,6 +32,13 @@ namespace sound {
 
 	public:
 
+		//! Füllt den Puffer mit Daten
+		inline void bufferData(ALenum format, const ALvoid* data, ALsizei size, ALsizei freq) const {
+			SoundBuffer::bufferData(0, format, data, size, freq);
+		}
+
+	public:
+
 		// Destruktor
 		virtual ~SingleSoundBuffer(void);
 
