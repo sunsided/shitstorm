@@ -15,7 +15,7 @@ namespace pv {
 namespace sound {
 
 	SoundContext::SoundContext()
-		: openAlContext(NULL), parentDevice(NULL), boundListener(NULL)
+		: openAlContext(NULL), parentDevice(NULL), boundListener(NULL), suspended(false)
 	{
 		// Listener erzeugen
 		boundListener = new ContextBoundSoundListener(this);
@@ -37,6 +37,10 @@ namespace sound {
 
 			// Wenn dieser Kontext der aktive ist, aktiven Kontext abwählen
 			if (isActiveContext()) unsetActiveContext();
+
+			// Vom Device entfernen
+			if (parentDevice) parentDevice->removeContext(this);
+			parentDevice = NULL;
 
 			// Kontext vernichten
 			alcDestroyContext(openAlContext);
@@ -78,6 +82,20 @@ namespace sound {
 	inline ALCdevice* SoundContext::getOpenALDevice() const {
 		if (!openAlContext) return NULL;
 		return alcGetContextsDevice(openAlContext);
+	}
+
+	//! Suspendiert den Kontext (vor process())
+	void SoundContext::suspend() {
+		if (!openAlContext) return;
+		alcSuspendContext(openAlContext);
+		suspended = true;
+	}
+
+	//! Verarbeitet den Kontext (nach suspend())
+	void SoundContext::process() {
+		if (!openAlContext) return;
+		alcProcessContext(openAlContext);
+		suspended = false;
 	}
 
 }}

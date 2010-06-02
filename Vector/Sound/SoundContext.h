@@ -67,6 +67,15 @@ namespace sound {
 		//! Bezieht das OpenAL-Device
 		inline ALCdevice* getOpenALDevice() const;
 
+		//! Suspendiert den Kontext (vor process())
+		void suspend();
+
+		//! Verarbeitet den Kontext (nach suspend())
+		void process();
+
+		//! Ermittelt, ob der Kontext suspendiert wurde
+		inline bool isSuspended() const { return suspended; }
+
 	private:
 
 		//! Erzeugt den Kontext
@@ -91,6 +100,9 @@ namespace sound {
 
 		//! Der an diesen Kontext gebundene Listener
 		ContextBoundSoundListener* boundListener;
+
+		//! Gibt an, ob der Kontext suspendiert wurde
+		bool suspended;
 	};
 
 }}

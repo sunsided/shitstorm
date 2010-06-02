@@ -13,6 +13,7 @@
 
 #include "global.h"
 #include "SoundContext.h"
+#include "SoundBuffer.h"
 #include "Utility/Manager.h"
 
 #include <alc.h>
@@ -28,6 +29,8 @@ namespace sound {
 	class SoundDevice
 	{
 		friend class SoundDeviceManager;
+		friend class SoundBuffer;
+		friend class SoundContext;
 
 	private:
 		//! Erzeugt eine neue Instanz des Objektes
@@ -56,12 +59,6 @@ namespace sound {
 		//! Bezieht einen Kontext
 		inline SoundContext* getContext(irr::u32 contextId = 0) { return contextManager[contextId]; }
 
-		//! Entfernt einen Kontext
-		void removeContext(irr::u32 contextId);
-
-		//! Entfernt einen Kontext
-		void removeContext(SoundContext* context);
-
 		//! Bezieht das OpenAL-Device
 		inline ALCdevice* getOpenALDevice() const { return openAlDevice; }
 
@@ -75,13 +72,31 @@ namespace sound {
 		//! Liefert den aktuellen Kontext
 		inline SoundContext* getActiveContext() const { return activeContext; }
 
+		//! Erzeugt eine SoundBuffer-Instanz
+		SoundBuffer* createBuffer(irr::u32 size = 1);
+
 	private:
+
+		//! Entfernt einen Kontext
+		void removeContext(irr::u32 contextId);
+
+		//! Entfernt einen Kontext
+		void removeContext(SoundContext* context);
+
+		//! Entfernt einen Puffer
+		void removeBuffer(SoundBuffer* buffer);
+
+		//! Entfernt einen Puffer
+		void removeBuffer(irr::u32 bufferId);
 
 		//! Setzt die Device-ID
 		inline void setDeviceId(SoundDeviceManager* manager, irr::u32 id) { deviceId = id; parent = manager; }
 
 		//! Entsorgt einen Kontext
 		static void destroyContext(SoundContext* context, void* unused);
+
+		//! Entsorgt einen Puffer
+		static void destroyBuffer(SoundBuffer* buffer, void* unused);
 
 	private:
 
@@ -99,6 +114,9 @@ namespace sound {
 
 		//! Der derzeit aktive Kontext
 		SoundContext* activeContext;
+
+		//! Der Puffer-Manager
+		utility::Manager<SoundBuffer> bufferManager;
 	};
 
 }}

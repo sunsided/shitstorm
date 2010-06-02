@@ -12,7 +12,8 @@
 namespace pv {
 namespace sound {
 
-StreamingSoundBuffer::StreamingSoundBuffer(void)
+StreamingSoundBuffer::StreamingSoundBuffer(SoundDevice* device, irr::u32 bufferCount)
+	: SoundBuffer(device, bufferCount)
 {
 }
 

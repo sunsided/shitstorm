@@ -16,7 +16,7 @@ namespace pv {
 namespace sound {
 
 	SoundDevice::SoundDevice()
-		: openAlDevice(NULL), contextManager(NULL), activeContext(NULL)
+		: openAlDevice(NULL), contextManager(true), activeContext(NULL), bufferManager(true)
 	{
 	}
 
@@ -35,7 +35,14 @@ namespace sound {
 
 	//! Entsorgt einen Kontext
 	void SoundDevice::destroyContext(SoundContext* context, void* unused) {
+		ASSERT(context);
 		context->destroyContext();
+	}
+
+	//! Entsorgt einen Puffer
+	void SoundDevice::destroyBuffer(SoundBuffer* buffer, void* unused) {
+		ASSERT(buffer);
+		buffer->releaseBuffers();
 	}
 
 	//! Vernichtet das Device
@@ -49,6 +56,12 @@ namespace sound {
 			contextManager.iterate(destroyContext, (void*)NULL);
 			contextManager.clear(true);
 			
+			// TODO: Sources anhalten!
+
+			// Puffer löschen
+			bufferManager.iterate(destroyBuffer, (void*)NULL);
+			bufferManager.clear(true);
+
 			// OpenAL-Device vernichten
 			alcCloseDevice(openAlDevice);
 			openAlDevice = NULL;
@@ -67,6 +80,14 @@ namespace sound {
 		// Und zurückgeben
 		return context;
 	}
+
+	//! Erzeugt eine SoundBuffer-Instanz
+	SoundBuffer* SoundDevice::createBuffer(irr::u32 size) {
+		SoundBuffer* buffer = new SoundBuffer(this, size);
+		irr::u32 id = bufferManager.add(buffer);
+		buffer->setSoundBufferInstanceId(this, id);
+		return buffer;
+	}
 	
 	//! Entfernt einen Kontext
 	void SoundDevice::removeContext(irr::u32 contextId) {
@@ -79,6 +100,19 @@ namespace sound {
 		if (!context) return;
 		contextManager.remove(context);
 		context->setContextId(NULL, -1);
+	}
+
+	//! Entfernt einen Puffer
+	void SoundDevice::removeBuffer(SoundBuffer* buffer) {
+		if (!buffer) return;
+		bufferManager.remove(buffer);
+		buffer->setSoundBufferInstanceId(NULL, -1);
+	}
+
+	//! Entfernt einen Puffer
+	void SoundDevice::removeBuffer(irr::u32 bufferId) {
+		SoundContext* context = contextManager.remove(bufferId);
+		if (context) context->setContextId(NULL, -1);
 	}
 
 	//! Setzt einen Kontext als aktiven Kontext
@@ -96,6 +130,11 @@ namespace sound {
 		SoundContext* oldContext = activeContext;
 		activeContext = context;
 		return oldContext;
+	}
+
+	//! Detaches a Buffer from the device
+	void detachBuffer(SoundBuffer* buffer) {
+		throw "Not Implemented";
 	}
 
 }}

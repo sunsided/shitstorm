@@ -22,7 +22,7 @@ class StreamingSoundBuffer : public SoundBuffer
 {
 public:
 	//! Erzeugt eine neue Instanz des Objektes
-	StreamingSoundBuffer(void);
+	StreamingSoundBuffer(SoundDevice* device, irr::u32 bufferCount = 2);
 
 	// Destruktor
 	virtual ~StreamingSoundBuffer(void);
