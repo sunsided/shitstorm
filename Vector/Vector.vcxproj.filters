@@ -109,6 +109,9 @@
     <ClCompile Include="Sound\SingleSoundBuffer.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="World\NamedObject.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -208,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="Sound\SingleSoundBuffer.h">
       <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="World\NamedObject.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

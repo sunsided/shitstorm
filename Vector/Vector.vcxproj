@@ -114,6 +114,7 @@
     <ClCompile Include="Sound\StreamingAudioSource.cpp" />
     <ClCompile Include="Sound\StreamingSoundBuffer.cpp" />
     <ClCompile Include="Utility\Manager.cpp" />
+    <ClCompile Include="World\NamedObject.cpp" />
     <ClCompile Include="World\WorldManager.cpp" />
     <ClCompile Include="World\WorldObject.cpp" />
     <ClCompile Include="World\WorldObjectFactory.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Sound\StreamingAudioSource.h" />
     <ClInclude Include="Sound\StreamingSoundBuffer.h" />
     <ClInclude Include="Utility\Manager.h" />
+    <ClInclude Include="World\NamedObject.h" />
     <ClInclude Include="World\WorldManager.h" />
     <ClInclude Include="World\WorldObject.h" />
     <ClInclude Include="World\WorldObjectFactory.h" />
