@@ -79,6 +79,8 @@ namespace pv {
 
 
 
+		irr::f32 mass = 5.0f;
+
 		// Ne Kiste
 		scene::IMeshSceneNode *cube = smgr->addCubeSceneNode(3.0f, rootNode, 15);
 		cube->setPosition(core::vector3df(0, 2.5, 2)); // TODO: Übernehmen lassen
@@ -91,7 +93,7 @@ namespace pv {
 		// Physikalische Kiste erzeugen
 		shape = new btBoxShape(btVector3(1.5f, 1.5f, 1.5f));
 		getPhysics()->registerCollisionShape(shape);
-		world::WorldObject* cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 10, -2));
+		world::WorldObject* cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, mass, core::vector3df(0, 10, -2));
 		cubeElement->getPhysicsBody()->setRotation(core::vector3df(10, 75, 0));
 		getWorld()->addWorldObject(cubeElement);
 
@@ -106,7 +108,7 @@ namespace pv {
 		
 		// Noch ne physikalische Kiste erzeugen
 		// Das Box-Shape wird weiterverwendet
-		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(-1, 15, -1));
+		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, mass, core::vector3df(-1, 15, -1));
 		cubeElement->getPhysicsBody()->setRotation(core::vector3df(10, 75, 0));
 		getWorld()->addWorldObject(cubeElement);
 
@@ -120,7 +122,7 @@ namespace pv {
 		
 		// (Noch ne)² physikalische Kiste erzeugen
 		// Das Box-Shape wird weiterverwendet
-		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(0, 20, -2));
+		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, mass, core::vector3df(0, 20, -2));
 		cubeElement->getPhysicsBody()->setRotation(core::vector3df(0, -90, 0));
 		getWorld()->addWorldObject(cubeElement);
 
@@ -133,7 +135,7 @@ namespace pv {
 		cube->setName("Testwürfel 5");
 		
 		// Physikalische Kiste erzeugen
-		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, 1.0f, core::vector3df(-1.25, 1.5, -2));
+		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, mass, core::vector3df(-1.25, 1.5, -2));
 		getWorld()->addWorldObject(cubeElement);
 
 
