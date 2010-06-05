@@ -21,7 +21,7 @@ namespace sound {
 	class SoundDevice;
 
 	//! Soundpuffer
-	class SingleSoundBuffer : SoundBuffer
+	class SingleSoundBuffer : public SoundBuffer
 	{
 		friend class SoundDevice;
 
