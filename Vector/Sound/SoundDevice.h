@@ -15,6 +15,7 @@
 #include "SoundContext.h"
 #include "SoundBuffer.h"
 #include "SingleSoundBuffer.h"
+#include "StreamingSoundBuffer.h"
 #include "Utility/Manager.h"
 
 #include <alc.h>
@@ -75,13 +76,16 @@ namespace sound {
 		inline SoundContext* getActiveContext() const { return activeContext; }
 
 		//! Erzeugt eine SoundBuffer-Instanz
-		SoundBuffer* createBuffer(irr::u32 size);
+		SoundBuffer* createBufferEx(irr::u32 size);
 
 		//! Erzeugt eine SoundBuffer-Instanz
 		inline SingleSoundBuffer* createBuffer() { return createSingleBuffer(); }
 
 		//! Erzeugt eine SingleSoundBuffer-Instanz
 		SingleSoundBuffer* createSingleBuffer();
+
+		//! Erzeugt eine StreamingSoundBuffer-Instanz
+		StreamingSoundBuffer* createStreamingBuffer(irr::u32 size = 4, irr::u32 bufferSize = 4*8192);
 
 		//! Bezieht einen Puffer
 		inline SoundBuffer* getBuffer(irr::u32 bufferId = 0) { return bufferManager[bufferId]; }

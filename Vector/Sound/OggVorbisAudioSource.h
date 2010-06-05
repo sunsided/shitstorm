@@ -13,6 +13,8 @@
 
 #include "global.h"
 #include "SingleSoundBuffer.h"
+#include "StreamingSoundBuffer.h"
+#include "StreamingAudioSource.h"
 
 #include <ogg/ogg.h>
 #include <vorbis/vorbisfile.h>
@@ -37,7 +39,7 @@ namespace pv {
 namespace sound {
 
 	//! Audioquelle
-	class OggVorbisAudioSource
+	class OggVorbisAudioSource : public StreamingAudioSource
 	{
 	public:
 		//! Erzeugt eine neue Instanz des Objektes
@@ -70,7 +72,17 @@ namespace sound {
 		//! Ermittelt die Größe der unkomprimierten Daten
 		ogg_int64_t getUncompressedPCMSize() const;
 
+		//! Beginnt mit dem Streaming von vorne
+		void rewindStreaming();
+
 	protected:
+
+		//! Streamt die Daten aus der Datei in den Puffer
+		/**
+		 * @param buffer	Der zu befüllende Puffer
+		 * @returns			true, wenn weitere Daten vorliegen, ansonsten false
+		 */
+		bool streamToBuffer(ALuint buffer);
 
 		//! Wandelt einen Fehlercode in einen Text um
 		irr::core::stringc errorToString(int code) const;

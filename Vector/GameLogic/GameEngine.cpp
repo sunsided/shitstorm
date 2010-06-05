@@ -43,14 +43,17 @@ namespace pv {
 		
 		// Soundemitter erzeugen
 		simpleEmitter = getSoundContext()->createSoundEmitter();
-		simpleBuffer = getSoundDevice()->createSingleBuffer();
+		streamingBuffer = getSoundDevice()->createStreamingBuffer();
+
+		// Puffer registrieren
+		simpleEmitter->attachBuffer(streamingBuffer);
 
 		// Audiopuffer laden
 		sound::OggVorbisAudioSource source;
 		source.openFile("OrbitalFunnyBreak.ogg");
-		source.loadToBuffer(simpleBuffer);
+		source.initializeStreaming();
+		//source.loadToBuffer(simpleBuffer);
 		source.closeFile();
-		simpleEmitter->attachBuffer(simpleBuffer);
 
 		return ESC_SUCCESS; 
 	}

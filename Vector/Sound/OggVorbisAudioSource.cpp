@@ -121,4 +121,17 @@ namespace sound {
 		if (!opened) return 0;
 		return ov_pcm_total(const_cast<OggVorbis_File*>(&oggStream), -1) * vorbisInfo->channels * OGG_BYTES_PER_SAMPLE;
 	}
+
+	//! Beginnt mit dem Streaming von vorne
+	void OggVorbisAudioSource::rewindStreaming() {
+	}
+
+	//! Streamt die Daten aus der Datei in den Puffer
+	/**
+		* @param buffer	Der zu befüllende Puffer
+		* @returns			true, wenn weitere Daten vorliegen, ansonsten false
+		*/
+	bool OggVorbisAudioSource::streamToBuffer(ALuint buffer) {
+		return false;
+	}
 }}

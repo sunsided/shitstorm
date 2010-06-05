@@ -8,6 +8,7 @@
 
 
 #include "StreamingAudioSource.h"
+#include "SoundEmitter.h"
 
 namespace pv {
 namespace sound {
@@ -38,10 +39,18 @@ namespace sound {
 
 		// Puffer initial füllen
 		irr::u32 bufferCount = attachedBuffer->getBufferCount();
+		ALuint* buffers = attachedBuffer->getOpenAlBuffers();
+		ASSERT(buffers);
+
 		for(irr::u32 b=0; b<bufferCount; ++b) {
-			ALuint buffer = attachedBuffer->getOpenAlBuffer(b);
+			ALuint buffer = buffers[b];
 			if(!streamToBuffer(buffer)) return false;
 		}
+
+		// Alle Puffer einhängen
+		ASSERT(attachedBuffer->getAttachedEmitter());
+		ALuint source = attachedBuffer->getAttachedEmitter()->getOpenALSource();
+		alSourceQueueBuffers(source, bufferCount, buffers);
 
 		return true;
 	}

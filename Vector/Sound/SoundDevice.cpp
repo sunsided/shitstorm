@@ -83,7 +83,7 @@ namespace sound {
 	}
 
 	//! Erzeugt eine SoundBuffer-Instanz
-	SoundBuffer* SoundDevice::createBuffer(irr::u32 size) {
+	SoundBuffer* SoundDevice::createBufferEx(irr::u32 size) {
 
 		// TODO: Automatisch switchen?
 		if (!isActiveDevice()) throw "SoundDevice::createBuffer() - Device must be active to create buffers!";
@@ -103,8 +103,26 @@ namespace sound {
 	}
 
 	//! Erzeugt eine SingleSoundBuffer-Instanz
-	SingleSoundBuffer* SoundDevice::createSingleBuffer()	{
+	SingleSoundBuffer* SoundDevice::createSingleBuffer() {
+		// TODO: Automatisch switchen?
+		if (!isActiveDevice()) throw "SoundDevice::createBuffer() - Device must be active to create buffers!";
+
 		SingleSoundBuffer* buffer = new SingleSoundBuffer(this);
+		ASSERT(buffer);
+
+		// Registrieren
+		irr::u32 id = bufferManager.add(buffer);
+		buffer->setSoundBufferInstanceId(this, id);
+
+		return buffer;
+	}
+
+	//! Erzeugt eine StreamingSoundBuffer-Instanz
+	StreamingSoundBuffer* SoundDevice::createStreamingBuffer(irr::u32 size, irr::u32 bufferSize) {
+		// TODO: Automatisch switchen?
+		if (!isActiveDevice()) throw "SoundDevice::createBuffer() - Device must be active to create buffers!";
+
+		StreamingSoundBuffer* buffer = new StreamingSoundBuffer(this, size, bufferSize);
 		ASSERT(buffer);
 
 		// Registrieren
