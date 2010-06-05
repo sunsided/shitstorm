@@ -50,6 +50,7 @@ namespace sound {
 	//! Lädt die Datei in einen Puffer
 	void OggVorbisAudioSource::loadToBuffer(SingleSoundBuffer* soundBuffer) {
 		ASSERT(soundBuffer);
+		ASSERT(opened);
 
 		// Puffer erzeugen
 		ogg_int64_t bufferSize = getUncompressedPCMSize();
