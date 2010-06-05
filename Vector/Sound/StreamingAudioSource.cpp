@@ -24,9 +24,38 @@ namespace sound {
 	}
 
 	//! Updated den Streaming Audio-Puffer
-	void StreamingAudioSource::updateStreamingAudio() {
-		if (!attachedBuffer) return;
+	bool StreamingAudioSource::updateStreamingAudio() {
+		if (!attachedBuffer) return false;
 
+		// Quelle Beziehen
+		ASSERT(attachedBuffer->getAttachedEmitter());
+		ALuint source = attachedBuffer->getAttachedEmitter()->getOpenALSource();
+
+		int processed;
+		bool active = true;
+ 
+		// Anzahl der verarbeiteten Puffer ermitteln
+		alGetSourcei(source, AL_BUFFERS_PROCESSED, &processed);
+
+		while(processed--)
+		{
+			ALuint buffer;
+        
+			// Puffer entnehmen
+			alSourceUnqueueBuffers(source, 1, &buffer);
+			ALenum error = alGetError();
+			if (error != AL_NO_ERROR) throw error;
+ 
+			// Puffer neu befüllen
+			active = streamToBuffer(buffer, attachedBuffer->getBufferSize());
+ 
+			// Puffer wieder einhängen
+			alSourceQueueBuffers(source, 1, &buffer);
+			error = alGetError();
+			if (error != AL_NO_ERROR) throw error;
+		}
+ 
+		return active;
 	}
 
 
@@ -44,7 +73,7 @@ namespace sound {
 
 		for(irr::u32 b=0; b<bufferCount; ++b) {
 			ALuint buffer = buffers[b];
-			if(!streamToBuffer(buffer)) return false;
+			if(!streamToBuffer(buffer, attachedBuffer->getBufferSize())) return false;
 		}
 
 		// Alle Puffer einhängen

@@ -22,6 +22,7 @@ namespace sound {
 
 	OggVorbisAudioSource::~OggVorbisAudioSource(void)
 	{
+		closeFile();
 	}
 
 
@@ -93,8 +94,14 @@ namespace sound {
 	void OggVorbisAudioSource::closeFile() {
 		if (!opened) return;
 
+		// Streaming?
+		if (isAttachedToBuffer()) {
+			getAttachedStreamingBuffer()->detachStreamingSource();
+		}
+
 		// Ogg-Stream freigeben
 		ov_clear(&oggStream);
+		opened = false;
 	}
 
 	//! Wandelt einen Fehlercode in einen Text um
@@ -131,7 +138,39 @@ namespace sound {
 		* @param buffer	Der zu befüllende Puffer
 		* @returns			true, wenn weitere Daten vorliegen, ansonsten false
 		*/
-	bool OggVorbisAudioSource::streamToBuffer(ALuint buffer) {
-		return false;
+	bool OggVorbisAudioSource::streamToBuffer(ALuint buffer, const irr::u32 bufferSize) {
+		if (buffer == 0 || bufferSize == 0) return false;
+
+		char *data = new char[bufferSize]; // TODO: Dynamische Allokierung entfernen
+		irr::u32 size = 0;
+		int  section;
+		int  result;
+ 
+		while(size < bufferSize)
+		{
+			result = ov_read(&oggStream, data + size, bufferSize - size, OGG_ENDIAN, OGG_BYTES_PER_SAMPLE, 1, &section);
+    
+			if(result > 0)
+				size += result;
+			else
+				if(result < 0) {
+					delete[] data;
+					throw errorToString(result);
+				}
+				else
+					break;
+		}
+    
+		if(size == 0)
+			return false;
+ 
+		alBufferData(buffer, format, data, size, vorbisInfo->rate);
+		ALenum error = alGetError();
+		if (error != AL_NO_ERROR) throw error;
+ 
+		// Daten freigeben
+		delete[] data;
+
+		return true;
 	}
 }}

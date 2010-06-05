@@ -105,7 +105,7 @@ namespace sound {
 	//! Erzeugt eine SingleSoundBuffer-Instanz
 	SingleSoundBuffer* SoundDevice::createSingleBuffer() {
 		// TODO: Automatisch switchen?
-		if (!isActiveDevice()) throw "SoundDevice::createBuffer() - Device must be active to create buffers!";
+		if (!isActiveDevice()) throw "SoundDevice::createSingleBuffer() - Device must be active to create buffers!";
 
 		SingleSoundBuffer* buffer = new SingleSoundBuffer(this);
 		ASSERT(buffer);
@@ -120,7 +120,7 @@ namespace sound {
 	//! Erzeugt eine StreamingSoundBuffer-Instanz
 	StreamingSoundBuffer* SoundDevice::createStreamingBuffer(irr::u32 size, irr::u32 bufferSize) {
 		// TODO: Automatisch switchen?
-		if (!isActiveDevice()) throw "SoundDevice::createBuffer() - Device must be active to create buffers!";
+		if (!isActiveDevice()) throw "SoundDevice::createStreamingBuffer() - Device must be active to create buffers!";
 
 		StreamingSoundBuffer* buffer = new StreamingSoundBuffer(this, size, bufferSize);
 		ASSERT(buffer);

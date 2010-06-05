@@ -15,7 +15,7 @@ namespace pv {
 namespace sound {
 
 	StreamingSoundBuffer::StreamingSoundBuffer(SoundDevice* device, irr::u32 bufferCount, irr::u32 bufferSize)
-		: SoundBuffer(device, bufferCount), streamingBufferSize(bufferSize)
+		: SoundBuffer(device, bufferCount), streamingBufferSize(bufferSize), attachedEmitter(NULL)
 	{
 		ASSERT(bufferSize);
 		ASSERT(bufferCount > 1);
@@ -45,7 +45,11 @@ namespace sound {
 		unqueueBufferFromEmitter();
 
 		// Emitter abmelden
+		SoundEmitter *oldEmitter = attachedEmitter;
 		attachedEmitter = NULL;
+
+		// Emitter benachrichtigen
+		oldEmitter->detachBuffer();
 	}
 
 	//! Un-queuet die Puffer
@@ -68,6 +72,7 @@ namespace sound {
 	//! Meldet sich bei der Audioquelle ab
 	void StreamingSoundBuffer::detachStreamingSource() {
 		if (!attachedStreamingSource) return;
+		detachEmitter();
 		attachedStreamingSource->detachFromStreamingBuffer();
 	}
 

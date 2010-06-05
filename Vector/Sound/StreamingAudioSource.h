@@ -44,7 +44,7 @@ namespace sound {
 		bool initializeStreaming();
 
 		//! Updated den Streaming Audio-Puffer
-		void updateStreamingAudio();
+		bool updateStreamingAudio();
 
 		//! Beginnt mit dem Streaming von vorne
 		virtual void rewindStreaming() = 0;
@@ -59,7 +59,7 @@ namespace sound {
 		 * @param buffer	Der zu befüllende Puffer
 		 * @returns			true, wenn weitere Daten vorliegen, ansonsten false
 		 */
-		virtual bool streamToBuffer(ALuint buffer) = 0;
+		virtual bool streamToBuffer(ALuint buffer, const irr::u32 bufferSize) = 0;
 
 	private:
 

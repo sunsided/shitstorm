@@ -8,7 +8,6 @@
 
 #include "GameEngine.h"
 #include "SceneNodes/OrientationHelperSceneNode.h"
-#include "Sound/OggVorbisAudioSource.h"
 
 #include <iostream>
 
@@ -19,7 +18,7 @@ namespace pv {
 	//! Erzeugt eine neue Instanz der GameEngine-Klasse.
 	GameEngine::GameEngine(void)
 		: renderTarget(NULL), renderTargetSceneManager(NULL),
-		simpleEmitter(NULL), simpleBuffer(NULL)
+		simpleEmitter(NULL), streamingBuffer(NULL)
 	{
 	}
 
@@ -49,13 +48,25 @@ namespace pv {
 		simpleEmitter->attachBuffer(streamingBuffer);
 
 		// Audiopuffer laden
-		sound::OggVorbisAudioSource source;
-		source.openFile("OrbitalFunnyBreak.ogg");
-		source.initializeStreaming();
+		streamingAudioSource = new sound::OggVorbisAudioSource();
+		if (!streamingAudioSource) return ESC_SOUND_FAILED;
+		streamingAudioSource->openFile("OrbitalFunnyBreak.ogg");
+		streamingAudioSource->attachToStreamingBuffer(streamingBuffer); // TODO: Emitter hier gleich mitsetzen!
+		streamingAudioSource->initializeStreaming();
 		//source.loadToBuffer(simpleBuffer);
-		source.closeFile();
+		//source.closeFile();
 
 		return ESC_SUCCESS; 
+	}
+
+	//! Initialisiert die Engine
+	/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
+	void GameEngine::OnTeardownEngine() {
+		if (streamingAudioSource) {
+			streamingAudioSource->closeFile();
+			delete streamingAudioSource;
+			streamingAudioSource = NULL;
+		}
 	}
 
 	//! Initialisiert die Szene

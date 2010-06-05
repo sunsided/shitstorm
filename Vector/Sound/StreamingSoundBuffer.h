@@ -22,6 +22,7 @@ namespace sound {
 	{
 		friend class StreamingAudioSource;
 		friend class SoundEmitter;
+		friend class SoundDevice;
 
 	protected:
 

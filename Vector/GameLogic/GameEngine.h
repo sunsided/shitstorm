@@ -14,6 +14,7 @@
 #include "EngineBase.h"
 #include "SceneNodes/PlaneSceneNode.h"
 #include "World/WorldObjectFactory.h"
+#include "Sound/OggVorbisAudioSource.h"
 
 namespace pv {
 
@@ -36,11 +37,11 @@ namespace pv {
 
 		//! Initialisiert die Engine
 		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
-		void OnTeardownEngine() {}
+		void OnTeardownEngine();
 
 		//! Initialisiert die Szene
 		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
-		virtual void OnSetupScene();
+		void OnSetupScene();
 
 		//! Initialisiert die Spielschleife
 		/** Wird zu Beginn jedes Schleifendurchgangs aufgerufen und ermittelt,
@@ -83,6 +84,9 @@ namespace pv {
 
 		//! Streaming-Soundpuffer
 		sound::StreamingSoundBuffer *streamingBuffer;
+
+		//! Streaming-Audioquelle
+		sound::OggVorbisAudioSource *streamingAudioSource;
 	};
 
 }

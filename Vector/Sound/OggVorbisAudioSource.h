@@ -82,7 +82,7 @@ namespace sound {
 		 * @param buffer	Der zu befüllende Puffer
 		 * @returns			true, wenn weitere Daten vorliegen, ansonsten false
 		 */
-		bool streamToBuffer(ALuint buffer);
+		bool streamToBuffer(ALuint buffer, const irr::u32 bufferSize);
 
 		//! Wandelt einen Fehlercode in einen Text um
 		irr::core::stringc errorToString(int code) const;
