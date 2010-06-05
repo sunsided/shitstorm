@@ -82,6 +82,9 @@ namespace sound {
 		//! Erzeugt eine SingleSoundBuffer-Instanz
 		SingleSoundBuffer* createSingleBuffer();
 
+		//! Bezieht einen Puffer
+		inline SoundBuffer* getBuffer(irr::u32 bufferId = 0) { return bufferManager[bufferId]; }
+
 		//! Ermittelt, ob eine Extension mit dem gegebenen Namen existiert
 		ALCboolean isExtensionPresent(char* extension);
 
@@ -89,10 +92,16 @@ namespace sound {
 		bool isActiveDevice() const;
 
 		//! Operator zum Beziehen des OpenAL-Devices
-		inline operator ALCdevice*() const { return getOpenALDevice(); }
+		inline operator ALCdevice*() const { return openAlDevice; }
 
 		//! Operator zum Beziehen des OpenAL-Kontextes
 		inline operator ALCcontext*() const { return (ALCcontext*)getActiveContext(); }
+
+		//! Liefert die Anzahl der erzeugten Puffer
+		inline irr::u32 getBufferCount() { return bufferManager.count(); }
+
+		//! Liefert die Anzahl der erzeugten Kontexte
+		inline irr::u32 getContextCount() { return contextManager.count(); }
 
 	private:
 

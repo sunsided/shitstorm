@@ -37,6 +37,9 @@ namespace sound {
 			SoundBuffer::bufferData(0, format, data, size, freq);
 		}
 
+		//! Operator zum Beziehen des OpenAL-Puffers
+		inline operator ALuint() { return getOpenAlBuffer(0); }
+
 	public:
 
 		// Destruktor

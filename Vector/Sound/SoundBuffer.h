@@ -63,6 +63,9 @@ namespace sound {
 		//! Ermittelt die Größe des Puffers in Bytes
 		irr::s32 getSize(irr::u32 bufferIndex = 0);
 
+		//! Operator zum Beziehen der OpenAL-Puffer
+		inline operator ALuint*() { return getOpenAlBuffers(); }
+
 	protected:
 
 		//! Erzeugt die Puffer
@@ -79,6 +82,8 @@ namespace sound {
 		// Destruktor
 		virtual ~SoundBuffer(void);
 
+	private:
+
 		//! Die Anzahl der verwendeten Puffer
 		irr::u32 bufferCount;
 
@@ -86,7 +91,7 @@ namespace sound {
 		SoundDevice* parentDevice;
 
 		//! Der Audiopuffer
-		ALuint *buffer;
+		ALuint* buffer;
 
 		//! Die Puffer-ID
 		irr::u32 bufferInstanceId;
