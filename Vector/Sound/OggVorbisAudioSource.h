@@ -46,8 +46,8 @@ namespace sound {
 		// Destruktor
 		virtual ~OggVorbisAudioSource(void);
 
-		//! Öffnet die Datei
-		void openFile(const irr::core::stringc filePath); 
+		//! Öffnet die Datei und gibt die Größe der unkomprimierten PCM-Daten zurück
+		ogg_int64_t openFile(const irr::core::stringc filePath); 
 
 		//! Lädt die Datei in einen Puffer
 		void loadToBuffer(SingleSoundBuffer* buffer);

@@ -88,9 +88,6 @@
     <ClCompile Include="Sound\SoundSpaceObject.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
-    <ClCompile Include="Sound\StreamingAudioSource.cpp">
-      <Filter>Sound</Filter>
-    </ClCompile>
     <ClCompile Include="Sound\StreamingSoundBuffer.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
@@ -192,9 +189,6 @@
       <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="Sound\SoundSpaceObject.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound\StreamingAudioSource.h">
       <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="Sound\StreamingSoundBuffer.h">

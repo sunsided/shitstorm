@@ -26,7 +26,7 @@ namespace sound {
 
 
 	//! Öffnet die Datei
-	void OggVorbisAudioSource::openFile(const irr::core::stringc filePath) {
+	ogg_int64_t OggVorbisAudioSource::openFile(const irr::core::stringc filePath) {
 
 		// evtl. offene Handles schließen
 		closeFile();
@@ -45,6 +45,9 @@ namespace sound {
 			format = AL_FORMAT_MONO16;
 		else
 			format = AL_FORMAT_STEREO16;
+
+		// Größe zurückgeben
+		return getUncompressedPCMSize();
 	}
 
 	//! Lädt die Datei in einen Puffer
