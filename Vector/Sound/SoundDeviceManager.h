@@ -59,6 +59,11 @@ namespace sound {
 		//! Bezieht das aktive Device
 		inline SoundDevice* getActiveDevice() const { return activeDevice; }
 
+		//! Updated alle Streaming Audio-Puffer
+		inline void updateStreamingAudio() {
+			soundDevices.iterate(updateStreamingAudio, (void*)NULL);
+		}
+
 	private:
 
 		//! Setzt das aktive Device
@@ -69,6 +74,11 @@ namespace sound {
 
 		//! Entsorgt ein Device
 		static void destroyDevice(SoundDevice* device, void* unused);
+
+		//! Aktualisiert alle Streaming Audio-Puffer
+		inline static void updateStreamingAudio(SoundDevice* device, void* unused) {
+			device->updateStreamingAudio();
+		}
 
 	private:
 

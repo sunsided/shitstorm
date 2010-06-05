@@ -32,8 +32,6 @@ int main(int argc, char **argv) {
 
 	emitter->attachBuffer(buffer);
 	emitter->play();
-	ALenum state = emitter->getState();
-
 
 	// Engine erzeugen
 	auto_ptr<EngineBase> engine( new GameEngine() );

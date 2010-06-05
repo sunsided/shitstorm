@@ -16,7 +16,7 @@ void ogg_stream::open(string path)
     if((result = ov_open(oggFile, &oggStream, NULL, 0)) < 0)
 	*/
     {
-        fclose(oggFile);
+        //fclose(oggFile);
  
         throw string("Could not open Ogg stream. ") + errorString(result);
     }

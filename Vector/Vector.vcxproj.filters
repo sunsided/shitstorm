@@ -109,6 +109,9 @@
     <ClCompile Include="Sound\OggVorbisAudioSource.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="Sound\StreamingAudioSource.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -207,6 +210,9 @@
       <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="Sound\OggVorbisAudioSource.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\StreamingAudioSource.h">
       <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>

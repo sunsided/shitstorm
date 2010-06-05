@@ -104,6 +104,11 @@ namespace sound {
 		//! Liefert die Anzahl der erzeugten Kontexte
 		inline irr::u32 getContextCount() { return contextManager.count(); }
 
+		//! Updated alle Streaming Audio-Puffer
+		inline void updateStreamingAudio() {
+			contextManager.iterate(updateStreamingAudio, (void*)NULL);
+		}
+
 	private:
 
 		//! Setzt einen Kontext als aktiven Kontext
@@ -134,6 +139,11 @@ namespace sound {
 
 		//! Entsorgt einen Puffer
 		static void destroyBuffer(SoundBuffer* buffer, void* unused);
+
+		//! Aktualisiert alle Streaming Audio-Puffer
+		inline static void updateStreamingAudio(SoundContext* context, void* unused) {
+			context->updateStreamingAudio();
+		}
 
 	private:
 

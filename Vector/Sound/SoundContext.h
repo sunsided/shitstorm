@@ -87,6 +87,9 @@ namespace sound {
 		//! Erzeugt eine SoundEmitter-Instanz
 		SoundEmitter* createSoundEmitter();
 
+		//! Updated alle Streaming Audio-Puffer
+		void updateStreamingAudio();
+
 	private:
 
 		//! Erzeugt den Kontext
