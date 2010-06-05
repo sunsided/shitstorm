@@ -16,7 +16,7 @@ namespace pv {
 namespace sound {
 
 	SoundDevice::SoundDevice()
-		: openAlDevice(NULL), contextManager(true), activeContext(NULL), bufferManager(true)
+		: openAlDevice(NULL), contextManager(true), activeContext(NULL), bufferManager(true), emitterManager(true)
 	{
 	}
 
@@ -45,6 +45,12 @@ namespace sound {
 		buffer->releaseBuffers();
 	}
 
+	//! Entsorgt einen Emitter
+	void SoundDevice::destroyEmitter(SoundEmitter* emitter, void* unused) {
+		ASSERT(emitter);
+		emitter->destroyEmitter();
+	}
+
 	//! Vernichtet das Device
 	void SoundDevice::destroy() {
 		if (openAlDevice) {
@@ -56,7 +62,9 @@ namespace sound {
 			contextManager.iterate(destroyContext, (void*)NULL);
 			contextManager.clear(true);
 			
-			// TODO: Sources anhalten!
+			// Sources anhalten!
+			emitterManager.iterate(destroyEmitter, (void*)NULL);
+			emitterManager.clear();
 
 			// Puffer löschen
 			bufferManager.iterate(destroyBuffer, (void*)NULL);
@@ -111,6 +119,22 @@ namespace sound {
 
 		return buffer;
 	}
+
+	//! Erzeugt eine SoundEmitter-Instanz
+	SoundEmitter* SoundDevice::createSoundEmitter() {
+		// TODO: Automatisch switchen?
+		if (!isActiveDevice()) throw "SoundDevice::createSoundEmitter() - Device must be active to create emitters!";
+		
+		// Puffer erzeugen
+		SoundEmitter* emitter = new SoundEmitter();
+		ASSERT(emitter);
+
+		// Registrieren
+		irr::u32 id = emitterManager.add(emitter);
+		emitter->setEmitterId(this, id);
+
+		return emitter;
+	}
 	
 	//! Entfernt einen Kontext
 	void SoundDevice::removeContext(irr::u32 contextId) {
@@ -136,6 +160,19 @@ namespace sound {
 	void SoundDevice::removeBuffer(irr::u32 bufferId) {
 		SoundContext* context = contextManager.remove(bufferId);
 		if (context) context->setContextId(NULL, -1);
+	}
+
+	//! Entfernt einen Emitter
+	void SoundDevice::removeEmitter(SoundEmitter* emitter) {
+		if (!emitter) return;
+		emitterManager.remove(emitter);
+		emitter->setEmitterId(NULL, -1);
+	}
+
+	//! Entfernt einen Emitter
+	void SoundDevice::removeEmitter(irr::u32 emitterId) {
+		SoundEmitter* emitter = emitterManager.remove(emitterId);
+		if (emitter) emitter->setEmitterId(NULL, -1);
 	}
 
 	//! Setzt einen Kontext als aktiven Kontext

@@ -49,9 +49,10 @@ namespace sound {
 	//! Gibt die Puffer frei
 	void SoundBuffer::releaseBuffers() {
 		if (buffer) {
-			// von Parent Device lösen
-			if (parentDevice) parentDevice->removeBuffer(this);
-			parentDevice = NULL;
+			
+			// von Parent Device lösen  - Handhabt das Device selbst
+			//if (parentDevice) parentDevice->removeBuffer(this);
+			//parentDevice = NULL;
 
 			// Puffer freigeben
 			alGetError();

@@ -38,9 +38,9 @@ namespace sound {
 			// Wenn dieser Kontext der aktive ist, aktiven Kontext abwählen
 			if (isActiveContext()) unsetActiveContext();
 
-			// Vom Device entfernen
-			if (parentDevice) parentDevice->removeContext(this);
-			parentDevice = NULL;
+			// Vom Device entfernen - Handhabt das Device selbst
+			// if (parentDevice) parentDevice->removeContext(this);
+			// parentDevice = NULL;
 
 			// Kontext vernichten
 			alcDestroyContext(openAlContext);
