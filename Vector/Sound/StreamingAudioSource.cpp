@@ -46,4 +46,22 @@ namespace sound {
 		return true;
 	}
 
+	//! Verknüpft die Streaming-Audioquelle mit dem Streaming-Sound-Buffer
+	void StreamingAudioSource::attachToStreamingBuffer(StreamingSoundBuffer* buffer) {
+		detachFromStreamingBuffer();
+		if (!buffer) return;
+
+		// Verkabeln
+		attachedBuffer = buffer;
+		attachedBuffer->attachedStreamingSource = this;
+	}
+
+	//! Entknüpft die Audioquelle
+	void StreamingAudioSource::detachFromStreamingBuffer() {
+		if (attachedBuffer) {
+			attachedBuffer->attachedStreamingSource = NULL;
+			attachedBuffer = NULL;
+		}
+	}
+
 }}

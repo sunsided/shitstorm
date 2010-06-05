@@ -19,20 +19,6 @@ using namespace pv;
 
 int main(int argc, char **argv) {
 
-	sound::SoundDeviceManager manager;
-	sound::SoundDevice *device = manager.createAndInitDevice();
-	sound::SoundContext *context = device->createContext();
-	sound::SoundEmitter *emitter = context->createSoundEmitter();
-	sound::SingleSoundBuffer *buffer = device->createBuffer();
-
-	sound::OggVorbisAudioSource source;
-	source.openFile("OrbitalFunnyBreak.ogg");
-	source.loadToBuffer(buffer);
-	source.closeFile();
-
-	emitter->attachBuffer(buffer);
-	emitter->play();
-
 	// Engine erzeugen
 	auto_ptr<EngineBase> engine( new GameEngine() );
 	if (!engine.get()) {

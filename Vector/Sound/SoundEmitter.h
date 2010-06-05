@@ -14,6 +14,7 @@
 #include "global.h"
 #include "SoundSpaceObject.h"
 #include "SingleSoundBuffer.h"
+#include "StreamingSoundBuffer.h"
 #include "SoundBuffer.h"
 
 namespace pv {
@@ -39,6 +40,9 @@ namespace sound {
 
 		//! Weist diesem Emitter einen Puffer zu
 		void attachBuffer(SingleSoundBuffer* buffer);
+
+		//! Weist diesem Emitter einen Streaming-Puffer zu
+		void attachBuffer(StreamingSoundBuffer *buffer);
 
 		//! Entfernt den verknüpften Puffer
 		void detachBuffer();
@@ -66,6 +70,9 @@ namespace sound {
 
 		//! Ermittelt die ID dieses Emitters
 		inline irr::u32 getEmitterId() const { return soundEmitterId; }
+
+		//! Bezieht die OpenAL-Quelle
+		inline ALuint getOpenALSource() const { return sourceId; }
 
 		//! Ermittelt den Elternkontext
 		inline SoundContext* getParentContext() const { return parentContext; }
@@ -139,6 +146,9 @@ namespace sound {
 
 		//! Der angehängte Puffer
 		SoundBuffer* attachedBuffer;
+
+		//! Gibt an, ob der verknüpfte Puffer ein Streaming-Puffer ist
+		bool bufferIsStreamingBuffer;
 
 		//! Die OpenAL-ID der Quelle
 		ALuint sourceId;

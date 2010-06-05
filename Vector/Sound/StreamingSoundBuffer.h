@@ -21,6 +21,7 @@ namespace sound {
 	class StreamingSoundBuffer : public SoundBuffer
 	{
 		friend class StreamingAudioSource;
+		friend class SoundEmitter;
 
 	protected:
 
@@ -41,6 +42,26 @@ namespace sound {
 		//! Ermittelt die Größe eines Audiopuffer-Frames
 		inline irr::u32 getBufferSize() const { return streamingBufferSize; }
 
+		//! Entfernt die Audioquelle
+		void detachStreamingSource();
+
+	private:
+
+		//! Setzt den Emitter
+		inline void attachEmitter(SoundEmitter* emitter) { 
+			detachEmitter();
+			attachedEmitter = emitter; 
+		}
+
+		//! Entfernt den Emitter
+		void detachEmitter(); // TODO: Bestehende Buffer unqueuen!
+
+		//! Bezieht den verknüpften Emitter
+		inline SoundEmitter* getAttachedEmitter() const { return attachedEmitter; }
+
+		//! Un-queuet die Puffer
+		void unqueueBufferFromEmitter();
+
 	private:
 
 		//! Die verknüpfte Streaming-Quelle
@@ -48,6 +69,9 @@ namespace sound {
 
 		//! Die Größe des Audiopuffers
 		irr::u32 streamingBufferSize;
+
+		//! Der verknüpfte Emitter
+		SoundEmitter* attachedEmitter;
 	};
 
 }}

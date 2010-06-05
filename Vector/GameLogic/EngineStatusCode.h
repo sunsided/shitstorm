@@ -48,6 +48,18 @@ namespace pv {
 		//! Ein weiterer Szenenmanager konnte nicht erzeugt werden
 		ESC_AUX_SMGR_FAILED = 10,
 
+		//! Soundmanager konnte nicht initialisiert werden
+		ESC_SOUND_FAILED = 11,
+
+		//! Sounddevice konnte nicht initialisiert werden
+		ESC_SOUND_DEVICE_FAILED = 12,
+
+		//! Soundkontext konnte nicht initialisiert werden
+		ESC_SOUND_CONTEXT_FAILED = 13,
+
+		//! Sound-Listener konnte nicht initialisiert werden
+		ESC_SOUND_LISTENER_FAILED = 14,
+
 		//! Intern
 		/** @internal Die Anzahl der Werte der EEngineStatusCode-Enumeration */
 		ESC_COUNT

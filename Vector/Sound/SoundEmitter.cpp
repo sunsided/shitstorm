@@ -14,7 +14,7 @@ namespace pv {
 namespace sound {
 
 	SoundEmitter::SoundEmitter(void)
-		: attachedBuffer(NULL), parentContext(NULL), soundEmitterId(0), created(false), sourceId(0)
+		: attachedBuffer(NULL), parentContext(NULL), soundEmitterId(0), created(false), sourceId(0), bufferIsStreamingBuffer(false)
 	{
 
 		setPosition(0, 0, 0);
@@ -42,6 +42,25 @@ namespace sound {
 		if (error != AL_NO_ERROR) throw error;
 
 		attachedBuffer = buffer;
+		bufferIsStreamingBuffer = false;
+	}
+
+	//! Der zu spielende Streaming-Puffer
+	void SoundEmitter::attachBuffer(StreamingSoundBuffer* buffer) {
+		ASSERT(buffer);
+		if (buffer->getAttachedEmitter() == this) return;
+
+		// Unseren letzten Puffer abmelden
+		detachBuffer();
+		
+		// Den neuen Puffer von seiner alten Quelle abmelden,
+		// danach bei uns anmelden
+		buffer->detachEmitter();
+		buffer->attachEmitter(this);
+
+		// Registrieren
+		attachedBuffer = buffer;
+		bufferIsStreamingBuffer = true;
 	}
 
 	//! Entfernt den verknüpften Puffer
@@ -49,6 +68,13 @@ namespace sound {
 		if (!attachedBuffer) return;
 		stop();
 		alSourcei(sourceId, AL_BUFFER, 0);
+
+		// Wenn es sich um einen Streaming-Puffer handelt, müssen wir uns abmelden
+		if (bufferIsStreamingBuffer) {
+			StreamingSoundBuffer* buffer = static_cast<StreamingSoundBuffer*>(attachedBuffer);
+			buffer->detachEmitter();
+		}
+
 		attachedBuffer = NULL;
 	}
 

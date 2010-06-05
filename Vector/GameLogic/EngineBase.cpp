@@ -20,7 +20,11 @@ namespace pv {
 			engineClean(true), timer(NULL), paused(false), sceneStarted(false),
 			sceneClearColor(irr::video::SColor(0, 64, 64, 64)),
 			physicsManagement(NULL),
-			worldManagement(NULL)
+			worldManagement(NULL),
+			audioManager(NULL),
+			audioContext(NULL),
+			audioDevice(NULL),
+			audioListener(NULL)
 	{
 		initializeBasicMaterials();
 	}
@@ -103,6 +107,22 @@ namespace pv {
 		timer = new GameTimer(irrlichtDevice);
 		ASSERT(timer);
 
+		// Audiomanager erzeugen
+		audioManager = new sound::SoundDeviceManager();
+		if (!audioManager) return ESC_SOUND_FAILED;
+
+		// Audiodevice erzeugen (erstbestes Device)
+		audioDevice = audioManager->createAndInitDevice();
+		if (!audioManager) return ESC_SOUND_DEVICE_FAILED;
+
+		// Audiokontext erzeugen
+		audioContext = audioDevice->createContext(true);
+		if (!audioContext) return ESC_SOUND_CONTEXT_FAILED;
+
+		// Listener holen
+		audioListener = new sound::RoamingSoundListener();
+		if (!audioListener) return ESC_SOUND_LISTENER_FAILED;
+
 		// Physikmanagement erzeugen
 		physicsManagement = new physics::PhysicsManager();
 		if (!physicsManagement) return ESC_PHYSICS_FAILED;
@@ -153,6 +173,20 @@ namespace pv {
 		if (physicsManagement) {
 			delete physicsManagement;
 			physicsManagement = NULL;
+		}
+
+		// Listener freigeben
+		if (audioListener) {
+			delete audioListener;
+			audioListener = NULL;
+		}
+
+		// Audiomanager freigeben
+		if (audioManager) {
+			delete audioManager;
+			audioManager = NULL;
+			audioDevice = NULL;
+			audioContext = NULL;
 		}
 	}
 

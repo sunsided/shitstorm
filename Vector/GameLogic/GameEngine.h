@@ -77,6 +77,12 @@ namespace pv {
 
 		//! GUI-Element, das die Textur anzeigt
 		gui::IGUIImage *image;
+
+		//! Einfacher Soundemitter
+		sound::SoundEmitter *simpleEmitter;
+
+		//! Einfacher Soundpuffer
+		sound::SingleSoundBuffer *simpleBuffer;
 	};
 
 }

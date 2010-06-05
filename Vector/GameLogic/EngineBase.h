@@ -16,6 +16,8 @@
 #include "GameTimer.h"
 #include "Physics/PhysicsManager.h"
 #include "World/WorldManager.h"
+#include "Sound/SoundDeviceManager.h"
+#include "Sound/RoamingSoundListener.h"
 
 namespace pv {
 
@@ -191,6 +193,18 @@ namespace pv {
 			physicsManagement->update(deltaTime, maxSubsteps, fixedTimeStep);
 		}
 
+		//! Bezieht den Audiokontext
+		inline sound::SoundDeviceManager* getSoundDeviceManager() const { return audioManager; }
+
+		//! Bezieht den Audiokontext
+		inline sound::SoundContext* getSoundContext() const { return audioContext; }
+
+		//! Bezieht den Audiokontext
+		inline sound::SoundDevice* getSoundDevice() const { return audioDevice; }
+
+		//! Bezieht den Audiolistener
+		inline sound::RoamingSoundListener* getSoundListener() const { return audioListener; }
+
 	private:
 
 		//! Ermittelt den Videotreiber
@@ -240,6 +254,18 @@ namespace pv {
 
 		//! Ein nicht beleuchtetes Standardmaterial
 		irr::video::SMaterial unlitMaterial;
+
+		//! Der Sound Device Manager
+		sound::SoundDeviceManager *audioManager;
+
+		//! Das Haupt-Audiodevice
+		sound::SoundDevice *audioDevice;
+
+		//! Der Audiokontext
+		sound::SoundContext *audioContext;
+
+		//! Der Audio-Listener
+		sound::RoamingSoundListener *audioListener;
 	};
 
 }

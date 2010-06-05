@@ -31,8 +31,11 @@ namespace sound {
 		//! Destruktor
 		virtual ~StreamingAudioSource(void);
 		
-		//! Verknüpft die Streaming-Audioquelle mit dem Streamin-Sound-Buffer
+		//! Verknüpft die Streaming-Audioquelle mit dem Streaming-Sound-Buffer
 		void attachToStreamingBuffer(StreamingSoundBuffer* buffer);
+
+		//! Entknüpft die Audioquelle
+		void detachFromStreamingBuffer();
 
 		//! Ermittelt den angehängten Streaming-Puffer
 		inline StreamingSoundBuffer* getAttachedStreamingBuffer() const { return attachedBuffer; }
@@ -45,6 +48,9 @@ namespace sound {
 
 		//! Beginnt mit dem Streaming von vorne
 		virtual void rewindStreaming() = 0;
+
+		//! Ermittelt, ob derzeit ein Puffer angehängt ist
+		inline bool isAttachedToBuffer() const { return attachedBuffer != 0; }
 
 	protected:
 

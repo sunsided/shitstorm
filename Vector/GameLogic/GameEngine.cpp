@@ -8,6 +8,7 @@
 
 #include "GameEngine.h"
 #include "SceneNodes/OrientationHelperSceneNode.h"
+#include "Sound/OggVorbisAudioSource.h"
 
 #include <iostream>
 
@@ -17,7 +18,8 @@ namespace pv {
 
 	//! Erzeugt eine neue Instanz der GameEngine-Klasse.
 	GameEngine::GameEngine(void)
-		: renderTarget(NULL), renderTargetSceneManager(NULL)
+		: renderTarget(NULL), renderTargetSceneManager(NULL),
+		simpleEmitter(NULL), simpleBuffer(NULL)
 	{
 	}
 
@@ -39,6 +41,16 @@ namespace pv {
 		renderTargetSceneManager = createAuxiliarySceneManager();
 		if (!renderTargetSceneManager) return ESC_AUX_SMGR_FAILED;
 		
+		// Soundemitter erzeugen
+		simpleEmitter = getSoundContext()->createSoundEmitter();
+		simpleBuffer = getSoundDevice()->createSingleBuffer();
+
+		// Audiopuffer laden
+		sound::OggVorbisAudioSource source;
+		source.openFile("OrbitalFunnyBreak.ogg");
+		source.loadToBuffer(simpleBuffer);
+		source.closeFile();
+		simpleEmitter->attachBuffer(simpleBuffer);
 
 		return ESC_SUCCESS; 
 	}
@@ -162,6 +174,10 @@ namespace pv {
 		image = getGUIEnvironment()->addImage(core::rect<s32>(5, 5, 128+5, 96+5));
 		image->setScaleImage(true);
 		image->setUseAlphaChannel(true);
+
+
+		// Musik starten
+		simpleEmitter->play();
 	}
 
 	//! Initialisiert die Spielschleife

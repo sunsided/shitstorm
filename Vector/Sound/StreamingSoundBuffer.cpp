@@ -9,6 +9,7 @@
 
 #include "StreamingSoundBuffer.h"
 #include "StreamingAudioSource.h"
+#include "SoundEmitter.h"
 
 namespace pv {
 namespace sound {
@@ -23,12 +24,51 @@ namespace sound {
 
 	StreamingSoundBuffer::~StreamingSoundBuffer(void)
 	{
+		detachEmitter();
+		detachStreamingSource();
 	}
 
 	//! Updated den Streaming Audio-Puffer
 	void StreamingSoundBuffer::updateStreamingAudio() const {
 		ASSERT(attachedStreamingSource);
 		attachedStreamingSource->updateStreamingAudio();
+	}
+
+	//! Entfernt den Emitter
+	void StreamingSoundBuffer::detachEmitter() {
+		if (!attachedEmitter) return;
+
+		// Quelle anhalten
+		alSourceStop(attachedEmitter->getOpenALSource());
+
+		// Puffer unqueuen
+		unqueueBufferFromEmitter();
+
+		// Emitter abmelden
+		attachedEmitter = NULL;
+	}
+
+	//! Un-queuet die Puffer
+	void StreamingSoundBuffer::unqueueBufferFromEmitter() {
+		if (!attachedEmitter) return;
+
+		ALuint source = attachedEmitter->getOpenALSource();
+
+		int queued;
+		alGetSourcei(source, AL_BUFFERS_QUEUED, &queued);    
+		while(queued--)
+		{
+			ALuint buffer;
+			alSourceUnqueueBuffers(source, 1, &buffer);
+			ALenum error = alGetError();
+			if (error != AL_NO_ERROR) throw error;
+		}
+	}
+
+	//! Meldet sich bei der Audioquelle ab
+	void StreamingSoundBuffer::detachStreamingSource() {
+		if (!attachedStreamingSource) return;
+		attachedStreamingSource->detachFromStreamingBuffer();
 	}
 
 }}
