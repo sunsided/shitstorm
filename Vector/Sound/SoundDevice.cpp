@@ -69,8 +69,11 @@ namespace sound {
 	//! Erzeugt einen neuen Kontext
 	SoundContext* SoundDevice::createContext(bool makeActive) {
 		SoundContext* context = new SoundContext();
+		ASSERT(context);
+
 		irr::u32 id = contextManager.add(context);
 		context->setContextId(this, id);
+		context->createContext();
 
 		// Kontext aktivieren
 		if (makeActive) setActiveContext(context);
@@ -94,6 +97,7 @@ namespace sound {
 		// Registrieren
 		irr::u32 id = bufferManager.add(buffer);
 		buffer->setSoundBufferInstanceId(this, id);
+		// buffer->createBuffers(this, size); -- Nicht nötig, macht der Konstruktor bereits!
 
 		return buffer;
 	}

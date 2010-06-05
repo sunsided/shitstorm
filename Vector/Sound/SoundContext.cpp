@@ -121,6 +121,7 @@ namespace sound {
 		// Registrieren
 		irr::u32 id = emitterManager.add(emitter);
 		emitter->setEmitterId(this, id);
+		emitter->createEmitter();
 
 		return emitter;
 	}

@@ -46,6 +46,9 @@ namespace sound {
 		else
 			format = AL_FORMAT_STEREO16;
 
+		// Als geöffnet markieren
+		opened = true;
+
 		// Größe zurückgeben
 		return getUncompressedPCMSize();
 	}

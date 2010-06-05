@@ -40,9 +40,16 @@ namespace sound {
 		// Neuen Parent setzen
 		parentDevice = device;
 
+		// Pufferplatz beziehen
+		buffer = new ALuint[count];
+
 		//  Puffer erzeugen
 		alGetError();
 		alGenBuffers(count, buffer);
+		ALenum error = alGetError();
+		if (error != AL_NO_ERROR) 
+			throw error;
+
 		bufferCount = count;
 	}
 
@@ -57,12 +64,16 @@ namespace sound {
 			// Puffer freigeben
 			alGetError();
 			alDeleteBuffers(bufferCount, buffer);
+
+			// Pufferspeicher löschen
+			delete[] buffer;
 			buffer = NULL;
 		}
 	}
 
 	//! Füllt den Puffer mit Daten
 	void SoundBuffer::bufferData(irr::u32 bufferIndex, ALenum format, const ALvoid* data, ALsizei size, ALsizei freq) const {
+		ASSERT(buffer);
 		ASSERT(bufferIndex < bufferCount);
 		ASSERT(data);
 

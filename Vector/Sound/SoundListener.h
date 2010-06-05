@@ -37,31 +37,31 @@ namespace sound {
 
 
 		//! Setzt die Verstärkung
-		virtual void setGain(irr::f32 gain) = 0;
+		virtual void setGain(irr::f32 gain) const = 0;
 
 		//! Ermittelt die Verstärkung
-		virtual irr::f32 getGain() = 0;
+		virtual irr::f32 getGain() const = 0;
 
 		//! Setzt die Position
-		virtual void setPosition(irr::f32 x, irr::f32 y, irr::f32 z) = 0;
+		virtual void setPosition(irr::f32 x, irr::f32 y, irr::f32 z) const = 0;
 
 		//! Ermittelt die Position
-		virtual void getPosition(irr::f32& x, irr::f32& y, irr::f32& z) = 0;
+		virtual void getPosition(irr::f32& x, irr::f32& y, irr::f32& z) const = 0;
 
 		//! Setzt die Geschwindigkeit
-		virtual void setVelocity(irr::f32 x, irr::f32 y, irr::f32 z) = 0;
+		virtual void setVelocity(irr::f32 x, irr::f32 y, irr::f32 z) const = 0;
 
 		//! Ermittelt die Geschwindigkeit
-		virtual void getVelocity(irr::f32& x, irr::f32& y, irr::f32& z) = 0;
+		virtual void getVelocity(irr::f32& x, irr::f32& y, irr::f32& z) const = 0;
 
 		//! Setzt die Richtung zurück
-		virtual void resetOrientation() = 0;
+		virtual void resetOrientation() const = 0;
 
 		//! Setzt die Richtung
-		virtual void setOrientation(irr::core::vector3df& forward) = 0;
+		virtual void setOrientation(irr::core::vector3df& forward) const = 0;
 
 		//! Setzt die Richtung
-		virtual void setOrientation(irr::core::vector3df& forward, irr::core::vector3df& up) = 0;
+		virtual void setOrientation(irr::core::vector3df& forward, irr::core::vector3df& up) const = 0;
 
 	public:
 		

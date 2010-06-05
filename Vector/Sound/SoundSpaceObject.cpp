@@ -12,14 +12,13 @@
 namespace pv {
 namespace sound {
 
-SoundSpaceObject::SoundSpaceObject(void)
-{
-}
+	SoundSpaceObject::SoundSpaceObject(void)
+	{
+	}
 
 
-SoundSpaceObject::~SoundSpaceObject(void)
-{
-}
-
+	SoundSpaceObject::~SoundSpaceObject(void)
+	{
+	}
 
 }}

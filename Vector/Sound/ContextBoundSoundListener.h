@@ -36,31 +36,31 @@ namespace sound {
 		virtual ~ContextBoundSoundListener(void);
 
 		//! Setzt die Verstärkung
-		void setGain(irr::f32 gain);
+		void setGain(irr::f32 gain) const;
 
 		//! Ermittelt die Verstärkung
-		irr::f32 getGain();
+		irr::f32 getGain() const;
 
 		//! Setzt die Position
-		void setPosition(irr::f32 x, irr::f32 y, irr::f32 z);
+		void setPosition(irr::f32 x, irr::f32 y, irr::f32 z) const;
 
 		//! Ermittelt die Position
-		void getPosition(irr::f32& x, irr::f32& y, irr::f32& z);
+		void getPosition(irr::f32& x, irr::f32& y, irr::f32& z) const;
 
 		//! Setzt die Geschwindigkeit
-		void setVelocity(irr::f32 x, irr::f32 y, irr::f32 z);
+		void setVelocity(irr::f32 x, irr::f32 y, irr::f32 z) const;
 
 		//! Ermittelt die Geschwindigkeit
-		void getVelocity(irr::f32& x, irr::f32& y, irr::f32& z);
+		void getVelocity(irr::f32& x, irr::f32& y, irr::f32& z) const;
 
 		//! Setzt die Richtung zurück
-		void resetOrientation();
+		void resetOrientation() const;
 
 		//! Setzt die Richtung
-		void setOrientation(irr::core::vector3df& forward);
+		void setOrientation(irr::core::vector3df& forward) const;
 
 		//! Setzt die Richtung
-		void setOrientation(irr::core::vector3df& forward, irr::core::vector3df& up);
+		void setOrientation(irr::core::vector3df& forward, irr::core::vector3df& up) const;
 
 	private:
 
