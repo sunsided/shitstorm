@@ -83,6 +83,10 @@ namespace sound {
 
 	//! Erzeugt eine SoundBuffer-Instanz
 	SoundBuffer* SoundDevice::createBuffer(irr::u32 size) {
+
+		// TODO: Automatisch switchen?
+		if (!isActiveDevice()) throw "SoundDevice::createBuffer() - Device must be active to create buffers!";
+
 		if (size <= 1) return createSingleBuffer();
 		
 		// Puffer erzeugen

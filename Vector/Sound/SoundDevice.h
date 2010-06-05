@@ -74,7 +74,10 @@ namespace sound {
 		inline SoundContext* getActiveContext() const { return activeContext; }
 
 		//! Erzeugt eine SoundBuffer-Instanz
-		SoundBuffer* createBuffer(irr::u32 size = 1);
+		SoundBuffer* createBuffer(irr::u32 size);
+
+		//! Erzeugt eine SoundBuffer-Instanz
+		inline SingleSoundBuffer* createBuffer() { return createSingleBuffer(); }
 
 		//! Erzeugt eine SingleSoundBuffer-Instanz
 		SingleSoundBuffer* createSingleBuffer();
