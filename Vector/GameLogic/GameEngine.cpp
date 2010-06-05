@@ -212,6 +212,9 @@ namespace pv {
 		video::IVideoDriver *driver = getDriver();
 		scene::ISceneManager *smgr = getSceneManager();
 
+		// Musik aktualisieren
+		getSoundDeviceManager()->updateStreamingAudio();
+
 		// Physik aktualisieren
 		updatePhysics(elapsedTime);
 

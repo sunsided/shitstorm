@@ -125,6 +125,17 @@ namespace sound {
 			setRelative(true);
 		}
 
+		//! Ermittelt, ob dieser Emitter ein Streaming-Emitter ist
+		inline bool isStreamingEmitter() const { return bufferIsStreamingBuffer; }
+
+		//! Updated alle Streaming Audio-Puffer
+		inline void updateStreamingAudio() {
+			if (bufferIsStreamingBuffer) {
+				ASSERT(attachedBuffer);
+				static_cast<StreamingSoundBuffer*>(attachedBuffer)->updateStreamingAudio();
+			}
+		}
+
 	private:
 
 		//! Erzeugt den Kontext

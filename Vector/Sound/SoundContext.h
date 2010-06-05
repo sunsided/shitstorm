@@ -88,7 +88,9 @@ namespace sound {
 		SoundEmitter* createSoundEmitter();
 
 		//! Updated alle Streaming Audio-Puffer
-		void updateStreamingAudio();
+		inline void updateStreamingAudio() {
+			emitterManager.iterate(updateStreamingAudio, (void*)NULL);
+		}
 
 	private:
 
@@ -109,6 +111,11 @@ namespace sound {
 
 		//! Entsorgt einen Emitter
 		static void destroyEmitter(SoundEmitter* emitter, void* unused);
+
+		//! Aktualisiert alle Streaming Audio-Puffer
+		inline static void updateStreamingAudio(SoundEmitter* emitter, void* unused) {
+			emitter->updateStreamingAudio();
+		}
 
 	private:
 

@@ -139,9 +139,4 @@ namespace sound {
 		if (emitter) emitter->setEmitterId(NULL, -1);
 	}
 
-	//! Updated alle Streaming Audio-Puffer
-	void SoundContext::updateStreamingAudio() {
-		throw "Not implemented";
-	}
-
 }}
