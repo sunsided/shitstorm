@@ -100,7 +100,7 @@
     <ClCompile Include="SceneNodes\OrientationHelperSceneNode.cpp" />
     <ClCompile Include="SceneNodes\PlaneSceneNode.cpp" />
     <ClCompile Include="SceneNodes\SceneObject.cpp" />
-    <ClCompile Include="Sound\AudioSource.cpp" />
+    <ClCompile Include="Sound\OggVorbisAudioSource.cpp" />
     <ClCompile Include="Sound\ContextBoundSoundListener.cpp" />
     <ClCompile Include="Sound\RoamingSoundListener.cpp" />
     <ClCompile Include="Sound\SingleSoundBuffer.cpp" />
@@ -137,7 +137,7 @@
     <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h" />
     <ClInclude Include="SceneNodes\PlaneSceneNode.h" />
     <ClInclude Include="SceneNodes\SceneObject.h" />
-    <ClInclude Include="Sound\AudioSource.h" />
+    <ClInclude Include="Sound\OggVorbisAudioSource.h" />
     <ClInclude Include="Sound\ContextBoundSoundListener.h" />
     <ClInclude Include="Sound\RoamingSoundListener.h" />
     <ClInclude Include="Sound\SingleSoundBuffer.h" />

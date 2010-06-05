@@ -97,9 +97,6 @@
     <ClCompile Include="Sound\SoundBuffer.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
-    <ClCompile Include="Sound\AudioSource.cpp">
-      <Filter>Sound</Filter>
-    </ClCompile>
     <ClCompile Include="Sound\RoamingSoundListener.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
@@ -111,6 +108,9 @@
     </ClCompile>
     <ClCompile Include="World\NamedObject.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound\OggVorbisAudioSource.cpp">
+      <Filter>Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,9 +200,6 @@
     <ClInclude Include="Sound\StreamingSoundBuffer.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="Sound\AudioSource.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
     <ClInclude Include="Sound\ContextBoundSoundListener.h">
       <Filter>Sound</Filter>
     </ClInclude>
@@ -214,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="World\NamedObject.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\OggVorbisAudioSource.h">
+      <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
