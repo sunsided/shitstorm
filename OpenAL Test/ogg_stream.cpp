@@ -5,12 +5,16 @@ void ogg_stream::open(string path)
 {
     int result;
     
+	char* filepath = const_cast<char*>(path.c_str());
+	if (ov_fopen(filepath, &oggStream))
+	/*
     if(!(oggFile = fopen(path.c_str(), "rb")))
         throw string("Could not open Ogg file.");
 
 	fseek(oggFile, 0, 1);
  
     if((result = ov_open(oggFile, &oggStream, NULL, 0)) < 0)
+	*/
     {
         fclose(oggFile);
  
