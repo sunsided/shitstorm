@@ -15,7 +15,6 @@
 #include "SoundContext.h"
 #include "SoundBuffer.h"
 #include "SingleSoundBuffer.h"
-#include "SoundEmitter.h"
 #include "Utility/Manager.h"
 
 #include <alc.h>
@@ -105,9 +104,6 @@ namespace sound {
 		//! Liefert die Anzahl der erzeugten Kontexte
 		inline irr::u32 getContextCount() { return contextManager.count(); }
 
-		//! Erzeugt eine SoundEmitter-Instanz
-		SoundEmitter* createSoundEmitter();
-
 	private:
 
 		//! Setzt einen Kontext als aktiven Kontext
@@ -130,12 +126,6 @@ namespace sound {
 		//! Entfernt einen Puffer
 		void removeBuffer(irr::u32 bufferId);
 
-		//! Entfernt einen Emitter
-		void removeEmitter(SoundEmitter* emitter);
-
-		//! Entfernt einen Emitter
-		void removeEmitter(irr::u32 emitterId);
-
 		//! Setzt die Device-ID
 		inline void setDeviceId(SoundDeviceManager* manager, irr::u32 id) { deviceId = id; parent = manager; }
 
@@ -144,9 +134,6 @@ namespace sound {
 
 		//! Entsorgt einen Puffer
 		static void destroyBuffer(SoundBuffer* buffer, void* unused);
-
-		//! Entsorgt einen Emitter
-		static void destroyEmitter(SoundEmitter* emitter, void* unused);
 
 	private:
 
@@ -167,9 +154,6 @@ namespace sound {
 
 		//! Der Puffer-Manager
 		utility::Manager<SoundBuffer> bufferManager;
-
-		//! Der Emitter-Manager
-		utility::Manager<SoundEmitter> emitterManager;
 	};
 
 }}

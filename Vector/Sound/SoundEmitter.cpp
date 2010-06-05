@@ -14,7 +14,7 @@ namespace pv {
 namespace sound {
 
 	SoundEmitter::SoundEmitter(void)
-		: attachedBuffer(NULL), parentDevice(NULL), soundEmitterId(0), created(false)
+		: attachedBuffer(NULL), parentContext(NULL), soundEmitterId(0), created(false)
 	{
 	}
 
@@ -99,14 +99,14 @@ namespace sound {
 		alDeleteSources(1, &sourceId);
 		sourceId = 0;
 
-		// Vom Device entfernen
-		if (parentDevice) parentDevice->removeEmitter(this);
-		parentDevice = NULL;
+		// Vom Device entfernen -- Handhabt der Kontext selbst
+		// if (parentContext) parentContext->removeEmitter(this);
+		// parentContext = NULL;
 	}
 
 	//! Erzeugt den Emitter
 	void SoundEmitter::createEmitter() {
-		if (!parentDevice || sourceId) return;
+		if (!parentContext || sourceId) return;
 
 		// Kontext erzeugen
 		alGenSources(1, &sourceId);

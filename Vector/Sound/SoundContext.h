@@ -12,6 +12,8 @@
 #define _SOUNDCONTEXT_H
 
 #include "global.h"
+#include "Utility/Manager.h"
+#include "SoundEmitter.h"
 
 #include <alc.h>
 
@@ -82,6 +84,9 @@ namespace sound {
 		//! Operator zum Beziehen des Devices
 		inline operator ALCdevice*() const { return getOpenALDevice(); }
 
+		//! Erzeugt eine SoundEmitter-Instanz
+		SoundEmitter* createSoundEmitter();
+
 	private:
 
 		//! Erzeugt den Kontext
@@ -92,6 +97,15 @@ namespace sound {
 
 		//! Setzt die Kontext-ID
 		inline void setContextId(SoundDevice* parent, irr::u32 id) { contextId = id; parentDevice = parent; }
+
+		//! Entfernt einen Emitter
+		void removeEmitter(SoundEmitter* emitter);
+
+		//! Entfernt einen Emitter
+		void removeEmitter(irr::u32 emitterId);
+
+		//! Entsorgt einen Emitter
+		static void destroyEmitter(SoundEmitter* emitter, void* unused);
 
 	private:
 
@@ -109,6 +123,9 @@ namespace sound {
 
 		//! Gibt an, ob der Kontext suspendiert wurde
 		bool suspended;
+
+		//! Der Emitter-Manager
+		utility::Manager<SoundEmitter> emitterManager;
 	};
 
 }}

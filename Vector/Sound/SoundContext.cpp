@@ -15,7 +15,7 @@ namespace pv {
 namespace sound {
 
 	SoundContext::SoundContext()
-		: openAlContext(NULL), parentDevice(NULL), boundListener(NULL), suspended(false)
+		: openAlContext(NULL), parentDevice(NULL), boundListener(NULL), suspended(false), emitterManager(true)
 	{
 		// Listener erzeugen
 		boundListener = new ContextBoundSoundListener(this);
@@ -37,6 +37,10 @@ namespace sound {
 
 			// Wenn dieser Kontext der aktive ist, aktiven Kontext abwählen
 			if (isActiveContext()) unsetActiveContext();
+
+			// Sources anhalten!
+			emitterManager.iterate(destroyEmitter, (void*)NULL);
+			emitterManager.clear();
 
 			// Vom Device entfernen - Handhabt das Device selbst
 			// if (parentDevice) parentDevice->removeContext(this);
@@ -96,6 +100,42 @@ namespace sound {
 		if (!openAlContext) return;
 		alcProcessContext(openAlContext);
 		suspended = false;
+	}
+
+
+	//! Entsorgt einen Emitter
+	void SoundContext::destroyEmitter(SoundEmitter* emitter, void* unused) {
+		ASSERT(emitter);
+		emitter->destroyEmitter();
+	}
+
+	//! Erzeugt eine SoundEmitter-Instanz
+	SoundEmitter* SoundContext::createSoundEmitter() {
+		// TODO: Automatisch switchen?
+		if (!isActiveContext()) throw "SoundContext::createSoundEmitter() - Context must be active to create emitters!";
+		
+		// Puffer erzeugen
+		SoundEmitter* emitter = new SoundEmitter();
+		ASSERT(emitter);
+
+		// Registrieren
+		irr::u32 id = emitterManager.add(emitter);
+		emitter->setEmitterId(this, id);
+
+		return emitter;
+	}
+
+	//! Entfernt einen Emitter
+	void SoundContext::removeEmitter(SoundEmitter* emitter) {
+		if (!emitter) return;
+		emitterManager.remove(emitter);
+		emitter->setEmitterId(NULL, -1);
+	}
+
+	//! Entfernt einen Emitter
+	void SoundContext::removeEmitter(irr::u32 emitterId) {
+		SoundEmitter* emitter = emitterManager.remove(emitterId);
+		if (emitter) emitter->setEmitterId(NULL, -1);
 	}
 
 }}

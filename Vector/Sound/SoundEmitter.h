@@ -25,7 +25,7 @@ namespace sound {
 	//! Sound Emitter (OpenAL Source)
 	class SoundEmitter : public SoundSpaceObject
 	{
-		friend class SoundDevice;
+		friend class SoundContext;
 
 	protected:
 
@@ -67,8 +67,8 @@ namespace sound {
 		//! Ermittelt die ID dieses Emitters
 		inline irr::u32 getEmitterId() const { return soundEmitterId; }
 
-		//! Ermittelt das Elterndevice
-		inline SoundDevice* getParentDevice() const { return parentDevice; }
+		//! Ermittelt den Elternkontext
+		inline SoundContext* getParentContext() const { return parentContext; }
 
 		//! Emittelt, ob dieser Emitter in einer Schleife spielt
 		bool isLooping() const;
@@ -115,12 +115,12 @@ namespace sound {
 		void destroyEmitter();
 
 		//! Setzt die Kontext-ID
-		inline void setEmitterId(SoundDevice* parent, irr::u32 id) { soundEmitterId = id; parentDevice = parent; }
+		inline void setEmitterId(SoundContext* context, irr::u32 id) { soundEmitterId = id; parentContext = context; }
 
 	private:
 
 		//! Eltern-Device
-		SoundDevice* parentDevice;
+		SoundContext* parentContext;
 
 		//! ID des Emitters
 		irr::u32 soundEmitterId;
