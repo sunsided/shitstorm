@@ -54,10 +54,10 @@ namespace pv {
 		void OnSceneLoop(irr::f32 elapsedTime);
 
 		//! Handler für das Pause-Ereignis
-		void OnPause() { getTimer()->pause(); }
+		void OnPause();
 
 		//! Handler für das Unpause-Ereignis
-		void OnUnpause() { getTimer()->unpause(); }
+		void OnUnpause();
 
 	private:
 

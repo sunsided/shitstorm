@@ -220,6 +220,22 @@ namespace pv {
 		return false;
 	}
 
+	//! Handler für das Pause-Ereignis
+	void GameEngine::OnPause() { 
+		getTimer()->pause();
+
+		// Musik anhalten
+		simpleEmitter->pause();
+	}
+
+	//! Handler für das Unpause-Ereignis
+	void GameEngine::OnUnpause() { 
+		getTimer()->unpause(); 
+
+		// Musik starten
+		simpleEmitter->play();
+	}
+
 	//! Implementierung der Haupt-Spielschleife
 	void GameEngine::OnSceneLoop(f32 elapsedTime) { 
 
