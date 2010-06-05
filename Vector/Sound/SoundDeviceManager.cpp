@@ -11,7 +11,7 @@
 namespace pv {
 namespace sound {
 
-	SoundDeviceManager::SoundDeviceManager(void) : soundDevices(true) {
+	SoundDeviceManager::SoundDeviceManager(void) : soundDevices(true), activeDevice(NULL) {
 	}
 
 
@@ -68,6 +68,18 @@ namespace sound {
 	irr::core::stringw SoundDeviceManager::getDeviceNames() {
 		// TODO: Speicherleck?
 		return alcGetString(NULL, ALC_DEVICE_SPECIFIER);
+	}
+
+	//! Setzt das aktive Device
+	void SoundDeviceManager::setActiveDevice(SoundDevice* device) {
+
+		// Altes Gerät abwählen
+		if (activeDevice && activeDevice != device) {
+			activeDevice->setActiveContext(NULL, false);
+		}
+
+		// Gerät setzen
+		activeDevice = device;
 	}
 
 }}

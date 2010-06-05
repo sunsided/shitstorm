@@ -135,7 +135,7 @@ namespace sound {
 	}
 
 	//! Setzt einen Kontext als aktiven Kontext
-	SoundContext* SoundDevice::setActiveContext(SoundContext* context) {
+	SoundContext* SoundDevice::setActiveContext(SoundContext* context, bool propagate) {
 
 		// OpenAL über die Kontextänderung informieren
 		if (context) {
@@ -148,6 +148,10 @@ namespace sound {
 		// Kontext registrieren
 		SoundContext* oldContext = activeContext;
 		activeContext = context;
+
+		// Dem Manager mitteilen
+		if (propagate && context != NULL) parent->setActiveDevice(this);
+
 		return oldContext;
 	}
 
@@ -155,6 +159,15 @@ namespace sound {
 	ALCboolean SoundDevice::isExtensionPresent(char* extension) {
 		if (!openAlDevice) return false;
 		return alcIsExtensionPresent(openAlDevice, extension);
+	}
+
+	//! Ermittelt, ob ein Kontext dieses Devices aktiv ist
+	bool SoundDevice::isActiveDevice() const {
+		if (!activeContext) return false;
+		
+		// Device des aktiven Kontexts ermitteln
+		ALCdevice* device = alcGetContextsDevice(activeContext->getOpenALContext());
+		return (device == openAlDevice);
 	}
 
 }}

@@ -21,6 +21,8 @@ namespace sound {
 	//! Manager für Sound Devices
 	class SoundDeviceManager
 	{
+		friend class SoundDevice;
+
 	public:
 		//! Erzeugt eine neue Instanz des Objektes
 		SoundDeviceManager(void);
@@ -48,13 +50,19 @@ namespace sound {
 			return soundDevices[deviceId];
 		}
 
-		//!Liefert den Namen des Default-Devices
+		//! Liefert den Namen des Default-Devices
 		static irr::core::stringw getDefaultDeviceName();
 
-		//!Liefert den Namen aller Devices
+		//! Liefert den Namen aller Devices
 		static irr::core::stringw getDeviceNames();
 
+		//! Bezieht das aktive Device
+		inline SoundDevice* getActiveDevice() const { return activeDevice; }
+
 	private:
+
+		//! Setzt das aktive Device
+		void setActiveDevice(SoundDevice* device);
 
 		//! Vernichtet alle Devices
 		void destroyDevices();
@@ -66,6 +74,9 @@ namespace sound {
 
 		//! Die registrierten Sound Devices
 		utility::Manager<SoundDevice> soundDevices;
+
+		//! Das aktive Gerät
+		SoundDevice* activeDevice;
 	};
 
 }}

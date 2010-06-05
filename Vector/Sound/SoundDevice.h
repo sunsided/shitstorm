@@ -68,7 +68,7 @@ namespace sound {
 		 * @param context	Der neue Kontext
 		 * @returns Der zuletzt aktiv gesetzte Kontext
 		 */
-		SoundContext* setActiveContext(SoundContext* context);
+		inline SoundContext* setActiveContext(SoundContext* context) { return setActiveContext(context, true);	}
 
 		//! Liefert den aktuellen Kontext
 		inline SoundContext* getActiveContext() const { return activeContext; }
@@ -82,7 +82,24 @@ namespace sound {
 		//! Ermittelt, ob eine Extension mit dem gegebenen Namen existiert
 		ALCboolean isExtensionPresent(char* extension);
 
+		//! Ermittelt, ob ein Kontext dieses Devices aktiv ist
+		bool isActiveDevice() const;
+
+		//! Operator zum Beziehen des OpenAL-Devices
+		inline operator ALCdevice*() const { return getOpenALDevice(); }
+
+		//! Operator zum Beziehen des OpenAL-Kontextes
+		inline operator ALCcontext*() const { return (ALCcontext*)getActiveContext(); }
+
 	private:
+
+		//! Setzt einen Kontext als aktiven Kontext
+		/*
+		 * @param context	Der neue Kontext
+		 * @param propagate	Gibt an, ob die Information an den Manager durchgereicht werden soll
+		 * @returns Der zuletzt aktiv gesetzte Kontext
+		 */
+		SoundContext* setActiveContext(SoundContext* context, bool propagate);
 
 		//! Entfernt einen Kontext
 		void removeContext(irr::u32 contextId);

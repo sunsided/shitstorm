@@ -76,6 +76,12 @@ namespace sound {
 		//! Ermittelt, ob der Kontext suspendiert wurde
 		inline bool isSuspended() const { return suspended; }
 
+		//! Operator zum Beziehen des Kontextes
+		inline operator ALCcontext*() const { return openAlContext; }
+
+		//! Operator zum Beziehen des Devices
+		inline operator ALCdevice*() const { return getOpenALDevice(); }
+
 	private:
 
 		//! Erzeugt den Kontext
