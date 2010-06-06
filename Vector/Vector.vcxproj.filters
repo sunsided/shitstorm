@@ -13,11 +13,14 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{1e2eb03d-bcb8-406c-ab0e-63196701e28c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{39d734be-ce7c-45f0-8023-669d83ea71c0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SceneNodes">
       <UniqueIdentifier>{3aac4a3c-255c-443e-ba48-4071fadc2a21}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sound">
-      <UniqueIdentifier>{39d734be-ce7c-45f0-8023-669d83ea71c0}</UniqueIdentifier>
+    <Filter Include="Scripting">
+      <UniqueIdentifier>{94560e2b-9b21-4dc7-8554-a4f22cef4671}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
