@@ -7,17 +7,17 @@
  */
 
 
-#include "SoundSpaceObject.h"
+#include "PositionalAudioObject.h"
 
 namespace pv {
 namespace sound {
 
-	SoundSpaceObject::SoundSpaceObject(void)
+	PositionalAudioObject::PositionalAudioObject(void)
 	{
 	}
 
 
-	SoundSpaceObject::~SoundSpaceObject(void)
+	PositionalAudioObject::~PositionalAudioObject(void)
 	{
 	}
 

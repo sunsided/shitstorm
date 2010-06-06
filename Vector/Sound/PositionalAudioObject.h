@@ -8,8 +8,8 @@
 
 
 #pragma once
-#ifndef _SOUNDSPACEOBJECT_H
-#define _SOUNDSPACEOBJECT_H
+#ifndef _PositionalAudioObject_H
+#define _PositionalAudioObject_H
 
 #include "global.h"
 
@@ -17,17 +17,17 @@ namespace pv {
 namespace sound {
 
 	//! Soundobjekt im 3D-Raum
-	class SoundSpaceObject
+	class PositionalAudioObject
 	{
 	protected:
 
 		//! Erzeugt eine neue Instanz des Objektes
-		SoundSpaceObject(void);
+		PositionalAudioObject(void);
 
 	public:
 
 		// Destruktor
-		virtual ~SoundSpaceObject(void);
+		virtual ~PositionalAudioObject(void);
 
 		//! Setzt die Verstärkung
 		virtual void setGain(irr::f32 gain) const = 0;

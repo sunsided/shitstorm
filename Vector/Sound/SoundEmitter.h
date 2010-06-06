@@ -12,7 +12,7 @@
 #define _SOUNDEMITTER_H
 
 #include "global.h"
-#include "SoundSpaceObject.h"
+#include "PositionalAudioObject.h"
 #include "SingleSoundBuffer.h"
 #include "StreamingSoundBuffer.h"
 #include "SoundBuffer.h"
@@ -24,7 +24,7 @@ namespace sound {
 	class SoundDevice;
 
 	//! Sound Emitter (OpenAL Source)
-	class SoundEmitter : public SoundSpaceObject
+	class SoundEmitter : public PositionalAudioObject
 	{
 		friend class SoundContext;
 

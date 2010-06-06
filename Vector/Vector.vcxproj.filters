@@ -85,9 +85,6 @@
     <ClCompile Include="Sound\SoundListener.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
-    <ClCompile Include="Sound\SoundSpaceObject.cpp">
-      <Filter>Sound</Filter>
-    </ClCompile>
     <ClCompile Include="Sound\StreamingSoundBuffer.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
@@ -110,6 +107,9 @@
       <Filter>Sound</Filter>
     </ClCompile>
     <ClCompile Include="Sound\StreamingAudioSource.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound\PositionalAudioObject.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
   </ItemGroup>
@@ -191,9 +191,6 @@
     <ClInclude Include="Sound\SoundListener.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="Sound\SoundSpaceObject.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
     <ClInclude Include="Sound\StreamingSoundBuffer.h">
       <Filter>Sound</Filter>
     </ClInclude>
@@ -213,6 +210,9 @@
       <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="Sound\StreamingAudioSource.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\PositionalAudioObject.h">
       <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>

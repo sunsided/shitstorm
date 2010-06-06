@@ -12,7 +12,7 @@
 #define _SOUNDLISTENER_H
 
 #include "global.h"
-#include "SoundSpaceObject.h"
+#include "PositionalAudioObject.h"
 
 namespace pv {
 namespace sound {
@@ -26,7 +26,7 @@ namespace sound {
 	 * Ist die Steuerung eines spezifischen Kontextes nötig, kann eine
 	 * Instanz des @see ContextBoundSoundListener verwendet werden.
 	 */
-	class SoundListener : public SoundSpaceObject
+	class SoundListener : public PositionalAudioObject
 	{
 	public:
 		//! Erzeugt eine neue Instanz des Objektes
