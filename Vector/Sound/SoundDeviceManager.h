@@ -70,6 +70,9 @@ namespace sound {
 			soundDevices.iterate(updateStreamingAudio, (void*)NULL);
 		}
 
+		//! Bezieht den SoundState
+		inline SoundState* getState() const { return SoundState::get(); }
+
 	private:
 
 		//! Setzt das aktive Device

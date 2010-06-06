@@ -68,10 +68,10 @@ namespace pv {
 		singleSource.openFile("audio/bimmelimm.ogg");
 		singleSource.loadToBuffer(singleBuffer);
 		singleSource.closeFile();
-		singleSource.openFile("audio/sinus220.ogg");
+		singleSource.openFile("audio/taktak.ogg");
 		singleSource.loadToBuffer(bufferSinus220);
 		singleSource.closeFile();
-		singleSource.openFile("audio/sinus440.ogg");
+		singleSource.openFile("audio/dnb.ogg");
 		singleSource.loadToBuffer(bufferSinus440);
 		singleSource.closeFile();
 
@@ -232,7 +232,7 @@ namespace pv {
 		emitterSinus220->setReferenceDistance(2.0f);
 
 		emitterSinus440->play();
-		emitterSinus440->setGain(1.0f);
+		emitterSinus440->setGain(2.0f);
 		emitterSinus440->setMinGain(0.0f);
 		emitterSinus440->setMaxGain(1.0f);
 		emitterSinus440->setMaxDistance(5.0f);
@@ -271,7 +271,7 @@ namespace pv {
 		getTimer()->pause();
 
 		// Musik anhalten
-		//simpleEmitter->pause();
+		simpleEmitter->pause();
 	}
 
 	//! Handler für das Unpause-Ereignis
@@ -279,7 +279,7 @@ namespace pv {
 		getTimer()->unpause(); 
 
 		// Musik starten
-		//simpleEmitter->play();
+		simpleEmitter->play();
 	}
 
 	//! Implementierung der Haupt-Spielschleife
@@ -306,6 +306,16 @@ namespace pv {
 		irr::core::vector3df direction = (mainCamera->getTarget() - mainCamera->getPosition()).normalize();
 		irr::core::vector3df up = mainCamera->getUpVector();
 		getSoundListener()->setOrientation(direction, up);
+
+		// Distanz zur Mitte errechnen, dann Lautstärke des Streaming-Emitters entsprechend einstellen
+		irr::f32 distance = mainCamera->getPosition().getLength();
+		const irr::f32 maxGain = 0.75f;
+		irr::f32 gain = maxGain;
+		const irr::f32 threshold = 30.0f;
+		if (distance < threshold + 10.0f) gain = (distance - 10.0f) / threshold;
+		else gain = 1.0f;
+		gain = max(0.0f, min(maxGain, gain));
+		simpleEmitter->setGain(gain);
 
 		// Szene beginnen
 		beginScene();

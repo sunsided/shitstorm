@@ -13,6 +13,7 @@
 
 #include "global.h"
 #include "SoundDistanceModel.h"
+#include "RoamingSoundListener.h"
 #include "Utility/Singleton.h"
 
 namespace pv {
@@ -43,6 +44,9 @@ namespace sound {
 
 		//! Setzt das Distanzmodell
 		void setDistanceModel(SoundDistanceModel model) const;
+
+		//! Bezieht den Listener
+		inline RoamingSoundListener* getListener() const { return RoamingSoundListener::get(); }
 	};
 
 }}
