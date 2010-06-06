@@ -18,7 +18,8 @@ namespace pv {
 	//! Erzeugt eine neue Instanz der GameEngine-Klasse.
 	GameEngine::GameEngine(void)
 		: renderTarget(NULL), renderTargetSceneManager(NULL),
-		simpleEmitter(NULL), streamingBuffer(NULL), singleBuffer(NULL), blipEmitter(NULL)
+		simpleEmitter(NULL), streamingBuffer(NULL), singleBuffer(NULL), blipEmitter(NULL),
+		bufferSinus220(NULL), bufferSinus440(NULL), emitterSinus220(NULL), emitterSinus440(NULL)
 	{
 	}
 
@@ -42,9 +43,13 @@ namespace pv {
 		
 		// Soundemitter erzeugen
 		simpleEmitter = getSoundContext()->createSoundEmitter();
+		emitterSinus220 = getSoundContext()->createSoundEmitter();
+		emitterSinus440 = getSoundContext()->createSoundEmitter();
 		blipEmitter = getSoundContext()->createSoundEmitter();
 		streamingBuffer = getSoundDevice()->createStreamingBuffer();
 		singleBuffer = getSoundDevice()->createSingleBuffer();
+		bufferSinus220 = getSoundDevice()->createSingleBuffer();
+		bufferSinus440 = getSoundDevice()->createSingleBuffer();
 
 		// Puffer registrieren
 		simpleEmitter->attachBuffer(streamingBuffer);
@@ -63,7 +68,17 @@ namespace pv {
 		singleSource.openFile("audio/bimmelimm.ogg");
 		singleSource.loadToBuffer(singleBuffer);
 		singleSource.closeFile();
+		singleSource.openFile("audio/sinus220.ogg");
+		singleSource.loadToBuffer(bufferSinus220);
+		singleSource.closeFile();
+		singleSource.openFile("audio/sinus440.ogg");
+		singleSource.loadToBuffer(bufferSinus440);
+		singleSource.closeFile();
+
+		// Puffer anhängen
 		blipEmitter->attachBuffer(singleBuffer);
+		emitterSinus220->attachBuffer(bufferSinus220); emitterSinus220->setRelative(false); emitterSinus220->setLooping(true);
+		emitterSinus440->attachBuffer(bufferSinus440); emitterSinus440->setRelative(false); emitterSinus440->setLooping(true);
 
 		return ESC_SUCCESS; 
 	}
@@ -200,8 +215,29 @@ namespace pv {
 
 
 		// Musik starten
+		simpleEmitter->setGain(0.05f);
 		simpleEmitter->play();
+		
+		blipEmitter->setPosition(0, 0, 0);
 		blipEmitter->play();
+
+		alDistanceModel(AL_EXPONENT_DISTANCE);
+
+		emitterSinus220->play();
+		emitterSinus220->setGain(2.0f);
+		emitterSinus220->setMinGain(0.0f);
+		emitterSinus220->setMaxGain(1.0f);
+		emitterSinus220->setMaxDistance(5.0f);
+		emitterSinus220->setRolloffFactor(2.0f);
+		emitterSinus220->setReferenceDistance(2.0f);
+
+		emitterSinus440->play();
+		emitterSinus440->setGain(1.0f);
+		emitterSinus440->setMinGain(0.0f);
+		emitterSinus440->setMaxGain(1.0f);
+		emitterSinus440->setMaxDistance(5.0f);
+		emitterSinus440->setRolloffFactor(2.0f);
+		emitterSinus440->setReferenceDistance(2.0f);
 	}
 
 	//! Initialisiert die Spielschleife
@@ -235,7 +271,7 @@ namespace pv {
 		getTimer()->pause();
 
 		// Musik anhalten
-		simpleEmitter->pause();
+		//simpleEmitter->pause();
 	}
 
 	//! Handler für das Unpause-Ereignis
@@ -243,7 +279,7 @@ namespace pv {
 		getTimer()->unpause(); 
 
 		// Musik starten
-		simpleEmitter->play();
+		//simpleEmitter->play();
 	}
 
 	//! Implementierung der Haupt-Spielschleife
@@ -257,6 +293,19 @@ namespace pv {
 
 		// Physik aktualisieren
 		updatePhysics(elapsedTime);
+
+		// Audioemitter anpassen
+		irr::core::vector3df position = smgr->getSceneNodeFromId(17)->getPosition();
+		emitterSinus220->setPosition(position.X, position.Y, position.Z);
+		position = smgr->getSceneNodeFromId(18)->getPosition();
+		emitterSinus440->setPosition(position.X, position.Y, position.Z);
+		
+		// Listener anpassen
+		position = mainCamera->getPosition();
+		getSoundListener()->setPosition(position.X, position.Y, position.Z);
+		irr::core::vector3df direction = (mainCamera->getTarget() - mainCamera->getPosition()).normalize();
+		irr::core::vector3df up = mainCamera->getUpVector();
+		getSoundListener()->setOrientation(direction, up);
 
 		// Szene beginnen
 		beginScene();

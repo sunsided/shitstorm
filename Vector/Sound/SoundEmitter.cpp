@@ -16,9 +16,12 @@ namespace sound {
 	SoundEmitter::SoundEmitter(void)
 		: attachedBuffer(NULL), parentContext(NULL), soundEmitterId(0), created(false), sourceId(0), bufferIsStreamingBuffer(false)
 	{
-
 		setPosition(0, 0, 0);
 		setVelocity(0, 0, 0);
+		setMaxGain(2.0f);
+		setMinGain(0.0f);
+		setReferenceDistance(1.0f);
+		setMaxDistance(10.0f);
 		setRelative();
 		setVelocity(0, 0, 0);
 		setRolloffFactor(1.0f);
@@ -93,18 +96,25 @@ namespace sound {
 	void SoundEmitter::pause() const {
 		if (!sourceId) return;
 		alSourcePause(sourceId);
+		ALenum error = alGetError();
+		if (error != AL_NO_ERROR) 
+			throw error;
 	}
 
 	//! Hält das Abspielen an
 	void SoundEmitter::stop() const {
 		if (!sourceId) return;
 		alSourceStop(sourceId);
+		ALenum error = alGetError();
 	}
 
 	//! Spult die Quelle zurück
 	void SoundEmitter::rewind() const {
 		if (!sourceId) return;
 		alSourceRewind(sourceId);
+		ALenum error = alGetError();
+		if (error != AL_NO_ERROR) 
+			throw error;
 	}
 
 	//! Emittelt, ob dieser Emitter gerade spielt
@@ -179,24 +189,78 @@ namespace sound {
 		return gain;
 	}
 
+	//! Setzt die maximale Verstärkung
+	void SoundEmitter::setMaxGain(irr::f32 gain) const {
+		ASSERT(gain >= 0);
+		alSourcef(sourceId, AL_MAX_GAIN, gain);
+	}
+
+	//! Ermittelt die maximale Verstärkung
+	irr::f32 SoundEmitter::getMaxGain() const {
+		irr::f32 gain;
+		alGetSourcef(sourceId, AL_MAX_GAIN, &gain);
+		return gain;
+	}
+
+	//! Setzt die minimale Verstärkung
+	void SoundEmitter::setMinGain(irr::f32 gain) const {
+		ASSERT(gain >= 0);
+		alSourcef(sourceId, AL_MIN_GAIN, gain);
+	}
+
+	//! Ermittelt die minimale Verstärkung
+	irr::f32 SoundEmitter::getMinGain() const {
+		irr::f32 gain;
+		alGetSourcef(sourceId, AL_MIN_GAIN, &gain);
+		return gain;
+	}
+
+	//! Setzt die maximale Entfernung
+	void SoundEmitter::setMaxDistance(irr::f32 value) const {
+		ASSERT(value >= 0);
+		alSourcef(sourceId, AL_MAX_DISTANCE, value);
+	}
+
+	//! Ermittelt die maximale Entfernung
+	irr::f32 SoundEmitter::getMaxDistance() const {
+		irr::f32 value;
+		alGetSourcef(sourceId, AL_MAX_DISTANCE, &value);
+		return value;
+	}
+
+	//! Setzt die maximale Entfernung
+	void SoundEmitter::setReferenceDistance(irr::f32 value) const {
+		ASSERT(value >= 0);
+		alSourcef(sourceId, AL_REFERENCE_DISTANCE, value);
+	}
+
+	//! Ermittelt die maximale Entfernung
+	irr::f32 SoundEmitter::getReferenceDistance() const {
+		irr::f32 value;
+		alGetSourcef(sourceId, AL_REFERENCE_DISTANCE, &value);
+		return value;
+	}
+
 	//! Setzt die Position
 	void SoundEmitter::setPosition(irr::f32 x, irr::f32 y, irr::f32 z) const {
-		alSource3f(sourceId, AL_POSITION, x, y, z);
+		alSource3f(sourceId, AL_POSITION, x, y, -z);
 	}
 
 	//! Ermittelt die Position
 	void SoundEmitter::getPosition(irr::f32& x, irr::f32& y, irr::f32& z) const {
 		alGetSource3f(sourceId, AL_POSITION, &x, &y, &z);
+		z = -z;
 	}
 
 	//! Setzt die Geschwindigkeit
 	void SoundEmitter::setVelocity(irr::f32 x, irr::f32 y, irr::f32 z) const {
-		alSource3f(sourceId, AL_VELOCITY, x, y, z);
+		alSource3f(sourceId, AL_VELOCITY, x, y, -z);
 	}
 
 	//! Ermittelt die Geschwindigkeit
 	void SoundEmitter::getVelocity(irr::f32& x, irr::f32& y, irr::f32& z) const {
 		alGetSource3f(sourceId, AL_VELOCITY, &x, &y, &z);
+		z = -z;
 	}
 
 	//! Setzt die Richtung zurück
@@ -209,18 +273,19 @@ namespace sound {
 	//! Setzt die Richtung
 	void SoundEmitter::setOrientation(irr::core::vector3df& direction) const {
 		
-		irr::f32 vec[3] = { direction.X, direction.Y, direction.Z };
+		irr::f32 vec[3] = { direction.X, direction.Y, -direction.Z };
 		alSourcefv(sourceId, AL_ORIENTATION, vec);
 	}
 
 	//! Setzt die Richtung
 	void SoundEmitter::setOrientation(irr::f32 x, irr::f32 y, irr::f32 z) const {
-		alSource3f(sourceId, AL_ORIENTATION, x, y, z);
+		alSource3f(sourceId, AL_ORIENTATION, x, y, -z);
 	}
 
 	//! Ermittelt die Geschwindigkeit
 	void SoundEmitter::getOrientation(irr::f32& x, irr::f32& y, irr::f32& z) const {
 		alGetSource3f(sourceId, AL_ORIENTATION, &x, &y, &z);
+		z = -z;
 	}
 
 	//! Setzt den Emitter auf ambiente Wiedergabe (AL_SOURCE_RELATIVE)

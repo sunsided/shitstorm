@@ -85,6 +85,18 @@ namespace pv {
 		//! Einfacher Soundemitter
 		sound::SoundEmitter *blipEmitter;
 
+		//! Einfacher Soundemitter
+		sound::SoundEmitter *emitterSinus220;
+
+		//! Einfacher Soundemitter
+		sound::SoundEmitter *emitterSinus440;
+
+		//! Einfacher Soundpuffer
+		sound::SingleSoundBuffer *bufferSinus220;
+
+		//! Einfacher Soundpuffer
+		sound::SingleSoundBuffer *bufferSinus440;
+
 		//! Einfacher Soundpuffer
 		sound::SingleSoundBuffer *singleBuffer;
 

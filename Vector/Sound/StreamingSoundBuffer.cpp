@@ -56,6 +56,7 @@ namespace sound {
 	void StreamingSoundBuffer::unqueueBufferFromEmitter() {
 		if (!attachedEmitter) return;
 
+		attachedEmitter->stop();
 		ALuint source = attachedEmitter->getOpenALSource();
 
 		int queued;
@@ -65,7 +66,15 @@ namespace sound {
 			ALuint buffer;
 			alSourceUnqueueBuffers(source, 1, &buffer);
 			ALenum error = alGetError();
-			if (error != AL_NO_ERROR) throw error;
+			switch(error) {
+			case AL_NO_ERROR:
+				break;
+			case AL_INVALID_VALUE:
+				// Puffer konnte nicht entqueuet werden, da noch nicht verarbeitet
+				break;
+			default:
+				throw error;
+			}
 		}
 	}
 

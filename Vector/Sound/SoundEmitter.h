@@ -89,6 +89,30 @@ namespace sound {
 		//! Ermittelt die Verstärkung
 		irr::f32 getGain() const;
 
+		//! Setzt die maximale Verstärkung
+		void setMaxGain(irr::f32 gain) const;
+
+		//! Ermittelt die maximale Verstärkung
+		irr::f32 getMaxGain() const;
+
+		//! Setzt die minimale Verstärkung
+		void setMinGain(irr::f32 gain) const;
+
+		//! Ermittelt die minimale Verstärkung
+		irr::f32 getMinGain() const;
+
+		//! Setzt die maximale Entfernung
+		void setMaxDistance(irr::f32 distance) const;
+
+		//! Ermittelt die maximale Entfernung
+		irr::f32 getMaxDistance() const;
+
+		//! Setzt die Referenzentfernung
+		void setReferenceDistance(irr::f32 distance) const;
+
+		//! Ermittelt die Referenzentfernung
+		irr::f32 getReferenceDistance() const;
+
 		//! Setzt die Position
 		void setPosition(irr::f32 x, irr::f32 y, irr::f32 z) const;
 

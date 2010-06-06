@@ -37,22 +37,24 @@ namespace sound {
 
 	//! Setzt die Position
 	void RoamingSoundListener::setPosition(irr::f32 x, irr::f32 y, irr::f32 z) const {
-		alListener3f(AL_POSITION, x, y, z);
+		alListener3f(AL_POSITION, x, y, -z);
 	}
 
 	//! Ermittelt die Position
 	void RoamingSoundListener::getPosition(irr::f32& x, irr::f32& y, irr::f32& z) const {
 		alGetListener3f(AL_POSITION, &x, &y, &z);
+		z = -z;
 	}
 
 	//! Setzt die Geschwindigkeit
 	void RoamingSoundListener::setVelocity(irr::f32 x, irr::f32 y, irr::f32 z) const {
-		alListener3f(AL_VELOCITY, x, y, z);
+		alListener3f(AL_VELOCITY, x, y, -z);
 	}
 
 	//! Ermittelt die Geschwindigkeit
 	void RoamingSoundListener::getVelocity(irr::f32& x, irr::f32& y, irr::f32& z) const {
 		alGetListener3f(AL_VELOCITY, &x, &y, &z);
+		z = -z;
 	}
 
 	//! Setzt die Richtung zurück
@@ -65,14 +67,14 @@ namespace sound {
 	//! Setzt die Richtung
 	void RoamingSoundListener::setOrientation(irr::core::vector3df& forward) const {
 		
-		irr::f32 vec[6] = { forward.X, forward.Y, forward.Z, 0, 1, 0 };
+		irr::f32 vec[6] = { forward.X, forward.Y, -forward.Z, 0, 1, 0 };
 		alListenerfv(AL_ORIENTATION, vec);
 	}
 
 	//! Setzt die Richtung
 	void RoamingSoundListener::setOrientation(irr::core::vector3df& forward, irr::core::vector3df& up) const {
 		
-		irr::f32 vec[6] = { forward.X, forward.Y, forward.Z, up.X, up.Y, up.Z };
+		irr::f32 vec[6] = { forward.X, forward.Y, -forward.Z, up.X, up.Y, -up.Z };
 		alListenerfv(AL_ORIENTATION, vec);
 	}
 
