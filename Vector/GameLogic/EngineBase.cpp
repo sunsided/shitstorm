@@ -21,10 +21,11 @@ namespace pv {
 			sceneClearColor(irr::video::SColor(0, 64, 64, 64)),
 			physicsManagement(NULL),
 			worldManagement(NULL),
-			audioManager(NULL),
+			audioManager(sound::SoundDeviceManager::get()),
 			audioContext(NULL),
 			audioDevice(NULL),
-			audioListener(NULL)
+			audioListener(sound::RoamingSoundListener::get()),
+			audioState(sound::SoundState::get())
 	{
 		initializeBasicMaterials();
 	}
@@ -107,10 +108,6 @@ namespace pv {
 		timer = new GameTimer(irrlichtDevice);
 		ASSERT(timer);
 
-		// Audiomanager erzeugen
-		audioManager = new sound::SoundDeviceManager();
-		if (!audioManager) return ESC_SOUND_FAILED;
-
 		// Audiodevice erzeugen (erstbestes Device)
 		audioDevice = audioManager->createAndInitDevice();
 		if (!audioManager) return ESC_SOUND_DEVICE_FAILED;
@@ -118,10 +115,6 @@ namespace pv {
 		// Audiokontext erzeugen
 		audioContext = audioDevice->createContext(true);
 		if (!audioContext) return ESC_SOUND_CONTEXT_FAILED;
-
-		// Listener holen
-		audioListener = new sound::RoamingSoundListener();
-		if (!audioListener) return ESC_SOUND_LISTENER_FAILED;
 
 		// Physikmanagement erzeugen
 		physicsManagement = new physics::PhysicsManager();
@@ -132,9 +125,18 @@ namespace pv {
 		worldManagement = new world::WorldManager();
 		if (!worldManagement) return ESC_WORLDMGMT_FAILED;
 
+		// Standard-Audiostate setzen
+		setDefaultAudioState();
+
 		// Initialisieren
 		cout << "Initialisiere Engine, 2nd stage ..." << endl;
 		return OnSetupEngine();
+	}
+
+	//! Setzt den Audio-State auf Standardwerte
+	void EngineBase::setDefaultAudioState() const {
+		ASSERT(audioState);
+		audioState->setDistanceModel(sound::SDM_EXPONENT_DISTANCE);
 	}
 
 	//! Schlieﬂt die Engine
@@ -173,20 +175,6 @@ namespace pv {
 		if (physicsManagement) {
 			delete physicsManagement;
 			physicsManagement = NULL;
-		}
-
-		// Listener freigeben
-		if (audioListener) {
-			delete audioListener;
-			audioListener = NULL;
-		}
-
-		// Audiomanager freigeben
-		if (audioManager) {
-			delete audioManager;
-			audioManager = NULL;
-			audioDevice = NULL;
-			audioContext = NULL;
 		}
 	}
 

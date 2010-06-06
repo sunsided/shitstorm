@@ -126,6 +126,9 @@ namespace pv {
 		//! Bezieht den Timer
 		inline GameTimer* getTimer() const { return timer; }
 
+		//! Setzt den Audio-State auf Standardwerte
+		void setDefaultAudioState() const;
+
 		//! Erzeugt einen neuen Szenenmanager
 		inline irr::scene::ISceneManager* createAuxiliarySceneManager() const { return sceneManager->createNewSceneManager(); }
 
@@ -205,6 +208,9 @@ namespace pv {
 		//! Bezieht den Audiolistener
 		inline sound::RoamingSoundListener* getSoundListener() const { return audioListener; }
 
+		//! Bezieht den Audio-State
+		inline sound::SoundState* getSoundState() const { return audioState; }
+
 	private:
 
 		//! Ermittelt den Videotreiber
@@ -266,6 +272,9 @@ namespace pv {
 
 		//! Der Audio-Listener
 		sound::RoamingSoundListener *audioListener;
+
+		//! Der Sound-State
+		sound::SoundState *audioState;
 	};
 
 }

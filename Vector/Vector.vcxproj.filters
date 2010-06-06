@@ -112,6 +112,9 @@
     <ClCompile Include="Sound\PositionalAudioObject.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="Sound\SoundState.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -214,6 +217,15 @@
     </ClInclude>
     <ClInclude Include="Sound\PositionalAudioObject.h">
       <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\SoundState.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\SoundDistanceModel.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Singleton.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

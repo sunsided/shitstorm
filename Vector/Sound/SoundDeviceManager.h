@@ -14,18 +14,24 @@
 #include "global.h"
 #include "Utility/Manager.h"
 #include "SoundDevice.h"
+#include "SoundState.h"
+#include "Utility/Singleton.h"
 
 namespace pv {
 namespace sound {
 
 	//! Manager für Sound Devices
-	class SoundDeviceManager
+	class SoundDeviceManager : public utility::Singleton<SoundDeviceManager>
 	{
 		friend class SoundDevice;
+		friend class utility::Singleton<SoundDeviceManager>;
 
-	public:
+	private:
+
 		//! Erzeugt eine neue Instanz des Objektes
 		SoundDeviceManager(void);
+
+	public:
 
 		// Destruktor
 		virtual ~SoundDeviceManager(void);

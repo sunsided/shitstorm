@@ -13,6 +13,7 @@
 
 #include "global.h"
 #include "SoundListener.h"
+#include "Utility/Singleton.h"
 
 namespace pv {
 namespace sound {
@@ -23,11 +24,16 @@ namespace sound {
 	 * Ist die Steuerung eines spezifischen Kontextes nötig, kann eine
 	 * Instanz des @see ContextBoundSoundListener verwendet werden.
 	 */
-	class RoamingSoundListener : public SoundListener
+	class RoamingSoundListener : public SoundListener, public utility::Singleton<RoamingSoundListener>
 	{
-	public:
+		friend class utility::Singleton<RoamingSoundListener>;
+
+	protected:
+	
 		//! Erzeugt eine neue Instanz des Objektes
 		RoamingSoundListener(void);
+
+	public:
 
 		// Destruktor
 		virtual ~RoamingSoundListener(void);

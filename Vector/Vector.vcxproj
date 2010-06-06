@@ -111,6 +111,7 @@
     <ClCompile Include="Sound\SoundDeviceManager.cpp" />
     <ClCompile Include="Sound\SoundEmitter.cpp" />
     <ClCompile Include="Sound\SoundListener.cpp" />
+    <ClCompile Include="Sound\SoundState.cpp" />
     <ClCompile Include="Sound\StreamingAudioSource.cpp" />
     <ClCompile Include="Sound\StreamingSoundBuffer.cpp" />
     <ClCompile Include="Utility\Manager.cpp" />
@@ -146,11 +147,14 @@
     <ClInclude Include="Sound\SoundContext.h" />
     <ClInclude Include="Sound\SoundDevice.h" />
     <ClInclude Include="Sound\SoundDeviceManager.h" />
+    <ClInclude Include="Sound\SoundDistanceModel.h" />
     <ClInclude Include="Sound\SoundEmitter.h" />
     <ClInclude Include="Sound\SoundListener.h" />
+    <ClInclude Include="Sound\SoundState.h" />
     <ClInclude Include="Sound\StreamingAudioSource.h" />
     <ClInclude Include="Sound\StreamingSoundBuffer.h" />
     <ClInclude Include="Utility\Manager.h" />
+    <ClInclude Include="Utility\Singleton.h" />
     <ClInclude Include="World\NamedObject.h" />
     <ClInclude Include="World\WorldManager.h" />
     <ClInclude Include="World\WorldObject.h" />
