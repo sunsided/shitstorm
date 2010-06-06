@@ -18,7 +18,7 @@ namespace pv {
 	//! Erzeugt eine neue Instanz der GameEngine-Klasse.
 	GameEngine::GameEngine(void)
 		: renderTarget(NULL), renderTargetSceneManager(NULL),
-		simpleEmitter(NULL), streamingBuffer(NULL)
+		simpleEmitter(NULL), streamingBuffer(NULL), singleBuffer(NULL), blipEmitter(NULL)
 	{
 	}
 
@@ -42,19 +42,28 @@ namespace pv {
 		
 		// Soundemitter erzeugen
 		simpleEmitter = getSoundContext()->createSoundEmitter();
+		blipEmitter = getSoundContext()->createSoundEmitter();
 		streamingBuffer = getSoundDevice()->createStreamingBuffer();
+		singleBuffer = getSoundDevice()->createSingleBuffer();
 
 		// Puffer registrieren
 		simpleEmitter->attachBuffer(streamingBuffer);
 
-		// Audiopuffer laden
+		// Streaming-Audiopuffer laden
 		streamingAudioSource = new sound::OggVorbisAudioSource();
 		if (!streamingAudioSource) return ESC_SOUND_FAILED;
-		streamingAudioSource->openFile("OrbitalFunnyBreak.ogg");
+		streamingAudioSource->openFile("audio/OrbitalFunnyBreak.ogg");
 		streamingAudioSource->attachToStreamingBuffer(streamingBuffer); // TODO: Emitter hier gleich mitsetzen!
 		streamingAudioSource->initializeStreaming();
 		//source.loadToBuffer(simpleBuffer);
 		//source.closeFile();
+
+		// Streaming-Audiopuffer laden
+		sound::OggVorbisAudioSource singleSource;
+		singleSource.openFile("audio/bimmelimm.ogg");
+		singleSource.loadToBuffer(singleBuffer);
+		singleSource.closeFile();
+		blipEmitter->attachBuffer(singleBuffer);
 
 		return ESC_SUCCESS; 
 	}
@@ -192,6 +201,7 @@ namespace pv {
 
 		// Musik starten
 		simpleEmitter->play();
+		blipEmitter->play();
 	}
 
 	//! Initialisiert die Spielschleife

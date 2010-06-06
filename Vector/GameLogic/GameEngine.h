@@ -82,6 +82,12 @@ namespace pv {
 		//! Einfacher Soundemitter
 		sound::SoundEmitter *simpleEmitter;
 
+		//! Einfacher Soundemitter
+		sound::SoundEmitter *blipEmitter;
+
+		//! Einfacher Soundpuffer
+		sound::SingleSoundBuffer *singleBuffer;
+
 		//! Streaming-Soundpuffer
 		sound::StreamingSoundBuffer *streamingBuffer;
 
