@@ -12,9 +12,6 @@
 
 #include "global.h"
 
-// SQUIRREL!
-#include <squirrel.h> 
-
 namespace pv {
 namespace scripting {
 
@@ -36,11 +33,6 @@ namespace scripting {
 
 		//! Deinitialisiert die VM
 		void terminate();
-
-	private:
-
-		//! Die Squirrel-VM
-		HSQUIRRELVM *vm;
 	};
 
 }}

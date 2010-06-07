@@ -8,16 +8,11 @@
 
 #include "ScriptingVM.h"
 
-// SQUIRREL!
-#include <sqstdio.h> 
-#include <sqstdaux.h> 
-
 namespace pv {
 namespace scripting {
 
 	//! Erzeugt eine neue Instanz der VM
-	ScriptingVM::ScriptingVM() 
-		: vm(NULL)
+	ScriptingVM::ScriptingVM()
 	{
 	}
 
@@ -33,18 +28,11 @@ namespace scripting {
 	void ScriptingVM::initialize(irr::u32 stackSize) {
 		terminate();
 
-		// VM erzeugen
-		vm = new HSQUIRRELVM();
-		*vm = sq_open(1024); // creates a VM with initial stack size 1024 
 	}
 
 	//! Terminiert die VM
 	void ScriptingVM::terminate() {
-		if (vm) {
-			sq_close(*vm); 
-			delete vm;
-			vm = NULL;
-		}
+		
 	}
 
 }}
