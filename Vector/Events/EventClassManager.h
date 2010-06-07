@@ -64,6 +64,17 @@ namespace events {
 		utility::Manager<EventClass> classes;
 	};
 
+	//! Bezieht eine Event-Klasse anhand ihrer ID
+	EventClass* eventGetClassFromId(irr::u32 eventClassId) {
+		return EventClassManager::get()->getClass(eventClassId);
+	}
+
+	//! Bezieht eine Event-Klasse anhand ihrer ID
+	bool eventIsClassInGroup(irr::u32 eventClassId, irr::u32 classGroupId) {
+		return EventClassManager::get()->getGroup(classGroupId)->containsClass(eventClassId);
+	}
+	
 }}
+
 
 #endif

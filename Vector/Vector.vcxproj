@@ -113,6 +113,8 @@
     <ClCompile Include="SceneNodes\OrientationHelperSceneNode.cpp" />
     <ClCompile Include="SceneNodes\PlaneSceneNode.cpp" />
     <ClCompile Include="SceneNodes\SceneObject.cpp" />
+    <ClCompile Include="Scripting\Bindings\BridgeVector3.cpp" />
+    <ClCompile Include="Scripting\Bindings\EventClassBinding.cpp" />
     <ClCompile Include="Scripting\ScriptingVM.cpp" />
     <ClCompile Include="Sound\OggVorbisAudioSource.cpp" />
     <ClCompile Include="Sound\ContextBoundSoundListener.cpp" />
@@ -157,6 +159,8 @@
     <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h" />
     <ClInclude Include="SceneNodes\PlaneSceneNode.h" />
     <ClInclude Include="SceneNodes\SceneObject.h" />
+    <ClInclude Include="Scripting\Bindings\BridgeVector3.h" />
+    <ClInclude Include="Scripting\Bindings\EventClassBinding.h" />
     <ClInclude Include="Scripting\Scripting.h" />
     <ClInclude Include="Scripting\ScriptingVM.h" />
     <ClInclude Include="Sound\OggVorbisAudioSource.h" />

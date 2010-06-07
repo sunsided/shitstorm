@@ -24,7 +24,7 @@ namespace events {
 
 		//! Konstruktor
 		inline EventClass(irr::core::stringw text = L"") : description(text), classId(0) {}
-
+		
 	public:
 
 		//! Destruktor
