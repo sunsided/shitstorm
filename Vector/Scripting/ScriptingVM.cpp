@@ -8,6 +8,9 @@
 
 #include "ScriptingVM.h"
 
+// Squirrel!
+#include <sqplus.h>
+
 namespace pv {
 namespace scripting {
 
