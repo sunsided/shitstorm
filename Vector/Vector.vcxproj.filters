@@ -118,6 +118,9 @@
     <ClCompile Include="Sound\SoundState.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="Scripting\ScriptingVM.cpp">
+      <Filter>Scripting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -229,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="Utility\Singleton.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\ScriptingVM.h">
+      <Filter>Scripting</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
