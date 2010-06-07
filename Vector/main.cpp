@@ -9,7 +9,6 @@
 #include "linker.h"
 
 #include "GameLogic/GameEngine.h"
-#include "Scripting/ScriptingVM.h"
 
 #include <memory>
 #include <iostream>
@@ -18,9 +17,6 @@ using namespace std;
 using namespace pv;
 
 int main(int argc, char **argv) {
-
-	scripting::ScriptingVM *vm = scripting::ScriptingVM::get();
-
 
 	// Engine erzeugen
 	auto_ptr<EngineBase> engine( new GameEngine() );

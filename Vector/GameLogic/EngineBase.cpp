@@ -25,7 +25,8 @@ namespace pv {
 			audioContext(NULL),
 			audioDevice(NULL),
 			audioListener(sound::RoamingSoundListener::get()),
-			audioState(sound::SoundState::get())
+			audioState(sound::SoundState::get()),
+			vm(NULL)
 	{
 		initializeBasicMaterials();
 	}
@@ -124,6 +125,15 @@ namespace pv {
 		// Weltmanagement erzeugen
 		worldManagement = new world::WorldManager();
 		if (!worldManagement) return ESC_WORLDMGMT_FAILED;
+
+		// Scripting initialisieren
+		try {
+			vm = scripting::ScriptingVM::get();
+			if (!vm) return ESC_SCRIPTVM_FAILED;
+		}
+		catch(...) {
+			return ESC_SCRIPTVM_FAILED;
+		}
 
 		// Standard-Audiostate setzen
 		setDefaultAudioState();

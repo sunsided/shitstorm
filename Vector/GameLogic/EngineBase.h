@@ -18,6 +18,7 @@
 #include "World/WorldManager.h"
 #include "Sound/SoundDeviceManager.h"
 #include "Sound/RoamingSoundListener.h"
+#include "Scripting/ScriptingVM.h"
 
 namespace pv {
 
@@ -211,6 +212,9 @@ namespace pv {
 		//! Bezieht den Audio-State
 		inline sound::SoundState* getSoundState() const { return audioState; }
 
+		//! Bezieht die Scripting-VM
+		inline scripting::ScriptingVM* getScriptVM() const { return vm; }
+
 	private:
 
 		//! Ermittelt den Videotreiber
@@ -275,6 +279,9 @@ namespace pv {
 
 		//! Der Sound-State
 		sound::SoundState *audioState;
+
+		//! Scripting-VM
+		scripting::ScriptingVM *vm;
 	};
 
 }

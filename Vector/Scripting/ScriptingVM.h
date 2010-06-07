@@ -31,6 +31,11 @@ namespace scripting {
 		//! Destruktor
 		virtual ~ScriptingVM();
 		
+		//! Führt ein Script (inline) aus
+		/* @code vm->executeScriptCode("print(\"1+3=\"+ (1+3) +\"!\");"); @endcode
+		 */
+		void executeScriptCode(const irr::core::stringw script) const;
+
 	private:
 
 		//! Initialisiert die Engine.

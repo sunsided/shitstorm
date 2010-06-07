@@ -60,6 +60,9 @@ namespace pv {
 		//! Sound-Listener konnte nicht initialisiert werden
 		ESC_SOUND_LISTENER_FAILED = 14,
 
+		//! Die Script-VM ist auf's Maul geflogen
+		ESC_SCRIPTVM_FAILED = 15,
+
 		//! Intern
 		/** @internal Die Anzahl der Werte der EEngineStatusCode-Enumeration */
 		ESC_COUNT

@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <iostream>
+#include <time.h>
+#include <limits.h>
 
 // Squirrel!
 #include <sqplus.h>
@@ -26,6 +28,15 @@ namespace scripting {
 		scvsprintf(temp, s, vl); // TODO: Dynamische Puffer!?
 		SCPUTS(temp);
 		va_end(vl);
+	}
+
+	static SQInteger math_srand(HSQUIRRELVM v)
+	{
+		SQInteger i;
+		if(SQ_FAILED(sq_getinteger(v,2,&i)))
+			return sq_throwerror(v,_SC("invalid param"));
+		srand((unsigned int)i);
+		return 0;
 	}
 
 	//! Erzeugt eine neue Instanz der VM
@@ -47,16 +58,20 @@ namespace scripting {
 	void ScriptingVM::initialize(irr::u32 stackSize) {
 		terminate();
 		
+		// Zufallszahlengenerator
+		srand((unsigned int)(time(NULL) % UINT_MAX));
+
 		// VM initialisieren
 		SquirrelVM::Init();
 
 		// Print-Funktion setzen
-		sq_setprintfunc(SquirrelVM::GetVMPtr(), squirrelPrintFunc);
 		initialized = true;
 
 		// Testskript ausgeben
-		SquirrelObject script = SquirrelVM::CompileBuffer(_T("print(\"Squirrel VM initialisiert.\");"));
-		SquirrelVM::RunScript(script);
+		irr::core::stringw script = L"print(\"Scripting VM initialisiert: ";
+		script += SQUIRREL_VERSION;
+		script += L"\");";
+		executeScriptCode(script);
 	}
 
 	//! Terminiert die VM
@@ -64,12 +79,17 @@ namespace scripting {
 		if (!initialized) return;
 
 		// Testskript ausgeben
-		SquirrelObject script = SquirrelVM::CompileBuffer(_T("print(\"Squirrel VM wird heruntergefahren.\");"));
-		SquirrelVM::RunScript(script);
+		executeScriptCode(_T("print(\"Squirrel VM wird heruntergefahren.\");"));
 
 		// Beenden
 		SquirrelVM::Shutdown();
 		initialized = false;
+	}
+
+	//! Führt ein Script (inline) aus
+	void ScriptingVM::executeScriptCode(const irr::core::stringw nuttingham) const {
+		SquirrelObject script = SquirrelVM::CompileBuffer(nuttingham.c_str());
+		SquirrelVM::RunScript(script);
 	}
 
 }}
