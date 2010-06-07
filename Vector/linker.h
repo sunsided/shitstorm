@@ -12,13 +12,17 @@
 
 #include "global.h"
 
+// Konsole ausblenden
+#ifdef HIDE_CONSOLE
+	#pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
+#endif
+
+
+// Irrlicht-Library
 #ifdef _IRR_WINDOWS_
 	#pragma comment(lib, "Irrlicht.lib")
-
-	#ifdef HIDE_CONSOLE
-		#pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
-	#endif
 #endif
+
 
 // Bullet
 #if _MSC_VER
@@ -26,6 +30,7 @@
 	#pragma comment(lib, "BulletDynamics.lib")
 	#pragma comment(lib, "LinearMath.lib")
 #endif
+
 
 // OpenAL
 #if _MSC_VER
@@ -38,7 +43,38 @@
 		#pragma comment(lib, "libogg.lib")
 		#pragma comment(lib, "libvorbis.lib")
 		#pragma comment(lib, "libvorbisfile.lib")
+	#endif
 #endif
+
+
+// Squirrel
+#ifdef _MSC_VER
+	#ifdef UNICODE
+		#define LIB  "U.lib"
+	#else
+		#define LIB  ".lib"
+	#endif
+
+	#ifdef _DEBUG
+
+		#pragma comment(lib,"squirrelD" LIB)
+		#pragma comment(lib,"sqstdlibD" LIB)
+		#ifdef USE_REMOTE_DEBUGGER
+			#pragma comment(lib,"sqdbglibD" LIB)
+		#endif
+		#pragma comment(lib,"sqplusD" LIB)
+
+	#else
+
+		#pragma comment(lib,"squirrel" LIB)
+		#pragma comment(lib,"sqstdlib" LIB)
+		#ifdef USE_REMOTE_DEBUGGER
+			#pragma comment(lib,"sqdbglib" LIB)
+		#endif
+		#pragma comment(lib,"sqplus" LIB)
+
+	#endif
 #endif
+
 
 #endif
