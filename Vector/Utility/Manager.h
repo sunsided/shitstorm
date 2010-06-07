@@ -28,14 +28,14 @@ namespace utility {
 		Manager(bool deleteOnDestruction = false) : deleteOnDestruct(deleteOnDestruction), nextFreeID(0) {}
 		
 		//! Destruktor
-		Manager<T>::~Manager(void) { clear(deleteOnDestruct); }
+		~Manager(void) { clear(deleteOnDestruct); }
 
 		//! Fügt ein Element hinzu
 		/**
 		 * @param element	Das hinzuzufügende Element
 		 * @returns Der Index des hinzugefügten Elementes; Wird Indizierung nicht unterstützt, ist der Wert immer 0.
 		 */
-		irr::u32 add(T* element) {
+		inline irr::u32 add(T* element) {
 			irr::u32 id = nextFreeID++;
 			idElementTable.insert(std::pair<irr::u32, T*>(id, element));
 			elementIdTable.insert(std::pair<T*, irr::u32>(element, id));
@@ -46,7 +46,7 @@ namespace utility {
 		/**
 		 * @param element	Das zu entfernende Element
 		 */
-		irr::u32 remove(T* element) {
+		inline irr::u32 remove(T* element) {
 			irr::u32 id = elementIdTable[element];
 			elementIdTable.erase(element);
 			idElementTable.erase(id);
@@ -57,7 +57,7 @@ namespace utility {
 		/**
 		 * @param element	Die ID des zu entfernenden Elementes
 		 */
-		T* remove(irr::u32 id) {
+		inline T* remove(irr::u32 id) {
 			T* element = idElementTable[id];
 			elementIdTable.erase(element);
 			idElementTable.erase(id);
@@ -84,14 +84,14 @@ namespace utility {
 		 * @param id	Die zu testende ID
 		 * @returns		true, wenn das Element gefunden wurde, ansonsten false
 		 */
-		inline bool contains(irr::u32 id) const { return idElementTable.find(id) == idElementTable.end(); }
+		inline bool contains(irr::u32 id) const { return idElementTable.find(id) != idElementTable.end(); }
 
 		//! Ermittelt, ob ein Element registriert ist
 		/*
 		 * @param id	Das zu Testende Element
 		 * @returns		true, wenn das Element gefunden wurde, ansonsten false
 		 */
-		inline bool contains(T* element) const { return elementIdTable.find(element) == elementIdTable.end(); }
+		inline bool contains(T* element) const { return elementIdTable.find(element) != elementIdTable.end(); }
 		
 		//! Ermittelt, ob der Manager leer ist
 		inline bool isEmpty() const { return idElementTable.empty(); }

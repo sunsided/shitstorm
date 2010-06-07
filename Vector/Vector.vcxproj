@@ -95,6 +95,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Events\EventClassGroup.cpp" />
+    <ClCompile Include="Events\EventClassGroupManager.cpp" />
     <ClCompile Include="Events\EventTriggeringObject.cpp" />
     <ClCompile Include="GameLogic\EngineBase.cpp" />
     <ClCompile Include="GameLogic\GameEngine.cpp" />
@@ -132,6 +134,8 @@
     <ClCompile Include="World\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Events\EventClassGroup.h" />
+    <ClInclude Include="Events\EventClassGroupManager.h" />
     <ClInclude Include="Events\EventTriggeringObject.h" />
     <ClInclude Include="GameLogic\EngineBase.h" />
     <ClInclude Include="GameLogic\EngineInitializationParams.h" />
@@ -168,6 +172,8 @@
     <ClInclude Include="Sound\StreamingAudioSource.h" />
     <ClInclude Include="Sound\StreamingSoundBuffer.h" />
     <ClInclude Include="Utility\Manager.h" />
+    <ClInclude Include="Utility\SetManager.h" />
+    <ClInclude Include="Utility\SetManagerP.h" />
     <ClInclude Include="Utility\Singleton.h" />
     <ClInclude Include="World\NamedObject.h" />
     <ClInclude Include="World\WorldManager.h" />

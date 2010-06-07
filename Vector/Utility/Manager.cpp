@@ -7,3 +7,5 @@
  */
 
 #include "Manager.h"
+#include "SetManager.h"
+#include "SetManagerP.h"

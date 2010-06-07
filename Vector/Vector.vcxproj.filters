@@ -133,6 +133,12 @@
     <ClCompile Include="SceneNodes\EventNodes\EventSceneNode.cpp">
       <Filter>SceneNodes\EventNodes</Filter>
     </ClCompile>
+    <ClCompile Include="Events\EventClassGroup.cpp">
+      <Filter>Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\EventClassGroupManager.cpp">
+      <Filter>Events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -253,6 +259,18 @@
     </ClInclude>
     <ClInclude Include="SceneNodes\EventNodes\EventSceneNode.h">
       <Filter>SceneNodes\EventNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventClassGroup.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventClassGroupManager.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\SetManagerP.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\SetManager.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
