@@ -19,10 +19,7 @@ using namespace pv;
 
 int main(int argc, char **argv) {
 
-	scripting::ScriptingVM *vm = new scripting::ScriptingVM();
-	vm->initialize();
-	vm->terminate();
-	delete vm;
+	scripting::ScriptingVM *vm = scripting::ScriptingVM::get();
 
 
 	// Engine erzeugen

@@ -11,20 +11,28 @@
 #define _SCRIPTINGVM_H
 
 #include "global.h"
+#include "Utility/Singleton.h"
 
 namespace pv {
 namespace scripting {
 
 	//! Virtuelle Maschine für das Scripting
-	class ScriptingVM
+	class ScriptingVM : public utility::Singleton<ScriptingVM>
 	{
-	public:
+		friend class utility::Singleton<ScriptingVM>;
+
+	private:
+
 		//! Erzeugt eine neue Instanz der VM
 		ScriptingVM();
+
+	public:
 
 		//! Destruktor
 		virtual ~ScriptingVM();
 		
+	private:
+
 		//! Initialisiert die Engine.
 		/** Muss als erste Funktion aufgerufen werden.
 		 * @param stackSize		Die initiale Größe des Stacks
@@ -33,6 +41,9 @@ namespace scripting {
 
 		//! Deinitialisiert die VM
 		void terminate();
+
+		//! Gibt an, ob die VM initialisiert wurde
+		bool initialized;
 	};
 
 }}

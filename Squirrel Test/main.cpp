@@ -26,9 +26,10 @@
 #endif
 
 #include <sqplus.h>
-#include <Irrlicht.h>
 
+#include <Irrlicht.h>
 #pragma comment(lib, "Irrlicht.lib")
+
 
 #pragma comment(lib, "OpenAL32.lib")
 #pragma comment(lib, "liboggd.lib")
@@ -40,5 +41,11 @@
 #pragma comment(lib, "LinearMath.lib")
 
 void main() {
+
+	  SquirrelVM::Init();
+	  SquirrelObject helloWorld = SquirrelVM::CompileBuffer(_T("print(\"Hello World\");"));
+	  SquirrelVM::RunScript(helloWorld);
+	  SquirrelVM::Shutdown();
+
 	return;
 }
