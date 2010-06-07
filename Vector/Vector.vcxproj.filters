@@ -22,6 +22,12 @@
     <Filter Include="Scripting">
       <UniqueIdentifier>{94560e2b-9b21-4dc7-8554-a4f22cef4671}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Events">
+      <UniqueIdentifier>{e2c21cc4-b66e-4650-bbc9-9779dceec5b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneNodes\EventNodes">
+      <UniqueIdentifier>{b3f34cbb-4cc7-496e-bfba-71fe0fe1a5b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -120,6 +126,12 @@
     </ClCompile>
     <ClCompile Include="Scripting\ScriptingVM.cpp">
       <Filter>Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\EventTriggeringObject.cpp">
+      <Filter>Events</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneNodes\EventNodes\EventSceneNode.cpp">
+      <Filter>SceneNodes\EventNodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +247,12 @@
     </ClInclude>
     <ClInclude Include="Scripting\ScriptingVM.h">
       <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventTriggeringObject.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodes\EventNodes\EventSceneNode.h">
+      <Filter>SceneNodes\EventNodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
