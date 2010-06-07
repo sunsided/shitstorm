@@ -136,7 +136,10 @@
     <ClCompile Include="Events\EventClassGroup.cpp">
       <Filter>Events</Filter>
     </ClCompile>
-    <ClCompile Include="Events\EventClassGroupManager.cpp">
+    <ClCompile Include="Events\EventClass.cpp">
+      <Filter>Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\EventClassManager.cpp">
       <Filter>Events</Filter>
     </ClCompile>
   </ItemGroup>
@@ -263,14 +266,20 @@
     <ClInclude Include="Events\EventClassGroup.h">
       <Filter>Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\EventClassGroupManager.h">
-      <Filter>Events</Filter>
-    </ClInclude>
     <ClInclude Include="Utility\SetManagerP.h">
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="Utility\SetManager.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Scripting.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventClass.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventClassManager.h">
+      <Filter>Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

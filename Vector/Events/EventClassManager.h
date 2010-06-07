@@ -13,39 +13,55 @@
 #include "global.h"
 #include "Utility/Singleton.h"
 #include "Utility/Manager.h"
+#include "EventClass.h"
 #include "EventClassGroup.h"
 
 namespace pv {
 namespace events {
 
 	//! Element mit Namen
-	class EventClassGroupManager : public utility::Singleton<EventClassGroupManager>
+	class EventClassManager : public utility::Singleton<EventClassManager>
 	{
-		friend class utility::Singleton<EventClassGroupManager>;
+		friend class utility::Singleton<EventClassManager>;
 
 	private:
 
 		//! Konstruktor
-		inline EventClassGroupManager() : groups(true) {}
+		inline EventClassManager() : groups(true) {}
 
 	public:
 
 		//! Destruktor
-		virtual ~EventClassGroupManager(void) {}
+		virtual ~EventClassManager(void) {}
 
 		//! Ermittelt die Anzahl der registrierten Gruppen
 		inline irr::u32 getGroupCount() { return groups.count(); }
 
+		//! Ermittelt die Anzahl der registrierten Gruppen
+		inline irr::u32 getClassCount() { return groups.count(); }
+
 		//! Erzeugt eine Gruppe
 		EventClassGroup* createGroup();
 
-		//! Erzeugt eine Gruppe
+		//! Erzeugt eine Klasse
+		EventClass* createClass();
+
+		//! Erzeugt eine Klasse
+		EventClass* createClass(irr::core::stringw& description);
+
+		//! Bezieht eine Gruppe
 		EventClassGroup* getGroup(irr::u32 groupId) { return groups[groupId]; }
+
+		//! Bezieht eine Gruppe
+		EventClass* getClass(irr::u32 classId) { return classes[classId]; }
 
 	private:
 
 		//! Manager der Gruppen
 		utility::Manager<EventClassGroup> groups;
+
+		//! Manager der Klassen
+		utility::Manager<EventClass> classes;
 	};
 
 }}

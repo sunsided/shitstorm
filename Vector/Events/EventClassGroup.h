@@ -20,7 +20,7 @@ namespace events {
 	//! Element mit Namen
 	class EventClassGroup
 	{
-		friend class EventClassGroupManager;
+		friend class EventClassManager;
 
 	protected:
 

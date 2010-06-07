@@ -14,9 +14,6 @@
 #include <time.h>
 #include <limits.h>
 
-// Squirrel!
-#include <sqplus.h>
-
 namespace pv {
 namespace scripting {
 

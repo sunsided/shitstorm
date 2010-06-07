@@ -11,6 +11,7 @@
 #define _SCRIPTINGVM_H
 
 #include "global.h"
+#include "Scripting.h"
 #include "Utility/Singleton.h"
 
 namespace pv {
