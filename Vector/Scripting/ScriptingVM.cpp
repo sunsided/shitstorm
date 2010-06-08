@@ -7,6 +7,7 @@
  */
 
 #include "ScriptingVM.h"
+#include "Bindings.h"
 
 #include <stdio.h>
 #include <stdarg.h>
@@ -31,6 +32,16 @@ namespace scripting {
 		va_start(vl, s);
 		scvsprintf(temp, s, vl); // TODO: Dynamische Puffer!?
 		std::wcout << temp << std::endl;
+		va_end(vl);
+	}
+
+	//! Print-Funktion für Squirrel
+	static void squirrelPrintErrorFunc(HSQUIRRELVM v, const SQChar * s,...) {
+		static SQChar temp[2048];
+		va_list vl;
+		va_start(vl, s);
+		scvsprintf(temp, s, vl); // TODO: Dynamische Puffer!?
+		std::wcerr << temp << std::endl;
 		va_end(vl);
 	}
 
@@ -68,7 +79,7 @@ namespace scripting {
 		// VM initialisieren
 		vm = sq_open(stackSize);
 		sqstd_seterrorhandlers(vm);
-		sq_setprintfunc(vm, squirrelPrintFunc);
+		sq_setprintfunc(vm, squirrelPrintFunc, squirrelPrintErrorFunc);
 
 		// Standardbibliotheken laden
 		sq_pushroottable(vm);
@@ -83,6 +94,7 @@ namespace scripting {
 
 		// Funktionen ersetzen
 		RootTable(vm).Func(L"srand", &squirrelSrandFunc);
+		//ConstTable(vm).Const(L"SQUIRREL_VERSION", SQUIRREL_VERSION);
 
 		// Testaufruf
 		/*
@@ -98,10 +110,11 @@ namespace scripting {
 		initialized = true;
 
 		// Testskript ausgeben
-		irr::core::stringw script = L"print(\"Scripting VM initialisiert: ";
-		script += SQUIRREL_VERSION;
-		script += L"\");";
-		executeScriptCode(script);
+		executeScriptCode(L"print(\"Scripting VM initialisiert: \" + _version_);");
+
+		// Klassen binden
+		bindElements(vm);
+		executeScriptCode(L"print(\"Scripting VM: Elemente gebunden.\");");
 	}
 
 	//! Terminiert die VM
@@ -130,6 +143,11 @@ namespace scripting {
 		Sqrat::Script script;
 		script.CompileFile(filename.c_str());
 		script.Run();
+	}
+
+	//! Bindet die Klassen
+	void ScriptingVM::bindElements(HSQUIRRELVM& vm) {
+		pv::scripting::bindElements(vm);
 	}
 
 }}

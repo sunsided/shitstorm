@@ -59,6 +59,11 @@ namespace scripting {
 		//! Deinitialisiert die VM
 		void terminate();
 
+		//! Bindet die Klassen
+		static void bindElements(HSQUIRRELVM& vm);
+
+	private:
+
 		//! Gibt an, ob die VM initialisiert wurde
 		bool initialized;
 

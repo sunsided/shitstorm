@@ -59,21 +59,13 @@
 
 		#pragma comment(lib,"squirrelD" LIB)
 		#pragma comment(lib,"sqstdlibD" LIB)
-		#ifdef USE_REMOTE_DEBUGGER
-			#pragma comment(lib,"sqdbglibD" LIB)
-		#endif
-		#pragma comment(lib,"sqplusD" LIB)
 
 	#else
 
 		#pragma comment(lib,"squirrel" LIB)
 		#pragma comment(lib,"sqstdlib" LIB)
-		#ifdef USE_REMOTE_DEBUGGER
-			#pragma comment(lib,"sqdbglib" LIB)
-		#endif
-		#pragma comment(lib,"sqplus" LIB)
 
-	#endif
+#endif
 #endif
 
 

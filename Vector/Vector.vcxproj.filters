@@ -31,6 +31,9 @@
     <Filter Include="Scripting\Bindings">
       <UniqueIdentifier>{ff756ace-dd60-4b5e-bd88-ae6dd6810aa1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripting\Sqrat">
+      <UniqueIdentifier>{b36ee74a-9d37-47e0-ac5b-0f39e9b1df41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -150,6 +153,9 @@
     </ClCompile>
     <ClCompile Include="Scripting\Bindings\BridgeVector3.cpp">
       <Filter>Scripting\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\Bindings.cpp">
+      <Filter>Scripting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +301,15 @@
     </ClInclude>
     <ClInclude Include="Scripting\Bindings\BridgeVector3.h">
       <Filter>Scripting\Bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Bindings.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\BindingList.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Sqrat\sqratImpClass.h">
+      <Filter>Scripting\Sqrat</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
