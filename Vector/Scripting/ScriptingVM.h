@@ -33,9 +33,14 @@ namespace scripting {
 		virtual ~ScriptingVM();
 		
 		//! Führt ein Script (inline) aus
-		/* @code vm->executeScriptCode("print(\"1+3=\"+ (1+3) +\"!\");"); @endcode
+		/* @code vm->executeScriptCode(L"print(\"1+3=\"+ (1+3) +\"!\");"); @endcode
 		 */
 		void executeScriptCode(const irr::core::stringw script) const;
+
+		//! Führt ein Script (Datei) aus
+		/* @code vm->executeScriptFile(L"/path/to/file/script.nut"); @endcode
+		 */
+		void executeScriptFile(const irr::core::stringw filename) const;
 
 		//! Bezieht die VM
 		static inline HSQUIRRELVM& getVM() { return get()->vm; }

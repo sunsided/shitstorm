@@ -123,4 +123,13 @@ namespace scripting {
 		script.Run();
 	}
 
+	//! Führt ein Script (Datei) aus
+	/* @code vm->executeScriptFile(L"/path/to/file/script.nut"); @endcode
+		*/
+	void ScriptingVM::executeScriptFile(const irr::core::stringw filename) const {
+		Sqrat::Script script;
+		script.CompileFile(filename.c_str());
+		script.Run();
+	}
+
 }}
