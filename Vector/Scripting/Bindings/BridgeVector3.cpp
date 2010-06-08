@@ -22,7 +22,6 @@ namespace scripting {
 		using namespace Sqrat;
 		using namespace irr::core;
 
-
 		RootTable(vm).Bind(
 			_SC("Vector3"),
 			ImprovedClass<BridgeVector3, ImprovedAllocator<BridgeVector3>>(vm)
@@ -35,51 +34,37 @@ namespace scripting {
 				.Func(_SC("setLength"), &BridgeVector3::setLength)
 				.Func(_SC("normalize"), &BridgeVector3::normalize)
 				.Func(_SC("dot"), &BridgeVector3::dotProduct)
+				.Func(_SC("cross"), &BridgeVector3::crossProduct)
 				.Func(_SC("scale"), &BridgeVector3::scale)
 				.Func(_SC("_add"), &BridgeVector3::operator+)
 				.Func(_SC("_sub"), &BridgeVector3::operator-)
 				.Func(_SC("_mul"), &BridgeVector3::operator*)
+				.Func(_SC("_modulo"), &BridgeVector3::crossProduct)
 				.Func(_SC("_div"), &BridgeVector3::operator/)
 				.Func(_SC("_cmp"), &BridgeVector3::operator==)
 				.Func(_SC("_unm"), &BridgeVector3::getNegated)
 				.Func(_SC("_tostring"), &BridgeVector3::toString)
+				.Func(_SC("rotationToDirection"), &BridgeVector3::rotationToDirection)
+				.Func(_SC("getSphericalCoordinateAngles"), &BridgeVector3::getSphericalCoordinateAngles)
+				.Func(_SC("getHorizontalAngle"), &BridgeVector3::getHorizontalAngle)
+				.Func(_SC("interpolate"), &BridgeVector3::interpolate)
+				.Func(_SC("getInterpolated"), &BridgeVector3::getInterpolated)
+				.Func(_SC("getInterpolated_quadratic"), &BridgeVector3::getInterpolated_quadratic)
+				.Func(_SC("rotateYZBy"), &BridgeVector3::rotateYZBy)
+				.Func(_SC("rotateXYBy"), &BridgeVector3::rotateXYBy)
+				.Func(_SC("rotateXZBy"), &BridgeVector3::rotateXZBy)
+				.Func(_SC("isBetweenPoints"), &BridgeVector3::isBetweenPoints)
+				.Func(_SC("getDistanceFrom"), &BridgeVector3::getDistanceFrom)
+				.Func(_SC("getDistanceFromSQ"), &BridgeVector3::getDistanceFromSQ)
+				.Func(_SC("set"), &BridgeVector3::set)
+				.Func(_SC("equals"), &BridgeVector3::equals)
 			);
 
-
+		/*
 		Script script;
 		script.CompileFile(L"scripts/vectortest.nut");
 		script.Run();
-
-		/*
-		SqPlus::SQClassDef<pv::scripting::BridgeVector3>(_T("Vector")).
-			staticFunc(&pv::scripting::BridgeVector3::constructor_void,_T("constructor")).
-			staticFunc(&pv::scripting::BridgeVector3::constructor_3f,	_T("constructor"))
-			/*
-			var(&pv::scripting::BridgeVector3::vector::X, "x").
-			var(&pv::scripting::BridgeVector3::vector::Y, "y").
-			var(&pv::scripting::BridgeVector3::vector::Z, "z")
-			*/
-			/*
-			func(&pv::utility::BridgeVector3::crossProduct,			_T("crossProduct")).
-			func(&pv::utility::BridgeVector3::dotProduct,			_T("dotProduct")).
-			func(&pv::utility::BridgeVector3::getLength,			_T("getLength")).
-			func(&pv::utility::BridgeVector3::getLengthSQ,			_T("getLengthSQ")).
-			func(&pv::utility::BridgeVector3::getDistanceFromSQ,	_T("getDistanceFromSQ")).
-			func(&pv::utility::BridgeVector3::isBetweenPoints,		_T("isBetweenPoints")).
-			func(&pv::utility::BridgeVector3::normalize,			_T("normalize")).
-			func(&pv::utility::BridgeVector3::setLength,			_T("setLength")).
-			func(&pv::utility::BridgeVector3::invert,				_T("invert")).
-			func(&pv::utility::BridgeVector3::rotateXZBy,			_T("rotateXZBy")).
-			func(&pv::utility::BridgeVector3::rotateXYBy,			_T("rotateXYBy")).
-			func(&pv::utility::BridgeVector3::rotateYZBy,			_T("rotateYZBy")).
-			func(&pv::utility::BridgeVector3::getInterpolated,		_T("getInterpolated")).
-			func(&pv::utility::BridgeVector3::getInterpolated_quadratic,_T("getInterpolated_quadratic")).
-			func(&pv::utility::BridgeVector3::interpolate,			_T("interpolate")).
-			func(&pv::utility::BridgeVector3::getHorizontalAngle,	_T("getHorizontalAngle")).
-			func(&pv::utility::BridgeVector3::getSphericalCoordinateAngles,_T("getSphericalCoordinateAngles")).
-			func(&pv::utility::BridgeVector3::rotationToDirection,	_T("rotationToDirection"))
-			*/
-			;
+		*/
 	}
 
 }}

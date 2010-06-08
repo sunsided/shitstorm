@@ -32,12 +32,17 @@ namespace scripting {
 		{}
 
 		//! Erzeugt eine neue Instanz der Klasse
-		inline BridgeVector3(irr::core::vector3df& copy) 
+		inline BridgeVector3(const BridgeVector3& copy) 
+			: vector(copy.vector)
+		{}
+
+		//! Erzeugt eine neue Instanz der Klasse
+		inline BridgeVector3(const irr::core::vector3df& copy) 
 			: vector(copy)
 		{}
 
 		//! Erzeugt eine neue Instanz der Klasse
-		inline BridgeVector3(btVector3& copy) 
+		inline BridgeVector3(const btVector3& copy) 
 			: vector(copy.x(), copy.y(), copy.z())
 		{}
 		
@@ -48,7 +53,8 @@ namespace scripting {
 		inline operator btVector3() const { return btVector3(vector.X, vector.Y, vector.Z); }
 
 		//! Cast-Operator
-		inline operator irr::core::vector3df&() { return vector; }
+		inline operator const irr::core::vector3df&() const { return vector; }
+		inline operator irr::core::vector3df() const { return vector; }
 
 		//! Setzt alle Werte auf Null zurück
 		inline void clear() { vector.X = vector.Y = vector.Z = 0; }
@@ -138,8 +144,8 @@ namespace scripting {
 		//! Punktprodukt
 		inline irr::f32 dotProduct(const BridgeVector3& other) const { return vector.dotProduct(other.vector); }
 
-		inline BridgeVector3 crossProduct(const btVector3& p) const {
-			return BridgeVector3(vector.Y * p.z() - vector.Z * p.y(), vector.Z * p.x() - vector.X * p.z(), vector.X * p.y() - vector.Y * p.x());
+		inline BridgeVector3 crossProduct(const BridgeVector3& p) const { 
+			return vector.crossProduct(p.vector); 
 		}
 		
 		//! Gibt eine String-Darstellung des Vektors wieder
@@ -161,6 +167,22 @@ namespace scripting {
 		inline irr::f32 getLength() const { return vector.getLength(); }
 		inline irr::f32 getLengthSQ() const { return vector.getLengthSQ(); }
 		inline BridgeVector3& setLength(const irr::f32& value) { vector.setLength(value); return *this; }
+
+		inline BridgeVector3 rotationToDirection(const BridgeVector3& forwards) const { return BridgeVector3(vector.rotationToDirection(forwards.vector)); }
+		inline BridgeVector3 getSphericalCoordinateAngles() { return vector.getSphericalCoordinateAngles(); }
+		inline BridgeVector3 getHorizontalAngle() const { return vector.getHorizontalAngle(); }
+		inline BridgeVector3& interpolate(const BridgeVector3& a, const BridgeVector3& b, irr::f64 d) { vector.interpolate(a.vector, b.vector, d); return *this; }
+		inline BridgeVector3 getInterpolated(const BridgeVector3& other, irr::f64 d) const { return vector.getInterpolated(other.vector, d); }
+		inline BridgeVector3 getInterpolated_quadratic(const BridgeVector3& v2, const BridgeVector3& v3, irr::f64 d) const { return vector.getInterpolated_quadratic(v2.vector, v3.vector, d); }
+		inline void rotateYZBy(irr::f64 degrees, const BridgeVector3& center) { vector.rotateYZBy(degrees, center.vector); }
+		inline void rotateXYBy(irr::f64 degrees, const BridgeVector3& center) { vector.rotateXYBy(degrees, center.vector); }
+		inline void rotateXZBy(irr::f64 degrees, const BridgeVector3& center) { vector.rotateXZBy(degrees, center.vector); }
+		inline bool isBetweenPoints(const BridgeVector3& begin, const BridgeVector3& end) const { return vector.isBetweenPoints(begin.vector, end.vector); }
+		inline irr::f32 getDistanceFrom(const BridgeVector3& other) const { return vector.getDistanceFrom(other.vector); }
+		inline irr::f32 getDistanceFromSQ(const BridgeVector3& other) const { return vector.getDistanceFromSQ(other.vector); }
+		inline BridgeVector3& set(irr::f32 x, irr::f32 y, irr::f32 z) { vector.set(x, y, z); return *this; }
+		inline bool equals(BridgeVector3& other) const { return vector.equals(other.vector); }
+
 
 		//! Binding-Funktion
 		static void scriptingBindBridgeVector(HSQUIRRELVM& vm);

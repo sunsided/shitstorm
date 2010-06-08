@@ -11,3 +11,6 @@ print(vector3.X + ", " + vector3.Y + ", " + vector3.Z);
 
 print("Noch ein Test:");
 print(vector);
+
+local vector4 = Vector3(0, 1, 0) % Vector3(1, 0, 0);
+print(vector4);
