@@ -185,7 +185,7 @@ namespace scripting {
 
 
 		//! Binding-Funktion
-		static void scriptingBindBridgeVector(HSQUIRRELVM& vm);
+		static void scriptingBind(HSQUIRRELVM& vm);
 	};
 
 }}

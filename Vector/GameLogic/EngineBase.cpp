@@ -8,6 +8,7 @@
 
 #include "EngineBase.h"
 #include <iostream>
+#include "Scripting/Scripting.h"
 
 using namespace std;
 using namespace irr;
@@ -26,7 +27,8 @@ namespace pv {
 			audioDevice(NULL),
 			audioListener(sound::RoamingSoundListener::get()),
 			audioState(sound::SoundState::get()),
-			vm(NULL)
+			vm(NULL),
+			_isRunning(false)
 	{
 		initializeBasicMaterials();
 	}
@@ -130,6 +132,15 @@ namespace pv {
 		try {
 			vm = scripting::ScriptingVM::get();
 			if (!vm) return ESC_SCRIPTVM_FAILED;
+
+			// An die Scripting-VM binden
+			bindToScriptingVM();
+
+			// Abgeleitete Engine binden
+			OnBindToScriptingVM();
+
+			// Skript laden
+			vm->executeScriptFile(L"scripts/scripting.nut"); // TODO: Hardcoding entsorgen!
 		}
 		catch(...) {
 			return ESC_SCRIPTVM_FAILED;
@@ -157,6 +168,9 @@ namespace pv {
 		engineClean = true;
 
 		cout << "Beende Engine ..." << endl;
+
+		// OnClosing-Event in der VM triggern
+		if (vm) vm->callEventIfExists("OnClosing");
 
 		// Abgeleitete Klasse abschießen
 		OnTeardownEngine();
@@ -195,10 +209,16 @@ namespace pv {
 		ASSERT(irrlichtDevice);
 		cout << "Initialisiere Spielschleife ..." << endl;
 
-		// Motor vorglühen
+		// Vorbereiten
 		OnSetupScene();
+		if (vm) vm->callEventIfExists("OnSetupScene");
+
+		// Vorglühen
 		irrlichtDevice->run();
 		timer->update();
+
+		// Ab dafür
+		setRunning(true);
 
 		// Spielschleife starten
 		cout << "Starte Spielschleife ..." << endl;
@@ -221,6 +241,9 @@ namespace pv {
 			endScene();
 		}
 
+		// Ab dafür
+		setRunning(false);
+
 		// Aufräumen
 		cout << "Spielschleife beendet." << endl;
 		close();
@@ -230,8 +253,11 @@ namespace pv {
 
 	//! Hält das Spiel an
 	void EngineBase::pause() {
-		if (paused) return;
+		if (paused || !_isRunning) return;
 		paused = true;
+
+		// OnPause-Event in der VM triggern
+		if (vm) vm->callEventIfExists("OnPause");
 
 		cout << "(Pause begonnen)" << endl;
 		OnPause();
@@ -239,7 +265,10 @@ namespace pv {
 
 	//! Setzt das Spiel fort
 	void EngineBase::unpause() {
-		if (!paused) return;
+		if (!paused || !_isRunning) return;
+
+		// OnUnpause-Event in der VM triggern
+		if (vm) vm->callEventIfExists("OnUnpause");
 
 		cout << "(Pause beendet)" << endl;
 		OnUnpause();

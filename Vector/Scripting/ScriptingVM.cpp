@@ -22,6 +22,8 @@
 #include <sqstdblob.h>
 #include <sqstdsystem.h>
 
+using namespace Sqrat;
+
 namespace pv {
 namespace scripting {
 
@@ -132,8 +134,16 @@ namespace scripting {
 	//! Führt ein Script (inline) aus
 	void ScriptingVM::executeScriptCode(const irr::core::stringw nuttingham) const {
 		Sqrat::Script script;
-		script.CompileString(nuttingham.c_str());
-		script.Run();
+		try {
+			script.CompileString(nuttingham.c_str());
+			script.Run();
+		}
+		catch(Sqrat::Exception e) {
+			std::wcerr << "Fehler beim Ausführen eines Skriptes: " << e.Message() << std::endl;
+		}
+		catch(...) {
+			std::wcerr << "Fehler beim Ausführen des Skriptes." << std::endl;
+		}
 	}
 
 	//! Führt ein Script (Datei) aus
@@ -141,13 +151,40 @@ namespace scripting {
 		*/
 	void ScriptingVM::executeScriptFile(const irr::core::stringw filename) const {
 		Sqrat::Script script;
-		script.CompileFile(filename.c_str());
-		script.Run();
+		try {
+			script.CompileFile(filename.c_str());
+			script.Run();
+		}
+		catch(Sqrat::Exception e) {
+			std::wcerr << "Fehler beim Ausführen des Skriptes '" << filename.c_str() << "': " << e.Message() << std::endl;
+		}
+		catch(...) {
+			std::wcerr << "Fehler beim Ausführen des Skriptes '" << filename.c_str() << "'." << std::endl;
+		}
 	}
 
 	//! Bindet die Klassen
 	void ScriptingVM::bindElements(HSQUIRRELVM& vm) {
 		pv::scripting::bindElements(vm);
+	}
+
+	//! Ruft ein Event auf, falls es existiert
+	/* @returns true, wenn das Event aufgerufen wurde, ansonsten false. */
+	bool ScriptingVM::callEventIfExists(const irr::core::stringw eventName) const {
+
+		HSQUIRRELVM vm = DefaultVM::Get();
+		Function function(RootTable(vm), eventName.c_str());
+		if (function.IsNull()) return false;
+		try {
+			function.Execute();
+		}
+		catch(Exception e) {
+			std::wcerr << "Fehler beim Ausführen des Events '" << eventName.c_str() << "': " << e.Message() << std::endl;
+		}
+		catch(...) {
+			std::wcerr << "Fehler beim Ausführen des Events '" << eventName.c_str() << "'." << std::endl;
+		}
+		return true;
 	}
 
 }}

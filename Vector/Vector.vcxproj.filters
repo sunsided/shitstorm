@@ -157,6 +157,12 @@
     <ClCompile Include="Scripting\Bindings.cpp">
       <Filter>Scripting</Filter>
     </ClCompile>
+    <ClCompile Include="GameLogic\EngineBaseBinding.cpp">
+      <Filter>GameLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLogic\GameEngineBinding.cpp">
+      <Filter>GameLogic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />

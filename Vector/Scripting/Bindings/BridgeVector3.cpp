@@ -8,6 +8,7 @@
 
 #define _DEFINES_BINDING
 #include "BridgeVector3.h"
+#include "Scripting/Sqrat/sqratImpClass.h"
 
 namespace pv {
 namespace scripting {
@@ -17,7 +18,7 @@ namespace scripting {
 	}
 
 	//! Bindet die EventClass-Klasse
-	void BridgeVector3::scriptingBindBridgeVector(HSQUIRRELVM& vm) {
+	void BridgeVector3::scriptingBind(HSQUIRRELVM& vm) {
 
 		using namespace Sqrat;
 		using namespace irr::core;

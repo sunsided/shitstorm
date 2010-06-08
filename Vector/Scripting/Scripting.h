@@ -16,8 +16,3 @@
 #include <sqrat.h>
 
 #endif
-
-// Squirrel v2
-#ifdef _DEFINES_BINDING
-#include "Sqrat/sqratImpClass.h"
-#endif

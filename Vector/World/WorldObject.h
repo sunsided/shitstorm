@@ -13,6 +13,7 @@
 #include "global.h"
 #include "Physics/PhysicsObject.h"
 #include "SceneNodes/SceneObject.h"
+#include "Scripting/Bindings/BridgeVector3.h"
 
 namespace pv {
 namespace world {

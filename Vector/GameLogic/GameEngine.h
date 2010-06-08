@@ -31,6 +31,10 @@ namespace pv {
 
 	protected:
 
+		//! Bindet die Engine an die Scripting-VM
+		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
+		void OnBindToScriptingVM();
+
 		//! Initialisiert die Engine
 		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
 		EngineStatusCode OnSetupEngine();

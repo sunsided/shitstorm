@@ -42,6 +42,10 @@ namespace scripting {
 		 */
 		void executeScriptFile(const irr::core::stringw filename) const;
 
+		//! Ruft ein Event auf, falls es existiert
+		/* @returns true, wenn das Event aufgerufen wurde, ansonsten false. */
+		bool callEventIfExists(const irr::core::stringw eventName) const;
+
 		//! Bezieht die VM
 		static inline HSQUIRRELVM& getVM() { return get()->vm; }
 

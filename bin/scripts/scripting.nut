@@ -1,5 +1,9 @@
 // $Id$
 
-print("Scripting VM initialisiert");
-//srand(17);
-//print(rand());
+function OnPause() {
+	print("Pause-Zustand betreten.");
+}
+
+function OnUnpause() {
+	print("Pause-Zustand verlassen.");
+}

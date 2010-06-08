@@ -100,7 +100,9 @@
     <ClCompile Include="Events\EventClassManager.cpp" />
     <ClCompile Include="Events\EventTriggeringObject.cpp" />
     <ClCompile Include="GameLogic\EngineBase.cpp" />
+    <ClCompile Include="GameLogic\EngineBaseBinding.cpp" />
     <ClCompile Include="GameLogic\GameEngine.cpp" />
+    <ClCompile Include="GameLogic\GameEngineBinding.cpp" />
     <ClCompile Include="GameLogic\GameTimer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Physics\PhysicsManager.cpp" />

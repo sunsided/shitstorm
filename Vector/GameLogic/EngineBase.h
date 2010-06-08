@@ -23,12 +23,14 @@
 namespace pv {
 
 	//! Basisklasse der Spiele-Engine.
-	class EngineBase
+	class EngineBase 
 	{
-	public:
+	protected:
 
 		//! Erzeugt eine neue Instanz der EngineBase-Klasse.
 		EngineBase(void);
+
+	public:
 
 		//! Destruktor.
 		virtual ~EngineBase(void);
@@ -43,12 +45,19 @@ namespace pv {
 		//! Startet die Haupt-Spielschleife
 		EngineStatusCode run();
 
+		//! Ermittelt, ob das Spiel läuft
+		inline bool isRunning() const { return _isRunning; }
+
 	private:
 
 		//! Schließt die Engine
 		void close();
 
 	protected:
+
+		//! Bindet die Engine an die Scripting-VM
+		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
+		virtual void OnBindToScriptingVM() = 0;
 
 		//! Initialisiert die Engine
 		/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
@@ -227,6 +236,12 @@ namespace pv {
 		//! Initialisiert die Standardmaterialien
 		void initializeBasicMaterials();
 
+		//! Bindet die Klasse an die Scripting-VM
+		void bindToScriptingVM();
+
+		//! Markiert das Spiel aus laufend
+		inline void setRunning(bool running) { _isRunning = running; }
+
 	private:
 
 		//! Das Irrlicht-Device
@@ -282,6 +297,9 @@ namespace pv {
 
 		//! Scripting-VM
 		scripting::ScriptingVM *vm;
+
+		//! Ermittelt, ob
+		volatile bool _isRunning;
 	};
 
 }

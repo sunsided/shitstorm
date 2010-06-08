@@ -16,8 +16,8 @@ namespace scripting {
 	//! Bindet die Klassen an das Scripting-System
 	void bindElements(HSQUIRRELVM& vm) {
 
-		BridgeVector3::scriptingBindBridgeVector(vm);
-
+		// Vektor binden
+		BridgeVector3::scriptingBind(vm);
 	}
 
 }}
