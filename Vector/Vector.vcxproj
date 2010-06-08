@@ -41,7 +41,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>C:\dev\Libraries\scripting\sqplus\sqplus;C:\dev\Libraries\scripting\sqplus\include;C:\dev\Libraries\audio\libvorbis-1.3.1\include;C:\dev\Libraries\audio\libogg-1.2.0\include;C:\dev\SDK\OpenAL 1.1 SDK\include;C:\dev\Libraries\irrlicht-1.7.1\include;C:\dev\Libraries\irrKlang-1.3.0\include;C:\dev\Libraries\physics\bullet-2.76\src;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>C:\dev\Libraries\scripting\sqrat\include;C:\dev\Libraries\scripting\sqplus\sqplus;C:\dev\Libraries\scripting\sqplus\include;C:\dev\Libraries\audio\libvorbis-1.3.1\include;C:\dev\Libraries\audio\libogg-1.2.0\include;C:\dev\SDK\OpenAL 1.1 SDK\include;C:\dev\Libraries\irrlicht-1.7.1\include;C:\dev\Libraries\irrKlang-1.3.0\include;C:\dev\Libraries\physics\bullet-2.76\src;$(ProjectDir);$(IncludePath)</IncludePath>
     <LibraryPath>C:\dev\Libraries\physics\bullet-2.76\lib\Debug;C:\dev\Libraries\audio\libogg-1.2.0\lib;C:\dev\Libraries\audio\libvorbis-1.3.1\bin;C:\dev\SDK\OpenAL 1.1 SDK\libs\Win32;C:\dev\Libraries\irrlicht-1.7.1\lib\Win32-visualstudio;C:\dev\Libraries\scripting\sqplus\lib;$(LibraryPath)</LibraryPath>
     <SourcePath>C:\dev\Libraries\physics\bullet-2.76\src;C:\dev\Libraries\irrlicht-1.7.1\source\Irrlicht;$(SourcePath)</SourcePath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>

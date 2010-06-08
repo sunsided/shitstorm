@@ -13,6 +13,6 @@
 #include "global.h"
 
 // Squirrel!
-#include <sqplus.h>
+#include <sqrat.h>
 
 #endif

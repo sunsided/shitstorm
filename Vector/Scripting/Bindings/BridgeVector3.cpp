@@ -8,6 +8,8 @@
 
 #include "BridgeVector3.h"
 
+#include "Scripting/Scripting.h"
+#include "Scripting/ScriptingVM.h"
 
 namespace pv {
 namespace scripting {
@@ -15,6 +17,11 @@ namespace scripting {
 	//! Bindet die EventClass-Klasse
 	void BridgeVector3::scriptingBindBridgeVector() {
 
+		using namespace Sqrat;
+
+		HSQUIRRELVM vm = ScriptingVM::getVM();
+
+		/*
 		SqPlus::SQClassDef<pv::scripting::BridgeVector3>(_T("Vector")).
 			staticFunc(&pv::scripting::BridgeVector3::constructor_void,_T("constructor")).
 			staticFunc(&pv::scripting::BridgeVector3::constructor_3f,	_T("constructor"))

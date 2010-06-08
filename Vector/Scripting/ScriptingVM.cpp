@@ -14,6 +14,13 @@
 #include <time.h>
 #include <limits.h>
 
+#include <sqstdstring.h>
+#include <sqstdaux.h>
+#include <sqstdmath.h>
+#include <sqstdio.h>
+#include <sqstdblob.h>
+#include <sqstdsystem.h>
+
 namespace pv {
 namespace scripting {
 
@@ -23,23 +30,21 @@ namespace scripting {
 		va_list vl;
 		va_start(vl, s);
 		scvsprintf(temp, s, vl); // TODO: Dynamische Puffer!?
-		SCPUTS(temp);
+		std::wcout << temp << std::endl;
 		va_end(vl);
 	}
 
-	static SQInteger math_srand(HSQUIRRELVM v)
+	//! srand-Funktion für Squirrel, die das Original ersetzt
+	static void squirrelSrandFunc(irr::u32 i)
 	{
-		SQInteger i;
-		if(SQ_FAILED(sq_getinteger(v,2,&i)))
-			return sq_throwerror(v,_SC("invalid param"));
 		srand((unsigned int)i);
-		return 0;
 	}
 
 	//! Erzeugt eine neue Instanz der VM
 	ScriptingVM::ScriptingVM()
 		: initialized(false)
 	{
+		memset(&vm, 0, sizeof(HSQUIRRELVM));
 		initialize();
 	}
 
@@ -55,11 +60,39 @@ namespace scripting {
 	void ScriptingVM::initialize(irr::u32 stackSize) {
 		terminate();
 		
+		using namespace Sqrat;
+
 		// Zufallszahlengenerator
 		srand((unsigned int)(time(NULL) % UINT_MAX));
 
 		// VM initialisieren
-		SquirrelVM::Init();
+		vm = sq_open(stackSize);
+		sqstd_seterrorhandlers(vm);
+		sq_setprintfunc(vm, squirrelPrintFunc);
+
+		// Standardbibliotheken laden
+		sq_pushroottable(vm);
+		sqstd_register_stringlib(vm);
+		sqstd_register_systemlib(vm);
+		sqstd_register_mathlib(vm);
+		sqstd_register_bloblib(vm);
+		sqstd_register_iolib(vm);
+
+		// Default-VM setzen
+		DefaultVM::Set(vm);
+
+		// Funktionen ersetzen
+		RootTable(vm).Func(L"srand", &squirrelSrandFunc);
+
+		// Testaufruf
+		/*
+		{
+			int top = sq_gettop(vm);
+			sq_pushroottable(vm);
+			SQRESULT result = sqstd_dofile(vm, L"scripts\\scripting.nut", 0, 1);
+			sq_settop(vm, top);
+		}
+		*/
 
 		// Print-Funktion setzen
 		initialized = true;
@@ -76,17 +109,18 @@ namespace scripting {
 		if (!initialized) return;
 
 		// Testskript ausgeben
-		executeScriptCode(_T("print(\"Squirrel VM wird heruntergefahren.\");"));
+		executeScriptCode(L"print(\"Squirrel VM wird heruntergefahren.\");");
 
 		// Beenden
-		SquirrelVM::Shutdown();
+		sq_close(vm);
 		initialized = false;
 	}
 
 	//! Führt ein Script (inline) aus
 	void ScriptingVM::executeScriptCode(const irr::core::stringw nuttingham) const {
-		SquirrelObject script = SquirrelVM::CompileBuffer(nuttingham.c_str());
-		SquirrelVM::RunScript(script);
+		Sqrat::Script script;
+		script.CompileString(nuttingham.c_str());
+		script.Run();
 	}
 
 }}

@@ -13,10 +13,6 @@
 #include "global.h"
 #include "Physics/IrrBtConversion.h"
 
-#define SQPLUS_CONST_OPT
-#define SQPLUS_OVERLOAD_OPT
-#include "Scripting/Scripting.h"
-
 namespace pv {
 namespace scripting {
 
@@ -111,6 +107,7 @@ namespace scripting {
 		*/
 
 		//! Konstruktor für Squirrel
+		/*
 		static int constructor_void(HSQUIRRELVM v) {
 			return SqPlus::PostConstruct(v, new BridgeVector3(), release);
 		}
@@ -122,13 +119,12 @@ namespace scripting {
 
 		//! Destruktor für Squirrel
 		SQ_DECLARE_RELEASE(BridgeVector3);
+		*/
 
 		//! Binding-Funktion
 		static void scriptingBindBridgeVector();
 	};
 
 }}
-
-DECLARE_INSTANCE_TYPE_NAME(pv::scripting::BridgeVector3, Vector)
 
 #endif

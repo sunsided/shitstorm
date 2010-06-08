@@ -37,6 +37,12 @@ namespace scripting {
 		 */
 		void executeScriptCode(const irr::core::stringw script) const;
 
+		//! Bezieht die VM
+		static inline HSQUIRRELVM& getVM() { return get()->vm; }
+
+		//! Bezieht die VM
+		static inline HSQUIRRELVM* getVMPtr() { return &(get()->vm); }
+
 	private:
 
 		//! Initialisiert die Engine.
@@ -50,6 +56,9 @@ namespace scripting {
 
 		//! Gibt an, ob die VM initialisiert wurde
 		bool initialized;
+
+		//! Die VM
+		HSQUIRRELVM vm;
 	};
 
 }}
