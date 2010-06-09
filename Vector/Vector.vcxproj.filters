@@ -34,6 +34,9 @@
     <Filter Include="Scripting\Sqrat">
       <UniqueIdentifier>{b36ee74a-9d37-47e0-ac5b-0f39e9b1df41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{86ae81cb-5c52-446f-a742-c27e11e5b352}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -329,5 +332,13 @@
     <ClInclude Include="Scripting\Bindings\MathBindings.h">
       <Filter>Scripting\Bindings</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\bin\scripts\scripting.nut">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\bin\scripts\vectortest.nut">
+      <Filter>Scripts</Filter>
+    </None>
   </ItemGroup>
 </Project>

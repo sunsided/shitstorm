@@ -1,9 +1,14 @@
 // $Id$
 
 function OnPause() {
-	print("Pause-Zustand betreten.");
+	print("Pause begonnen.");
+
+	local color = EngineRoot.getClearColor();
+	color.set(255, 255*frand(), 255*frand(), 255*frand());
+	EngineRoot.setClearColor(color);
 }
 
 function OnUnpause() {
-	print("Pause-Zustand verlassen.");
+	print("Pause beendet.");
+	print("weiter geht's mit ~"+FPS+" FPS");
 }

@@ -197,6 +197,10 @@
     <ClInclude Include="World\WorldObject.h" />
     <ClInclude Include="World\WorldObjectFactory.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\bin\scripts\scripting.nut" />
+    <None Include="..\bin\scripts\vectortest.nut" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
