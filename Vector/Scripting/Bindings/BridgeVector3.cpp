@@ -23,6 +23,7 @@ namespace scripting {
 		using namespace Sqrat;
 		using namespace irr::core;
 
+		/*
 		RootTable(vm).Bind(
 			_SC("Vector3"),
 			ImprovedClass<BridgeVector3, ImprovedAllocator<BridgeVector3>>(vm)
@@ -60,6 +61,7 @@ namespace scripting {
 				.Func(_SC("set"), &BridgeVector3::set)
 				.Func(_SC("equals"), &BridgeVector3::equals)
 			);
+		*/
 
 		/*
 		Script script;

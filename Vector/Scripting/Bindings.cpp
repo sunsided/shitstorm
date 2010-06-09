@@ -18,6 +18,12 @@ namespace scripting {
 
 		// Vektor binden
 		BridgeVector3::scriptingBind(vm);
+
+		// Irrlicht-Bindings
+		IrrlichtBindings::scriptingBind(vm);
+
+		// Mathematikkram
+		MathBindings::scriptingBind(vm);
 	}
 
 }}

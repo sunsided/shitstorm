@@ -163,6 +163,12 @@
     <ClCompile Include="GameLogic\GameEngineBinding.cpp">
       <Filter>GameLogic</Filter>
     </ClCompile>
+    <ClCompile Include="Scripting\Bindings\IrrlichtBindings.cpp">
+      <Filter>Scripting\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\Bindings\MathBindings.cpp">
+      <Filter>Scripting\Bindings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -316,6 +322,12 @@
     </ClInclude>
     <ClInclude Include="Scripting\Sqrat\sqratImpClass.h">
       <Filter>Scripting\Sqrat</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Bindings\IrrlichtBindings.h">
+      <Filter>Scripting\Bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Bindings\MathBindings.h">
+      <Filter>Scripting\Bindings</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

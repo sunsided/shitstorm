@@ -228,6 +228,9 @@ namespace pv {
 			if (shouldPause()) pause();
 			else if(shouldUnpause()) unpause();
 			
+			// FPS setzen
+			vm->setRootValue("FPS", (int)getFps());
+
 			// Zeit ermitteln
 			f32 deltaT = timer->update();
 
@@ -259,7 +262,7 @@ namespace pv {
 		// OnPause-Event in der VM triggern
 		if (vm) vm->callEventIfExists("OnPause");
 
-		cout << "(Pause begonnen)" << endl;
+		//cout << "(Pause begonnen)" << endl;
 		OnPause();
 	}
 
@@ -270,7 +273,7 @@ namespace pv {
 		// OnUnpause-Event in der VM triggern
 		if (vm) vm->callEventIfExists("OnUnpause");
 
-		cout << "(Pause beendet)" << endl;
+		//cout << "(Pause beendet)" << endl;
 		OnUnpause();
 		paused = false;
 	}

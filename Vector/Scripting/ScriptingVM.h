@@ -52,6 +52,15 @@ namespace scripting {
 		//! Bezieht die VM
 		static inline HSQUIRRELVM* getVMPtr() { return &(get()->vm); }
 
+		//! Setzt eine Konstante
+		void setRootValue(irr::core::stringw name, int value);
+
+		//! Setzt eine Konstante
+		void setRootValue(irr::core::stringw name, float value);
+
+		//! Setzt eine Konstante
+		void setRootValue(irr::core::stringw name, irr::core::stringw value);
+
 	private:
 
 		//! Initialisiert die Engine.

@@ -42,6 +42,8 @@ namespace pv {
 				.Func(_SC("shouldUnpause"), &EngineBase::shouldUnpause)
 				.Func(_SC("getFps"), &EngineBase::getFps)
 				.Func(_SC("getTimer"), &EngineBase::getTimer)
+				.Func(_SC("getClearColor"), &EngineBase::getClearColor)
+				.Func(_SC("setClearColor"), &EngineBase::setClearColor)
 			);
 
 		// Slot für die Engine erzeugen

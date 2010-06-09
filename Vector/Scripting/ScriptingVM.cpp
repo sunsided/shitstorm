@@ -187,4 +187,19 @@ namespace scripting {
 		return true;
 	}
 
+	//! Setzt eine Konstante
+	void ScriptingVM::setRootValue(irr::core::stringw name, int value) {
+		RootTable().SetValue(name.c_str(), value);
+	}
+
+	//! Setzt eine Konstante
+	void ScriptingVM::setRootValue(irr::core::stringw name, float value) {
+		RootTable().SetValue(name.c_str(), value);
+	}
+
+	//! Setzt eine Konstante
+	void ScriptingVM::setRootValue(irr::core::stringw name, irr::core::stringw value) {
+		RootTable().SetValue(name.c_str(), value.c_str());
+	}
+
 }}

@@ -13,7 +13,9 @@
 
 #include "global.h"
 
+#include "Bindings/MathBindings.h"
 #include "Bindings/BridgeVector3.h"
+#include "Bindings/IrrlichtBindings.h"
 
 #endif
 #endif

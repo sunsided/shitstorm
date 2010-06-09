@@ -133,7 +133,7 @@ namespace Sqrat{
 		ImprovedClass& Ctor() {
 			return BindConstructor(A::iNew,0);
 		}
-
+		
 		template<class A1>
 		ImprovedClass& Ctor() {
 			return BindConstructor(A::iNew<A1>,1);

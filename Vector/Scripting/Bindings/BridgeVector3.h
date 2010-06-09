@@ -139,6 +139,12 @@ namespace scripting {
 		inline bool operator==(const BridgeVector3& other) const { return vector == other.vector; }
 
 		//! Vergleich
+		inline bool equalsIrrVector(const irr::core::vector3df& other) const { return vector == other; }
+
+		//! Vergleich
+		inline bool equalsBtVector(const btVector3& other) const { return vector == BridgeVector3(other).vector; }
+
+		//! Vergleich
 		inline bool operator!=(const BridgeVector3& other) const { return vector != other.vector; }
 		
 		//! Punktprodukt
