@@ -224,6 +224,12 @@ namespace pv {
 		//! Bezieht die Scripting-VM
 		inline scripting::ScriptingVM* getScriptVM() const { return vm; }
 
+		//! Ermittelt, ob Physik-Debugging aktiviert ist
+		inline bool physicsDebuggingEnabled() const { return enablePhysicsDebugging; }
+
+		//! Gibt an, ob Physik-Debugging aktiviert ist
+		inline void setPhysicsDebuggingEnabled(const bool& enabled) { enablePhysicsDebugging = enabled; }
+
 	private:
 
 		//! Ermittelt den Videotreiber
@@ -298,8 +304,11 @@ namespace pv {
 		//! Scripting-VM
 		scripting::ScriptingVM *vm;
 
-		//! Ermittelt, ob
+		//! Ermittelt, ob die Hauptschleife läuft
 		volatile bool _isRunning;
+
+		//! Ermittelt, ob Physik-Debugging aktiviert sein soll
+		bool enablePhysicsDebugging;
 	};
 
 }

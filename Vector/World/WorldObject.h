@@ -14,6 +14,7 @@
 #include "Physics/PhysicsObject.h"
 #include "SceneNodes/SceneObject.h"
 #include "Scripting/Bindings/BridgeVector3.h"
+#include "Scripting/Bindings/WorldBindings.h"
 
 namespace pv {
 namespace world {
@@ -25,6 +26,7 @@ namespace world {
 	class WorldObject
 	{
 		friend class WorldManager;
+		friend class pv::scripting::WorldBindings;
 
 	public:
 
@@ -69,10 +71,16 @@ namespace world {
 		inline irr::u32 getWorldObjectId() const { return worldObjectId; }
 
 		//! Aktiviert oder deaktiviert die Physik für dieses Objekt
-		inline void enablePhysics(bool enable) { physicsBody->setActivationState(enable); }
+		inline void enablePhysics(const bool& enable) { physicsBody->setActivationState(enable); }
 
 		//! Aktiviert oder deaktiviert die Physik für dieses Objekt
-		inline void setVisibility(bool visible) { sceneObject->setVisibility(visible); }
+		inline bool physicsEnabled() const { return physicsBody->getActivationState(); }
+
+		//! Aktiviert oder deaktiviert die Physik für dieses Objekt
+		inline void setVisibility(const bool& visible) { sceneObject->setVisibility(visible); }
+
+		//! Aktiviert oder deaktiviert die Physik für dieses Objekt
+		inline bool getVisibility() const { return sceneObject->getVisibility(); }
 
 		//! Versteckt das Objekt und blendet es aus.
 		inline void hideAndDisable() {

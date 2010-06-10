@@ -14,6 +14,7 @@
 #include "Bindings/IrrlichtBindings.h"
 #include "Bindings/WorldBindings.h"
 #include "Bindings/PhysicsBindings.h"
+#include "Bindings/SceneBindings.h"
 
 namespace pv {
 namespace scripting {
@@ -32,6 +33,9 @@ namespace scripting {
 
 		// Physikkram
 		PhysicsBindings::scriptingBind(vm);
+
+		// Szenenkram
+		SceneBindings::scriptingBind(vm);
 
 		// Weltkram
 		WorldBindings::scriptingBind(vm);

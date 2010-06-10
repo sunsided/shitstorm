@@ -25,6 +25,10 @@ namespace physics {
 		
 	//! Vernichtet die Dynamikwelt
 	void PhysicsWorld::destruct() {
+		// DebugRenderer entsorgen
+		removeDebugRenderer();
+
+		// Keine Dynamikwelt? Und tschüss!
 		if (!dynamicsWorld) return;
 
 		// Dispatcher löschen
@@ -120,6 +124,9 @@ namespace physics {
 		dynamicsWorld = createDynamicsWorld(collisionDispatcher, broadphase, solver, collisionConfiguration);
 		ASSERT(dynamicsWorld);
 
+		// Renderer setzen
+		if (debugRenderer) dynamicsWorld->setDebugDrawer(debugRenderer);
+
 		// Gravitation setzen
 		dynamicsWorld->setGravity(getGravity());
 	}
@@ -165,5 +172,22 @@ namespace physics {
 		// TODO: Unterstützung für beliebige Körper (Soft Bodies, that is)
 		ASSERT(object->isRigidBody());
 		world->dynamicsWorld->removeRigidBody(dynamic_cast<RigidBodyPhysicsObject*>(object)->getRigidBody());
+	}
+
+	//! Setzt den Debug-Renderer
+	void PhysicsWorld::setDebugRenderer(irr::video::IVideoDriver* driver) {
+		removeDebugRenderer();
+
+		debugRenderer = new PhysicsDebugRenderer(driver);
+		if (dynamicsWorld) dynamicsWorld->setDebugDrawer(debugRenderer);
+	}
+
+	//! Entfernt den Debug-Renderer
+	void PhysicsWorld::removeDebugRenderer() { 
+		if (!debugRenderer) return;
+		if (dynamicsWorld) dynamicsWorld->setDebugDrawer(NULL);
+		
+		delete debugRenderer; 
+		debugRenderer = NULL;
 	}
 }}

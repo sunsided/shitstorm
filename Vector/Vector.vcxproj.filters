@@ -178,6 +178,12 @@
     <ClCompile Include="Scripting\Bindings\PhysicsBindings.cpp">
       <Filter>Scripting\Bindings</Filter>
     </ClCompile>
+    <ClCompile Include="Scripting\Bindings\SceneBindings.cpp">
+      <Filter>Scripting\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsDebugRenderer.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -340,6 +346,12 @@
     </ClInclude>
     <ClInclude Include="Scripting\Bindings\PhysicsBindings.h">
       <Filter>Scripting\Bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Bindings\SceneBindings.h">
+      <Filter>Scripting\Bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsDebugRenderer.h">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

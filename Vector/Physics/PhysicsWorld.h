@@ -14,6 +14,7 @@
 #include "Utility/Manager.h"
 #include "PhysicsObject.h"
 #include "IrrBtConversion.h"
+#include "PhysicsDebugRenderer.h"
 
 // Vorwärtsdeklaration der Klassen
 class btDynamicsWorld;
@@ -34,7 +35,7 @@ namespace physics {
 	public:
 
 		//! Erzeugt eine neue Instanz des Objektes
-		PhysicsWorld(PhysicsManager* manager) : dynamicsWorld(NULL), collisionConfiguration(NULL), physicsManager(manager)
+		PhysicsWorld(PhysicsManager* manager) : dynamicsWorld(NULL), collisionConfiguration(NULL), physicsManager(manager), debugRenderer(NULL)
 		{
 			ASSERT(manager);
 		}
@@ -67,6 +68,18 @@ namespace physics {
 		* @param fixedTimeStep	Der fixe Zeitschritt; Bullet-Standard ist 1/60
 		*/
 		void update(float deltaTime, short unsigned int maxSubsteps = 10, float fixedTimeStep = 1.0f/60.0f);
+
+		//! Setzt den Debug-Renderer
+		void setDebugRenderer(irr::video::IVideoDriver* driver);
+
+		//! Entfernt den Debug-Renderer
+		void removeDebugRenderer();
+
+		//! Ermittelt, ob ein Debug-Renderer gesetzt wurde
+		inline bool isDebugRendererSet() const { return debugRenderer != NULL; }
+
+		//! Zeichnet die Debug-Informationen der Physikwelt
+		inline void debugDrawWorld() const { if (debugRenderer && dynamicsWorld) { debugRenderer->prepareDrawing(); dynamicsWorld->debugDrawWorld(); } }
 
 	protected:
 
@@ -130,6 +143,9 @@ namespace physics {
 		//! Liefert den Manager
 		PhysicsManager* physicsManager;
 
+		//! Der Debug-Renderer
+		PhysicsDebugRenderer* debugRenderer;
+
 	public:
 
 		//! Struktur, die zum Updaten einer Welt verwendet werden kann
@@ -151,7 +167,6 @@ namespace physics {
 
 		//! Entfernt ein Physikobjekt aus einer gegebenen Physikwelt
 		static void removeObjectFromWorld(PhysicsObject* object, PhysicsWorld* world);
-
 	};
 
 }}

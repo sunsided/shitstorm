@@ -11,6 +11,7 @@
 #define _SCENEOBJECT_H
 
 #include "global.h"
+#include "Scripting/Bindings/SceneBindings.h"
 
 namespace pv {
 namespace nodes {
@@ -18,6 +19,8 @@ namespace nodes {
 	//! Ein Szenenobjekt
 	class SceneObject
 	{
+		friend class scripting::SceneBindings;
+
 	public:
 
 		//! Erzeugt eine neue Instanz der WorldElement-Klasse
@@ -44,9 +47,17 @@ namespace nodes {
 		}
 
 		//! Setzt die Sichtbarkeit des Knotens
-		inline void setVisibility(bool visible) { sceneNode->setVisible(visible); }
+		inline void setVisibility(const bool& visible) { sceneNode->setVisible(visible); }
+
+		//! Setzt die Sichtbarkeit des Knotens
+		inline bool getVisibility() const { return sceneNode->isVisible(); }
+
+		//! Setzt die Sichtbarkeit des Knotens
+		inline bool isTrulyVisible() const { return sceneNode->isTrulyVisible(); }
 
 	private:
+
+		// TODO: SceneObject sollte sein WorldObject kennen!
 
 		//! Der Szenenknoten
 		irr::scene::ISceneNode* sceneNode;

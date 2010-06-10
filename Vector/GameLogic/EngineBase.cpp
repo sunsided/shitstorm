@@ -28,7 +28,8 @@ namespace pv {
 			audioListener(sound::RoamingSoundListener::get()),
 			audioState(sound::SoundState::get()),
 			vm(NULL),
-			_isRunning(false)
+			_isRunning(false),
+			enablePhysicsDebugging(false)
 	{
 		initializeBasicMaterials();
 	}
@@ -128,6 +129,9 @@ namespace pv {
 		worldManagement = new world::WorldManager();
 		if (!worldManagement) return ESC_WORLDMGMT_FAILED;
 
+		// Standard-Audiostate setzen
+		setDefaultAudioState();
+
 		// Scripting initialisieren
 		try {
 			vm = scripting::ScriptingVM::get();
@@ -146,12 +150,16 @@ namespace pv {
 			return ESC_SCRIPTVM_FAILED;
 		}
 
-		// Standard-Audiostate setzen
-		setDefaultAudioState();
-
 		// Initialisieren
 		cout << "Initialisiere Engine, 2nd stage ..." << endl;
-		return OnSetupEngine();
+		EngineStatusCode result = OnSetupEngine();
+		if (result != ESC_SUCCESS) return result;
+
+		// Event triggern
+		vm->callEventIfExists(L"OnInitEngine");
+
+		// Initialisierung abschlieﬂen
+		return ESC_SUCCESS;
 	}
 
 	//! Setzt den Audio-State auf Standardwerte
@@ -170,7 +178,7 @@ namespace pv {
 		cout << "Beende Engine ..." << endl;
 
 		// OnClosing-Event in der VM triggern
-		if (vm) vm->callEventIfExists("OnClosing");
+		if (vm) vm->callEventIfExists("OnTeardownEngine");
 
 		// Abgeleitete Klasse abschieﬂen
 		OnTeardownEngine();

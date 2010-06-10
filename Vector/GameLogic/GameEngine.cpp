@@ -37,6 +37,9 @@ namespace pv {
 		physics::PhysicsWorld *world = getPhysics()->createPhysicsWorld();
 		if (!world) return ESC_PHYSICSWORLD_FAILED;
 
+		// Debug-Renderer der Physikwelt setzen
+		world->setDebugRenderer(getDriver());
+
 		// Zweiten Szenenmanager erzeugen
 		renderTargetSceneManager = createAuxiliarySceneManager();
 		if (!renderTargetSceneManager) return ESC_AUX_SMGR_FAILED;
@@ -330,6 +333,9 @@ namespace pv {
 		// Backbuffer als Ziel wählen und Hauptszene rendern
 		driver->setRenderTarget(video::ERT_FRAME_BUFFER, true, true, getClearColor());
 		renderScene();
+
+		// Physik-Debug-Info rendern
+		if (physicsDebuggingEnabled()) getPhysics()->getPhysicsWorld(0)->debugDrawWorld();
 
 		// Käfig um die Kamera zeichnen
 		//drawCameraOrientationCage(mainCamera);

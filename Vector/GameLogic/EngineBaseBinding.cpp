@@ -44,11 +44,13 @@ namespace pv {
 				.Func(_SC("getTimer"), &EngineBase::getTimer)
 				.Func(_SC("getClearColor"), &EngineBase::getClearColor)
 				.Func(_SC("setClearColor"), &EngineBase::setClearColor)
+				.Prop(_SC("DebugPhysics"), &EngineBase::physicsDebuggingEnabled, &EngineBase::setPhysicsDebuggingEnabled)
 			);
 
 		// Slot für die Engine erzeugen
 		RootTable(vm).SetValue<EngineBase*>(_SC("EngineRoot"), this);
 		RootTable(vm).SetValue<physics::PhysicsManager*>(_SC("Physics"), getPhysics());
+		RootTable(vm).SetValue<world::WorldManager*>(_SC("World"), getWorld());
 	}
 	
 }

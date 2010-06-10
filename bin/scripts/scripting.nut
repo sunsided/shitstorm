@@ -1,5 +1,13 @@
 // $Id$
 
+function OnInitEngine() {
+	EngineRoot.DebugPhysics = true;
+}
+
+function OnTeardownEngine() {
+	print("Au revoir.");
+}
+
 function OnPause() {
 	print("Pause begonnen.");
 
@@ -23,4 +31,6 @@ function OnPause() {
 function OnUnpause() {
 	print("Pause beendet.");
 	print("weiter geht's mit ~"+FPS+" FPS");
+
+	World.getObject(3).PhysicsEnabled = false;
 }

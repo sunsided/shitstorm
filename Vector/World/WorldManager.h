@@ -47,6 +47,9 @@ namespace world {
 		//! Entfernt ein Weltobjekt
 		void removeWorldObject(irr::u32 worldObjectId);
 
+		//! Ermittelt ein Weltobjekt
+		WorldObject* getWorldObject(irr::u32 worldObjectId) { return worldObjectManager[worldObjectId]; }
+
 		//! Liefert die Anzahl der registrierten Elemente
 		inline irr::u32 worldObjectCount() { return worldObjectManager.count(); }
 
