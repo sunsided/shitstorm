@@ -17,7 +17,7 @@
 namespace pv {
 namespace scripting {
 
-	//! Manager für beliebige Typen.
+	//! Bindings für die Scripting-VM
 	class BridgeVector3
 	{
 	private:

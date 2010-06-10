@@ -145,7 +145,7 @@ namespace physics {
 	}
 
 	//! Setzt die lineare Geschwindigkeit
-	void RigidBodyPhysicsObject::setLinearVelocity(const core::vector3df & vel) const {	
+	void RigidBodyPhysicsObject::setLinearVelocity(const core::vector3df & vel) {	
 		if (!rigidBody || mass == 0) return; //bullet hangs if attempt to set lin. or ang. velocity on static object
 		rigidBody->setLinearVelocity(btVector3(vel.X, vel.Y, vel.Z));
 		
@@ -161,7 +161,7 @@ namespace physics {
 	}
 
 	//! Setzt die Winkelgeschwindigkeit
-	void RigidBodyPhysicsObject::setAngularVelocity(const core::vector3df & vel) const {	
+	void RigidBodyPhysicsObject::setAngularVelocity(const core::vector3df & vel) {	
 		if (!rigidBody || mass == 0) return;
 		rigidBody->setAngularVelocity(btVector3(vel.X, vel.Y, vel.Z));
 	}

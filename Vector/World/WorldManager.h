@@ -13,6 +13,7 @@
 #include "global.h"
 #include "Utility/Manager.h"
 #include "WorldObject.h"
+#include "Scripting/Bindings/WorldBindings.h"
 
 namespace pv {
 	namespace physics { class PhysicsObject; }
@@ -23,6 +24,8 @@ namespace world {
 	//! Klasse, die die Welt verwaltet
 	class WorldManager
 	{
+		friend class pv::scripting::WorldBindings;
+
 	public:
 		//! Erzeugt eine neue Instanz des Objektes
 		WorldManager(void) 

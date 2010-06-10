@@ -116,7 +116,7 @@ namespace scripting {
 
 		// Vektor
 		RootTable(vm).Bind(
-			_SC("vector3df"),
+			_SC("Vector"),
 			ImprovedClass<vector3df, ImprovedAllocator<vector3df>>(vm)
 				.Ctor<irr::f32, irr::f32, irr::f32>()
 				.Var(_SC("X"), &vector3df::X)

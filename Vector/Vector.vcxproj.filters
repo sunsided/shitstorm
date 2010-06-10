@@ -172,6 +172,12 @@
     <ClCompile Include="Scripting\Bindings\MathBindings.cpp">
       <Filter>Scripting\Bindings</Filter>
     </ClCompile>
+    <ClCompile Include="Scripting\Bindings\WorldBindings.cpp">
+      <Filter>Scripting\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\Bindings\PhysicsBindings.cpp">
+      <Filter>Scripting\Bindings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -320,9 +326,6 @@
     <ClInclude Include="Scripting\Bindings.h">
       <Filter>Scripting</Filter>
     </ClInclude>
-    <ClInclude Include="Scripting\BindingList.h">
-      <Filter>Scripting</Filter>
-    </ClInclude>
     <ClInclude Include="Scripting\Sqrat\sqratImpClass.h">
       <Filter>Scripting\Sqrat</Filter>
     </ClInclude>
@@ -330,6 +333,12 @@
       <Filter>Scripting\Bindings</Filter>
     </ClInclude>
     <ClInclude Include="Scripting\Bindings\MathBindings.h">
+      <Filter>Scripting\Bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Bindings\WorldBindings.h">
+      <Filter>Scripting\Bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Bindings\PhysicsBindings.h">
       <Filter>Scripting\Bindings</Filter>
     </ClInclude>
   </ItemGroup>

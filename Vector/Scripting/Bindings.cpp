@@ -8,7 +8,12 @@
 
 #define _IMPLEMENT_BINDINGS
 #include "Bindings.h"
-#include "BindingList.h"
+
+#include "Bindings/MathBindings.h"
+#include "Bindings/BridgeVector3.h"
+#include "Bindings/IrrlichtBindings.h"
+#include "Bindings/WorldBindings.h"
+#include "Bindings/PhysicsBindings.h"
 
 namespace pv {
 namespace scripting {
@@ -24,6 +29,12 @@ namespace scripting {
 
 		// Mathematikkram
 		MathBindings::scriptingBind(vm);
+
+		// Physikkram
+		PhysicsBindings::scriptingBind(vm);
+
+		// Weltkram
+		WorldBindings::scriptingBind(vm);
 	}
 
 }}

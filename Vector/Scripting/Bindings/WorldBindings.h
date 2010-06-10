@@ -1,14 +1,14 @@
 /** 
  * Project Vector
- * Mathematik-Bindings
+ * World-Bindings
  *
  * (c) 2010, Markus Mayer <code@defx.de>
  * $Id$
  */
 
 #pragma once
-#ifndef _MATH_BINDINGS_H
-#define _MATH_BINDINGS_H
+#ifndef _WORLD_BINDINGS_H
+#define _WORLD_BINDINGS_H
 
 #include "global.h"
 #include "Scripting/Scripting.h"
@@ -16,8 +16,8 @@
 namespace pv {
 namespace scripting {
 
-	//! Bindings für die Scripting-VM
-	class MathBindings
+	//! Manager für beliebige Typen.
+	class WorldBindings
 	{
 	public:
 

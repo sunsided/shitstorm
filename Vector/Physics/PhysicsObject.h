@@ -14,7 +14,7 @@
 
 #include "global.h"
 #include "PhysicsMotionState.h"
-
+#include "IrrBtConversion.h"
 #include <btBulletDynamicsCommon.h>
 
 using namespace irr;
@@ -66,13 +66,13 @@ namespace physics {
 		virtual core::vector3df getLinearVelocity() const = 0;
 
 		//! Setzt die lineare Geschwindigkeit
-		virtual void setLinearVelocity(const core::vector3df& vel) const = 0;
+		virtual void setLinearVelocity(const core::vector3df& vel) = 0;
 
 		//! Ermittelt die Winkelgeschwindigkeit
 		virtual core::vector3df getAngularVelocity() const = 0;
 
 		//! Setzt die Winkelgeschwindigkeit
-		virtual void setAngularVelocity(const core::vector3df& vel) const = 0;
+		virtual void setAngularVelocity(const core::vector3df& vel) = 0;
 		
 		//! Wendet eine Kraft auf das Objekt an
 		virtual void applyForce(const core::vector3df& v) = 0;
@@ -81,7 +81,10 @@ namespace physics {
 		virtual void zeroForces() = 0;
 
 		//! Setzt den Aktivierungszustand
-		virtual void setActivationState(bool active) = 0;
+		virtual void setActivationState(const bool& active) = 0;
+
+		//! Ermittelt den Aktivierungszustand
+		virtual bool getActivationState() const = 0;
 
 		//! Ermittelt die Rotation
 		virtual core::vector3df getRotation() const = 0;
@@ -92,11 +95,20 @@ namespace physics {
 		//! Räumt die Physikgeschichte auf
 		virtual void endPhysics(void);
 
+		//! Ermittelt die Masse des Objektes
+		virtual f32 getMass() const = 0;
+
 		//! Aktualisiert die Masse des Objektes
 		virtual void updateMass(f32 mass) = 0;
 
 		//! Aktualisiert die Masse des Objektes
 		virtual void updateMass(f32 mass, const btVector3& localInertia) = 0;
+
+		//! Aktualisiert die Masse des Objektes
+		inline void updateMass(f32 mass, const irr::core::vector3df& localInertia) {
+			btVector3 inertia = conversion::toBulletVector(localInertia);
+			updateMass(mass, inertia);
+		}
 
 		//! Ermittelt, ob es sich um einen Festkörper handelt
 		virtual bool isRigidBody() const = 0;

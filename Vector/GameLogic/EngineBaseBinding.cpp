@@ -48,6 +48,7 @@ namespace pv {
 
 		// Slot für die Engine erzeugen
 		RootTable(vm).SetValue<EngineBase*>(_SC("EngineRoot"), this);
+		RootTable(vm).SetValue<physics::PhysicsManager*>(_SC("Physics"), getPhysics());
 	}
 	
 }

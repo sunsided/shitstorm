@@ -13,6 +13,7 @@
 #include "global.h"
 #include "Utility/Manager.h"
 #include "PhysicsWorld.h"
+#include "Scripting/Bindings/PhysicsBindings.h"
 
 //! Vorwärtsdeklaration der Klasse
 class btCollisionShape;
@@ -23,6 +24,8 @@ namespace physics {
 	//! Klasse, die die Physikengine verwaltet
 	class PhysicsManager
 	{
+		friend class pv::scripting::PhysicsBindings;
+
 	public:
 		//! Erzeugt eine neue Instanz des Objektes
 		PhysicsManager(void);
@@ -48,6 +51,9 @@ namespace physics {
 
 		//! Erzeugt eine neue Physikwelt und registriert sie
 		inline PhysicsWorld* getPhysicsWorld(unsigned int worldId) { return dynamicsWorldManager.getElement(worldId); }
+
+		//! Liefert die Anzahl der Welten
+		inline irr::u32 getWorldCount() { return dynamicsWorldManager.count(); }
 
 		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
 		/** Aktualisiert alle registrierten Dynamikwelten.

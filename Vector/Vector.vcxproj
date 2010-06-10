@@ -120,6 +120,8 @@
     <ClCompile Include="Scripting\Bindings\EventClassBinding.cpp" />
     <ClCompile Include="Scripting\Bindings\IrrlichtBindings.cpp" />
     <ClCompile Include="Scripting\Bindings\MathBindings.cpp" />
+    <ClCompile Include="Scripting\Bindings\PhysicsBindings.cpp" />
+    <ClCompile Include="Scripting\Bindings\WorldBindings.cpp" />
     <ClCompile Include="Scripting\ScriptingVM.cpp" />
     <ClCompile Include="Sound\OggVorbisAudioSource.cpp" />
     <ClCompile Include="Sound\ContextBoundSoundListener.cpp" />
@@ -164,12 +166,13 @@
     <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h" />
     <ClInclude Include="SceneNodes\PlaneSceneNode.h" />
     <ClInclude Include="SceneNodes\SceneObject.h" />
-    <ClInclude Include="Scripting\BindingList.h" />
     <ClInclude Include="Scripting\Bindings.h" />
     <ClInclude Include="Scripting\Bindings\BridgeVector3.h" />
     <ClInclude Include="Scripting\Bindings\EventClassBinding.h" />
     <ClInclude Include="Scripting\Bindings\IrrlichtBindings.h" />
     <ClInclude Include="Scripting\Bindings\MathBindings.h" />
+    <ClInclude Include="Scripting\Bindings\PhysicsBindings.h" />
+    <ClInclude Include="Scripting\Bindings\WorldBindings.h" />
     <ClInclude Include="Scripting\Scripting.h" />
     <ClInclude Include="Scripting\ScriptingVM.h" />
     <ClInclude Include="Scripting\Sqrat\sqratImpClass.h" />

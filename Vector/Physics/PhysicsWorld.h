@@ -13,6 +13,7 @@
 #include "global.h"
 #include "Utility/Manager.h"
 #include "PhysicsObject.h"
+#include "IrrBtConversion.h"
 
 // Vorwärtsdeklaration der Klassen
 class btDynamicsWorld;
@@ -93,11 +94,22 @@ namespace physics {
 		//! Ermittelt die Gravitation
 		virtual btVector3 getGravity() const;
 
+		//! Ermittelt die Gravitation
+		inline irr::core::vector3df getGravityAsIrrVector() const {
+			return conversion::toIrrlichtVector(getGravity());
+		}
+
 		//! Bezieht die Dynamikwelt
 		virtual btDynamicsWorld* getDynamicsWorld() const { return dynamicsWorld; }
 
 		//! Bezieht den Manager
 		PhysicsManager* getManager() const { return physicsManager; }
+
+		//! Liefert das Objekt mit der gegebenen ID
+		inline PhysicsObject* getObject(irr::u32 objectId) { return physicsObjects[objectId]; }
+
+		//! Liefert die Anzahl der Physikobjekte
+		inline irr::u32 getObjectCount() { return physicsObjects.count(); }
 
 	private:
 		

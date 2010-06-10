@@ -52,13 +52,13 @@ namespace physics {
 		core::vector3df getLinearVelocity() const;
 
 		//! Setzt die lineare Geschwindigkeit
-		void setLinearVelocity(const core::vector3df& vel) const;
+		void setLinearVelocity(const core::vector3df& vel);
 
 		//! Ermittelt die Winkelgeschwindigkeit
 		core::vector3df getAngularVelocity() const;
 
 		//! Setzt die Winkelgeschwindigkeit
-		void setAngularVelocity(const core::vector3df& vel) const;
+		void setAngularVelocity(const core::vector3df& vel);
 		
 		//! Wendet eine Kraft auf das Objekt an
 		void applyForce(const core::vector3df& v);
@@ -67,7 +67,10 @@ namespace physics {
 		void zeroForces();
 
 		//! Setzt den Aktivierungszustand
-		inline void setActivationState(bool active) { rigidBody->setActivationState(active); }
+		inline void setActivationState(const bool& active) { rigidBody->setActivationState(active); }
+
+		//! Ermittelt den Aktivierungszustand
+		virtual bool getActivationState() const { return rigidBody->getActivationState() != 0; }
 
 		//! Ermittelt die Rotation
 		core::vector3df getRotation() const;
@@ -77,6 +80,9 @@ namespace physics {
 
 		//! Räumt die Physikgeschichte auf
 		void endPhysics(void);
+
+		//! Ermittelt die Masse des Objektes
+		inline f32 getMass() const { return mass; }
 
 		//! Aktualisiert die Masse des Objektes
 		void updateMass(f32 mass);
