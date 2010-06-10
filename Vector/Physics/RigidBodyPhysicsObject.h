@@ -67,10 +67,19 @@ namespace physics {
 		void zeroForces();
 
 		//! Setzt den Aktivierungszustand
-		inline void setActivationState(const bool& active) { rigidBody->setActivationState(active); }
+		inline void setActivationState(int state) { rigidBody->setActivationState(state); }
+
+		//! Erzwingt den Aktivierungszustand
+		inline void forceActivationState(int state) { rigidBody->forceActivationState(state); }
 
 		//! Ermittelt den Aktivierungszustand
-		virtual bool getActivationState() const { return rigidBody->getActivationState() != 0; }
+		inline int getActivationState() const { return rigidBody->getActivationState(); }
+
+		//! Setzt die Deaktivierungszeit
+		inline void setDeactivationTime(f32 time) { rigidBody->setDeactivationTime(time); }
+
+		//! Setzt die Deaktivierungszeit
+		inline f32 getDeactivationTime() const { return rigidBody->getDeactivationTime(); }
 
 		//! Ermittelt die Rotation
 		core::vector3df getRotation() const;

@@ -20,6 +20,9 @@
 #include "Sound/RoamingSoundListener.h"
 #include "Scripting/ScriptingVM.h"
 
+#define PHYSICS_MAX_SUBSTEPS_DEFAULT	(10)
+#define PHYSICS_FIXED_TIMESTEP_DEFAULT	(1.0f/60.0f)
+
 namespace pv {
 
 	//! Basisklasse der Spiele-Engine.
@@ -201,9 +204,18 @@ namespace pv {
 		* @param maxSubsteps	Die maximale Anzahl Unterschritte
 		* @param fixedTimeStep	Der fixe Zeitschritt; Bullet-Standard ist 1/60
 		*/
-		inline void updatePhysics(float deltaTime, short unsigned int maxSubsteps = 10, float fixedTimeStep = 1.0f/60.0f) const {
+		inline void updatePhysics(float deltaTime, short unsigned int maxSubsteps, float fixedTimeStep) const {
 			ASSERT(physicsManagement);
-			physicsManagement->update(deltaTime, maxSubsteps, fixedTimeStep);
+			physicsManagement->update(deltaTime * physicsUpdateFactor, maxSubsteps, fixedTimeStep);
+		}
+
+		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
+		/** Aktualisiert alle registrierten Dynamikwelten.
+		* @param deltaTime		Die vergangene Zeit in Sekunden
+		*/
+		inline void updatePhysics(float deltaTime) const {
+			ASSERT(physicsManagement);
+			physicsManagement->update(deltaTime * physicsUpdateFactor, physicsMaxSubsteps, physicsFixedTimestep);
 		}
 
 		//! Bezieht den Audiokontext
@@ -229,6 +241,24 @@ namespace pv {
 
 		//! Gibt an, ob Physik-Debugging aktiviert ist
 		inline void setPhysicsDebuggingEnabled(const bool& enabled) { enablePhysicsDebugging = enabled; }
+
+		//! Maximale Anzahl der Teilschritte in Bullet
+		inline irr::u32 getPhysicsMaxSubsteps() const { return physicsMaxSubsteps; }
+
+		//! Maximale Anzahl der Teilschritte in Bullet
+		inline void setPhysicsMaxSubsteps(irr::u32 steps) { physicsMaxSubsteps = steps; }
+
+		//! Größe des fixen Timesteps in Bullet
+		inline irr::f32 getPhysicsFixedTimestep() const { return physicsFixedTimestep; }
+
+		//! Größe des fixen Timesteps in Bullet
+		inline void setPhysicsFixedTimestep(irr::f32 step) { physicsFixedTimestep = step; }
+
+		//! Größe des fixen Timesteps in Bullet
+		inline irr::u32 getPhysicsUpdateFactor() const { return physicsUpdateFactor; }
+
+		//! Größe des fixen Timesteps in Bullet
+		inline void setPhysicsUpdateFactor(irr::f32 factor) { physicsUpdateFactor = factor; }
 
 	private:
 
@@ -309,6 +339,15 @@ namespace pv {
 
 		//! Ermittelt, ob Physik-Debugging aktiviert sein soll
 		bool enablePhysicsDebugging;
+
+		//! Maximale Anzahl der Teilschritte in Bullet
+		irr::u32 physicsMaxSubsteps;
+
+		//! Maximale Anzahl der Teilschritte in Bullet
+		irr::f32 physicsFixedTimestep;
+
+		//! Physik-Updatefaktor
+		irr::f32 physicsUpdateFactor;
 	};
 
 }

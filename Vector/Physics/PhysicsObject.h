@@ -81,10 +81,36 @@ namespace physics {
 		virtual void zeroForces() = 0;
 
 		//! Setzt den Aktivierungszustand
-		virtual void setActivationState(const bool& active) = 0;
+		inline void setActivationStateC(const int& active) { setActivationState(active); }
+
+		//! Setzt den Aktivierungszustand
+		virtual void setActivationState(int active) = 0;
+
+		//! Erzwingt den Aktivierungszustand
+		virtual void forceActivationState(int active) = 0;
 
 		//! Ermittelt den Aktivierungszustand
-		virtual bool getActivationState() const = 0;
+		virtual int getActivationState() const = 0;
+
+		//! Setzt den Aktivierungszustand auf ACTIVE_TAG
+		inline void makeActive() { forceActivationState(ACTIVE_TAG); }
+
+		//! Setzt den Aktivierungszustand
+		inline void setSimulationEnabled(const bool& active) { 
+			switch(active) {
+			case true:	forceActivationState(ACTIVE_TAG); setDeactivationTime(0.0f); return;
+			case false:	setActivationState(DISABLE_SIMULATION); return;
+			}
+		}
+
+		//! Ermittelt den Aktivierungszustand
+		inline bool getSimulationEnabled() const { return getActivationState() != DISABLE_SIMULATION; }
+
+		//! Setzt die Deaktivierungszeit
+		virtual void setDeactivationTime(f32 time) = 0;
+
+		//! Setzt die Deaktivierungszeit
+		virtual f32 getDeactivationTime() const = 0;
 
 		//! Ermittelt die Rotation
 		virtual core::vector3df getRotation() const = 0;
@@ -94,6 +120,9 @@ namespace physics {
 
 		//! Räumt die Physikgeschichte auf
 		virtual void endPhysics(void);
+
+		//! Ermittelt, ob das Objekt statisch ist
+		inline bool isStatic() const { return getMass() == 0.0f; }
 
 		//! Ermittelt die Masse des Objektes
 		virtual f32 getMass() const = 0;

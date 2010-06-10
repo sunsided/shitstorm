@@ -13,6 +13,7 @@
 using namespace std;
 using namespace irr;
 
+
 namespace pv {
 
 	//! Erzeugt eine neue Instanz der EngineBase-Klasse.
@@ -29,7 +30,10 @@ namespace pv {
 			audioState(sound::SoundState::get()),
 			vm(NULL),
 			_isRunning(false),
-			enablePhysicsDebugging(false)
+			enablePhysicsDebugging(false),
+			physicsMaxSubsteps(PHYSICS_MAX_SUBSTEPS_DEFAULT),
+			physicsFixedTimestep(PHYSICS_FIXED_TIMESTEP_DEFAULT),
+			physicsUpdateFactor(1.0f)
 	{
 		initializeBasicMaterials();
 	}

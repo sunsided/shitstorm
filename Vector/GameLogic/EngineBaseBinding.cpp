@@ -45,12 +45,19 @@ namespace pv {
 				.Func(_SC("getClearColor"), &EngineBase::getClearColor)
 				.Func(_SC("setClearColor"), &EngineBase::setClearColor)
 				.Prop(_SC("DebugPhysics"), &EngineBase::physicsDebuggingEnabled, &EngineBase::setPhysicsDebuggingEnabled)
+				.Var(_SC("PhysicsFixedTimestep"), &EngineBase::physicsFixedTimestep)
+				.Var(_SC("PhysicsMaxSubsteps"), &EngineBase::physicsMaxSubsteps)
+				.Var(_SC("PhysicsUpdateFactor"), &EngineBase::physicsUpdateFactor)
 			);
 
 		// Slot für die Engine erzeugen
 		RootTable(vm).SetValue<EngineBase*>(_SC("EngineRoot"), this);
 		RootTable(vm).SetValue<physics::PhysicsManager*>(_SC("Physics"), getPhysics());
 		RootTable(vm).SetValue<world::WorldManager*>(_SC("World"), getWorld());
+
+		// Konstanten setzen
+		ConstTable(vm).Const(_SC("PhysicsFixedTimestepDefault"), PHYSICS_MAX_SUBSTEPS_DEFAULT);
+		ConstTable(vm).Const(_SC("PhysicsMaxSubstepsDefault"), PHYSICS_FIXED_TIMESTEP_DEFAULT);
 	}
 	
 }

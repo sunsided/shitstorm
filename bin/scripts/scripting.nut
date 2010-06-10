@@ -25,12 +25,19 @@ function OnPause() {
 	local force = Vector(0, mass, 0);
 	print("Setze Geschwindigkeit des Objektes auf: " + force + " m/s");
 	world.getObject(1).LinearVelocity = force;
-	world.getObject(1).Active = true;
+	
+	print("Activation state von Objekt 1: " + world.getObject(1).getActivationStateString());
+	world.getObject(1).poke();
+	print("Activation state von Objekt 1: " + world.getObject(1).getActivationStateString());
+
 }
 
 function OnUnpause() {
 	print("Pause beendet.");
 	print("weiter geht's mit ~"+FPS+" FPS");
 
-	World.getObject(3).PhysicsEnabled = false;
+	print("Alter Zustand: Simulation aktiv f. Objekt #3: " + World.getObject(3).PhysicsEnabled);
+	World.getObject(3).Physics.SimulationEnabled = !World.getObject(3).Physics.SimulationEnabled;
+	print("Neuer Zustand: Simulation aktiviert f. Objekt 3: " + World.getObject(3).Physics.SimulationEnabled);
+	print("Neuer Zustand: Activation state von Objekt 3: " + World.getObject(3).Physics.getActivationStateString());
 }

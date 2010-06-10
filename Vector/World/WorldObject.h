@@ -71,10 +71,10 @@ namespace world {
 		inline irr::u32 getWorldObjectId() const { return worldObjectId; }
 
 		//! Aktiviert oder deaktiviert die Physik für dieses Objekt
-		inline void enablePhysics(const bool& enable) { physicsBody->setActivationState(enable); }
+		inline void enablePhysics(const bool& enable) { physicsBody->setSimulationEnabled(enable); }
 
 		//! Aktiviert oder deaktiviert die Physik für dieses Objekt
-		inline bool physicsEnabled() const { return physicsBody->getActivationState(); }
+		inline bool physicsEnabled() const { return physicsBody->getSimulationEnabled(); }
 
 		//! Aktiviert oder deaktiviert die Physik für dieses Objekt
 		inline void setVisibility(const bool& visible) { sceneObject->setVisibility(visible); }
