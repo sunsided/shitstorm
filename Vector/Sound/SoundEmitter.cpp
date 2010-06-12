@@ -9,6 +9,8 @@
 
 #include "SoundEmitter.h"
 #include "SoundDevice.h"
+#include "Scripting/Scripting.h"
+#include <iostream>
 
 namespace pv {
 namespace sound {
@@ -27,6 +29,9 @@ namespace sound {
 		setVelocity(0, 0, 0);
 		setRolloffFactor(1.0f);
 		resetOrientation();
+
+		// Ruft das Init-Ereignis auf
+		callInitEventIfExists();
 	}
 
 
@@ -366,6 +371,26 @@ namespace sound {
 	//! Setzt den Rolloff-Faktor
 	void SoundEmitter::setRolloffFactor(irr::f32 factor) const {
 		alSourcef(sourceId, AL_ROLLOFF_FACTOR, factor);
+	}
+
+	//! Ruft das Init-Event auf, falls es existiert
+	/* @returns true, wenn das Event aufgerufen wurde, ansonsten false. */
+	bool SoundEmitter::callInitEventIfExists() {
+		using namespace Sqrat;
+
+		HSQUIRRELVM vm = DefaultVM::Get();
+		Function function(RootTable(vm), _SC("OnInitSoundEmitter"));
+		if (function.IsNull()) return false;
+		try {
+			function.Execute(this);
+		}
+		catch(Exception e) {
+			std::wcerr << "Fehler beim Ausführen des Events 'OnInitSoundEmitter': " << e.Message() << std::endl;
+		}
+		catch(...) {
+			std::wcerr << "Fehler beim Ausführen des Events 'OnInitSoundEmitter'." << std::endl;
+		}
+		return true;
 	}
 
 }}

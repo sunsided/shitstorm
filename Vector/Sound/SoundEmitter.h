@@ -184,6 +184,12 @@ namespace sound {
 
 	private:
 
+		//! Ruft das Init-Event auf, falls es existiert
+		/* @returns true, wenn das Event aufgerufen wurde, ansonsten false. */
+		bool callInitEventIfExists();
+
+	private:
+
 		//! Erzeugt den Kontext
 		void createEmitter();
 

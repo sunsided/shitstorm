@@ -176,6 +176,12 @@ namespace sound {
 		// Dem Manager mitteilen
 		if (propagate && context != NULL) parent->setActiveDevice(this);
 
+		// Kontext initialisieren
+		if (context != NULL && !context->stateInitialized) {
+			SoundState::get()->callInitEventIfExists();
+			context->stateInitialized = true;
+		}
+
 		return oldContext;
 	}
 

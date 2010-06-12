@@ -15,6 +15,7 @@
 #include "SoundDistanceModel.h"
 #include "RoamingSoundListener.h"
 #include "Utility/Singleton.h"
+#include "Scripting/Bindings/SoundBindings.h"
 
 namespace pv {
 namespace sound {
@@ -26,6 +27,7 @@ namespace sound {
 	class SoundState : public utility::Singleton<SoundState>
 	{
 		friend class utility::Singleton<SoundState>;
+		friend class scripting::SoundBindings;
 
 	protected:
 
@@ -45,8 +47,19 @@ namespace sound {
 		//! Setzt das Distanzmodell
 		void setDistanceModel(SoundDistanceModel model) const;
 
+	private:
+
+		//! Setzt das Distanzmodell
+		inline void setDistanceModelU32(const irr::u32& model) const { setDistanceModel(static_cast<SoundDistanceModel>(model)); }
+
+	public:
+
 		//! Bezieht den Listener
 		inline RoamingSoundListener* getListener() const { return RoamingSoundListener::get(); }
+
+		//! Ruft das Init-Event auf, falls es existiert
+		/* @returns true, wenn das Event aufgerufen wurde, ansonsten false. */
+		bool callInitEventIfExists();
 	};
 
 }}

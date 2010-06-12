@@ -120,10 +120,6 @@ namespace pv {
 		audioDevice = audioManager->createAndInitDevice();
 		if (!audioManager) return ESC_SOUND_DEVICE_FAILED;
 
-		// Audiokontext erzeugen
-		audioContext = audioDevice->createContext(true);
-		if (!audioContext) return ESC_SOUND_CONTEXT_FAILED;
-
 		// Physikmanagement erzeugen
 		physicsManagement = physics::PhysicsManager::get();
 		if (!physicsManagement) return ESC_PHYSICS_FAILED;
@@ -133,9 +129,6 @@ namespace pv {
 		worldManagement = new world::WorldManager();
 		if (!worldManagement) return ESC_WORLDMGMT_FAILED;
 
-		// Standard-Audiostate setzen
-		setDefaultAudioState();
-
 		// Scripting initialisieren
 		try {
 			vm = scripting::ScriptingVM::get();
@@ -143,16 +136,23 @@ namespace pv {
 
 			// An die Scripting-VM binden
 			bindToScriptingVM();
-
-			// Abgeleitete Engine binden
-			OnBindToScriptingVM();
-
+	
 			// Skript laden
 			vm->executeScriptFile(L"scripts/scripting.nut"); // TODO: Hardcoding entsorgen!
 		}
 		catch(...) {
 			return ESC_SCRIPTVM_FAILED;
 		}
+
+		// Audiokontext erzeugen
+		audioContext = audioDevice->createContext(true);
+		if (!audioContext) return ESC_SOUND_CONTEXT_FAILED;
+
+		// Standard-Audiostate setzen
+		// setDefaultAudioState();
+
+		// Abgeleitete Engine binden
+		OnBindToScriptingVM();
 
 		// Initialisieren
 		cout << "Initialisiere Engine, 2nd stage ..." << endl;
@@ -169,7 +169,7 @@ namespace pv {
 	//! Setzt den Audio-State auf Standardwerte
 	void EngineBase::setDefaultAudioState() const {
 		ASSERT(audioState);
-		audioState->setDistanceModel(sound::SDM_EXPONENT_DISTANCE);
+		//audioState->setDistanceModel(sound::SDM_EXPONENT_DISTANCE);
 	}
 
 	//! Schlieﬂt die Engine

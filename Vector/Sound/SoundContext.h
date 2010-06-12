@@ -139,6 +139,9 @@ namespace sound {
 
 		//! Der Emitter-Manager
 		utility::Manager<SoundEmitter> emitterManager;
+
+		//! Gibt an, ob der State dieses Kontextes bereits initialisiert wurde
+		bool stateInitialized;
 	};
 
 }}

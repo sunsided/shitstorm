@@ -9,6 +9,8 @@
 #include "SoundState.h"
 
 #include <al.h>
+#include <iostream>
+#include "Scripting/Scripting.h"
 
 namespace pv {
 namespace sound {
@@ -29,7 +31,27 @@ namespace sound {
 
 	//! Setzt das Distanzmodell
 	void SoundState::setDistanceModel(SoundDistanceModel model) const {
-		alDistanceModel((ALenum)AL_EXPONENT_DISTANCE);
+		alDistanceModel((ALenum)model);
+	}
+
+	//! Ruft das Init-Event auf, falls es existiert
+	/* @returns true, wenn das Event aufgerufen wurde, ansonsten false. */
+	bool SoundState::callInitEventIfExists() {
+		using namespace Sqrat;
+
+		HSQUIRRELVM vm = DefaultVM::Get();
+		Function function(RootTable(vm), _SC("OnInitSoundState"));
+		if (function.IsNull()) return false;
+		try {
+			function.Execute();
+		}
+		catch(Exception e) {
+			std::wcerr << "Fehler beim Ausführen des Events 'OnInitSoundState': " << e.Message() << std::endl;
+		}
+		catch(...) {
+			std::wcerr << "Fehler beim Ausführen des Events 'OnInitSoundState'." << std::endl;
+		}
+		return true;
 	}
 
 }}

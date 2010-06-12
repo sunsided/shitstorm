@@ -10,12 +10,14 @@
 #include "SoundContext.h"
 #include "SoundDevice.h"
 #include "ContextBoundSoundListener.h"
+#include "SoundState.h"
 
 namespace pv {
 namespace sound {
 
 	SoundContext::SoundContext()
-		: openAlContext(NULL), parentDevice(NULL), boundListener(NULL), suspended(false), emitterManager(true)
+		: openAlContext(NULL), parentDevice(NULL), boundListener(NULL), suspended(false), emitterManager(true),
+		stateInitialized(false)
 	{
 		// Listener erzeugen
 		boundListener = new ContextBoundSoundListener(this);

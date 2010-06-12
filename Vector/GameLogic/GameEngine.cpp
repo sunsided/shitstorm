@@ -224,23 +224,8 @@ namespace pv {
 		blipEmitter->setPosition(0, 0, 0);
 		blipEmitter->play();
 
-		alDistanceModel(AL_EXPONENT_DISTANCE);
-
 		emitterSinus220->play();
-		emitterSinus220->setGain(2.0f);
-		emitterSinus220->setMinGain(0.0f);
-		emitterSinus220->setMaxGain(1.0f);
-		emitterSinus220->setMaxDistance(5.0f);
-		emitterSinus220->setRolloffFactor(2.0f);
-		emitterSinus220->setReferenceDistance(2.0f);
-
 		emitterSinus440->play();
-		emitterSinus440->setGain(2.0f);
-		emitterSinus440->setMinGain(0.0f);
-		emitterSinus440->setMaxGain(1.0f);
-		emitterSinus440->setMaxDistance(5.0f);
-		emitterSinus440->setRolloffFactor(2.0f);
-		emitterSinus440->setReferenceDistance(2.0f);
 	}
 
 	//! Initialisiert die Spielschleife

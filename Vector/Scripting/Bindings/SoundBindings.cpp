@@ -60,12 +60,12 @@ namespace scripting {
 			_SC("SoundDistanceModel"),
 			Enumeration(vm)
 				.Const(_SC("None"), SDM_NONE)
-				.Const(_SC("InverseDistance"), SDM_INVERSE_DISTANCE)
-				.Const(_SC("InverseDistanceClamped"), SDM_INVERSE_DISTANCE_CLAMPED)
-				.Const(_SC("LinearDistance"), SDM_LINEAR_DISTANCE)
-				.Const(_SC("LinearDistanceClamped"), SDM_LINEAR_DISTANCE_CLAMPED)
-				.Const(_SC("ExponentDistance"), SDM_EXPONENT_DISTANCE)
-				.Const(_SC("ExponentDistanceClamped"), SDM_EXPONENT_DISTANCE_CLAMPED)
+				.Const(_SC("Inverse"), SDM_INVERSE_DISTANCE)
+				.Const(_SC("InverseClamped"), SDM_INVERSE_DISTANCE_CLAMPED)
+				.Const(_SC("Linear"), SDM_LINEAR_DISTANCE)
+				.Const(_SC("LinearClamped"), SDM_LINEAR_DISTANCE_CLAMPED)
+				.Const(_SC("Exponent"), SDM_EXPONENT_DISTANCE)
+				.Const(_SC("ExponentClamped"), SDM_EXPONENT_DISTANCE_CLAMPED)
 			);
 
 		RootTable(vm).Bind(
@@ -73,7 +73,7 @@ namespace scripting {
 			Class<SoundState, NoConstructor>(vm)
 				.Func(_SC("setDopplerFactor"), &SoundState::setDopplerFactor)
 				.Func(_SC("setSpeedOfSound"), &SoundState::setSpeedOfSound)
-				.Func(_SC("setDistanceModel"), &SoundState::setDistanceModel)
+				.Func(_SC("setDistanceModel"), &SoundState::setDistanceModelU32)
 			);
 
 		RootTable(vm).Bind(
@@ -112,6 +112,7 @@ namespace scripting {
 				.Prop(_SC("MinGain"), &SoundEmitter::getMinGain)
 				.Prop(_SC("MaxDistance"), &SoundEmitter::getMaxDistance)
 				.Func(_SC("setMaxDistance"), &SoundEmitter::setMaxDistance)
+				.Func(_SC("setReferenceDistance"), &SoundEmitter::setReferenceDistance)
 				.Func<void(SoundEmitter::*)(vector3df&)const>(_SC("setOrientation"), &SoundEmitter::setOrientation)
 				.Func<vector3df(SoundEmitter::*)()const>(_SC("getOrientation"), &SoundEmitter::getOrientation)
 				.Func(_SC("resetOrientation"), &SoundEmitter::resetOrientation)
