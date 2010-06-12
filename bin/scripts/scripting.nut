@@ -25,11 +25,7 @@ function OnPause() {
 	local force = Vector(0, mass, 0);
 	print("Setze Geschwindigkeit des Objektes auf: " + force + " m/s");
 	world.getObject(1).LinearVelocity = force;
-	
-	print("Activation state von Objekt 1: " + world.getObject(1).getActivationStateString());
 	world.getObject(1).poke();
-	print("Activation state von Objekt 1: " + world.getObject(1).getActivationStateString());
-
 }
 
 function OnUnpause() {

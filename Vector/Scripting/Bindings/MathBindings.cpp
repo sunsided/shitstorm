@@ -33,7 +33,7 @@ namespace scripting {
 		return (rand() / (static_cast<double>(RAND_MAX) + 1.0));
 	}
 
-	//! Bindet die EventClass-Klasse
+	//! Bindet die ObjectClass-Klasse
 	void MathBindings::scriptingBind(HSQUIRRELVM& vm) {
 		
 		RootTable(vm).Func(L"frand", &randf);

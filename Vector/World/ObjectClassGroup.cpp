@@ -6,7 +6,7 @@
  * $Id$
  */
 
-#include "EventClass.h"
+#include "ObjectClassGroup.h"
 
 namespace pv {
 namespace events {

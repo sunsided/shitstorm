@@ -95,9 +95,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Events\EventClass.cpp" />
-    <ClCompile Include="Events\EventClassGroup.cpp" />
-    <ClCompile Include="Events\EventClassManager.cpp" />
+    <ClCompile Include="Events\EventClasses.cpp" />
     <ClCompile Include="Events\EventTriggeringObject.cpp" />
     <ClCompile Include="GameLogic\EngineBase.cpp" />
     <ClCompile Include="GameLogic\EngineBaseBinding.cpp" />
@@ -131,6 +129,7 @@
     <ClCompile Include="Sound\RoamingSoundListener.cpp" />
     <ClCompile Include="Sound\SingleSoundBuffer.cpp" />
     <ClCompile Include="Sound\SoundBuffer.cpp" />
+    <ClCompile Include="Sound\SoundClasses.cpp" />
     <ClCompile Include="Sound\SoundContext.cpp" />
     <ClCompile Include="Sound\SoundDevice.cpp" />
     <ClCompile Include="Sound\SoundDeviceManager.cpp" />
@@ -141,14 +140,15 @@
     <ClCompile Include="Sound\StreamingSoundBuffer.cpp" />
     <ClCompile Include="Utility\Manager.cpp" />
     <ClCompile Include="World\NamedObject.cpp" />
+    <ClCompile Include="World\ObjectClass.cpp" />
+    <ClCompile Include="World\ObjectClassGroup.cpp" />
+    <ClCompile Include="World\ObjectClassManager.cpp" />
     <ClCompile Include="World\WorldManager.cpp" />
     <ClCompile Include="World\WorldObject.cpp" />
     <ClCompile Include="World\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Events\EventClass.h" />
-    <ClInclude Include="Events\EventClassGroup.h" />
-    <ClInclude Include="Events\EventClassManager.h" />
+    <ClInclude Include="Events\EventClasses.h" />
     <ClInclude Include="Events\EventTriggeringObject.h" />
     <ClInclude Include="GameLogic\EngineBase.h" />
     <ClInclude Include="GameLogic\EngineInitializationParams.h" />
@@ -186,6 +186,7 @@
     <ClInclude Include="Sound\RoamingSoundListener.h" />
     <ClInclude Include="Sound\SingleSoundBuffer.h" />
     <ClInclude Include="Sound\SoundBuffer.h" />
+    <ClInclude Include="Sound\SoundClasses.h" />
     <ClInclude Include="Sound\SoundContext.h" />
     <ClInclude Include="Sound\SoundDevice.h" />
     <ClInclude Include="Sound\SoundDeviceManager.h" />
@@ -200,6 +201,10 @@
     <ClInclude Include="Utility\SetManagerP.h" />
     <ClInclude Include="Utility\Singleton.h" />
     <ClInclude Include="World\NamedObject.h" />
+    <ClInclude Include="World\ObjectClass.h" />
+    <ClInclude Include="World\ObjectClassGroup.h" />
+    <ClInclude Include="World\ObjectClassManager.h" />
+    <ClInclude Include="World\ObjectClassManagerBase.h" />
     <ClInclude Include="World\WorldManager.h" />
     <ClInclude Include="World\WorldObject.h" />
     <ClInclude Include="World\WorldObjectFactory.h" />

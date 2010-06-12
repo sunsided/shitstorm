@@ -10,6 +10,8 @@
 #include "WorldBindings.h"
 #include "World/WorldManager.h"
 #include "World/WorldObject.h"
+#include "World/ObjectClass.h"
+#include "World/ObjectClassGroup.h"
 
 using namespace Sqrat;
 using namespace irr;
@@ -24,6 +26,13 @@ namespace scripting {
 	//! Bindet die Klasse
 	void WorldBindings::scriptingBind(HSQUIRRELVM& vm) {
 
+		RootTable(vm).Bind(
+			_SC("ObjectClass"),
+			Class<ObjectClass, NoConstructor>(vm)
+				.Prop(_SC("Id"), &ObjectClass::getId)
+				.Prop(_SC("Desc"), &ObjectClass::getDescription, &ObjectClass::setDescription)
+			);
+		
 		RootTable(vm).Bind(
 			_SC("WorldObject"),
 			Class<WorldObject, NoConstructor>(vm)

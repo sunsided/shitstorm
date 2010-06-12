@@ -1,4 +1,4 @@
-/** 
+	/** 
  * Project Vector
  * Objekt, das Events auslösen kann
  *
@@ -11,6 +11,7 @@
 #define _EVENTTRIGGERINGOBJECT_H
 
 #include "global.h"
+#include "EventClasses.h"
 
 namespace pv {
 namespace events {
@@ -21,7 +22,7 @@ namespace events {
 	protected:
 
 		//! Konstruktor
-		inline EventTriggeringObject(irr::u32 eventClass = 0) : triggerClass(eventClass) {}
+		inline EventTriggeringObject(EventClass* eventClass = 0) : triggerClass(eventClass) {}
 
 	public:
 
@@ -29,24 +30,24 @@ namespace events {
 		virtual ~EventTriggeringObject(void) {}
 
 		//! Liefert die Klasse des Elementes
-		inline irr::u32 getEventClass() const { return triggerClass; }
+		inline EventClass* getObjectClass() const { return triggerClass; }
 
 		//! Setzt die Klasse des Elementes
-		inline void setEventClass(irr::u32 eventClass) { triggerClass = eventClass; }
+		inline void setObjectClass(EventClass* eventClass) { triggerClass = eventClass; }
 
 		//! Testet, ob das Objekt einer bestimmten Event-Klasse angehört
-		inline bool isEventClass(irr::u32 testClass) const { return triggerClass == testClass; }
+		inline bool isObjectClass(const EventClass* testClass) const { return triggerClass == testClass; }
 		
 		//! Testet, ob das Objekt einer bestimmten Event-Klasse angehört
-		inline bool isSameEventClass(const EventTriggeringObject &otherObject) const { return triggerClass == otherObject.triggerClass; }
+		inline bool isSameObjectClass(const EventTriggeringObject &otherObject) const { return triggerClass == otherObject.triggerClass; }
 
 		//! Testet, ob das Objekt einer bestimmten Event-Klasse angehört
-		inline bool isSameEventClass(const EventTriggeringObject *otherObject) const { ASSERT(otherObject); return triggerClass == otherObject->triggerClass; }
+		inline bool isSameObjectClass(const EventTriggeringObject *otherObject) const { ASSERT(otherObject); return triggerClass == otherObject->triggerClass; }
 
 	private:
 
 		//! Die Event-Klasse des Objektes
-		irr::u32 triggerClass;
+		EventClass* triggerClass;
 	};
 
 }}

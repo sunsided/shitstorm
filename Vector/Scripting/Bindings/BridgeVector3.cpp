@@ -17,7 +17,7 @@ namespace scripting {
 		return BridgeVector3(x, y, z);
 	}
 
-	//! Bindet die EventClass-Klasse
+	//! Bindet die ObjectClass-Klasse
 	void BridgeVector3::scriptingBind(HSQUIRRELVM& vm) {
 
 		using namespace Sqrat;

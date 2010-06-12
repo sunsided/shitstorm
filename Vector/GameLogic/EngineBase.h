@@ -255,7 +255,7 @@ namespace pv {
 		inline void setPhysicsFixedTimestep(irr::f32 step) { physicsFixedTimestep = step; }
 
 		//! Größe des fixen Timesteps in Bullet
-		inline irr::u32 getPhysicsUpdateFactor() const { return physicsUpdateFactor; }
+		inline irr::f32 getPhysicsUpdateFactor() const { return physicsUpdateFactor; }
 
 		//! Größe des fixen Timesteps in Bullet
 		inline void setPhysicsUpdateFactor(irr::f32 factor) { physicsUpdateFactor = factor; }

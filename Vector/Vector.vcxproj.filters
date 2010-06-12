@@ -142,15 +142,6 @@
     <ClCompile Include="SceneNodes\EventNodes\EventSceneNode.cpp">
       <Filter>SceneNodes\EventNodes</Filter>
     </ClCompile>
-    <ClCompile Include="Events\EventClassGroup.cpp">
-      <Filter>Events</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\EventClass.cpp">
-      <Filter>Events</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\EventClassManager.cpp">
-      <Filter>Events</Filter>
-    </ClCompile>
     <ClCompile Include="Scripting\Bindings\EventClassBinding.cpp">
       <Filter>Scripting\Bindings</Filter>
     </ClCompile>
@@ -183,6 +174,21 @@
     </ClCompile>
     <ClCompile Include="Physics\PhysicsDebugRenderer.cpp">
       <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="World\ObjectClassGroup.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="World\ObjectClassManager.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="World\ObjectClass.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\EventClasses.cpp">
+      <Filter>Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound\SoundClasses.cpp">
+      <Filter>Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -305,9 +311,6 @@
     <ClInclude Include="SceneNodes\EventNodes\EventSceneNode.h">
       <Filter>SceneNodes\EventNodes</Filter>
     </ClInclude>
-    <ClInclude Include="Events\EventClassGroup.h">
-      <Filter>Events</Filter>
-    </ClInclude>
     <ClInclude Include="Utility\SetManagerP.h">
       <Filter>Utility</Filter>
     </ClInclude>
@@ -316,12 +319,6 @@
     </ClInclude>
     <ClInclude Include="Scripting\Scripting.h">
       <Filter>Scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\EventClass.h">
-      <Filter>Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\EventClassManager.h">
-      <Filter>Events</Filter>
     </ClInclude>
     <ClInclude Include="Scripting\Bindings\EventClassBinding.h">
       <Filter>Scripting\Bindings</Filter>
@@ -352,6 +349,24 @@
     </ClInclude>
     <ClInclude Include="Physics\PhysicsDebugRenderer.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="World\ObjectClassGroup.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="World\ObjectClassManager.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="World\ObjectClass.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="World\ObjectClassManagerBase.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventClasses.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\SoundClasses.h">
+      <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

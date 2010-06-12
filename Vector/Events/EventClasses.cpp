@@ -1,12 +1,12 @@
 /** 
  * Project Vector
- * Gruppe von Event-Klassen
+ * Eventklassen
  *
  * (c) 2010, Markus Mayer <code@defx.de>
  * $Id$
  */
 
-#include "EventClassGroup.h"
+#include "EventClasses.h"
 
 namespace pv {
 namespace events {

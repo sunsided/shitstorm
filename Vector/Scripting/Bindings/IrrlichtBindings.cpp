@@ -66,7 +66,7 @@ namespace scripting {
 		return stdstring;
 	}
 
-	//! Bindet die EventClass-Klasse
+	//! Bindet die ObjectClass-Klasse
 	void IrrlichtBindings::scriptingBind(HSQUIRRELVM& vm) {
 
 		// Farben
@@ -151,6 +151,49 @@ namespace scripting {
 				.GlobalFunc(_SC("_tostring"), &vectorToString)
 				.GlobalFunc(_SC("set"), &setVectorValue)
 				//.GlobalFunc(_SC("toCompatibleVector"), &convertToCompatibleVector)
+			);
+
+		// line3df
+		RootTable(vm).Bind(
+			_SC("Line"),
+			Class<line3df>(vm)
+				.Var(_SC("Start"), &line3df::start)
+				.Var(_SC("End"), &line3df::end)
+				.Func(_SC("getClosestPoint"), &line3df::getClosestPoint)
+				.Func(_SC("_modulo"), &line3df::getClosestPoint)
+				//.Func(_SC("getIntersectionWithSphere"), &line3df::getIntersectionWithSphere)
+				.Func(_SC("getLength"), &line3df::getLength)
+				.Func(_SC("getLengthSQ"), &line3df::getLengthSQ)
+				.Func(_SC("getMiddle"), &line3df::getMiddle)
+				.Func(_SC("getVector"), &line3df::getVector)
+				.Func(_SC("isPointBetweenStartAndEnd"), &line3df::isPointBetweenStartAndEnd)
+				.Func(_SC("_add"), &line3df::operator+)
+				.Func<void(line3df::*)(const vector3df&,const vector3df&)>(_SC("setLine"), &line3df::setLine)
+			);
+
+		// AABB
+		RootTable(vm).Bind(
+			_SC("Aabbox"),
+			Class<aabbox3df>(vm)
+				.Var(_SC("MinEdge"), &aabbox3df::MinEdge)
+				.Var(_SC("MaxEdge"), &aabbox3df::MaxEdge)
+				.Func(_SC("addInternalBox"), &aabbox3df::addInternalBox)
+				.Func<void(aabbox3df::*)(const vector3df&)>(_SC("addInternalPoint"), &aabbox3df::addInternalPoint)
+				.Func<void(aabbox3df::*)(const vector3df&)>(_SC("_add"), &aabbox3df::addInternalPoint)
+				.Func(_SC("getArea"), &aabbox3df::getArea)
+				.Func(_SC("getCenter"), &aabbox3df::getCenter)
+				.Func(_SC("getExtent"), &aabbox3df::getExtent)
+				.Func(_SC("getInterpolated"), &aabbox3df::getInterpolated)
+				.Func(_SC("getVolume"), &aabbox3df::getVolume)
+				.Func(_SC("intersectsWithBox"), &aabbox3df::intersectsWithBox)
+				.Func<bool(aabbox3df::*)(const line3df&)const>(_SC("intersectsWithLine"), &aabbox3df::intersectsWithLine) // TODO: Line3d
+				.Func(_SC("isEmpty"), &aabbox3df::isEmpty)
+				.Func(_SC("isFullInside"), &aabbox3df::isFullInside)
+				.Func(_SC("isPointInside"), &aabbox3df::isPointInside)
+				.Func(_SC("_modulo"), &aabbox3df::isPointInside)
+				.Func(_SC("isPointTotalInside"), &aabbox3df::isPointTotalInside)
+				.Func(_SC("_cmp"), &aabbox3df::operator==)
+				.Func<void(aabbox3df::*)(irr::f32,irr::f32,irr::f32)>(_SC("reset"), &aabbox3df::reset)
 			);
 	}
 

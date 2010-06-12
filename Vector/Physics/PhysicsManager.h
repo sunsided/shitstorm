@@ -12,6 +12,7 @@
 
 #include "global.h"
 #include "Utility/Manager.h"
+#include "Utility/Singleton.h"
 #include "PhysicsWorld.h"
 #include "Scripting/Bindings/PhysicsBindings.h"
 
@@ -22,13 +23,17 @@ namespace pv {
 namespace physics {
 
 	//! Klasse, die die Physikengine verwaltet
-	class PhysicsManager
+	class PhysicsManager : public utility::Singleton<PhysicsManager>
 	{
 		friend class pv::scripting::PhysicsBindings;
+		friend class utility::Singleton<PhysicsManager>;
 
-	public:
+	private:
+		
 		//! Erzeugt eine neue Instanz des Objektes
 		PhysicsManager(void);
+
+	public:
 
 		//! Destruktor
 		virtual ~PhysicsManager(void);

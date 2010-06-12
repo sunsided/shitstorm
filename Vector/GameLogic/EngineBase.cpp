@@ -125,7 +125,7 @@ namespace pv {
 		if (!audioContext) return ESC_SOUND_CONTEXT_FAILED;
 
 		// Physikmanagement erzeugen
-		physicsManagement = new physics::PhysicsManager();
+		physicsManagement = physics::PhysicsManager::get();
 		if (!physicsManagement) return ESC_PHYSICS_FAILED;
 		physicsManagement->initialize();
 		

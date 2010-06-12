@@ -7,34 +7,34 @@
  */
 
 #pragma once
-#ifndef _EVENTCLASS_H
-#define _EVENTCLASS_H
+#ifndef _OBJECTCLASS_H
+#define _OBJECTCLASS_H
 
 #include "global.h"
 
 namespace pv {
-namespace events {
+namespace world {
 
 	//! Element mit Namen
-	class EventClass
+	class ObjectClass
 	{
-		friend class EventClassManager;
+		friend class ObjectClassManagerBase;
 
-	protected:
+	public:
 
 		//! Konstruktor
-		inline EventClass(irr::core::stringw text = L"") : description(text), classId(0) {}
+		inline ObjectClass(irr::core::stringw text = L"") : description(text), classId(0) {}
 		
 	public:
 
 		//! Destruktor
-		virtual ~EventClass(void) {}
+		virtual ~ObjectClass(void) {}
 
 		//! Ermittelt die Klassen-ID
 		inline irr::u32 getId() const { return classId; }
 
 		//! Setzt die Beschreibung
-		inline void setDescription(irr::core::stringw text) { description = text; }
+		inline void setDescription(const irr::core::stringw& text) { description = text; }
 
 		//! Ermittelt die Beschreibung
 		inline irr::core::stringw getDescription() const { return description; }

@@ -11,7 +11,7 @@
 
 namespace pv {
 	
-	//! Bindet die EventClass-Klasse
+	//! Bindet die ObjectClass-Klasse
 	void EngineBase::bindToScriptingVM() {
 
 		using namespace Sqrat;
