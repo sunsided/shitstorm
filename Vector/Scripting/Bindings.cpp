@@ -28,6 +28,7 @@ namespace scripting {
 
 		// Irrlicht-Bindings
 		IrrlichtBindings::scriptingBind(vm);
+		IrrlichtBindings::scriptingBindEnums(vm);
 
 		// Mathematikkram
 		MathBindings::scriptingBind(vm);

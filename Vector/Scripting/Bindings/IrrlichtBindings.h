@@ -23,6 +23,9 @@ namespace scripting {
 
 		//! Binding-Funktion
 		static void scriptingBind(HSQUIRRELVM& vm);
+
+		//! Binding-Funktion für Enumerationswerte
+		static void scriptingBindEnums(HSQUIRRELVM& vm);
 	};
 
 }}

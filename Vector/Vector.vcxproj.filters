@@ -193,6 +193,9 @@
     <ClCompile Include="Scripting\Bindings\SoundBindings.cpp">
       <Filter>Scripting\Bindings</Filter>
     </ClCompile>
+    <ClCompile Include="Scripting\Bindings\IrrlichtEnumBindings.cpp">
+      <Filter>Scripting\Bindings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />

@@ -118,6 +118,7 @@
     <ClCompile Include="Scripting\Bindings\BridgeVector3.cpp" />
     <ClCompile Include="Scripting\Bindings\EventClassBinding.cpp" />
     <ClCompile Include="Scripting\Bindings\IrrlichtBindings.cpp" />
+    <ClCompile Include="Scripting\Bindings\IrrlichtEnumBindings.cpp" />
     <ClCompile Include="Scripting\Bindings\MathBindings.cpp" />
     <ClCompile Include="Scripting\Bindings\PhysicsBindings.cpp" />
     <ClCompile Include="Scripting\Bindings\SceneBindings.cpp" />

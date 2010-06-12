@@ -49,8 +49,7 @@ namespace physics {
 			driver->draw3DLine(conversion::toIrrlichtVector(from), conversion::toIrrlichtVector(to), irr::video::SColorf(color.x(), color.y(), color.z()).toSColor());
 		}
 
-		inline void drawContactPoint(const btVector3& PointOnB,const btVector3& normalOnB,btScalar distance,int lifeTime,const btVector3& color) {
-		}
+		void drawContactPoint(const btVector3& PointOnB,const btVector3& normalOnB,btScalar distance,int lifeTime,const btVector3& color);
 
 		inline void reportErrorWarning(const char* warningString) {
 			std::wcerr << warningString << std::endl;

@@ -61,10 +61,22 @@ namespace scripting {
 		return shape;
 	}
 
+	//! Erzeugt ein Sphere Shape
+	btSphereShape* createSphereShape(irr::f32 radius) {
+		btSphereShape *shape = new btSphereShape(radius);
+		PhysicsManager::get()->registerCollisionShape(shape);
+		return shape;
+	}
+
 	//! Ermittelt die ID des Shapes
 	irr::u32 getShapeId(btCollisionShape *shape) {
 		utility::Manager<btCollisionShape> manager = PhysicsManager::get()->getCollisionShapeManager();
 		return manager.getId(shape);
+	}
+
+	//! Registriert ein Shape
+	irr::u32 registerShape(btCollisionShape *shape) {
+		return PhysicsManager::get()->registerCollisionShape(shape);
 	}
 
 	//! Bindet die Klasse
@@ -89,12 +101,19 @@ namespace scripting {
 				.GlobalFunc(_SC("calculateLocalInertia"), &calculateLocalInertia)
 				.GlobalFunc(_SC("getAabb"), &getAabb)
 				.GlobalFunc(_SC("getId"), &getShapeId)
+				//.GlobalFunc(_SC("register"), &registerShape)
 			);
 
 		// Bullet-Kram
 		RootTable(vm).Bind( _SC("BtBoxShape"),
 			DerivedClass<btBoxShape, btCollisionShape, NoConstructor>(vm)
 				.StaticFunc(_SC("create"), &createBoxShape)
+			);
+
+		// Bullet-Kram
+		RootTable(vm).Bind( _SC("BtSphereShape"),
+			DerivedClass<btSphereShape, btCollisionShape, NoConstructor>(vm)
+				.StaticFunc(_SC("create"), &createSphereShape)
 			);
 
 		// Physikobjekt
@@ -147,6 +166,7 @@ namespace scripting {
 				.Func(_SC("createWorld"), &PhysicsManager::createPhysicsWorld)
 				.Prop(_SC("WorldCount"), &PhysicsManager::getWorldCount)
 				.Func(_SC("getCollisionShape"), &PhysicsManager::getCollisionShape)
+				.Func(_SC("registerCollisionShape"), &PhysicsManager::registerCollisionShape)
 			);
 	}
 

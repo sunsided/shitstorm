@@ -69,6 +69,70 @@ namespace scripting {
 	//! Bindet die ObjectClass-Klasse
 	void IrrlichtBindings::scriptingBind(HSQUIRRELVM& vm) {
 
+		// dimension2df
+		RootTable(vm).Bind(
+			_SC("Dimension"),
+			Class<dimension2df>(vm)
+				.Func(_SC("getArea"), &dimension2df::getArea)
+				.Func(_SC("getInterpolated"), &dimension2df::getInterpolated)
+				.Func(_SC("_add"), &dimension2df::operator+)
+				.Func<bool(dimension2df::*)(const dimension2df&)const>(_SC("_cmp"), &dimension2df::operator==)
+				.Func(_SC("set"), &dimension2df::set)
+			);
+
+		// ISceneNode
+		RootTable(vm).Bind(
+			_SC("MaterialLayer"),
+			Class<SMaterialLayer>(vm)
+				.Var(_SC("AnisotropicFilter"), &SMaterialLayer::AnisotropicFilter)
+				.Var(_SC("LODBias"), &SMaterialLayer::LODBias)
+				.Var(_SC("Texture"), &SMaterialLayer::Texture)
+			);
+
+		// ISceneNode
+		RootTable(vm).Bind(
+			_SC("Material"),
+			Class<SMaterial>(vm)
+				.Var(_SC("AmbientColor"), &SMaterial::AmbientColor)
+				.Var(_SC("AntiAliasing"), &SMaterial::AntiAliasing)
+				.Func(_SC("getFlag"), &SMaterial::getFlag)
+				.Func(_SC("setFlag"), &SMaterial::setFlag)
+				//.Var(_SC("BackfaceCulling"), &SMaterial::BackfaceCulling)
+				//.Var(_SC("ColorMask"), &SMaterial::ColorMask)
+				.Var(_SC("DiffuseColor"), &SMaterial::DiffuseColor)
+				.Var(_SC("EmissiveColor"), &SMaterial::EmissiveColor)
+				//.Var(_SC("FogEnable"), &SMaterial::FogEnable)
+				//.Var(_SC("FrontfaceCulling"), &SMaterial::FrontfaceCulling)
+				//.Var(_SC("GouraudShading"), &SMaterial::GouraudShading)
+				//.Var(_SC("Lighting"), &SMaterial::Lighting)
+				.Var(_SC("MaterialType"), &SMaterial::MaterialType)
+				.Var(_SC("MaterialTypeParam"), &SMaterial::MaterialTypeParam)
+				.Var(_SC("MaterialTypeParam2"), &SMaterial::MaterialTypeParam2)
+				.Prop(_SC("IsTransparent"), &SMaterial::isTransparent)
+				//.Var(_SC("NormalizeNormals"), &SMaterial::NormalizeNormals)
+				//.Var(_SC("PointCloud"), &SMaterial::PointCloud)
+				.Var(_SC("Shininess"), &SMaterial::Shininess)
+				.Var(_SC("SpecularColor"), &SMaterial::SpecularColor)
+				//.Var(_SC("TextureLayer"), &SMaterial::TextureLayer)
+				.Var(_SC("Thickness"), &SMaterial::Thickness)
+				//.Var(_SC("Wireframe"), &SMaterial::Wireframe)
+				.Var(_SC("ZBuffer"), &SMaterial::ZBuffer)
+				//.Var(_SC("ZWriteEnable"), &SMaterial::ZWriteEnable)
+				.Func(_SC("_cmp"), &SMaterial::operator==)
+			);
+
+		// ITexture
+		RootTable(vm).Bind(
+			_SC("ITexture"),
+			Class<ITexture, NoConstructor>(vm)
+				.Func(_SC("getColorFormat"), &ITexture::getColorFormat)
+				.Func(_SC("getOriginalSize"), &ITexture::getOriginalSize)
+				.Func(_SC("getSize"), &ITexture::getSize)
+				.Prop(_SC("HasAlpha"), &ITexture::hasAlpha)
+				.Prop(_SC("HasMipMaps"), &ITexture::hasMipMaps)
+				.Prop(_SC("IsRenderTarget"), &ITexture::isRenderTarget)
+			);
+
 		// Farben
 		RootTable(vm).Bind(
 			_SC("Color"),
@@ -186,7 +250,7 @@ namespace scripting {
 				.Func(_SC("getInterpolated"), &aabbox3df::getInterpolated)
 				.Func(_SC("getVolume"), &aabbox3df::getVolume)
 				.Func(_SC("intersectsWithBox"), &aabbox3df::intersectsWithBox)
-				.Func<bool(aabbox3df::*)(const line3df&)const>(_SC("intersectsWithLine"), &aabbox3df::intersectsWithLine) // TODO: Line3d
+				.Func<bool(aabbox3df::*)(const line3df&)const>(_SC("intersectsWithLine"), &aabbox3df::intersectsWithLine)
 				.Func(_SC("isEmpty"), &aabbox3df::isEmpty)
 				.Func(_SC("isFullInside"), &aabbox3df::isFullInside)
 				.Func(_SC("isPointInside"), &aabbox3df::isPointInside)
@@ -194,6 +258,53 @@ namespace scripting {
 				.Func(_SC("isPointTotalInside"), &aabbox3df::isPointTotalInside)
 				.Func(_SC("_cmp"), &aabbox3df::operator==)
 				.Func<void(aabbox3df::*)(irr::f32,irr::f32,irr::f32)>(_SC("reset"), &aabbox3df::reset)
+			);
+
+		// ISceneNode
+		RootTable(vm).Bind(
+			_SC("ISceneNode"),
+			Class<ISceneNode, NoConstructor>(vm)
+				.Func(_SC("addChild"), &ISceneNode::addChild)
+				.Func(_SC("getAbsolutePosition"), &ISceneNode::getAbsolutePosition)
+				.Func(_SC("getAbsoluteTransformation"), &ISceneNode::getAbsoluteTransformation)
+				.Func(_SC("getAutomaticCulling"), &ISceneNode::getAutomaticCulling)
+				.Func(_SC("getBoundingBox"), &ISceneNode::getBoundingBox)
+				//.Func(_SC("getDebugName"), &ISceneNode::getDebugName)
+				.Prop(_SC("Id"), &ISceneNode::getID)
+				.Func(_SC("getMaterial"), &ISceneNode::getMaterial)
+				.Func(_SC("getMaterialCount"), &ISceneNode::getMaterialCount)
+				//.Func(_SC("getName"), &ISceneNode::getName)
+				.Prop(_SC("Parent"), &ISceneNode::getParent)
+				.Func(_SC("getPosition"), &ISceneNode::getPosition)
+				.Func(_SC("ReferenceCount"), &ISceneNode::getReferenceCount)
+				.Prop(_SC("Children"), &ISceneNode::getChildren)
+				.Func(_SC("getRelativeTransformation"), &ISceneNode::getRelativeTransformation)
+				.Func(_SC("getRotation"), &ISceneNode::getRotation)
+				.Func(_SC("getScale"), &ISceneNode::getScale)
+				.Prop(_SC("SceneManager"), &ISceneNode::getSceneManager)
+				.Func(_SC("getTransformedBoundingBox"), &ISceneNode::getTransformedBoundingBox)
+				.Func(_SC("getType"), &ISceneNode::getType)
+				.Prop(_SC("DebugDataVisible"), &ISceneNode::isDebugDataVisible)
+				.Prop(_SC("TrulyVisible"), &ISceneNode::isTrulyVisible)
+				.Prop(_SC("Visible"), &ISceneNode::isVisible)
+				.Func(_SC("setIsDebugObject"), &ISceneNode::setIsDebugObject)
+				.Func(_SC("setDebugDataVisible"), &ISceneNode::setDebugDataVisible)
+				.Func(_SC("setMaterialFlag"), &ISceneNode::setMaterialFlag)
+				.Func(_SC("setMaterialTexture"), &ISceneNode::setMaterialTexture) // ITexture
+				.Func(_SC("setMaterialType"), &ISceneNode::setMaterialType)
+				.Func(_SC("setParent"), &ISceneNode::setParent)
+				.Func(_SC("setPosition"), &ISceneNode::setPosition)
+				.Func(_SC("setRotation"), &ISceneNode::setRotation)
+				.Func(_SC("setScale"), &ISceneNode::setScale)
+				.Func(_SC("setVisible"), &ISceneNode::setVisible)
+				.Func(_SC("updateAbsolutePosition"), &ISceneNode::updateAbsolutePosition)
+			);
+
+		// ISceneManager
+		RootTable(vm).Bind(
+			_SC("ISceneManager"),
+			Class<ISceneManager, NoConstructor>(vm)
+				.Func(_SC("setActiveCamera"), &ISceneManager::setActiveCamera)
 			);
 	}
 
