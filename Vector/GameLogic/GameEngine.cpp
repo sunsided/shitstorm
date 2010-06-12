@@ -285,11 +285,11 @@ namespace pv {
 		video::IVideoDriver *driver = getDriver();
 		scene::ISceneManager *smgr = getSceneManager();
 
-		// Musik aktualisieren
-		getSoundDeviceManager()->updateStreamingAudio();
-
 		// Physik aktualisieren
 		updatePhysics(elapsedTime);
+
+		// Musik aktualisieren
+		getSoundDeviceManager()->updateStreamingAudio();
 
 		// Audioemitter anpassen
 		irr::core::vector3df position = smgr->getSceneNodeFromId(17)->getPosition();

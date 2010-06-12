@@ -48,6 +48,8 @@ namespace pv {
 				.Var(_SC("PhysicsFixedTimestep"), &EngineBase::physicsFixedTimestep)
 				.Var(_SC("PhysicsMaxSubsteps"), &EngineBase::physicsMaxSubsteps)
 				.Var(_SC("PhysicsUpdateFactor"), &EngineBase::physicsUpdateFactor)
+				.Func(_SC("yield"), &EngineBase::yieldDevice)
+				.Func(_SC("yieldAndSleep"), &EngineBase::yieldAndSleepDevice)
 			);
 
 		// Slot für die Engine erzeugen

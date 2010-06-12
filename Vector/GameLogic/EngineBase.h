@@ -260,6 +260,12 @@ namespace pv {
 		//! Größe des fixen Timesteps in Bullet
 		inline void setPhysicsUpdateFactor(irr::f32 factor) { physicsUpdateFactor = factor; }
 
+		//! Führt ein Yield auf dem Device aus
+		inline void yieldDevice() { if (irrlichtDevice) irrlichtDevice->yield(); }
+
+		//! Führt ein Yield auf dem Device aus
+		inline void yieldAndSleepDevice(irr::u32 time) { if (!irrlichtDevice) return; irrlichtDevice->yield(); irrlichtDevice->sleep(time); }
+
 	private:
 
 		//! Ermittelt den Videotreiber
