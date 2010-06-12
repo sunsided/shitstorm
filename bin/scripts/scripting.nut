@@ -28,6 +28,7 @@ function OnPause() {
 	world.getObject(1).poke();
 
 	getSoundEmitter(1).setGain(10);
+	getSoundEmitter(0).mask(); // Stummschalten
 }
 
 function OnUnpause() {
@@ -40,4 +41,5 @@ function OnUnpause() {
 	print("Neuer Zustand: Activation state von Objekt 3: " + World.getObject(3).Physics.getActivationStateString());
 
 	getSoundEmitter(1).setGain(1);
+	getSoundEmitter(0).unmask(); // Wieder lebendig schalten
 }
