@@ -121,6 +121,7 @@
     <ClCompile Include="Scripting\Bindings\MathBindings.cpp" />
     <ClCompile Include="Scripting\Bindings\PhysicsBindings.cpp" />
     <ClCompile Include="Scripting\Bindings\SceneBindings.cpp" />
+    <ClCompile Include="Scripting\Bindings\SoundBindings.cpp" />
     <ClCompile Include="Scripting\Bindings\WorldBindings.cpp" />
     <ClCompile Include="Scripting\ScriptingVM.cpp" />
     <ClCompile Include="Sound\OggVorbisAudioSource.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Scripting\Bindings\MathBindings.h" />
     <ClInclude Include="Scripting\Bindings\PhysicsBindings.h" />
     <ClInclude Include="Scripting\Bindings\SceneBindings.h" />
+    <ClInclude Include="Scripting\Bindings\SoundBindings.h" />
     <ClInclude Include="Scripting\Bindings\WorldBindings.h" />
     <ClInclude Include="Scripting\Scripting.h" />
     <ClInclude Include="Scripting\ScriptingVM.h" />

@@ -17,6 +17,7 @@
 #include "StreamingSoundBuffer.h"
 #include "SoundBuffer.h"
 #include "SoundEnums.h"
+#include "Scripting/Bindings/SoundBindings.h"
 
 namespace pv {
 namespace sound {
@@ -28,6 +29,7 @@ namespace sound {
 	class SoundEmitter : public PositionalAudioObject
 	{
 		friend class SoundContext;
+		friend class pv::scripting::SoundBindings;
 
 	protected:
 
@@ -51,8 +53,6 @@ namespace sound {
 		//! Spielt den Puffer ab
 		void play();
 
-	public:
-
 		//! Unterbricht das Abspielen
 		void pause();
 
@@ -67,6 +67,9 @@ namespace sound {
 
 		//! Gibt an, ob das System das Abspielen erlaubt
 		inline bool systemAllowsPlaying() const { return playState == SPS_CANPLAY; }
+
+		//! Gibt an, ob das System das Abspielen verhindert
+		inline bool systemPreventsPlaying() const { return playState != SPS_CANPLAY; }
 
 		//! Spult die Quelle zurück
 		void rewind() const;
@@ -146,8 +149,15 @@ namespace sound {
 		//! Setzt die Richtung
 		void setOrientation(irr::f32 x, irr::f32 y, irr::f32 z) const;
 
-		//! Ermittelt die Geschwindigkeit
+		//! Ermittelt die Richtung
 		void getOrientation(irr::f32& x, irr::f32& y, irr::f32& z) const;
+
+		//! Ermittelt die Richtung
+		inline irr::core::vector3df getOrientation() const {
+			irr::core::vector3df value;
+			getOrientation(value.X, value.Y, value.Z);
+			return value;
+		}
 
 		//! Setzt den Emitter auf ambiente Wiedergabe (AL_SOURCE_RELATIVE)
 		void setRelative(bool isRelative = true) const;

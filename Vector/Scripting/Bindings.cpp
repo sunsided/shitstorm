@@ -15,6 +15,7 @@
 #include "Bindings/WorldBindings.h"
 #include "Bindings/PhysicsBindings.h"
 #include "Bindings/SceneBindings.h"
+#include "Bindings/SoundBindings.h"
 
 namespace pv {
 namespace scripting {
@@ -39,6 +40,9 @@ namespace scripting {
 
 		// Weltkram
 		WorldBindings::scriptingBind(vm);
+
+		// Soundkram
+		SoundBindings::scriptingBind(vm);
 	}
 
 }}

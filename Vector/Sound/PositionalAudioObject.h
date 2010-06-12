@@ -45,6 +45,13 @@ namespace sound {
 		inline void getPosition(irr::core::vector3df &position) const { getPosition(position.X, position.Y, position.Z); }
 
 		//! Ermittelt die Position
+		inline irr::core::vector3df getPosition() const { 
+			irr::core::vector3df position;
+			getPosition(position); 
+			return position;
+		}
+
+		//! Ermittelt die Position
 		virtual void getPosition(irr::f32& x, irr::f32& y, irr::f32& z) const = 0;
 
 		//! Setzt die Geschwindigkeit
@@ -58,6 +65,13 @@ namespace sound {
 
 		//! Ermittelt die Geschwindigkeit
 		virtual void getVelocity(irr::f32& x, irr::f32& y, irr::f32& z) const = 0;
+
+		//! Ermittelt die Geschwindigkeit
+		inline irr::core::vector3df getVelocity() const { 
+			irr::core::vector3df value;
+			getVelocity(value); 
+			return value;
+		}
 	};
 
 }}

@@ -54,6 +54,9 @@ namespace pv {
 		RootTable(vm).SetValue<EngineBase*>(_SC("EngineRoot"), this);
 		RootTable(vm).SetValue<physics::PhysicsManager*>(_SC("Physics"), getPhysics());
 		RootTable(vm).SetValue<world::WorldManager*>(_SC("World"), getWorld());
+		RootTable(vm).SetValue<sound::SoundDevice*>(_SC("SoundDevice"), getSoundDevice());
+		RootTable(vm).SetValue<sound::RoamingSoundListener*>(_SC("SoundListener"), getSoundListener());
+		RootTable(vm).SetValue<sound::SoundState*>(_SC("SoundState"), getSoundState());
 
 		// Konstanten setzen
 		ConstTable(vm).Const(_SC("PhysicsFixedTimestepDefault"), PHYSICS_MAX_SUBSTEPS_DEFAULT);

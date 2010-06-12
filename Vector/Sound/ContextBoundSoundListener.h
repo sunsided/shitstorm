@@ -62,6 +62,9 @@ namespace sound {
 		//! Setzt die Richtung
 		void setOrientation(irr::core::vector3df& forward, irr::core::vector3df& up) const;
 
+		//! Bezieht den Elternkontext
+		inline SoundContext* getContext() const { return parentContext; }
+
 	private:
 
 		//! Der Elternkontext

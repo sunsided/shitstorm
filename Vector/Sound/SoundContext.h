@@ -91,6 +91,9 @@ namespace sound {
 		inline void updateStreamingAudio() {
 			emitterManager.iterate(updateStreamingAudio, (void*)NULL);
 		}
+		
+		//! Bezieht einen Emitter
+		inline SoundEmitter* getEmitter(irr::u32 emitterId) { return emitterManager[emitterId]; }
 
 	private:
 

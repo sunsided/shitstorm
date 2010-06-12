@@ -190,6 +190,9 @@
     <ClCompile Include="Sound\SoundClasses.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="Scripting\Bindings\SoundBindings.cpp">
+      <Filter>Scripting\Bindings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
@@ -370,6 +373,9 @@
     </ClInclude>
     <ClInclude Include="Sound\SoundEnums.h">
       <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Bindings\SoundBindings.h">
+      <Filter>Scripting\Bindings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -40,6 +40,18 @@ namespace sound {
 		//! Operator zum Beziehen des OpenAL-Puffers
 		inline operator ALuint() { return getOpenAlBuffer(0); }
 
+		//! Ermittelt die Bitrate des Puffers
+		inline irr::s32 getBitrate() { return SoundBuffer::getBitrate(0); }
+
+		//! Ermittelt die Frequenz des Puffers
+		inline irr::s32 getFrequency() { return SoundBuffer::getFrequency(0); }
+
+		//! Ermittelt die Anzahl der Kanäle des Puffers
+		inline irr::s32 getChannels() { return SoundBuffer::getChannels(0); }
+
+		//! Ermittelt die Größe des Puffers in Bytes
+		inline irr::s32 getSize() { return SoundBuffer::getSize(0); }
+
 	public:
 
 		// Destruktor
