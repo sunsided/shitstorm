@@ -27,7 +27,7 @@ function OnPause() {
 	world.getObject(1).LinearVelocity = force;
 	world.getObject(1).poke();
 
-	SoundDevice.ActiveContext.getEmitter(1).setGain(10);
+	getSoundEmitter(1).setGain(10);
 }
 
 function OnUnpause() {
@@ -39,5 +39,5 @@ function OnUnpause() {
 	print("Neuer Zustand: Simulation aktiviert f. Objekt 3: " + World.getObject(3).Physics.SimulationEnabled);
 	print("Neuer Zustand: Activation state von Objekt 3: " + World.getObject(3).Physics.getActivationStateString());
 
-	SoundDevice.ActiveContext.getEmitter(1).setGain(1);
+	getSoundEmitter(1).setGain(1);
 }

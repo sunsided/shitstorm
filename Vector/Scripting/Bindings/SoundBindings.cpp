@@ -13,6 +13,7 @@
 #include "Sound/RoamingSoundListener.h"
 #include "Sound/ContextBoundSoundListener.h"
 #include "Sound/SoundDevice.h"
+#include "Sound/SoundDeviceManager.h"
 #include "Sound/SoundContext.h"
 #include "Sound/SingleSoundBuffer.h"
 #include "Sound/StreamingSoundBuffer.h"
@@ -27,8 +28,33 @@ using namespace pv::sound;
 namespace pv {
 namespace scripting {
 
+	//! Ermittelt einen Emitter von Device 0
+	SoundEmitter* getEmitterFromContext(irr::u32 contextId, irr::u32 emitterId) {
+		SoundDevice* dev = SoundDeviceManager::get()->getDevice(0);
+		if (!dev) return NULL;
+
+		SoundContext* con = dev->getContext(contextId);
+		if (!con) return NULL;
+
+		return con->getEmitter(emitterId);
+	}
+
+	//! Ermittelt einen Emitter vom aktiven Kontext des Device 0
+	SoundEmitter* getEmitterFromCurrentContext(irr::u32 emitterId) {
+		SoundDevice* dev = SoundDeviceManager::get()->getDevice(0);
+		if (!dev) return NULL;
+
+		SoundContext* con = dev->getActiveContext();
+		if (!con) return NULL;
+
+		return con->getEmitter(emitterId);
+	}
+
 	//! Bindet die Klasse
 	void SoundBindings::scriptingBind(HSQUIRRELVM& vm) {
+
+		RootTable(vm).Func(_SC("getSoundEmitter"), getEmitterFromCurrentContext);
+		RootTable(vm).Func(_SC("getSoundEmitterEx"), getEmitterFromContext);
 
 		ConstTable(vm).Enum(
 			_SC("SoundDistanceModel"),
