@@ -274,7 +274,7 @@ namespace pv {
 		getTimer()->pause();
 
 		// Musik anhalten
-		simpleEmitter->pause();
+		simpleEmitter->pauseBySystem();
 	}
 
 	//! Handler für das Unpause-Ereignis
@@ -282,7 +282,7 @@ namespace pv {
 		getTimer()->unpause(); 
 
 		// Musik starten
-		simpleEmitter->play();
+		simpleEmitter->unpauseBySystem();
 	}
 
 	//! Implementierung der Haupt-Spielschleife

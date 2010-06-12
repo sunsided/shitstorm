@@ -368,6 +368,9 @@
     <ClInclude Include="Sound\SoundClasses.h">
       <Filter>Sound</Filter>
     </ClInclude>
+    <ClInclude Include="Sound\SoundEnums.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\bin\scripts\scripting.nut">

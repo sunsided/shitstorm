@@ -16,6 +16,7 @@
 #include "SingleSoundBuffer.h"
 #include "StreamingSoundBuffer.h"
 #include "SoundBuffer.h"
+#include "SoundEnums.h"
 
 namespace pv {
 namespace sound {
@@ -48,13 +49,24 @@ namespace sound {
 		void detachBuffer();
 
 		//! Spielt den Puffer ab
-		void play() const;
+		void play();
+
+	public:
 
 		//! Unterbricht das Abspielen
-		void pause() const;
+		void pause();
 
 		//! Hält das Abspielen an
-		void stop() const;
+		void stop();
+
+		//! Unterbricht das Abspielen
+		void pauseBySystem();
+
+		//! Beendet die Unterbreachung
+		void unpauseBySystem();
+
+		//! Gibt an, ob das System das Abspielen erlaubt
+		inline bool systemAllowsPlaying() const { return playState == SPS_CANPLAY; }
 
 		//! Spult die Quelle zurück
 		void rewind() const;
@@ -171,6 +183,12 @@ namespace sound {
 		//! Setzt die Kontext-ID
 		inline void setEmitterId(SoundContext* context, irr::u32 id) { soundEmitterId = id; parentContext = context; }
 
+		//! Spielt den Puffer ab
+		void playInternal() const;
+
+		//! Unterbricht das Abspielen
+		void pauseInternal() const;
+
 	private:
 
 		//! Eltern-Device
@@ -188,8 +206,11 @@ namespace sound {
 		//! Die OpenAL-ID der Quelle
 		ALuint sourceId;
 
-		// Gibt an, ob die Quelle erstellt wurde
+		//! Gibt an, ob die Quelle erstellt wurde
 		bool created;
+
+		//! Der Abspielzustand
+		SoundPlayState playState;
 	};
 
 }}

@@ -14,7 +14,8 @@ namespace pv {
 namespace sound {
 
 	SoundEmitter::SoundEmitter(void)
-		: attachedBuffer(NULL), parentContext(NULL), soundEmitterId(0), created(false), sourceId(0), bufferIsStreamingBuffer(false)
+		: attachedBuffer(NULL), parentContext(NULL), soundEmitterId(0), created(false), sourceId(0), bufferIsStreamingBuffer(false),
+		playState(SPS_CANPLAY)
 	{
 		setPosition(0, 0, 0);
 		setVelocity(0, 0, 0);
@@ -81,8 +82,50 @@ namespace sound {
 		attachedBuffer = NULL;
 	}
 
+	//! Setzt den PlayState
+	void SoundEmitter::pauseBySystem() {
+		if (playState != SPS_CANPLAY) return;
+
+		// Aktuellen Status ermitteln
+		ALenum state;
+	    alGetSourcei(sourceId, AL_SOURCE_STATE, &state);
+
+		// Status setzen
+		switch (state) {
+		case AL_INITIAL:
+		case AL_STOPPED:
+			playState = SPS_SYSPAUSE_STOPPED;
+			break;
+		case AL_PAUSED:
+			playState = SPS_SYSPAUSE_PAUSED;
+			break;
+		case AL_PLAYING:
+			playState = SPS_SYSPAUSE_PLAYING;
+			pauseInternal();
+			break;
+		}
+	}
+
+	//! Setzt den PlayState
+	void SoundEmitter::unpauseBySystem() {
+		// Status setzen
+		switch (playState) {
+		case SPS_CANPLAY:
+			return;
+		case SPS_SYSPAUSE_STOPPED:
+		case SPS_SYSPAUSE_PAUSED:
+			break;
+		case SPS_SYSPAUSE_PLAYING:
+			playInternal();
+			break;
+		}
+
+		// State neu setzen
+		playState = SPS_CANPLAY;
+	}
+
 	//! Spielt den Puffer ab
-	void SoundEmitter::play() const {
+	void SoundEmitter::playInternal() const {
 		if (!sourceId) return;
 
 		alGetError();
@@ -92,20 +135,47 @@ namespace sound {
 			throw error;
 	}
 
+	//! Spielt den Puffer ab
+	void SoundEmitter::play() {
+		if (playState == SPS_CANPLAY) {
+			playInternal();
+		}
+		else {
+			playState = SPS_SYSPAUSE_PLAYING;
+		}
+	}
+
 	//! Unterbricht das Abspielen
-	void SoundEmitter::pause() const {
+	void SoundEmitter::pauseInternal() const {
 		if (!sourceId) return;
+
 		alSourcePause(sourceId);
 		ALenum error = alGetError();
 		if (error != AL_NO_ERROR) 
 			throw error;
 	}
 
+	//! Unterbricht das Abspielen
+	void SoundEmitter::pause() {
+		if (playState == SPS_CANPLAY) {
+			pauseInternal();
+		}
+		else {
+			playState = SPS_SYSPAUSE_PAUSED;
+		}
+	}
+
 	//! Hält das Abspielen an
-	void SoundEmitter::stop() const {
+	void SoundEmitter::stop() {
 		if (!sourceId) return;
-		alSourceStop(sourceId);
-		ALenum error = alGetError();
+
+		if (playState == SPS_CANPLAY) {
+			alSourceStop(sourceId);
+			ALenum error = alGetError();
+		}
+		else {
+			playState = SPS_SYSPAUSE_PAUSED;
+		}
 	}
 
 	//! Spult die Quelle zurück
