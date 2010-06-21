@@ -1,13 +1,13 @@
 /** 
  * Project Vector
- * Physikkörper-Bewegungszustand
+ * Physikkï¿½rper-Bewegungszustand
  *
  * (c) 2010, Markus Mayer <code@defx.de>
  * $Id$
  */
 
 #include "UpdatingPhysicsMotionState.h"
-#include "SceneNodes/SceneObject.H"
+#include "SceneNodes/SceneObject.h"
 
 namespace pv {
 namespace physics {
@@ -32,7 +32,7 @@ namespace physics {
 		sceneObject->getSceneNode()->setPosition(matrix.getTranslation());
 	}
 
-	//! Setzt den verknüpften SceneNode
+	//! Setzt den verknï¿½pften SceneNode
 	void UpdatingPhysicsMotionState::setSceneObject(nodes::SceneObject* sceneObject) { 
 		m_userPointer = sceneObject;
 		if (!sceneObject) return;
@@ -46,7 +46,7 @@ namespace physics {
 		sceneObject->getSceneNode()->setPosition(matrix.getTranslation());
 	}
 
-	//! Liefert den verknüpften SceneNode
+	//! Liefert den verknï¿½pften SceneNode
 	nodes::SceneObject* UpdatingPhysicsMotionState::getSceneObject() { 
 		return reinterpret_cast<nodes::SceneObject*>(m_userPointer);
 	}

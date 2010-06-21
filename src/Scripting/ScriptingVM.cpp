@@ -27,7 +27,7 @@ using namespace Sqrat;
 namespace pv {
 namespace scripting {
 
-	//! Print-Funktion für Squirrel
+	//! Print-Funktion fï¿½r Squirrel
 	static void squirrelPrintFunc(HSQUIRRELVM v, const SQChar * s,...) {
 		static SQChar temp[2048];
 		va_list vl;
@@ -37,7 +37,7 @@ namespace scripting {
 		va_end(vl);
 	}
 
-	//! Print-Funktion für Squirrel
+	//! Print-Funktion fï¿½r Squirrel
 	static void squirrelPrintErrorFunc(HSQUIRRELVM v, const SQChar * s,...) {
 		static SQChar temp[2048];
 		va_list vl;
@@ -47,7 +47,7 @@ namespace scripting {
 		va_end(vl);
 	}
 
-	//! srand-Funktion für Squirrel, die das Original ersetzt
+	//! srand-Funktion fï¿½r Squirrel, die das Original ersetzt
 	static void squirrelSrandFunc(irr::u32 i)
 	{
 		srand((unsigned int)i);
@@ -131,7 +131,7 @@ namespace scripting {
 		initialized = false;
 	}
 
-	//! Führt ein Script (inline) aus
+	//! Fï¿½hrt ein Script (inline) aus
 	void ScriptingVM::executeScriptCode(const irr::core::stringw nuttingham) const {
 		Sqrat::Script script;
 		try {
@@ -139,14 +139,14 @@ namespace scripting {
 			script.Run();
 		}
 		catch(Sqrat::Exception e) {
-			std::wcerr << "Fehler beim Ausführen eines Skriptes: " << e.Message() << std::endl;
+			std::wcerr << "Fehler beim Ausfï¿½hren eines Skriptes: " << e.Message() << std::endl;
 		}
 		catch(...) {
-			std::wcerr << "Fehler beim Ausführen des Skriptes." << std::endl;
+			std::wcerr << "Fehler beim Ausfï¿½hren des Skriptes." << std::endl;
 		}
 	}
 
-	//! Führt ein Script (Datei) aus
+	//! Fï¿½hrt ein Script (Datei) aus
 	/* @code vm->executeScriptFile(L"/path/to/file/script.nut"); @endcode
 		*/
 	void ScriptingVM::executeScriptFile(const irr::core::stringw filename) const {
@@ -156,10 +156,10 @@ namespace scripting {
 			script.Run();
 		}
 		catch(Sqrat::Exception e) {
-			std::wcerr << "Fehler beim Ausführen des Skriptes '" << filename.c_str() << "': " << e.Message() << std::endl;
+			std::wcerr << "Fehler beim Ausfï¿½hren des Skriptes '" << filename.c_str() << "': " << e.Message() << std::endl;
 		}
 		catch(...) {
-			std::wcerr << "Fehler beim Ausführen des Skriptes '" << filename.c_str() << "'." << std::endl;
+			std::wcerr << "Fehler beim Ausfï¿½hren des Skriptes '" << filename.c_str() << "'." << std::endl;
 		}
 	}
 
@@ -173,16 +173,17 @@ namespace scripting {
 	bool ScriptingVM::callEventIfExists(const irr::core::stringw eventName) const {
 
 		HSQUIRRELVM vm = DefaultVM::Get();
+
 		Function function(RootTable(vm), eventName.c_str());
 		if (function.IsNull()) return false;
 		try {
 			function.Execute();
 		}
 		catch(Exception e) {
-			std::wcerr << "Fehler beim Ausführen des Events '" << eventName.c_str() << "': " << e.Message() << std::endl;
+			std::wcerr << "Fehler beim AusfÃ¼hren des Events '" << eventName.c_str() << "': " << e.Message() << std::endl;
 		}
 		catch(...) {
-			std::wcerr << "Fehler beim Ausführen des Events '" << eventName.c_str() << "'." << std::endl;
+			std::wcerr << "Fehler beim AusfÃ¼hren des Events '" << eventName.c_str() << "'." << std::endl;
 		}
 		return true;
 	}

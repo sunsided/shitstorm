@@ -23,7 +23,7 @@ namespace world {
 	public:
 
 		//! Konstruktor
-		inline ObjectClass(irr::core::stringw text = L"") : description(text), classId(0) {}
+		inline ObjectClass(irr::core::stringw text = L"") : classId(0), description(text) {}
 		
 	public:
 

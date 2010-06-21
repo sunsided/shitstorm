@@ -10,6 +10,7 @@
 #include "SceneNodes/OrientationHelperSceneNode.h"
 
 #include <iostream>
+#include <algorithm>
 
 using namespace irr;
 
@@ -29,7 +30,7 @@ namespace pv {
 	}
 
 	//! Initialisiert die Engine
-	/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
+	/** Diese Funktion dient zur Initialisierung von ï¿½berladenen Klassen */
 	EngineStatusCode GameEngine::OnSetupEngine() { 
 		if(!getDriver()->queryFeature(video::EVDF_RENDER_TO_TARGET)) return ESC_FEATURE_FAILED;
 
@@ -78,7 +79,7 @@ namespace pv {
 		singleSource.loadToBuffer(bufferSinus440);
 		singleSource.closeFile();
 
-		// Puffer anhängen
+		// Puffer anhï¿½ngen
 		blipEmitter->attachBuffer(singleBuffer);
 		emitterSinus220->attachBuffer(bufferSinus220); emitterSinus220->setRelative(false); emitterSinus220->setLooping(true);
 		emitterSinus440->attachBuffer(bufferSinus440); emitterSinus440->setRelative(false); emitterSinus440->setLooping(true);
@@ -87,7 +88,7 @@ namespace pv {
 	}
 
 	//! Initialisiert die Engine
-	/** Diese Funktion dient zur Initialisierung von überladenen Klassen */
+	/** Diese Funktion dient zur Initialisierung von ï¿½berladenen Klassen */
 	void GameEngine::OnTeardownEngine() {
 		if (streamingAudioSource) {
 			streamingAudioSource->closeFile();
@@ -136,12 +137,12 @@ namespace pv {
 
 		// Ne Kiste
 		scene::IMeshSceneNode *cube = smgr->addCubeSceneNode(3.0f, rootNode, 15);
-		cube->setPosition(core::vector3df(0, 2.5, 2)); // TODO: Übernehmen lassen
+		cube->setPosition(core::vector3df(0, 2.5, 2)); // TODO: ï¿½bernehmen lassen
 		cube->getMaterial(0).Lighting = false;
 		cube->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\crate.jpg"));
 		cube->setVisible(true);
 		//cube->addAnimator(smgr->createRotationAnimator(core::vector3df(0.05f, 0.3f,0)));
-		cube->setName("Testwürfel 1");
+		cube->setName("Testwï¿½rfel 1");
 		
 		// Physikalische Kiste erzeugen
 		shape = new btBoxShape(btVector3(1.5f, 1.5f, 1.5f));
@@ -157,7 +158,7 @@ namespace pv {
 		cube->getMaterial(0).Lighting = false;
 		cube->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\crate.jpg"));
 		cube->setVisible(true);
-		cube->setName("Testwürfel 2");
+		cube->setName("Testwï¿½rfel 2");
 		
 		// Noch ne physikalische Kiste erzeugen
 		// Das Box-Shape wird weiterverwendet
@@ -171,9 +172,9 @@ namespace pv {
 		cube = smgr->addCubeSceneNode(3.0f, rootNode, 18);
 		cube->getMaterial(0).Lighting = false;
 		cube->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\crate.jpg"));
-		cube->setName("Testwürfel 4");
+		cube->setName("Testwï¿½rfel 4");
 		
-		// (Noch ne)² physikalische Kiste erzeugen
+		// (Noch ne)ï¿½ physikalische Kiste erzeugen
 		// Das Box-Shape wird weiterverwendet
 		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, mass, core::vector3df(0, 20, -2));
 		cubeElement->getPhysicsBody()->setRotation(core::vector3df(0, -90, 0));
@@ -185,7 +186,7 @@ namespace pv {
 		cube = smgr->addCubeSceneNode(3.0f, rootNode, 19);
 		cube->getMaterial(0).Lighting = false;
 		cube->getMaterial(0).setTexture(0, getDriver()->getTexture("textures\\crate.jpg"));
-		cube->setName("Testwürfel 5");
+		cube->setName("Testwï¿½rfel 5");
 		
 		// Physikalische Kiste erzeugen
 		cubeElement = world::WorldObjectFactory::Create(getPhysics()->getPhysicsWorld(0), cube, shape, mass, core::vector3df(-1.25, 1.5, -2));
@@ -254,12 +255,12 @@ namespace pv {
 		return false;
 	}
 
-	//! Handler für das Pause-Ereignis
+	//! Handler fï¿½r das Pause-Ereignis
 	void GameEngine::OnPause() { 
 		getTimer()->pause();
 	}
 
-	//! Handler für das Unpause-Ereignis
+	//! Handler fï¿½r das Unpause-Ereignis
 	void GameEngine::OnUnpause() { 
 		getTimer()->unpause(); 
 	}
@@ -289,34 +290,34 @@ namespace pv {
 		irr::core::vector3df up = mainCamera->getUpVector();
 		getSoundListener()->setOrientation(direction, up);
 
-		// Distanz zur Mitte errechnen, dann Lautstärke des Streaming-Emitters entsprechend einstellen
+		// Distanz zur Mitte errechnen, dann Lautstï¿½rke des Streaming-Emitters entsprechend einstellen
 		irr::f32 distance = mainCamera->getPosition().getLength();
 		const irr::f32 maxGain = 0.75f;
 		irr::f32 gain = maxGain;
 		const irr::f32 threshold = 30.0f;
 		if (distance < threshold + 10.0f) gain = (distance - 10.0f) / threshold;
 		else gain = 1.0f;
-		gain = max(0.0f, min(maxGain, gain));
+		gain = std::max(0.0f, std::min(maxGain, gain));
 		simpleEmitter->setGain(gain);
 
 		// Szene beginnen
 		beginScene();
 
-		// Textur als Renderziel wählen
+		// Textur als Renderziel wï¿½hlen
 		driver->setRenderTarget(renderTarget, true, true, 0);
 
 		// Rotation setzen und Szene rendern
 		((nodes::OrientationHelperSceneNode*)renderTargetSceneManager->getSceneNodeFromId(16))->rotateZToDirection(mainCamera);
 		renderScene(renderTargetSceneManager);
 
-		// Backbuffer als Ziel wählen und Hauptszene rendern
+		// Backbuffer als Ziel wï¿½hlen und Hauptszene rendern
 		driver->setRenderTarget(video::ERT_FRAME_BUFFER, true, true, getClearColor());
 		renderScene();
 
 		// Physik-Debug-Info rendern
 		if (physicsDebuggingEnabled()) getPhysics()->getPhysicsWorld(0)->debugDrawWorld();
 
-		// Käfig um die Kamera zeichnen
+		// Kï¿½fig um die Kamera zeichnen
 		//drawCameraOrientationCage(mainCamera);
 
 		// Das Bild zeigen

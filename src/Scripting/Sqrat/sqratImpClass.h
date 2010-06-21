@@ -12,7 +12,7 @@ namespace Sqrat{
 		static SQInteger setInstance(HSQUIRRELVM vm,C* instance)
 		{
 			sq_setinstanceup(vm, 1, instance);
-			sq_setreleasehook(vm, 1, &Delete);
+			sq_setreleasehook(vm, 1, &DefaultAllocator<C>::Delete);
 			return 0;
 		}
 	public:
@@ -115,8 +115,10 @@ namespace Sqrat{
 	template<class C,  class A = ImprovedAllocator<C> >
 	class ImprovedClass :public Class<C,A> {
 
-		ImprovedClass& BindConstructor(SQFUNCTION method,SQInteger nParams){
+		inline ImprovedClass& BindConstructor(SQFUNCTION method,SQInteger nParams){
 			HSQOBJECT& classObj = ClassType<C>::ClassObject();
+
+			HSQUIRRELVM vm = DefaultVM::Get(); // TODO: Die sollte aus der Elternklasse kommen!
 			sq_pushobject(vm, classObj);
 			sq_pushstring(vm,_SC("constructor"), -1);
 			sq_newclosure(vm, method, 0);
@@ -128,7 +130,7 @@ namespace Sqrat{
 
 	public:
 		// Create a new table
-		ImprovedClass(HSQUIRRELVM v = DefaultVM::Get(), bool createClass = true) : Class(v,createClass) {}
+		ImprovedClass(HSQUIRRELVM v = DefaultVM::Get(), bool createClass = true) : Class<C, A>(v,createClass) {}
 
 		ImprovedClass& Ctor() {
 			return BindConstructor(A::iNew,0);
@@ -136,39 +138,39 @@ namespace Sqrat{
 		
 		template<class A1>
 		ImprovedClass& Ctor() {
-			return BindConstructor(A::iNew<A1>,1);
+			return BindConstructor(A::template iNew<A1>, 1);
 		}
 		template<class A1,class A2>
 		ImprovedClass& Ctor() {
-			return BindConstructor(A::iNew<A1,A2>,2);
+			return BindConstructor(A::template iNew<A1,A2>,2);
 		}
 		template<class A1,class A2,class A3>
 		ImprovedClass& Ctor() {
-			return BindConstructor(A::iNew<A1,A2,A3>,3);
+			return BindConstructor(A::template iNew<A1,A2,A3>,3);
 		}
 		template<class A1,class A2,class A3,class A4>
 		ImprovedClass& Ctor() {
-			return BindConstructor(A::iNew<A1,A2,A3,A4>,4);
+			return BindConstructor(A::template iNew<A1,A2,A3,A4>,4);
 		}
 		template<class A1,class A2,class A3,class A4,class A5>
 		ImprovedClass& Ctor() {
-			return BindConstructor(A::iNew<A1,A2,A3,A4,A5>,5);
+			return BindConstructor(A::template iNew<A1,A2,A3,A4,A5>,5);
 		}
 		template<class A1,class A2,class A3,class A4,class A5,class A6>
 		ImprovedClass& Ctor() {
-			return BindConstructor(A::iNew<A1,A2,A3,A4,A5,A6>,6);
+			return BindConstructor(A::template iNew<A1,A2,A3,A4,A5,A6>,6);
 		}
 		template<class A1,class A2,class A3,class A4,class A5,class A6,class A7>
 		ImprovedClass& Ctor() {
-			return BindConstructor(A::iNew<A1,A2,A3,A4,A5,A6,A7>,7);
+			return BindConstructor(A::template iNew<A1,A2,A3,A4,A5,A6,A7>,7);
 		}
 		template<class A1,class A2,class A3,class A4,class A5,class A6,class A7,class A8>
 		ImprovedClass& Ctor() {
-			return BindConstructor(A::iNew<A1,A2,A3,A4,A5,A6,A7,A8>,8);
+			return BindConstructor(A::template iNew<A1,A2,A3,A4,A5,A6,A7,A8>,8);
 		}
 		template<class A1,class A2,class A3,class A4,class A5,class A6,class A7,class A8,class A9>
 		ImprovedClass& Ctor() {
-			return BindConstructor(A::iNew<A1,A2,A3,A4,A5,A6,A7,A8,A9>,9);
+			return BindConstructor(A::template iNew<A1,A2,A3,A4,A5,A6,A7,A8,A9>,9);
 		}
 	};
 }

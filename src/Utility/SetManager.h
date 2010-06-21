@@ -16,8 +16,8 @@
 namespace pv {
 namespace utility {
 
-	//! Manager für beliebige Typen.
-	/** Generelle Implementierung für Zeigertypen
+	//! Manager fï¿½r beliebige Typen.
+	/** Generelle Implementierung fï¿½r Zeigertypen
 	 */
 	template<typename T>
 	class SetManager
@@ -30,20 +30,20 @@ namespace utility {
 		//! Destruktor
 		~SetManager(void) { clear(); }
 
-		//! Fügt ein Element hinzu
+		//! Fï¿½gt ein Element hinzu
 		/**
-		 * @param element	Das hinzuzufügende Element
-		 * @returns Der Index des hinzugefügten Elementes; Wird Indizierung nicht unterstützt, ist der Wert immer 0.
+		 * @param element	Das hinzuzufï¿½gende Element
+		 * @returns Der Index des hinzugefï¿½gten Elementes; Wird Indizierung nicht unterstï¿½tzt, ist der Wert immer 0.
 		 */
 		inline void add(const T& element) { theSet.insert(element); }
 
-		//! Fügt ein Element hinzu
+		//! Fï¿½gt ein Element hinzu
 		/**
 		 * @param element	Das zu entfernende Element
 		 */
 		inline void remove(const T& element) { theSet.erase(element);	}
 
-		//! Fügt ein Element hinzu
+		//! Fï¿½gt ein Element hinzu
 		inline irr::u32 count() { return theSet.size(); }
 
 		//! Ermittelt, ob ein Element registriert ist
@@ -68,7 +68,7 @@ namespace utility {
 			ASSERT(iterateFunction);
 
 			// Elemente durchlaufen
-			std::set<T*>::const_iterator iterator;
+			typename std::set<T*>::const_iterator iterator;
 			for (iterator = theSet.begin(); iterator != theSet.end(); ++iterator) {
 				T element = &(*iterator).second;
 			

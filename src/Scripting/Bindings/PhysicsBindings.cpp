@@ -23,7 +23,7 @@ namespace pv {
 namespace scripting {
 
 	//! Wandelt den ActivationState in einen lesbaren String um
-	SQChar* activationStateToString(PhysicsObject* object) {
+	const SQChar* activationStateToString(PhysicsObject* object) {
 		if (!object) return _SC("");
 		switch (object->getActivationState()) {
 		default: return _SC("(undefined)");
@@ -35,7 +35,7 @@ namespace scripting {
 		}
 	}
 
-	//! Berechnet die lokale Trägheit
+	//! Berechnet die lokale Trï¿½gheit
 	irr::core::vector3df calculateLocalInertia(btCollisionShape* shape, irr::f32 mass) {
 		btVector3 inertia;
 		shape->calculateLocalInertia(mass, inertia);

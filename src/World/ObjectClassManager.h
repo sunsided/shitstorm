@@ -1,6 +1,6 @@
 /** 
  * Project Vector
- * Manager für Event-Klassen
+ * Manager fï¿½r Event-Klassen
  *
  * (c) 2010, Markus Mayer <code@defx.de>
  * $Id$
@@ -22,9 +22,9 @@ namespace world {
 
 	//! Element mit Namen
 	template <class TObjectClass, class TObjectClassGroup>
-	class ObjectClassManager : public utility::Singleton<ObjectClassManager<TObjectClass, TObjectClassGroup>>, public ObjectClassManagerBase
+	class ObjectClassManager : public utility::Singleton<ObjectClassManager<TObjectClass, TObjectClassGroup> >, public ObjectClassManagerBase
 	{
-		friend class utility::Singleton<ObjectClassManager<TObjectClass, TObjectClassGroup>>;
+		friend class utility::Singleton<ObjectClassManager<TObjectClass, TObjectClassGroup> >;
 
 	private:
 
@@ -42,7 +42,7 @@ namespace world {
 		//! Ermittelt die Anzahl der registrierten Gruppen
 		inline irr::u32 getClassCount() { return groups.count(); }
 
-		//! Hängt ein Weltobjekt ein
+		//! Hï¿½ngt ein Weltobjekt ein
 		TObjectClassGroup* createGroup() {
 			TObjectClassGroup* group = new TObjectClassGroup();
 			irr::s32 id = groups.add(group);
@@ -51,7 +51,7 @@ namespace world {
 		}
 
 		//! Erzeugt eine Klasse
-		TObjectClass* ObjectClassManager::createClass() {
+		TObjectClass* createClass() {
 			TObjectClass* cls = new TObjectClass();
 			irr::s32 id = classes.add(cls);
 			setClassId(cls, id);

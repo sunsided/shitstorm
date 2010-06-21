@@ -15,8 +15,8 @@
 namespace pv {
 namespace utility {
 
-	//! Manager für beliebige Typen.
-	/** Generelle Implementierung für Zeigertypen
+	//! Manager fï¿½r beliebige Typen.
+	/** Generelle Implementierung fï¿½r Zeigertypen
 	 */
 	template <typename T>
 	class SetManager<T*>
@@ -29,20 +29,20 @@ namespace utility {
 		//! Destruktor
 		~SetManager(void) { clear(deleteOnDestruct); }
 
-		//! Fügt ein Element hinzu
+		//! Fï¿½gt ein Element hinzu
 		/**
-		 * @param element	Das hinzuzufügende Element
-		 * @returns Der Index des hinzugefügten Elementes; Wird Indizierung nicht unterstützt, ist der Wert immer 0.
+		 * @param element	Das hinzuzufï¿½gende Element
+		 * @returns Der Index des hinzugefï¿½gten Elementes; Wird Indizierung nicht unterstï¿½tzt, ist der Wert immer 0.
 		 */
 		inline void add(T* element) { theSet.insert(element); }
 
-		//! Fügt ein Element hinzu
+		//! Fï¿½gt ein Element hinzu
 		/**
 		 * @param element	Das zu entfernende Element
 		 */
 		inline void remove(T* element) { theSet.erase(element);	}
 
-		//! Fügt ein Element hinzu
+		//! Fï¿½gt ein Element hinzu
 		inline irr::u32 count() { return theSet.size(); }
 
 		//! Ermittelt, ob ein Element registriert ist
@@ -58,16 +58,16 @@ namespace utility {
 		//! Leert den Manager
 		void clear(bool deleteOnDestruct = false) {
 
-			// Ggf. die Elemente löschen
+			// Ggf. die Elemente lï¿½schen
 			if (deleteOnDestruct) {
-				std::set<irrT*>::const_iterator iterator;
+				typename std::set<irr::u32, T*>::const_iterator iterator;
 				for (iterator = theSet.begin(); iterator != theSet.end(); ++iterator) {
 					T* element = (*iterator).second;
 					if (element) delete element;
 				}
 			}
 
-			// Eigentlich nicht nötig, aber hey.
+			// Eigentlich nicht nï¿½tig, aber hey.
 			theSet.clear();
 		}
 
@@ -80,7 +80,7 @@ namespace utility {
 			ASSERT(iterateFunction);
 
 			// Elemente durchlaufen
-			std::set<T*>::const_iterator iterator;
+			typename std::set<irr::u32, T*>::const_iterator iterator;
 			for (iterator = theSet.begin(); iterator != theSet.end(); ++iterator) {
 				T* element = (*iterator).second;
 			
@@ -94,7 +94,7 @@ namespace utility {
 		//! Das Set
 		std::set<T*> theSet;
 
-		//! Gibt an, ob die Klasse beim Vernichten die Elemente löschen soll
+		//! Gibt an, ob die Klasse beim Vernichten die Elemente lï¿½schen soll
 		bool deleteOnDestruct;
 	};
 

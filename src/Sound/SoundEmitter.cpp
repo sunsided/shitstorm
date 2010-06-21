@@ -16,7 +16,7 @@ namespace pv {
 namespace sound {
 
 	SoundEmitter::SoundEmitter(void)
-		: attachedBuffer(NULL), parentContext(NULL), soundEmitterId(0), created(false), sourceId(0), bufferIsStreamingBuffer(false),
+		: parentContext(NULL), soundEmitterId(0), attachedBuffer(NULL), bufferIsStreamingBuffer(false), sourceId(0), created(false),
 		playState(SPS_CANPLAY)
 	{
 		setPosition(0, 0, 0);
@@ -37,7 +37,7 @@ namespace sound {
 
 	SoundEmitter::~SoundEmitter(void)
 	{
-		// TODO: Was passiert, wenn jemand den Emitter löscht, ohne dass er deregistriert wurde?
+		// TODO: Was passiert, wenn jemand den Emitter lï¿½scht, ohne dass er deregistriert wurde?
 		detachBuffer();
 	}
 
@@ -72,13 +72,13 @@ namespace sound {
 		bufferIsStreamingBuffer = true;
 	}
 
-	//! Entfernt den verknüpften Puffer
+	//! Entfernt den verknï¿½pften Puffer
 	void SoundEmitter::detachBuffer() {
 		if (!attachedBuffer) return;
 		stop();
 		alSourcei(sourceId, AL_BUFFER, 0);
 
-		// Wenn es sich um einen Streaming-Puffer handelt, müssen wir uns abmelden
+		// Wenn es sich um einen Streaming-Puffer handelt, mï¿½ssen wir uns abmelden
 		if (bufferIsStreamingBuffer) {
 			StreamingSoundBuffer* buffer = static_cast<StreamingSoundBuffer*>(attachedBuffer);
 			buffer->detachEmitter();
@@ -170,7 +170,7 @@ namespace sound {
 		}
 	}
 
-	//! Hält das Abspielen an
+	//! Hï¿½lt das Abspielen an
 	void SoundEmitter::stop() {
 		if (!sourceId) return;
 
@@ -183,7 +183,7 @@ namespace sound {
 		}
 	}
 
-	//! Spult die Quelle zurück
+	//! Spult die Quelle zurï¿½ck
 	void SoundEmitter::rewind() const {
 		if (!sourceId) return;
 		alSourceRewind(sourceId);
@@ -251,39 +251,39 @@ namespace sound {
 		alSourcei(sourceId, AL_LOOPING, looping ? AL_TRUE : AL_FALSE);
 	}
 
-	//! Setzt die Verstärkung
+	//! Setzt die Verstï¿½rkung
 	void SoundEmitter::setGain(irr::f32 gain) const {
 		ASSERT(gain >= 0);
 		alSourcef(sourceId, AL_GAIN, gain);
 	}
 
-	//! Ermittelt die Verstärkung
+	//! Ermittelt die Verstï¿½rkung
 	irr::f32 SoundEmitter::getGain() const {
 		irr::f32 gain;
 		alGetSourcef(sourceId, AL_GAIN, &gain);
 		return gain;
 	}
 
-	//! Setzt die maximale Verstärkung
+	//! Setzt die maximale Verstï¿½rkung
 	void SoundEmitter::setMaxGain(irr::f32 gain) const {
 		ASSERT(gain >= 0);
 		alSourcef(sourceId, AL_MAX_GAIN, gain);
 	}
 
-	//! Ermittelt die maximale Verstärkung
+	//! Ermittelt die maximale Verstï¿½rkung
 	irr::f32 SoundEmitter::getMaxGain() const {
 		irr::f32 gain;
 		alGetSourcef(sourceId, AL_MAX_GAIN, &gain);
 		return gain;
 	}
 
-	//! Setzt die minimale Verstärkung
+	//! Setzt die minimale Verstï¿½rkung
 	void SoundEmitter::setMinGain(irr::f32 gain) const {
 		ASSERT(gain >= 0);
 		alSourcef(sourceId, AL_MIN_GAIN, gain);
 	}
 
-	//! Ermittelt die minimale Verstärkung
+	//! Ermittelt die minimale Verstï¿½rkung
 	irr::f32 SoundEmitter::getMinGain() const {
 		irr::f32 gain;
 		alGetSourcef(sourceId, AL_MIN_GAIN, &gain);
@@ -338,7 +338,7 @@ namespace sound {
 		z = -z;
 	}
 
-	//! Setzt die Richtung zurück
+	//! Setzt die Richtung zurï¿½ck
 	void SoundEmitter::resetOrientation() const {
 		
 		irr::f32 vec[6] = {0}; // Initialisiert alle Felder auf 0
@@ -385,10 +385,10 @@ namespace sound {
 			function.Execute(this);
 		}
 		catch(Exception e) {
-			std::wcerr << "Fehler beim Ausführen des Events 'OnInitSoundEmitter': " << e.Message() << std::endl;
+			std::wcerr << "Fehler beim Ausfï¿½hren des Events 'OnInitSoundEmitter': " << e.Message() << std::endl;
 		}
 		catch(...) {
-			std::wcerr << "Fehler beim Ausführen des Events 'OnInitSoundEmitter'." << std::endl;
+			std::wcerr << "Fehler beim Ausfï¿½hren des Events 'OnInitSoundEmitter'." << std::endl;
 		}
 		return true;
 	}
