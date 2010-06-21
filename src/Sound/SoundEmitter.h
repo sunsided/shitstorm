@@ -90,7 +90,7 @@ namespace sound {
 		inline ALuint getOpenALSource() const { return sourceId; }
 
 		//! Ermittelt den Elternkontext
-		inline SoundContext* getParentContext() const { return parentContext; }
+		inline class SoundContext* getParentContext() const { return parentContext; }
 
 		//! Emittelt, ob dieser Emitter in einer Schleife spielt
 		bool isLooping() const;

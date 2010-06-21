@@ -44,9 +44,9 @@ namespace physics {
 			btCollisionShape* collisionShape = NULL,
 			world::WorldObject* worldObject = NULL
 			) : 
-			motionState(state), 
-			dynamicsWorld(physicsWorld), 
 			collisionShape(collisionShape),
+			dynamicsWorld(physicsWorld), 
+			motionState(state), 
 			userPointer(worldObject)
 		{}
 

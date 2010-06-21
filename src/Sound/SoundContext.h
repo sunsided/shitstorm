@@ -67,7 +67,7 @@ namespace sound {
 		bool isActiveContext();
 
 		//! Bezieht das OpenAL-Device
-		inline ALCdevice* getOpenALDevice() const;
+		ALCdevice* getOpenALDevice() const;
 
 		//! Suspendiert den Kontext (vor process())
 		void suspend();

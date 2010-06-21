@@ -26,7 +26,7 @@ namespace utility {
 	public:
 
 		//! Erzeugt eine neue Instanz des Managers
-		Manager(bool deleteOnDestruction = false) : deleteOnDestruct(deleteOnDestruction), nextFreeID(0) {}
+		Manager(bool deleteOnDestruction = false) : nextFreeID(0), deleteOnDestruct(deleteOnDestruction) {}
 		
 		//! Destruktor
 		~Manager(void) { clear(deleteOnDestruct); }

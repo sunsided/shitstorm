@@ -51,7 +51,7 @@ namespace sound {
 		void removeDevice(irr::u32 deviceId);
 
 		//! Bezieht ein Device
-		inline SoundDevice* SoundDeviceManager::getDevice(irr::u32 deviceId = 0) {
+		inline SoundDevice* getDevice(irr::u32 deviceId = 0) {
 			ASSERT(deviceId < soundDevices.count());
 			return soundDevices[deviceId];
 		}

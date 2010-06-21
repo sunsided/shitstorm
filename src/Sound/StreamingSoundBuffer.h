@@ -38,7 +38,7 @@ namespace sound {
 		void updateStreamingAudio() const;
 
 		//! Ermittelt die verknüpfte Audioquelle
-		inline StreamingAudioSource* getAttachedStreamingSource() const { return attachedStreamingSource; }
+		inline class StreamingAudioSource* getAttachedStreamingSource() const { return attachedStreamingSource; }
 
 		//! Ermittelt die Größe eines Audiopuffer-Frames
 		inline irr::u32 getBufferSize() const { return streamingBufferSize; }
@@ -49,7 +49,7 @@ namespace sound {
 	private:
 
 		//! Setzt den Emitter
-		inline void attachEmitter(SoundEmitter* emitter) { 
+		inline void attachEmitter(class SoundEmitter* emitter) { 
 			detachEmitter();
 			attachedEmitter = emitter; 
 		}
