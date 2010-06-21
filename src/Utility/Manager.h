@@ -12,6 +12,7 @@
 
 #include "global.h"
 #include <map>
+#include <iterator>
 
 namespace pv {
 namespace utility {
@@ -101,7 +102,7 @@ namespace utility {
 
 			// Ggf. die Elemente löschen
 			if (deleteOnDestruct) {
-				std::map<irr::u32, T*>::const_iterator iterator;
+				typename std::map<irr::u32, T*>::const_iterator iterator;
 				for (iterator = idElementTable.begin(); iterator != idElementTable.end(); ++iterator) {
 					T* element = (*iterator).second;
 					if (element) delete element;
@@ -123,7 +124,7 @@ namespace utility {
 			ASSERT(iterateFunction);
 
 			// Elemente durchlaufen
-			std::map<irr::u32, T*>::const_iterator iterator;
+			typename std::map<irr::u32, T*>::const_iterator iterator;
 			for (iterator = idElementTable.begin(); iterator != idElementTable.end(); ++iterator) {
 				T* element = (*iterator).second;
 			
