@@ -11,8 +11,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bullet Test", "Bullet Test\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenAL Test", "OpenAL Test\OpenAL Test.vcxproj", "{A9F8E159-3AAA-407C-93A8-0825ACB415E1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Squirrel Test", "Squirrel Test\Squirrel Test.vcxproj", "{1E82C4C7-B64C-4C18-A764-F5FC5259652A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,18 +71,6 @@ Global
 		{A9F8E159-3AAA-407C-93A8-0825ACB415E1}.Release|Win32.ActiveCfg = Release|Win32
 		{A9F8E159-3AAA-407C-93A8-0825ACB415E1}.Release|Win32.Build.0 = Release|Win32
 		{A9F8E159-3AAA-407C-93A8-0825ACB415E1}.Release|x86.ActiveCfg = Release|Win32
-		{1E82C4C7-B64C-4C18-A764-F5FC5259652A}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{1E82C4C7-B64C-4C18-A764-F5FC5259652A}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{1E82C4C7-B64C-4C18-A764-F5FC5259652A}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{1E82C4C7-B64C-4C18-A764-F5FC5259652A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{1E82C4C7-B64C-4C18-A764-F5FC5259652A}.Debug|Win32.Build.0 = Debug|Win32
-		{1E82C4C7-B64C-4C18-A764-F5FC5259652A}.Debug|x86.ActiveCfg = Debug|Win32
-		{1E82C4C7-B64C-4C18-A764-F5FC5259652A}.Release|Any CPU.ActiveCfg = Release|Win32
-		{1E82C4C7-B64C-4C18-A764-F5FC5259652A}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{1E82C4C7-B64C-4C18-A764-F5FC5259652A}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{1E82C4C7-B64C-4C18-A764-F5FC5259652A}.Release|Win32.ActiveCfg = Release|Win32
-		{1E82C4C7-B64C-4C18-A764-F5FC5259652A}.Release|Win32.Build.0 = Release|Win32
-		{1E82C4C7-B64C-4C18-A764-F5FC5259652A}.Release|x86.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
