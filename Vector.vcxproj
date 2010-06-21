@@ -10,6 +10,125 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Events\EventClasses.h" />
+    <ClInclude Include="src\Events\EventTriggeringObject.h" />
+    <ClInclude Include="src\GameLogic\EngineBase.h" />
+    <ClInclude Include="src\GameLogic\EngineInitializationParams.h" />
+    <ClInclude Include="src\GameLogic\EngineStatusCode.h" />
+    <ClInclude Include="src\GameLogic\GameEngine.h" />
+    <ClInclude Include="src\GameLogic\GameTimer.h" />
+    <ClInclude Include="src\global.h" />
+    <ClInclude Include="src\linker.h" />
+    <ClInclude Include="src\Physics\IrrBtConversion.h" />
+    <ClInclude Include="src\Physics\PhysicsDebugRenderer.h" />
+    <ClInclude Include="src\Physics\PhysicsManager.h" />
+    <ClInclude Include="src\Physics\PhysicsMotionState.h" />
+    <ClInclude Include="src\Physics\PhysicsObject.h" />
+    <ClInclude Include="src\Physics\PhysicsWorld.h" />
+    <ClInclude Include="src\Physics\RigidBodyPhysicsObject.h" />
+    <ClInclude Include="src\Physics\UpdatingPhysicsMotionState.h" />
+    <ClInclude Include="src\SceneNodes\EventNodes\EventSceneNode.h" />
+    <ClInclude Include="src\SceneNodes\OrientationHelperSceneNode.h" />
+    <ClInclude Include="src\SceneNodes\PlaneSceneNode.h" />
+    <ClInclude Include="src\SceneNodes\SceneObject.h" />
+    <ClInclude Include="src\Scripting\Bindings.h" />
+    <ClInclude Include="src\Scripting\Bindings\BridgeVector3.h" />
+    <ClInclude Include="src\Scripting\Bindings\EventClassBinding.h" />
+    <ClInclude Include="src\Scripting\Bindings\IrrlichtBindings.h" />
+    <ClInclude Include="src\Scripting\Bindings\MathBindings.h" />
+    <ClInclude Include="src\Scripting\Bindings\PhysicsBindings.h" />
+    <ClInclude Include="src\Scripting\Bindings\SceneBindings.h" />
+    <ClInclude Include="src\Scripting\Bindings\SoundBindings.h" />
+    <ClInclude Include="src\Scripting\Bindings\WorldBindings.h" />
+    <ClInclude Include="src\Scripting\Scripting.h" />
+    <ClInclude Include="src\Scripting\ScriptingVM.h" />
+    <ClInclude Include="src\Scripting\Sqrat\sqratImpClass.h" />
+    <ClInclude Include="src\Sound\ContextBoundSoundListener.h" />
+    <ClInclude Include="src\Sound\OggVorbisAudioSource.h" />
+    <ClInclude Include="src\Sound\PositionalAudioObject.h" />
+    <ClInclude Include="src\Sound\RoamingSoundListener.h" />
+    <ClInclude Include="src\Sound\SingleSoundBuffer.h" />
+    <ClInclude Include="src\Sound\SoundBuffer.h" />
+    <ClInclude Include="src\Sound\SoundClasses.h" />
+    <ClInclude Include="src\Sound\SoundContext.h" />
+    <ClInclude Include="src\Sound\SoundDevice.h" />
+    <ClInclude Include="src\Sound\SoundDeviceManager.h" />
+    <ClInclude Include="src\Sound\SoundDistanceModel.h" />
+    <ClInclude Include="src\Sound\SoundEmitter.h" />
+    <ClInclude Include="src\Sound\SoundEnums.h" />
+    <ClInclude Include="src\Sound\SoundListener.h" />
+    <ClInclude Include="src\Sound\SoundState.h" />
+    <ClInclude Include="src\Sound\StreamingAudioSource.h" />
+    <ClInclude Include="src\Sound\StreamingSoundBuffer.h" />
+    <ClInclude Include="src\Utility\Manager.h" />
+    <ClInclude Include="src\Utility\SetManager.h" />
+    <ClInclude Include="src\Utility\SetManagerP.h" />
+    <ClInclude Include="src\Utility\Singleton.h" />
+    <ClInclude Include="src\World\NamedObject.h" />
+    <ClInclude Include="src\World\ObjectClass.h" />
+    <ClInclude Include="src\World\ObjectClassGroup.h" />
+    <ClInclude Include="src\World\ObjectClassManager.h" />
+    <ClInclude Include="src\World\ObjectClassManagerBase.h" />
+    <ClInclude Include="src\World\WorldManager.h" />
+    <ClInclude Include="src\World\WorldObject.h" />
+    <ClInclude Include="src\World\WorldObjectFactory.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Events\EventClasses.cpp" />
+    <ClCompile Include="src\Events\EventTriggeringObject.cpp" />
+    <ClCompile Include="src\GameLogic\EngineBase.cpp" />
+    <ClCompile Include="src\GameLogic\EngineBaseBinding.cpp" />
+    <ClCompile Include="src\GameLogic\GameEngine.cpp" />
+    <ClCompile Include="src\GameLogic\GameEngineBinding.cpp" />
+    <ClCompile Include="src\GameLogic\GameTimer.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Physics\PhysicsDebugRenderer.cpp" />
+    <ClCompile Include="src\Physics\PhysicsManager.cpp" />
+    <ClCompile Include="src\Physics\PhysicsMotionState.cpp" />
+    <ClCompile Include="src\Physics\PhysicsObject.cpp" />
+    <ClCompile Include="src\Physics\PhysicsWorld.cpp" />
+    <ClCompile Include="src\Physics\RigidBodyPhysicsObject.cpp" />
+    <ClCompile Include="src\Physics\UpdatingPhysicsMotionState.cpp" />
+    <ClCompile Include="src\SceneNodes\EventNodes\EventSceneNode.cpp" />
+    <ClCompile Include="src\SceneNodes\OrientationHelperSceneNode.cpp" />
+    <ClCompile Include="src\SceneNodes\PlaneSceneNode.cpp" />
+    <ClCompile Include="src\SceneNodes\SceneObject.cpp" />
+    <ClCompile Include="src\Scripting\Bindings.cpp" />
+    <ClCompile Include="src\Scripting\Bindings\BridgeVector3.cpp" />
+    <ClCompile Include="src\Scripting\Bindings\EventClassBinding.cpp" />
+    <ClCompile Include="src\Scripting\Bindings\IrrlichtBindings.cpp" />
+    <ClCompile Include="src\Scripting\Bindings\IrrlichtEnumBindings.cpp" />
+    <ClCompile Include="src\Scripting\Bindings\MathBindings.cpp" />
+    <ClCompile Include="src\Scripting\Bindings\PhysicsBindings.cpp" />
+    <ClCompile Include="src\Scripting\Bindings\SceneBindings.cpp" />
+    <ClCompile Include="src\Scripting\Bindings\SoundBindings.cpp" />
+    <ClCompile Include="src\Scripting\Bindings\WorldBindings.cpp" />
+    <ClCompile Include="src\Scripting\ScriptingVM.cpp" />
+    <ClCompile Include="src\Sound\ContextBoundSoundListener.cpp" />
+    <ClCompile Include="src\Sound\OggVorbisAudioSource.cpp" />
+    <ClCompile Include="src\Sound\PositionalAudioObject.cpp" />
+    <ClCompile Include="src\Sound\RoamingSoundListener.cpp" />
+    <ClCompile Include="src\Sound\SingleSoundBuffer.cpp" />
+    <ClCompile Include="src\Sound\SoundBuffer.cpp" />
+    <ClCompile Include="src\Sound\SoundClasses.cpp" />
+    <ClCompile Include="src\Sound\SoundContext.cpp" />
+    <ClCompile Include="src\Sound\SoundDevice.cpp" />
+    <ClCompile Include="src\Sound\SoundDeviceManager.cpp" />
+    <ClCompile Include="src\Sound\SoundEmitter.cpp" />
+    <ClCompile Include="src\Sound\SoundListener.cpp" />
+    <ClCompile Include="src\Sound\SoundState.cpp" />
+    <ClCompile Include="src\Sound\StreamingAudioSource.cpp" />
+    <ClCompile Include="src\Sound\StreamingSoundBuffer.cpp" />
+    <ClCompile Include="src\Utility\Manager.cpp" />
+    <ClCompile Include="src\World\NamedObject.cpp" />
+    <ClCompile Include="src\World\ObjectClass.cpp" />
+    <ClCompile Include="src\World\ObjectClassGroup.cpp" />
+    <ClCompile Include="src\World\ObjectClassManager.cpp" />
+    <ClCompile Include="src\World\WorldManager.cpp" />
+    <ClCompile Include="src\World\WorldObject.cpp" />
+    <ClCompile Include="src\World\WorldObjectFactory.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6C3C1BAD-076C-41F6-AD02-EDBBE8AFC0B3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -41,18 +160,18 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>C:\dev\Libraries\scripting\sqrat\include;C:\dev\Libraries\scripting\SQUIRREL3\include;C:\dev\Libraries\audio\libvorbis\include;C:\dev\Libraries\audio\libogg\include;C:\dev\SDK\OpenAL 1.1 SDK\include;C:\dev\Libraries\irrlicht-1.7.1\include;C:\dev\Libraries\irrKlang-1.3.0\include;C:\dev\Libraries\physics\bullet-2.76\src;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>C:\dev\Libraries\scripting\sqrat\include;C:\dev\Libraries\scripting\SQUIRREL3\include;C:\dev\Libraries\audio\libvorbis\include;C:\dev\Libraries\audio\libogg\include;C:\dev\SDK\OpenAL 1.1 SDK\include;C:\dev\Libraries\irrlicht-1.7.1\include;C:\dev\Libraries\irrKlang-1.3.0\include;C:\dev\Libraries\physics\bullet-2.76\src;$(ProjectDir)\src;$(IncludePath)</IncludePath>
     <LibraryPath>C:\dev\Libraries\physics\bullet-2.76\lib\Debug;C:\dev\Libraries\audio\libogg\lib;C:\dev\Libraries\audio\libvorbis\bin;C:\dev\SDK\OpenAL 1.1 SDK\libs\Win32;C:\dev\Libraries\irrlicht-1.7.1\lib\Win32-visualstudio;C:\dev\Libraries\scripting\SQUIRREL3\lib;$(LibraryPath)</LibraryPath>
-    <SourcePath>C:\dev\Libraries\physics\bullet-2.76\src;C:\dev\Libraries\irrlicht-1.7.1\source\Irrlicht;$(SourcePath)</SourcePath>
+    <SourcePath>C:\dev\Libraries\physics\bullet-2.76\src;C:\dev\Libraries\irrlicht-1.7.1\source\Irrlicht;$(ProjectDir)\src;$(SourcePath)</SourcePath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>C:\dev\Libraries\scripting\sqplus\sqplus;C:\dev\Libraries\scripting\sqplus\include;C:\dev\Libraries\audio\libvorbis\include;C:\dev\Libraries\audio\libogg\include;C:\dev\SDK\OpenAL 1.1 SDK\include;C:\dev\Libraries\irrlicht-1.7.1\include;C:\dev\Libraries\irrKlang-1.3.0\include;C:\dev\Libraries\physics\bullet-2.76\src;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>C:\dev\Libraries\scripting\sqplus\sqplus;C:\dev\Libraries\scripting\sqplus\include;C:\dev\Libraries\audio\libvorbis\include;C:\dev\Libraries\audio\libogg\include;C:\dev\SDK\OpenAL 1.1 SDK\include;C:\dev\Libraries\irrlicht-1.7.1\include;C:\dev\Libraries\irrKlang-1.3.0\include;C:\dev\Libraries\physics\bullet-2.76\src;$(ProjectDir)\src;$(IncludePath)</IncludePath>
     <LibraryPath>C:\dev\SDK\OpenAL 1.1 SDK\libs\Win32\EFX-Util_MTDLL;C:\dev\SDK\OpenAL 1.1 SDK\libs\Win32;C:\dev\Libraries\audio\libvorbis\bin;C:\dev\Libraries\audio\libogg\lib;C:\dev\Libraries\irrlicht-1.7.1\lib\Win32-visualstudio;C:\dev\Libraries\irrKlang-1.3.0\lib\Win32-visualStudio;C:\dev\Libraries\physics\bullet-2.76\lib\Release;$(LibraryPath)</LibraryPath>
-    <SourcePath>C:\dev\Libraries\physics\bullet-2.76\src;C:\dev\Libraries\irrlicht-1.7.1\source\Irrlicht;$(SourcePath)</SourcePath>
+    <SourcePath>C:\dev\Libraries\physics\bullet-2.76\src;C:\dev\Libraries\irrlicht-1.7.1\source\Irrlicht;$(ProjectDir)\src;$(SourcePath)</SourcePath>
     <ExecutablePath>C:\dev\Libraries\scripting\sqplus\bin;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -94,129 +213,6 @@
       <IgnoreSpecificDefaultLibraries>libcmtd</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Events\EventClasses.cpp" />
-    <ClCompile Include="Events\EventTriggeringObject.cpp" />
-    <ClCompile Include="GameLogic\EngineBase.cpp" />
-    <ClCompile Include="GameLogic\EngineBaseBinding.cpp" />
-    <ClCompile Include="GameLogic\GameEngine.cpp" />
-    <ClCompile Include="GameLogic\GameEngineBinding.cpp" />
-    <ClCompile Include="GameLogic\GameTimer.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Physics\PhysicsDebugRenderer.cpp" />
-    <ClCompile Include="Physics\PhysicsManager.cpp" />
-    <ClCompile Include="Physics\PhysicsMotionState.cpp" />
-    <ClCompile Include="Physics\PhysicsObject.cpp" />
-    <ClCompile Include="Physics\PhysicsWorld.cpp" />
-    <ClCompile Include="Physics\RigidBodyPhysicsObject.cpp" />
-    <ClCompile Include="Physics\UpdatingPhysicsMotionState.cpp" />
-    <ClCompile Include="SceneNodes\EventNodes\EventSceneNode.cpp" />
-    <ClCompile Include="SceneNodes\OrientationHelperSceneNode.cpp" />
-    <ClCompile Include="SceneNodes\PlaneSceneNode.cpp" />
-    <ClCompile Include="SceneNodes\SceneObject.cpp" />
-    <ClCompile Include="Scripting\Bindings.cpp" />
-    <ClCompile Include="Scripting\Bindings\BridgeVector3.cpp" />
-    <ClCompile Include="Scripting\Bindings\EventClassBinding.cpp" />
-    <ClCompile Include="Scripting\Bindings\IrrlichtBindings.cpp" />
-    <ClCompile Include="Scripting\Bindings\IrrlichtEnumBindings.cpp" />
-    <ClCompile Include="Scripting\Bindings\MathBindings.cpp" />
-    <ClCompile Include="Scripting\Bindings\PhysicsBindings.cpp" />
-    <ClCompile Include="Scripting\Bindings\SceneBindings.cpp" />
-    <ClCompile Include="Scripting\Bindings\SoundBindings.cpp" />
-    <ClCompile Include="Scripting\Bindings\WorldBindings.cpp" />
-    <ClCompile Include="Scripting\ScriptingVM.cpp" />
-    <ClCompile Include="Sound\OggVorbisAudioSource.cpp" />
-    <ClCompile Include="Sound\ContextBoundSoundListener.cpp" />
-    <ClCompile Include="Sound\PositionalAudioObject.cpp" />
-    <ClCompile Include="Sound\RoamingSoundListener.cpp" />
-    <ClCompile Include="Sound\SingleSoundBuffer.cpp" />
-    <ClCompile Include="Sound\SoundBuffer.cpp" />
-    <ClCompile Include="Sound\SoundClasses.cpp" />
-    <ClCompile Include="Sound\SoundContext.cpp" />
-    <ClCompile Include="Sound\SoundDevice.cpp" />
-    <ClCompile Include="Sound\SoundDeviceManager.cpp" />
-    <ClCompile Include="Sound\SoundEmitter.cpp" />
-    <ClCompile Include="Sound\SoundListener.cpp" />
-    <ClCompile Include="Sound\SoundState.cpp" />
-    <ClCompile Include="Sound\StreamingAudioSource.cpp" />
-    <ClCompile Include="Sound\StreamingSoundBuffer.cpp" />
-    <ClCompile Include="Utility\Manager.cpp" />
-    <ClCompile Include="World\NamedObject.cpp" />
-    <ClCompile Include="World\ObjectClass.cpp" />
-    <ClCompile Include="World\ObjectClassGroup.cpp" />
-    <ClCompile Include="World\ObjectClassManager.cpp" />
-    <ClCompile Include="World\WorldManager.cpp" />
-    <ClCompile Include="World\WorldObject.cpp" />
-    <ClCompile Include="World\WorldObjectFactory.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Events\EventClasses.h" />
-    <ClInclude Include="Events\EventTriggeringObject.h" />
-    <ClInclude Include="GameLogic\EngineBase.h" />
-    <ClInclude Include="GameLogic\EngineInitializationParams.h" />
-    <ClInclude Include="GameLogic\EngineStatusCode.h" />
-    <ClInclude Include="GameLogic\GameEngine.h" />
-    <ClInclude Include="GameLogic\GameTimer.h" />
-    <ClInclude Include="global.h" />
-    <ClInclude Include="linker.h" />
-    <ClInclude Include="Physics\IrrBtConversion.h" />
-    <ClInclude Include="Physics\PhysicsDebugRenderer.h" />
-    <ClInclude Include="Physics\PhysicsManager.h" />
-    <ClInclude Include="Physics\PhysicsMotionState.h" />
-    <ClInclude Include="Physics\PhysicsObject.h" />
-    <ClInclude Include="Physics\PhysicsWorld.h" />
-    <ClInclude Include="Physics\RigidBodyPhysicsObject.h" />
-    <ClInclude Include="Physics\UpdatingPhysicsMotionState.h" />
-    <ClInclude Include="SceneNodes\EventNodes\EventSceneNode.h" />
-    <ClInclude Include="SceneNodes\OrientationHelperSceneNode.h" />
-    <ClInclude Include="SceneNodes\PlaneSceneNode.h" />
-    <ClInclude Include="SceneNodes\SceneObject.h" />
-    <ClInclude Include="Scripting\Bindings.h" />
-    <ClInclude Include="Scripting\Bindings\BridgeVector3.h" />
-    <ClInclude Include="Scripting\Bindings\EventClassBinding.h" />
-    <ClInclude Include="Scripting\Bindings\IrrlichtBindings.h" />
-    <ClInclude Include="Scripting\Bindings\MathBindings.h" />
-    <ClInclude Include="Scripting\Bindings\PhysicsBindings.h" />
-    <ClInclude Include="Scripting\Bindings\SceneBindings.h" />
-    <ClInclude Include="Scripting\Bindings\SoundBindings.h" />
-    <ClInclude Include="Scripting\Bindings\WorldBindings.h" />
-    <ClInclude Include="Scripting\Scripting.h" />
-    <ClInclude Include="Scripting\ScriptingVM.h" />
-    <ClInclude Include="Scripting\Sqrat\sqratImpClass.h" />
-    <ClInclude Include="Sound\OggVorbisAudioSource.h" />
-    <ClInclude Include="Sound\ContextBoundSoundListener.h" />
-    <ClInclude Include="Sound\PositionalAudioObject.h" />
-    <ClInclude Include="Sound\RoamingSoundListener.h" />
-    <ClInclude Include="Sound\SingleSoundBuffer.h" />
-    <ClInclude Include="Sound\SoundBuffer.h" />
-    <ClInclude Include="Sound\SoundClasses.h" />
-    <ClInclude Include="Sound\SoundContext.h" />
-    <ClInclude Include="Sound\SoundDevice.h" />
-    <ClInclude Include="Sound\SoundDeviceManager.h" />
-    <ClInclude Include="Sound\SoundDistanceModel.h" />
-    <ClInclude Include="Sound\SoundEmitter.h" />
-    <ClInclude Include="Sound\SoundEnums.h" />
-    <ClInclude Include="Sound\SoundListener.h" />
-    <ClInclude Include="Sound\SoundState.h" />
-    <ClInclude Include="Sound\StreamingAudioSource.h" />
-    <ClInclude Include="Sound\StreamingSoundBuffer.h" />
-    <ClInclude Include="Utility\Manager.h" />
-    <ClInclude Include="Utility\SetManager.h" />
-    <ClInclude Include="Utility\SetManagerP.h" />
-    <ClInclude Include="Utility\Singleton.h" />
-    <ClInclude Include="World\NamedObject.h" />
-    <ClInclude Include="World\ObjectClass.h" />
-    <ClInclude Include="World\ObjectClassGroup.h" />
-    <ClInclude Include="World\ObjectClassManager.h" />
-    <ClInclude Include="World\ObjectClassManagerBase.h" />
-    <ClInclude Include="World\WorldManager.h" />
-    <ClInclude Include="World\WorldObject.h" />
-    <ClInclude Include="World\WorldObjectFactory.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\bin\scripts\scripting.nut" />
-    <None Include="..\bin\scripts\vectortest.nut" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
