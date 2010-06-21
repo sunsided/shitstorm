@@ -36,7 +36,7 @@ namespace pv {
 	typedef struct SEngineInitializationParams {
 
 		//! Der Fenstertitel
-		wchar_t *windowTitle;
+		const wchar_t *windowTitle;
 
 		//! Die Größe des Fensters
 		irr::core::dimension2d<irr::u32> screenSize;
@@ -56,10 +56,10 @@ namespace pv {
 		//! Initialisiert die Struktur
 		SEngineInitializationParams() :
 			windowTitle(L"Project Vector"),
+			screenSize(irr::core::dimension2d<irr::u32>(640, 480)), 
 			fullscreen(false), 
 			bitsPerPixel(16), 
 			zBitsPerPixel(16), 
-			screenSize(irr::core::dimension2d<irr::u32>(640, 480)), 
 #ifdef WIN32
 			driver(VD_DIRECTX)
 #else
