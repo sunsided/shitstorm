@@ -1,3 +1,0 @@
-FILE(GLOB ALL_CPP_SRCS *.cpp)
-FILE(GLOB ALL_CPP_H *.h)
-

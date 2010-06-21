@@ -1,8 +1,0 @@
-add_subdirectory(Events)
-add_subdirectory(GameLogic)
-add_subdirectory(Physics)
-add_subdirectory(SceneNodes)
-add_subdirectory(Scripting)
-add_subdirectory(Sound)
-add_subdirectory(Utility)
-add_subdirectory(World)
