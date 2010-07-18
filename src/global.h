@@ -10,6 +10,9 @@
 #define _GLOBAL_H
 #pragma once
 
+// Fix für std::min() und std::max() unter Windows
+#define NOMINMAX
+
 // Irrlicht
 #include <irrlicht.h>
 
