@@ -49,6 +49,10 @@ namespace physics {
 		// Bodies aus Welt entfernen und löschen
 		physicsObjects.iterate(PhysicsWorld::removeObjectFromWorld, this);
 		physicsObjects.clear(true);
+		
+		// Ghost Objects aus Welt entfernen und löschen
+		ghostObjects.iterate(PhysicsWorld::removeObjectFromWorld, this);
+		ghostObjects.clear(true);
 
 		// Welt vernichten.
 		delete dynamicsWorld;
@@ -155,6 +159,27 @@ namespace physics {
 		dynamicsWorld->removeRigidBody(dynamic_cast<RigidBodyPhysicsObject*>(body)->getRigidBody());
 	}
 
+	//! Fügt der Welt einen Rigid Body hinzu
+	/**
+	 * @param body	Der hinzuzufügende Körper
+	 */
+	void PhysicsWorld::addObject(CollisionDetectionPhysicsObject* body) {
+		ASSERT(dynamicsWorld);
+		ASSERT(body);
+
+		dynamicsWorld->addCollisionObject(body->getCollisionObject());
+		ghostObjects.add(body);
+	}
+
+	//! Entfernt einen Rigid Body aus der Welt
+	/**
+	 * @param body	Der zu entfernende Körper
+	 */
+	void PhysicsWorld::removeObject(CollisionDetectionPhysicsObject* body) {
+		ghostObjects.remove(body);
+		dynamicsWorld->removeCollisionObject(body->getCollisionObject());
+	}
+
 	//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
 	/**
 	* @param deltaTime		Die vergangene Zeit in Sekunden
@@ -172,6 +197,12 @@ namespace physics {
 		// TODO: Unterstützung für beliebige Körper (Soft Bodies, that is)
 		ASSERT(object->isRigidBody());
 		world->dynamicsWorld->removeRigidBody(dynamic_cast<RigidBodyPhysicsObject*>(object)->getRigidBody());
+	}
+
+	//! Entfernt ein Geistobjekt aus einer gegebenen Physikwelt
+	void PhysicsWorld::removeObjectFromWorld(CollisionDetectionPhysicsObject* object, PhysicsWorld* world) {
+		ASSERT(object); ASSERT(world);
+		world->dynamicsWorld->removeCollisionObject(object->getCollisionObject());
 	}
 
 	//! Setzt den Debug-Renderer

@@ -13,6 +13,7 @@
 #include "global.h"
 #include "Utility/Manager.h"
 #include "PhysicsObject.h"
+#include "CollisionDetectionPhysicsObject.h"
 #include "IrrBtConversion.h"
 #include "PhysicsDebugRenderer.h"
 
@@ -55,11 +56,23 @@ namespace physics {
 		 */
 		void addObject(PhysicsObject* body);
 
+		//! Fügt der Welt ein Geistobjekt hinzu
+		/**
+		 * @param body	Der hinzuzufügende Körper
+		 */
+		void addObject(CollisionDetectionPhysicsObject* body);
+
 		//! Entfernt Physikobjekt aus der Welt.
 		/** 
 		 * @param body	Das zu entfernende Element
 		 */
 		void removeObject(PhysicsObject* body);
+
+		//! Entfernt Geistobjekt aus der Welt.
+		/** 
+		 * @param body	Das zu entfernende Element
+		 */
+		void removeObject(CollisionDetectionPhysicsObject* body);
 
 		//! Steppt mit einem gegebenen Zeitintervall durch die Simulation
 		/**
@@ -120,9 +133,15 @@ namespace physics {
 
 		//! Liefert das Objekt mit der gegebenen ID
 		inline PhysicsObject* getObject(irr::u32 objectId) { return physicsObjects[objectId]; }
+		
+		//! Liefert das Objekt mit der gegebenen ID
+		inline CollisionDetectionPhysicsObject* getGhostObject(irr::u32 objectId) { return ghostObjects[objectId]; }
 
 		//! Liefert die Anzahl der Physikobjekte
 		inline irr::u32 getObjectCount() { return physicsObjects.count(); }
+
+		//! Liefert die Anzahl der Physikobjekte
+		inline irr::u32 getGhostObjectCount() { return physicsObjects.count(); }
 
 	private:
 		
@@ -139,6 +158,9 @@ namespace physics {
 
 		//! Sammlung aller Rigid Bodies
 		utility::Manager<PhysicsObject> physicsObjects;
+
+		//! Sammlung aller Rigid Bodies
+		utility::Manager<CollisionDetectionPhysicsObject> ghostObjects;
 
 		//! Liefert den Manager
 		PhysicsManager* physicsManager;
@@ -167,6 +189,9 @@ namespace physics {
 
 		//! Entfernt ein Physikobjekt aus einer gegebenen Physikwelt
 		static void removeObjectFromWorld(PhysicsObject* object, PhysicsWorld* world);
+
+		//! Entfernt ein Physikobjekt aus einer gegebenen Physikwelt
+		static void removeObjectFromWorld(CollisionDetectionPhysicsObject* object, PhysicsWorld* world);
 	};
 
 }}

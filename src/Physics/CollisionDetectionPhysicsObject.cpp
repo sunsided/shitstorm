@@ -25,19 +25,16 @@ namespace physics {
 			delete ghostObject;
 			ghostObject = NULL;
 		}
-		
-		// Durchreichen
-		PhysicsObject::endPhysics();
 	}
 	
 	// Physik initialisieren
-	void CollisionDetectionPhysicsObject::initPhysics(f32 ccdThreshold, f32 unused_linearDamping, f32 unused_angularDamping, f32 unused_friction, f32 unused_restitution)
+	void CollisionDetectionPhysicsObject::initPhysics(f32 ccdThreshold)
 	{
-		ASSERT(getCollisionShape());
 		ASSERT(getPhysicsWorld());
 		
 		// Körper erzeugen
 		ghostObject = new btPairCachingGhostObject();
+		ghostObject->setCollisionShape(collisionShape);
 		ghostObject->setUserPointer((void*)this);
 
 		// Parameter für Continous Collision Detection setzen
@@ -79,7 +76,7 @@ namespace physics {
 
 		btVector3 vec = conversion::toBulletVector(v) * (btScalar)INV_GRAD_PI;
 
-		EulerXYZToQuaternion(vec, btq);
+		PhysicsObject::EulerXYZToQuaternion(vec, btq);
 		t.setRotation(btq);
 		ghostObject->setWorldTransform(t);
 	}
@@ -94,7 +91,7 @@ namespace physics {
 
 		// Rotation konvertieren
 		btVector3 btv;
-		QuaternionToEulerXYZ(btq, btv);
+		PhysicsObject::QuaternionToEulerXYZ(btq, btv);
  		core::vector3df v(btv.getX(), btv.getY(), btv.getZ());
 		v *= (irr::f32)GRAD_PI;
 		return v;

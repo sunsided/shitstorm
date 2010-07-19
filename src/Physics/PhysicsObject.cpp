@@ -9,15 +9,6 @@
 #include "PhysicsObject.h"
 #include "PhysicsWorld.h"
 
-// 360 / (2*PI)
-#ifndef GRAD_PI 
-#define GRAD_PI 57.29577951f
-#endif
-
-#ifndef GRAD_PI2
-#define GRAD_PI2 0.0174532925f
-#endif
-
 namespace pv {
 namespace physics {
 
