@@ -224,11 +224,9 @@ namespace physics {
 		delete debugRenderer; 
 		debugRenderer = NULL;
 	}
-
-	//! Callback für jeden Simulationsschritt
-	void PhysicsWorld::simulationTickCallback(btDynamicsWorld *dynamicsWorld, btScalar timeStep) {
-		PhysicsWorld *physicsWorld = static_cast<PhysicsWorld*>(dynamicsWorld->getWorldUserInfo());
-		
+	
+	//! Verarbeitet einen Simulationstick
+	void PhysicsWorld::processSimulationTick(irr::f32 timeStep) {
 		std::cout << "Tick! " << timeStep << std::endl;
 	}
 }}

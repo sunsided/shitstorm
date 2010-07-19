@@ -148,8 +148,8 @@ namespace physics {
 		//! Vernichtet die Dynamikwelt
 		void destruct();
 
-		//! Callback für jeden Simulationsschritt
-		static void simulationTickCallback(btDynamicsWorld *world, btScalar timeStep);
+		//! Verarbeitet einen Simulationstick
+		void processSimulationTick(irr::f32 timeStep);
 
 	private:
 
@@ -195,6 +195,12 @@ namespace physics {
 
 		//! Entfernt ein Physikobjekt aus einer gegebenen Physikwelt
 		static void removeObjectFromWorld(CollisionDetectionPhysicsObject* object, PhysicsWorld* world);
+
+		//! Callback für jeden Simulationsschritt
+		inline static void simulationTickCallback(btDynamicsWorld *dynamicsWorld, btScalar timeStep) {
+			PhysicsWorld *physicsWorld = static_cast<PhysicsWorld*>(dynamicsWorld->getWorldUserInfo());
+			physicsWorld->processSimulationTick(timeStep);
+		}
 	};
 
 }}
