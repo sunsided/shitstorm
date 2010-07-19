@@ -24,25 +24,29 @@
 
 using namespace Sqrat;
 
+#ifndef VSPRINTF_BUFFER_SIZE
+#define VSPRINTF_BUFFER_SIZE 2048
+#endif
+
 namespace pv {
 namespace scripting {
 
 	//! Print-Funktion f�r Squirrel
 	static void squirrelPrintFunc(HSQUIRRELVM v, const SQChar * s,...) {
-		static SQChar temp[2048];
+		static SQChar temp[VSPRINTF_BUFFER_SIZE];
 		va_list vl;
 		va_start(vl, s);
-		scvsprintf(temp, s, vl); // TODO: Dynamische Puffer!?
+		scvsprintf(temp, VSPRINTF_BUFFER_SIZE, s, vl); // TODO: Dynamische Puffer!?
 		std::wcout << temp << std::endl;
 		va_end(vl);
 	}
 
 	//! Print-Funktion f�r Squirrel
 	static void squirrelPrintErrorFunc(HSQUIRRELVM v, const SQChar * s,...) {
-		static SQChar temp[2048];
+		static SQChar temp[VSPRINTF_BUFFER_SIZE];
 		va_list vl;
 		va_start(vl, s);
-		scvsprintf(temp, s, vl); // TODO: Dynamische Puffer!?
+		scvsprintf(temp, VSPRINTF_BUFFER_SIZE, s, vl); // TODO: Dynamische Puffer!?
 		std::wcerr << temp << std::endl;
 		va_end(vl);
 	}
