@@ -70,7 +70,35 @@ namespace physics {
 		//! Räumt die Physikgeschichte auf
 		void endPhysics(void);
 		
-	public:
+		//! Testet, ob eine Kollision mit einem Physikobjekt vorliegt
+		inline bool collidesWith(PhysicsObject* body) const { return ghostObject->checkCollideWith(body->getCollisionObject()); }
+
+		//! Testet, ob eine Kollision mit einem Physikobjekt vorliegt
+		inline bool collidesWith(CollisionDetectionPhysicsObject* body) const { return ghostObject->checkCollideWith(body->getCollisionObject()); }
+
+		//! Testet, ob eine Kollision mit einem Physikobjekt vorliegt
+		inline bool collidesWith(btGhostObject* body) const { return ghostObject->checkCollideWith(body); }
+
+		//! Liefert die Anzahl der überschneidenden Objekte
+		inline irr::u32 getOverlappingObjectCount() const { return ghostObject->getNumOverlappingObjects(); }
+
+		//! Liefert das überschneidende Objekt mit dem gegebenen Index
+		inline void* getOverlappingObject(irr::u32 index) const { 
+			btCollisionObject* obj = ghostObject->getOverlappingObject(index); 
+			if (!obj) return NULL;
+			return obj->getUserPointer();
+		}
+
+		//! Liefert ein Array überschneidender Paare
+		inline btAlignedObjectArray<btCollisionObject*>& getOverlappingPairs(irr::u32 index) { 
+			return ghostObject->getOverlappingPairs();
+		}
+
+		//! Liefert die Kollisionsflags
+		inline irr::u32 getCollisionFlags() const { return ghostObject->getCollisionFlags(); }
+
+		//! Setzt die Kollisionsflags
+		inline void setCollisionFlags(irr::u32 flags) { ghostObject->setCollisionFlags(flags); }
 
 		//! Setzt das Collision Shape
 		inline void setCollisionShape(btCollisionShape* shape) { 

@@ -25,6 +25,8 @@ namespace physics {
 			delete ghostObject;
 			ghostObject = NULL;
 		}
+
+		
 	}
 	
 	// Physik initialisieren
