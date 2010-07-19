@@ -218,6 +218,9 @@
     <ClInclude Include="src\World\NamedObject.h">
       <Filter>World</Filter>
     </ClInclude>
+    <ClInclude Include="src\Physics\CollisionDetectionPhysicsObject.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
@@ -376,6 +379,9 @@
     </ClCompile>
     <ClCompile Include="src\World\ObjectClass.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\CollisionDetectionPhysicsObject.cpp">
+      <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

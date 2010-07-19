@@ -20,6 +20,7 @@
     <ClInclude Include="src\GameLogic\GameTimer.h" />
     <ClInclude Include="src\global.h" />
     <ClInclude Include="src\linker.h" />
+    <ClInclude Include="src\Physics\CollisionDetectionPhysicsObject.h" />
     <ClInclude Include="src\Physics\IrrBtConversion.h" />
     <ClInclude Include="src\Physics\PhysicsDebugRenderer.h" />
     <ClInclude Include="src\Physics\PhysicsManager.h" />
@@ -83,6 +84,7 @@
     <ClCompile Include="src\GameLogic\GameEngineBinding.cpp" />
     <ClCompile Include="src\GameLogic\GameTimer.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Physics\CollisionDetectionPhysicsObject.cpp" />
     <ClCompile Include="src\Physics\PhysicsDebugRenderer.cpp" />
     <ClCompile Include="src\Physics\PhysicsManager.cpp" />
     <ClCompile Include="src\Physics\PhysicsMotionState.cpp" />

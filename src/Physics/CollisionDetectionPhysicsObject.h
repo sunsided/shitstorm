@@ -1,30 +1,29 @@
 /** 
  * Project Vector
- * Physikkörper
- *
- * Kudos an: http://irrlicht.sourceforge.net/phpBB2/viewtopic.php?t=17910
+ * Physikkörper für Kollisionserkennung
  *
  * (c) 2010, Markus Mayer <code@defx.de>
  * $Id$
  */
 
 #pragma once
-#ifndef _RIGIDBODYPHYSICSOBJECT_H
-#define _RIGIDBODYPHYSICSOBJECT_H
+#ifndef _COLLISIONDETECTIONPHYSICSOBJECT_H
+#define _COLLISIONDETECTIONPHYSICSOBJECT_H
 
 #include "global.h"
 #include "PhysicsObject.h"
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 
 namespace pv {
 namespace physics {
 
 	//! Physikkörper
-	class RigidBodyPhysicsObject : public PhysicsObject
+	class CollisionDetectionPhysicsObject : public PhysicsObject
 	{
 	public:
 
 		//! Erzeugt eine neue Instanz des Objektes
-		RigidBodyPhysicsObject(
+		CollisionDetectionPhysicsObject(
 			PhysicsMotionState* state = NULL,
 			f32 mass = 0.0f,
 			PhysicsWorld* physicsWorld = NULL,
@@ -33,14 +32,14 @@ namespace physics {
 			) : 
 				PhysicsObject(state, physicsWorld, collisionShape, worldObject),
 				mass(mass),
-				rigidBody(NULL)
+				ghostObject(NULL)
 		{}
 
 		//! Destruktor
-		virtual ~RigidBodyPhysicsObject(void);
+		virtual ~CollisionDetectionPhysicsObject(void);
 
 		//! Initialisiert die Physik
-		void initPhysics(f32 ccdThreshold = 1.0f, f32 linearDamping = 0.f, f32 angularDamping = 0.f, f32 friction = 0.5f, f32 restitution = 0.f);
+		void initPhysics(f32 ccdThreshold = 1.0f, f32 = 0.f, f32 = 0.f, f32 = 0.5f, f32 = 0.f);
 		
 		//! Setzt die Position des Objektes
 		virtual void setPosition(const core::vector3df& v); 
@@ -49,37 +48,37 @@ namespace physics {
 		virtual void setRotation(const core::vector3df& v);
 
 		//! Ermittelt die lineare Geschwindigkeit
-		core::vector3df getLinearVelocity() const;
+		inline core::vector3df getLinearVelocity() const { return core::vector3df(0, 0, 0); }
 
 		//! Setzt die lineare Geschwindigkeit
-		void setLinearVelocity(const core::vector3df& vel);
+		inline void setLinearVelocity(const core::vector3df& vel) {}
 
 		//! Ermittelt die Winkelgeschwindigkeit
-		core::vector3df getAngularVelocity() const;
+		inline core::vector3df getAngularVelocity() const { return core::vector3df(0, 0, 0); }
 
 		//! Setzt die Winkelgeschwindigkeit
-		void setAngularVelocity(const core::vector3df& vel);
+		inline void setAngularVelocity(const core::vector3df& vel) {}
 		
 		//! Wendet eine Kraft auf das Objekt an
-		void applyForce(const core::vector3df& v);
+		inline void applyForce(const core::vector3df& v) {}
 
 		//! Setzt alle Kräfte zurück
-		void zeroForces();
+		inline void zeroForces() {}
 
 		//! Setzt den Aktivierungszustand
-		inline void setActivationState(int state) { rigidBody->setActivationState(state); }
+		inline void setActivationState(int state) { ghostObject->setActivationState(state); }
 
 		//! Erzwingt den Aktivierungszustand
-		inline void forceActivationState(int state) { rigidBody->forceActivationState(state); }
+		inline void forceActivationState(int state) { ghostObject->forceActivationState(state); }
 
 		//! Ermittelt den Aktivierungszustand
-		inline int getActivationState() const { return rigidBody->getActivationState(); }
+		inline int getActivationState() const { return ghostObject->getActivationState(); }
 
 		//! Setzt die Deaktivierungszeit
-		inline void setDeactivationTime(f32 time) { rigidBody->setDeactivationTime(time); }
+		inline void setDeactivationTime(f32 time) { ghostObject->setDeactivationTime(time); }
 
 		//! Setzt die Deaktivierungszeit
-		inline f32 getDeactivationTime() const { return rigidBody->getDeactivationTime(); }
+		inline f32 getDeactivationTime() const { return ghostObject->getDeactivationTime(); }
 
 		//! Ermittelt die Rotation
 		core::vector3df getRotation() const;
@@ -91,36 +90,36 @@ namespace physics {
 		void endPhysics(void);
 
 		//! Ermittelt die Masse des Objektes
-		inline f32 getMass() const { return mass; }
+		inline f32 getMass() const { return 0.0f; }
 
 		//! Aktualisiert die Masse des Objektes
-		void updateMass(f32 mass);
+		inline void updateMass(f32 mass) {}
 
 		//! Aktualisiert die Masse des Objektes
-		void updateMass(f32 mass, const btVector3& localInertia);
+		inline void updateMass(f32 mass, const btVector3& localInertia) {}
 
 		//! Ermittelt, ob es sich um einen Festkörper handelt
-		inline bool isRigidBody() const { return true; }
-
+		inline bool isRigidBody() const { return false; }
+		
 		//! Ermittelt, ob es sich um einen Geistobjekt handelt
-		inline bool isGhostObject() const { return false; }
+		inline bool isGhostObject() const { return true; }
 
 		//! Gibt sich selbst als Rigid Body zurück
-		inline btRigidBody* getAsRigidBody() { return rigidBody; }
+		inline btRigidBody* getAsRigidBody() { return NULL; }
 
 		//! Ermittelt den Gravitationsvektor
-		core::vector3df getGravity() const;
+		inline core::vector3df getGravity() const { return core::vector3df(0, 0, 0); }
 
 		//! Aktualisiert den Gravitationsvektor des Objektes
-		void setGravity(const btVector3& gravity);
+		inline void setGravity(const btVector3& gravity) {}
 
 	public:
 
 		//! Bezieht den Benutzerzeiger
-		inline btRigidBody* getRigidBody() const { return rigidBody; }
+		inline btGhostObject* getGhostObject() const { return ghostObject; }
 
 		//! Bezieht das Kollisionsobjekt (Rigid Body, ...)
-		inline btCollisionObject* getCollisionObject() const { return rigidBody; }
+		inline btCollisionObject* getCollisionObject() const { return ghostObject; }
 
 	private:
 
@@ -128,7 +127,7 @@ namespace physics {
 		irr::f32 mass;
 
 		//! Der eigentliche Körper
-		btRigidBody* rigidBody;
+		btGhostObject* ghostObject;
 	};
 
 }}

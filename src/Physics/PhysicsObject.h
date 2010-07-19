@@ -154,6 +154,9 @@ namespace physics {
 		//! Ermittelt, ob es sich um einen Festkörper handelt
 		virtual bool isRigidBody() const = 0;
 
+		//! Ermittelt, ob es sich um einen Geistobjekt handelt
+		virtual bool isGhostObject() const = 0;
+
 		//! Gibt sich selbst als Rigid Body zurück
 		virtual btRigidBody* getAsRigidBody() = 0;
 
