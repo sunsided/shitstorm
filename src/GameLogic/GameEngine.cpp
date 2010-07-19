@@ -8,6 +8,7 @@
 
 #include "GameEngine.h"
 #include "SceneNodes/OrientationHelperSceneNode.h"
+#include "physics/RigidBodyPhysicsObject.h"
 
 #include <iostream>
 #include <algorithm>

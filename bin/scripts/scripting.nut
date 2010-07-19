@@ -35,6 +35,8 @@ function OnPause() {
 	world.getObject(1).LinearVelocity = force;
 	world.getObject(1).poke();
 
+	world.getObject(3).Gravity = Vector(0, 0, 0);
+
 	getSoundEmitter(1).setGain(10);
 	getSoundEmitter(0).mask(); // Stummschalten
 }

@@ -122,6 +122,7 @@ namespace scripting {
 				.Prop(_SC("Mass"), &PhysicsObject::getMass)
 				.Prop(_SC("Position"), &PhysicsObject::getPosition, &PhysicsObject::setPosition)
 				.Prop(_SC("Rotation"), &PhysicsObject::getRotation, &PhysicsObject::setRotation)
+				.Prop<core::vector3df>(_SC("Gravity"), &PhysicsObject::getGravity, &PhysicsObject::setGravity)
 				.Prop(_SC("LinearVelocity"), &PhysicsObject::getLinearVelocity, &PhysicsObject::setLinearVelocity)
 				.Prop(_SC("AngularVelocity"), &PhysicsObject::getAngularVelocity, &PhysicsObject::setAngularVelocity)
 				.Func(_SC("applyForce"), &PhysicsObject::applyForce)

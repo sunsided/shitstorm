@@ -139,6 +139,18 @@ namespace physics {
 			updateMass(mass, inertia);
 		}
 
+		//! Ermittelt den Gravitationsvektor
+		virtual core::vector3df getGravity() const = 0;
+
+		//! Aktualisiert den Gravitationsvektor des Objektes
+		virtual void setGravity(const btVector3& gravity) = 0;
+
+		//! Aktualisiert den Gravitationsvektor des Objektes
+		inline void setGravity(const irr::core::vector3df& gravity) {
+			btVector3 value = conversion::toBulletVector(gravity);
+			setGravity(value);
+		}
+
 		//! Ermittelt, ob es sich um einen Festkörper handelt
 		virtual bool isRigidBody() const = 0;
 

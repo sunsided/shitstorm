@@ -105,6 +105,12 @@ namespace physics {
 		//! Gibt sich selbst als Rigid Body zurück
 		inline btRigidBody* getAsRigidBody() { return rigidBody; }
 
+		//! Ermittelt den Gravitationsvektor
+		core::vector3df getGravity() const;
+
+		//! Aktualisiert den Gravitationsvektor des Objektes
+		void setGravity(const btVector3& gravity);
+
 	public:
 
 		//! Bezieht den Benutzerzeiger

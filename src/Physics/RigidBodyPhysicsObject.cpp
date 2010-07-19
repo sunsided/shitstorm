@@ -179,4 +179,17 @@ namespace physics {
 		rigidBody->setAngularVelocity(btVector3(0,0,0));
 	}
 
+	//! Ermittelt den Gravitationsvektor
+	core::vector3df RigidBodyPhysicsObject::getGravity() const {
+		if (!rigidBody) return core::vector3df(0, 0, 0); // TODO: Was ist mit Soft Bodies?
+		btVector3 gravity = rigidBody->getGravity();
+		return conversion::toIrrlichtVector(gravity);
+	}
+
+	//! Aktualisiert den Gravitationsvektor des Objektes
+	void RigidBodyPhysicsObject::setGravity(const btVector3& gravity) {
+		if (!rigidBody) return;
+		rigidBody->setGravity(gravity);
+	}
+
 }}
