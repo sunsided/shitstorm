@@ -119,7 +119,7 @@ namespace physics {
 
 		btTransform t=rigidBody->getWorldTransform();
 		btQuaternion btq;
-		EulerXYZToQuaternion(btVector3(v.X * GRAD_PI2, v.Y * GRAD_PI2, v.Z * GRAD_PI2), btq);
+		EulerXYZToQuaternion(btVector3(v.X * (irr::f32)GRAD_PI2, v.Y * (irr::f32)GRAD_PI2, v.Z * (irr::f32)GRAD_PI2), btq);
 		t.setRotation(btq);
 		rigidBody->setWorldTransform(t);
 	}
@@ -132,7 +132,7 @@ namespace physics {
 		btQuaternion btq = rigidBody->getOrientation();
 		QuaternionToEulerXYZ(btq, btv);
  		core::vector3df v(btv.getX(), btv.getY(), btv.getZ());
-		v *= GRAD_PI;
+		v *= (irr::f32)GRAD_PI;
 		return v;
 	}
 

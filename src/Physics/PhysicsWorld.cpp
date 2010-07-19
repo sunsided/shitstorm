@@ -133,6 +133,9 @@ namespace physics {
 
 		// Gravitation setzen
 		dynamicsWorld->setGravity(getGravity());
+
+		// Kollisionscallback setzen
+		dynamicsWorld->setInternalTickCallback(&PhysicsWorld::simulationTickCallback, static_cast<void *>(this));
 	}
 
 	//! Fügt der Welt einen Rigid Body hinzu
@@ -220,5 +223,12 @@ namespace physics {
 		
 		delete debugRenderer; 
 		debugRenderer = NULL;
+	}
+
+	//! Callback für jeden Simulationsschritt
+	void PhysicsWorld::simulationTickCallback(btDynamicsWorld *dynamicsWorld, btScalar timeStep) {
+		PhysicsWorld *physicsWorld = static_cast<PhysicsWorld*>(dynamicsWorld->getWorldUserInfo());
+		
+		std::cout << "Tick! " << timeStep << std::endl;
 	}
 }}

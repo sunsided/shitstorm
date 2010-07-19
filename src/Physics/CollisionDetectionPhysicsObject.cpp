@@ -38,6 +38,7 @@ namespace physics {
 		ghostObject = new btPairCachingGhostObject();
 		ghostObject->setCollisionShape(collisionShape);
 		ghostObject->setUserPointer((void*)this);
+		ghostObject->setCollisionFlags( btCollisionObject::CF_KINEMATIC_OBJECT | btCollisionObject::CF_NO_CONTACT_RESPONSE );
 
 		// Parameter für Continous Collision Detection setzen
 		ghostObject->setCcdMotionThreshold( ccdThreshold );

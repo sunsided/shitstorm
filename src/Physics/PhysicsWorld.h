@@ -97,19 +97,19 @@ namespace physics {
 	protected:
 
 		//! Erzeugt die DefaultCollisionConfiguration
-		virtual btCollisionConfiguration* createCollisionConfiguration() const;
+		btCollisionConfiguration* createCollisionConfiguration() const;
 
 		//! Erzeugt die Collision Dispatcher
-		virtual btCollisionDispatcher* createCollisionDispatcher(btCollisionConfiguration* configuration) const;
+		btCollisionDispatcher* createCollisionDispatcher(btCollisionConfiguration* configuration) const;
 
 		//! Erzeugt den Solver
-		virtual btConstraintSolver* createConstraintSolver() const;
+		btConstraintSolver* createConstraintSolver() const;
 
 		//! Erzeugt die Broadphase
-		virtual btBroadphaseInterface* createBroadphase() const;
+		btBroadphaseInterface* createBroadphase() const;
 
 		//! Erzeugt die eigentliche Welt
-		virtual btDynamicsWorld* createDynamicsWorld(
+		btDynamicsWorld* createDynamicsWorld(
 			btCollisionDispatcher* dispatcher,
 			btBroadphaseInterface* broadphase,
 			btConstraintSolver* solver,
@@ -118,7 +118,7 @@ namespace physics {
 	public:
 
 		//! Ermittelt die Gravitation
-		virtual btVector3 getGravity() const;
+		btVector3 getGravity() const;
 
 		//! Ermittelt die Gravitation
 		inline irr::core::vector3df getGravityAsIrrVector() const {
@@ -126,7 +126,7 @@ namespace physics {
 		}
 
 		//! Bezieht die Dynamikwelt
-		virtual btDynamicsWorld* getDynamicsWorld() const { return dynamicsWorld; }
+		inline btDynamicsWorld* getDynamicsWorld() const { return dynamicsWorld; }
 
 		//! Bezieht den Manager
 		PhysicsManager* getManager() const { return physicsManager; }
@@ -147,6 +147,9 @@ namespace physics {
 		
 		//! Vernichtet die Dynamikwelt
 		void destruct();
+
+		//! Callback für jeden Simulationsschritt
+		static void simulationTickCallback(btDynamicsWorld *world, btScalar timeStep);
 
 	private:
 
