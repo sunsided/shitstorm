@@ -1,1 +1,7 @@
 *.user
+_ReSharper.*/*
+/obj/
+*.opensdf
+*.sdf
+Thumbs.db
+*.suo
