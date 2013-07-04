@@ -10,6 +10,7 @@
 #include "OggVorbisAudioSource.h"
 #include <vorbis/vorbisenc.h>
 #include <limits>
+#include <system_error>
 
 namespace pv {
 namespace sound {
@@ -33,9 +34,12 @@ namespace sound {
 		closeFile();
 
 		// Datei öffnen
-		char* path = const_cast<char*>(filePath.c_str());
+		const char* path = filePath.c_str();
 		int error = ov_fopen(path, &oggStream);
-		if (error) throw errorToString(error);
+        if (error) {
+            const std::string what = std::string(errorToString(error).c_str());
+            throw std::system_error(error, std::system_category(), what);
+        }
 
 		// Info und Kommentar laden
 		vorbisInfo = ov_info(&oggStream, -1);
