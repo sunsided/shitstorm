@@ -19,7 +19,7 @@ using namespace pv;
 int main(int argc, char **argv) {
 
 	// Engine erzeugen
-	auto_ptr<EngineBase> engine( new GameEngine() );
+	unique_ptr<EngineBase> engine( new GameEngine() );
 	if (!engine.get()) {
 		cerr << "Engine konnte nicht erzeugt werden." << endl;
 		return ESC_INSTANCIATION_FAILED;
