@@ -116,9 +116,8 @@ namespace Sqrat{
 	class ImprovedClass :public Class<C,A> {
 
 		inline ImprovedClass& BindConstructor(SQFUNCTION method,SQInteger nParams){
-			HSQOBJECT& classObj = ClassType<C>::ClassObject();
-
 			HSQUIRRELVM vm = DefaultVM::Get(); // TODO: Die sollte aus der Elternklasse kommen!
+            HSQOBJECT& classObj = ClassType<C>::ClassObject(vm);
 			sq_pushobject(vm, classObj);
 			sq_pushstring(vm,_SC("constructor"), -1);
 			sq_newclosure(vm, method, 0);
@@ -130,7 +129,7 @@ namespace Sqrat{
 
 	public:
 		// Create a new table
-		ImprovedClass(HSQUIRRELVM v = DefaultVM::Get(), bool createClass = true) : Class<C, A>(v,createClass) {}
+		ImprovedClass(HSQUIRRELVM v = DefaultVM::Get(), bool createClass = true) : Class<C, A>(v, string(), createClass) {}
 
 		ImprovedClass& Ctor() {
 			return BindConstructor(A::iNew,0);
